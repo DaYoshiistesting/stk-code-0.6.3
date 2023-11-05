@@ -1,0 +1,6 @@
+# See textures/materials.dat for a detailed description of the fields.
+
+# TextureName       Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"ruler.rgb"          N N    Y    0.2    Y     N    0.0000003   N   N   N   N
+"mathclassfloor.rgb" N N    N    0.0    Y     N    0.0000003  N  N  N  N
+# EOF #

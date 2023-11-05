@@ -1,0 +1,147 @@
+ﬁï           l    º           Ò            f   .     ï  
+   ú     ß  
+   π  #   ƒ     Ë  9   ˙     4     ;     G     ]     l     z     ê     °  W   Ø       1     K   ?     ã     £  
+   ™     µ     Œ     ”     Ë       ∂   "  J   Ÿ     $  $   7  #   \     Ä  
+   í     ù     ¶  -   ∫  ;   Ë     $     ,     >     M  
+   a     l     t     Ö     å  	   £  F   ≠  F   Ù  M   ;     â      £     ƒ  W   ‚     :  a   C     •  %   ™     –     ‚  $     ¥   '  #   ‹  
+                   (  
+   7     B     [     _  
+   y  É   Ñ       
+     i        Ç     ñ     û     ≤     ∆  "         Ì     Ù     ˘  	   	  
+          !   3  !   U     w      á     ®     ƒ     ·     Ë     ¯     ˛               ,     ;  /   >     n     Ç     è  6   ó     Œ     ’     ‰     ˜     ˇ          #     ,     5     >     L  f   X     ø     “     Ë  	   ˇ  
+   	  =        R     W     [     t     Å  	   á     ë     ò     ü     ¨     ª     ¡     ”     Á     Ï  
+   ˚                 #   
+   /      :      H      U      [      j   
+   v   
+   Å      å      •   Y   ¥   
+   !  P   !  @   j!     ´!     ∏!      !     €!  
+   È!  E   Ù!  9   :"     t"     â"     ò"     Ø"     Ω"     ”"     ﬂ"  
+   Î"     ˆ"     
+#  !   #  @   ?#  #   Ä#  H   §#  E   Ì#  @   3$  !   t$  !   ñ$  F   ∏$     ˇ$     %     %     (%     B%     T%     i%     |%     ä%     ò%     ©%     ∂%  K  æ%     
+'     ''     ?'  x   Q'      '     ”'     ﬂ'     Ò'  !   (     %(  +   8(  
+   d(     o(     (     è(     †(     ≥(     Ã(     €(  |   Ó(     k)  J   s)  d   æ)  %   #*     I*     P*     W*     r*     x*     í*     ≤*  ƒ   »*  c   ç+     Ò+  )   	,  (   3,     \,     t,     Ä,     â,  .   °,  <   –,     -     -     *-     ?-     W-  	   c-     m-     Å-     ê-  
+   ≠-  S   ∏-  H   .  L   U.     ¢.     ∫.     ’.  U   Ú.     H/  ^   M/     ¨/  )   ≤/     ‹/     Î/  $   	0  ÿ   .0  (   1  
+   01     ;1     J1     \1     n1     {1     î1  &   ú1  
+   √1  q   Œ1     @2     E2  k   V2     ¬2     €2     ‰2     ¯2     3  *   3     >3     E3     L3     c3     x3  4   Ö3  &   ∫3  )   ·3     4  )   4      D4  #   e4  	   â4     ì4     £4  $   ©4  	   Œ4     ÿ4     Ë4     ¯4  L   ˚4     H5     a5     n5  C   v5     ∫5     ¿5     ÷5     Ï5     Ù5     6     6     6     '6     06     C6  å   Q6     ﬁ6     Ú6     7     .7     D7  7   S7     ã7     ì7     ó7     ¨7     ƒ7     À7     €7  	   Ì7     ˜7     8     8     8     08     P8     W8     g8     v8     Ü8  
+   è8     ö8     Ø8     ø8     —8     ’8     ‰8     Û8     9     9     79     J9      9  <   —9  M   :     \:     l:     Ä:     ñ:     §:  M   µ:  C   ;     G;     X;     o;     Ñ;     ó;     ®;     π;     ∆;     €;     Ò;  /   <  Z   7<  *   í<  [   Ω<  O   =  U   i=  (   ø=  *   Ë=  U   >     i>     x>     ~>     ï>     ≠>     ∆>     „>     Ù>     ?     ?     "?     1?     I   ì   '   l   5   D   K               í   a   ¡   ,           E               ≈   §   b   s   G   ∏   ´   7                   ©   T       …   d   Z              >   à       ®       ≥   ∑   t      =   ∆   (       ä   8   ø       f   M          <   S      c       "   Ä   ≠          {       å       P       L   \   Q   π   æ   ù          N   ™   ¢   o   é   ê   õ   ã       è      ±          n      ¿       Ñ   `       g   »   ò   á   £   k   x   y   z   Ü   Ω               $   r                     ƒ   µ   	       ï       X   ú       W           †   9   Y   
+   «   Å   A   &      /       }          ö       O   V       -   6   ç   ∞   ª       h   |   ]   î      !      #      j   m   ó   ~   ≤   H      4   1   ¶   +   *       3   ;      U   Æ   •   º      _   ü   û   ^   i   u      ¬       2              ¨          Ö              ¥       w      0               %       J          :   C   ∫      e   √   É      °   .      )   q   ñ   B       ô       ß   R                          â       ?       ë   Ç   Ø       F   v   ∂   @   p   [    %dx%d Blacklisted '%s' has
+been eliminated. 3 Strikes Battle 3 Strikes Battle : only in multiplayer games.
+Hit others with weapons until they lose all their lives. < Back Accelerate Active Challenges All tracks All tracks included in SuperTuxKart Amazonian Journey Anvil - slows down greatly the kart in the first position Apply  Apply %dx%d Around the Lighthouse At world's end Avoid bananas Back to the main menu Back to the menu Become server Bowling Ball - bounces off walls. If you are looking back,
+it will be thrown backwards. Brake BubbleGum - leave a sticky pink puddle behind you Cake - thrown at the closest rival,
+best on short ranges and long straights Can't connect to server Canyon Challenges Choose your controls, %s City Clear from Blacklist Collect Nitro in Math Class Collect the Pharaohs Treasure Collecting nitro allows you to get speed boosts whenever you
+wish by pressing the appropriate key. You can see your
+current level of nitro in the bar at the right of the game screen. Come first in the At World's End
+Grand Prix with 3 'Racer'
+Level AI karts. Confirm Resolution Confirm Resolution Within %d Seconds Confirm Resolution Within 5 Seconds Connect to server Connected: Continue Continue Grand Prix Created by Ingo Ruhnke,
+modified by M. Gagnon Created by Oliver & Steve Baker
+modified by Marianne Gagnon Credits Crescent Crossing Current: %dx%d Decrease Resolution Difficulty Display Display Settings Driver Edit controls for who? Exit Race Finish 3 laps in Racetrack
+with 3 easy AI karts
+in under 2:40 minutes. Finish 3 laps on the City track
+with 3 AI karts
+in under 4:20 minutes. Finish 3 laps on the Tux Tollway
+track with 3 AI karts
+in under 3:35 minutes. Finish Race track in 2:40 Finish Tux Tollway track in 3:35 Finish the City track in 4:20 Finish with at least 9 nitro 
+points on 3 laps of Shifting Sands
+in under 2:20 minutes. Finished Finsih with at least 6 points
+ of intro on three laps of
+Oliver's Math Class
+in under 52 seconds. Fire First grand prix, easy to get started Follow the Leader Follow the Leader in the Jungle Follow the Leader on a
+Desert Island Follow the leader: run for second place, as the last kart
+will be disqualified every time the counter hits zero.
+ Beware : going in front of the leader will get you eliminated too! Force your rivals bite *your* dust! Fort Magma Four Players Fullscreen mode Game mode help Game modes Go back to the main menu Go! Grab blue boxes and nitro Grand Prix Grand Prix: Win victory points 
+by racing through a group of tracks,  
+most points wins (shortest time in case of a tie!)           Help Highscores If you see a button with a lock like the one to the right,
+you need to complete a challenge to unlock it. Increase Resolution Invalid Invalid short-cut!! King Weird's Castle Lap Last grand prix, longer and harder Leader Left Loading race... Look back Networking New Feature Unlocked New Grand Prix '%s'
+now available New difficulty
+'%s'
+now available New fastest lap New game mode
+'%s'
+now available New kart
+'%s'
+now available New track '%s'
+now available Next > Next background Nitro No Grand Prix selected Novice Number of karts Number of laps OK Old config file found, check your key bindings! Oliver's Math Class On the Beach Options Parachute - slows down all karts in a better position! Paused Penalty time!! Penguin Playground Player  Player %d, choose a driver Player 1 Player 2 Player 3 Player 4 Player Config Player name Plunger - throw straight to pull an opponent back,
+or throw while looking back to make one lose sight! Prehistoric Island Press <ESC> to Cancel Press <ESC> to go back Press key Quick Race Quick race: Pick a single track, shortest time wins.          Quit REV Race in this track again Race results Racer Racetrack Ready! Rescue Restart Race Return To Race Right Second grand prix Select network mode Set! Setup New Race Sharp Turn Shifting Sands Single Player Single Race Snag Drive Snow Mountain SnowTux Peak Sound Sound Settings Splitscreen Star Track Start race Synchronising network... Synchronising. The 'sharp turn' key allows you to do sharp turns
+and have better control in tight curves The Island The current key bindings can be seen/changed in the
+Options->Player Config menu. The highscore file was too old,
+all highscores have been erased. The old mine The winner is %s! Third grand prix Three Players Time Trial Time Trial: Contains no powerups, so only your driving skills matter! To help you win, there are certain powerups you can grab: To the Moon and Back Turn off music Turn off sound effects Turn on music Turn on sound effects Tux Tollway Two Players WRONG WAY! Waiting for clients Waiting for server Win Penguin Playground Grand
+Prix Win Penguin Playground Grand
+Prix with 3 'Racer' Level AI karts. Win To the Moon and Back
+Grand Prix Win a 1 lap Head to Head
+on Tux Tollway against 1 'Racer'
+level AI kart. Win a Follow the Leader race
+with 3 AI karts
+in the Amazonian Jungle. Win a Follow the Leader race
+with 3 AI karts
+on a Desert Island. Win a Head to Head on
+Tux Tollway Win the At World's End
+Grand Prix Win the To the Moon and Back
+Grand Prix with 3 'Racer'
+Level AI karts. Window mode XR591 You finished the race! You have been
+eliminated! You won the race! Zipper - speed boost joy %d axis %d  %c joy %d btn %d joy %d hat %d mouse axis %d %c mouse btn %d not setSecret Garden Project-Id-Version: supertuxkart
+Report-Msgid-Bugs-To: 
+POT-Creation-Date: 2009-01-13 15:03+1100
+PO-Revision-Date: 2009-01-21 17:10-0500
+Last-Translator: Marianne Gagnon (Auria) <auria.mg@gmail.com>
+Language-Team: 
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Poedit-Language: French
+ %dx%d mis sur la liste noire '%s' a
+√©t√© √©limin√©. Combat '3 prises' Combat '3 prises' : seulement dans les jeux multijoueurs.
+Utilise des armes pour faire perdre leurs vies √† tes rivaux ! < Retour Acc√©l√©rer D√©fis en vigueur Toutes les pistes Toutes les pistes de SuperTuxKart Voyage en Amazonie Enclume - ralentit beaucoup le premier kart Appliquer  Appliquer %dx%d Autour du phare Au bout du monde √âvite les bananes Retour au menu principal Retour au menu Devenir un serveur Boule de Quilles - rebondit sur les murs. Tu peux aussi la
+lancer derri√®re toi en utilisant la touche 'regarder derri√®re'. Freiner Gomme "balloune" - laisse une mare de gomme
+rose et collante derri√®re toi G√¢teau - lance-le sur ton plus proche rival,
+id√©al sur courtes distances et sur les routes droites Impossible de se connecter au serveur Canyon D√©fis Choisis tes contr√¥les, %s Ville Retirer de la liste noire Nitro dans la classe de maths ! Le tr√©sor du Pharaon La nitro que tu collectes peut √™tre ensuite utilis√©e pour te
+propulser vers l'avant en utilisant la touche correspondante.
+Ton niveau de nitro est visible dans la barre √† la droite de l'√©cran. Arrive premier dans le grand prix
+'Au bout du monde' contre 3 opposants
+virtuels de niveau √©lev√©. Confirme la r√©solution Confirme la r√©solution d'ici %d secondes Confirme la r√©solution d'ici 5 secondes Se connecter au serveur Connect√© : Continer Continuer le Grand Prix Cr√©√© par Ingo Ruhnke,
+modifi√© par M. Gagnon Cr√©√© par Oliver & Steve Baker
+modifi√© par Marianne Gagnon Cr√©dits Sous la pleine lune Actuellement : %dx%d Diminuer la r√©solution Difficult√© Affichage Options d'affichage Interm√©diaire √âditer les contr√¥les de... Abandonner Finis 3 tours dans 'Piste de
+course' avec trois opposants
+virtuels novices en 2:40. Finis 3 tours dans la piste
+'Ville' contre 3 opposants
+virtuels en 4:20. Finis 3 tours dans 'L'autoroute
+de Tux' contre 3 opposants
+virtuels en 3:35. Piste de course en 2:40 L'autoroute de Tux en 3:35 Course dans la ville en 4:20 Ramasse au moins 9
+points de nitro en 3 tours
+sur la piste 'Sables
+mouvants' en 2:20. Fini Ramasse au moins 6
+points de nitro en 3 tours
+de 'La classe de Maths
+d'Oliver' en 52 secondes. Tirer Premier grand prix, facile pour commencer Suis le meneur Suis le meneur dans la jungle Suis le meneur sur une
+√Æle d√©serte Suis le meneur: vise la seconde place, car lorsque le compte √† rebours
+atteint z√©ro, le dernier est √©limin√©. Attention: d√©passer le meneur n'est pas
+non plus recommend√©, car l√† aussi tu risques l'√©limination! Fais mordre la poussi√®re √† tes rivaux! Fort Magma Quatre joueurs Mode plein-√©cran Aide sur les jeux Modes de jeu Retour au menu principal Partez! Attrape les bo√Ætes bleues et la nitro Grand Prix Grand Prix: Remporte le grand prix en
+accumulant le plus de points dans
+plusieurs courses contre des adversaires. Aide Meilleurs scores Certains boutons ont un cadenas (comme celui √† droite).
+Tu dois r√©ussir un d√©fi pour en gagner l'acc√®s. Augmenter la r√©solution Invalide Raccourci invalide! Ch√¢teau du Roi Tordu Tour Dernier grand prix, plus long et difficile Meneur Gauche Chargement en cours... Regarder en arri√®re Jeu en ligne Une nouvelle fonctionnalit√© a √©t√© d√©verrouill√©e Nouveau grand prix
+'%s' d√©verrouill√© Nouvelle difficult√©
+'%s'
+d√©verrouill√©e Meilleur temps Nouveau mode de
+jeu d√©verrouill√© :
+'%s' Nouveau kart
+'%s'
+d√©verrouill√© Nouvelle piste
+'%s'
+d√©verrouill√©e Suivant > Changer de fond Nitro Aucun Grand Prix n'est s√©lectionn√© D√©butant Nombre de karts Nombre de tours OK Un vieux fichier de configuration a √©t√© trouv√©, v√©rifie tes contr√¥les ! Classe de maths d'Oliver Sur la plage Options Parachute - ralentit tous les karts en meilleure position que toi ! Pause Temps de p√©nalit√© ! Pour jeunes pingouins Joueur  Personnage du joueur %d Joueur 1 Joueur 2 Joueur 3 Joueur 4 Joueurs/Contr√¥les Nom du joueur Ventouse - lance-la droit devant pour tirer un opposant vers l'arri√®re,
+ou lance-la en regardant vers l'arri√®re pour lui obstruer la vue ! √éle pr√©historique Appuie sur <ESC> pour annuler Appuie sur <ESC> pour revenir Appuie sur une touche Course directe Course directe : choisis une piste et arrive en premier Quitter REV Rejouer cette course R√©sultats de la course Expert Piste de course √Ä vos marques... Sauvetage Recommencer Continuer la course Droite Second grand prix Choisis un mode de jeu en ligne Pr√™ts Nouvelle course Virage brusque Sables mouvants Jeu solo Une course Chemin des Emb√ªches Sommet enneig√© Mont Bonhomme-Tux Son Options du son √âcran divis√© Dans les √©toiles Commencer la course Synchronisation du r√©seau... Synchronisation... La touche 'virage brusque' te permet de faire des virages
+rapides et d'avoir un meilleur contr√¥le dans les courbes prononc√©es L'√Æle Les contr√¥les peuvent √™tre vus/modifi√©s dans
+les options. Le fichier des meilleurs scores √©tait
+trop vieux, il a donc √©t√© supprim√©. La vieille mine Le gagnant est %s ! Troisi√®me grand prix Trois joueurs Contre la montre Contre la montre : aucun bonus dans les pistes - seule ton habilet√© compte ! Pour t'aider √† gagner, voici certains bonus que tu peux ramasser : Jusqu'√† la lune D√©sactiver la musique D√©sactiver les sons Activer la musique Activer les sons Autoroute de Tux Deux joueurs MAUVAISE DIRECTION ! En attente de clients En attente du serveur Remporte le grand prix
+'Pour jeunes pingouins'. Remporte le grand prix 'Pour
+jeunes pingouins' contre 3
+opposants virtuels exp√©riment√©s. Remporte le grand prix
+'Jusqu'√† la lune'. Remporte un duel d'un tour
+sur l'Autoroute de Tux contre
+un opposant virtuel exp√©riment√©. Remporte une course de type
+'Suis le meneur' contre 3
+opposants dans la jungle. Remporte une course de type
+'Suis le meneur' contre 3
+opposants sur un √Æle d√©serte. Remporte un duel sur
+l'Autoroute de Tux. Remporte le grand prix
+'Au bout du monde'. Remporte le grand prix 'Jusqu'√†
+la lune' contre 3 opposants
+virtuels exp√©riment√©s. Mode fen√™tr√© XR591 Tu as fini la course ! Tu as √©t√©
+√©limin√© ! Tu as gagn√© la course ! Zipper - augmente la vitesse joy %d axe %d %c joy %d btn %d joy %d hat %d souris, axe %d %c souris, btn %d non d√©finiJardin Secret 

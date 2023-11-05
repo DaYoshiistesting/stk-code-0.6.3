@@ -1,0 +1,17 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name                   _("On the Beach"))
+ (version                1)
+ (description            _("Created by Ingo Ruhnke,
+modified by M. Gagnon"))
+ (music                  "CaribbeanMusic.music")
+ (screenshot             "sshot-beach.rgb")
+ (topview                "topview-beach.rgb")
+ (groups                 "standard")
+ (camera-final-position  -5 12 3)
+ (camera-final-hpr       -150 -10 0)
+)
+
+;; EOF ;;
+

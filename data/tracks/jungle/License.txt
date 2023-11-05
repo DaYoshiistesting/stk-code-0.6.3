@@ -1,0 +1,5 @@
+Released under GPL.
+
+All textures and some models are from the http://www.titusgames.de GLEST jungle set, also released under GPL.
+
+Amazon Jungle music by Auria released under CC-BY-SA 3.0

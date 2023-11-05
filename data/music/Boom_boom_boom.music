@@ -1,0 +1,7 @@
+(music-information
+  (title    "Boom boom boom"    )
+  (enable-fast #t               )
+  (composer "Matt Thomas"       )
+  (music    "Boom_boom_boom.ogg")
+  (loop     10                  )
+)

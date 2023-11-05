@@ -1,0 +1,8 @@
+
+# TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"egyptsky1.rgb"             N N    Y    0.0    N     N    0.5   N   N   Y   Y
+"egyptsky2.rgb"             N N    Y    0.0    N     N    0.5   N   N   Y   Y
+"clouds.rgb"                N N    N    0.0    N     N    0.5   N   N   Y   Y
+"sand.rgb"                  N N    N    0.0    Y     N    0.0000001    N   N   N   N 0.6 8
+
+# EOF #

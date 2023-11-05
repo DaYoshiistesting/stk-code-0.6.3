@@ -1,0 +1,3 @@
+All karts are released under GNU GPL
+
+except elePHPant and puffy, which are released under CC by-sa (3.0)

@@ -1,0 +1,12 @@
+# See textures/materials.dat for a detailed description of the fields.
+
+# TextureName       Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"grass2.rgb"         N N    N    0.0    Y     N    0.0000002   N   N   N   N 0.6 4
+"rock1.rgb"          N N    N    0.0    Y     N    0.5   N   N   N   N
+"rock4.rgb"          N N    N    0.0    Y     N    0.5   N   N   N   N
+"sand2.rgb"          N N    N    0.0    Y     N    0.0000001   N   N   N   N 0.4 4
+"sky2.rgb"           N N    N    0.0    N     N    1.0   N   N   N   N
+"road_sand.rgb"	     N N    N    0.0    Y     N    0.00000025  N  N  N  N
+"road_sand_side.rgb" N N    N    0.0    Y     N    0.00000025 N  N  N  N
+
+# EOF #

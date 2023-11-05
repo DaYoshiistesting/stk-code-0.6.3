@@ -1,0 +1,19 @@
+;; -*- mode: lisp -*-
+
+(challenge
+ (id            "haciendachallenge")
+ (name          _("Finish Crescent Crossing track in 2:35"))
+ (description   _("Finish 2 laps on the Crescent Crossing\ntrack with 4 AI karts\nin under 2:35 minutes."))
+ (unlock-track "hacienda")
+ (major        "single")
+ (minor        "quickrace")
+ (track        "crescentcrossing")
+ (difficulty   "hard")
+ (laps         2)
+ (karts        5)
+ (time       155)
+ (depend-on    "energymathclass")
+)
+
+;; EOF ;;
+

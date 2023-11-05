@@ -1,0 +1,65 @@
+____________________________________________________________________
+Reused with different colors from supertuxkart/data/textures (see their individual licenses) :
+
+-acid_lake.rgb      (lava.rgb is the original)
+-marstown_cyan.rgb  (lava.rgb is the original)
+-rockred.rgb        (rock.rgb is the original)
+-marsrobot2.rgb     (track.rgb is the original)
+-sandred.rgb        (sand2 is the original)
+-sandred2.rgb       (sand2 is the original)
+-mars_lava2.rgb     (lava2 is the original)
+-mars_lava3.rgb     (lava2 is the original)
+
+-stars.rgb is from startrack
+
+__________________________________
+Under CC-Attribution 2.5 generic :
+    metal_ground.rgb  --  from http://blender-archi.tuxfamily.org/Textures#Seamless
+
+__________________________________
+Under CC-attribution-2.0    marstown_yellow*.rgb
+        from http://www.marcchehab.org/frozenmist/metal/TiZeta_gold-foil.jpg
+        from http://www.marcchehab.org/frozenmist/metal/TiZeta_aluminium-darken.jpg
+
+__________________________________
+from NASA (public domain) :
+    jupiter.rgb, galaxy1.rgb, galaxy2.rgb, saturn.rgb, erde.rgb, mars.rgb, venus.rgb
+        http://commons.wikimedia.org/wiki/Jupiter
+        http://commons.wikimedia.org/wiki/Category:Galaxies
+        http://commons.wikimedia.org/wiki/Image:Saturn_(planet)_large.jpg
+        http://commons.wikimedia.org/wiki/Image:As08-16-2593.jpg
+        http://commons.wikimedia.org/wiki/Image:Mars_Hubble.jpg
+        http://commons.wikimedia.org/wiki/Image:Venus_globe.jpg
+
+____________________________________________________________________
+Selfmade parts are dual-licensed under both GPL and CC-BY-SA
+
+laser_bridge_green.rgb
+laser_bridge_red.rgb
+marscity_blue*.rgb
+marscity_red*.rgb
+marscity_cyan.rgb
+marscity_green*.rgb
+marscity_orange*.rgb
+
+marsroad_blue.rgb  
+marsroad_blue2.rgb    
+marsroad_green.rgb
+marsroad_red.rgb
+
+marsrobot1.rgb
+marsrobot3.rgb  
+marsrobot4.rgb  
+marsrobot5.rgb  
+marsrobotsign.rgb
+marssnail.rgb
+welcome_to_XR591.rgb
+
+marswindow*.rgb
+
+
+marstrack.ac
+marstrack.blend
+
+
+

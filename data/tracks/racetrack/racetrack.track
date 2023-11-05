@@ -1,0 +1,15 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("Racetrack"))
+ (version     1)
+ (designer    "Thomas Oppl")
+ (music       "TheDeadRocks-OneMillionDollar.music")
+ (screenshot  "racetrack_screenshot.rgb")
+ (topview     "racetrack_topview.rgb")
+ (camera-final-position  5 20 3)
+ (camera-final-hpr       150 -10 0)
+)
+
+;; EOF ;;
+

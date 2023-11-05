@@ -1,0 +1,9 @@
+This track and associated textures are released under the GNU GPL version 2 (or later).
+~~
+all planet-texture-maps were taken from Celestia (www.shatters.net/celestia/) and are licensed under the GPL.
+startrack2.rgb and startrack3.rgb are original.
+~~
+Purplenebula-Skybox for Quake III
+by Amethyst7 (e-mail: amethyst7@gotdoofed.com, http://amethyst7.gotdoofed.com/env.htm)
+~~
+Adding all planets, the sun and creating the Saturn-rings-Texture done by A.Billing (Needer)

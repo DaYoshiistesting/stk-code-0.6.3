@@ -1,0 +1,30 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Eviltux")
+ (version     2)
+ (model-file  "eviltux.ac")
+ (icon-file   "eviltuxicon.rgb")
+ (shadow-file "generickartshadow.rgb")
+ (groups      "standard") 
+ (engine-sound "small")
+ (rgb         0.3 0.1 0.6)
+  (wheel-front-right
+    (position 0.290000 0.617000 0.123461)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.289815 0.616744 0.123513)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.296641 -0.318647 0.143240)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.297522 -0.318647 0.143240)
+    (model    "wheel-rear-left.ac")
+  )
+
+)
+;; EOF ;;

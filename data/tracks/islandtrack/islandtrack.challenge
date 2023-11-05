@@ -1,0 +1,19 @@
+;; -*- mode: lisp -*-
+
+(challenge
+ (id            "islandtrackchallenge")
+ (name          _("Follow the leader on an Island with a Lighthouse"))
+ (description   _("Win a Follow the Leader race\nwith 5 AI Karts\non Around The Lightouse Track."))
+ (unlock-track  "islandtrack")
+ (depend-on    "energymathclass")
+ (major        "single")
+ (minor        "followtheleader")
+ (track        "lighthouse")
+ (difficulty   "medium")
+ (laps         3)
+ (karts        6)
+ (position     2)
+)
+
+;; EOF ;;
+

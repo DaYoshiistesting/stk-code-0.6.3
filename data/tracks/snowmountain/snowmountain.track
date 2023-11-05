@@ -1,0 +1,15 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("Snow Mountain"))
+ (version     1)
+ (designer    "Canis Lupus")
+ (music       "Snowy.music")
+ (screenshot  "sshot-snowmountain.rgb")
+ (topview     "topview-snowmountain.rgb")
+ (camera-final-position  -5 15 5)
+ (camera-final-hpr       200 -10 0)
+)
+
+;; EOF ;;
+

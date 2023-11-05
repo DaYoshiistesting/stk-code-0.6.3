@@ -1,0 +1,17 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("Prehistoric Island"))
+ (version     1)
+ (designer    "Marianne Gagnon")
+ (music       "Penguin_Party.music")
+ (screenshot  "sshot-prehistoric.rgb")
+ (topview     "topview-prehistoric.rgb")
+ (arena       #t)
+ (groups      "standard")
+ (camera-final-position  5 20 3)
+ (camera-final-hpr       180 -10 0)
+)
+
+;; EOF ;;
+

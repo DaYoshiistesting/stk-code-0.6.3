@@ -1,0 +1,4 @@
+This track is released under the GNU GPL except :
+
+* roof.rgb
+    which is derivated from City track (see license file in /tracks/city)
