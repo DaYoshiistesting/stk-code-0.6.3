@@ -55,7 +55,11 @@ The main project file is .../src/ide/vc9/supertuxkart.vcproj,
 and it includes a sub project for the bullet library. More details
 can be found in .../src/ide/vc9/README.
 
-You still have to install all dependencies, and:
+You still have to install all dependencies which are :
+PLIB, SDL, OpenAL, OpenGL, LibOgg, LibVorbis.
+
+Also, you will need to fix PLIB if you use the 1.8.4 version from sourceforge :
+
 1) Modify plib:
    Best choice would be to use the plib version from our download page,
    since it contains all bugfixes that are necessary. The latest
