@@ -594,8 +594,8 @@ SHELL=${CONFIG_SHELL-/bin/sh}
 # Identity of this package.
 PACKAGE_NAME='supertuxkart'
 PACKAGE_TARNAME='supertuxkart'
-PACKAGE_VERSION='0.6.2a'
-PACKAGE_STRING='supertuxkart 0.6.2a'
+PACKAGE_VERSION='0.6.3'
+PACKAGE_STRING='supertuxkart 0.6.3'
 PACKAGE_BUGREPORT=''
 
 ac_unique_file="src/main.cpp"
