@@ -77,16 +77,16 @@ RaceResultsGUI::RaceResultsGUI()
             }
             else
             {
-                w=widget_manager->addTextButtonWgt( WTOK_CONTINUE, 60, 7, _("Setup New Race"));
+                w=widget_manager->addTextButtonWgt( WTOK_SETUP_NEW_RACE, 60, 7, _("Setup New Race"));
             }
-            w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0.1f, bottom_of_list);
+            w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0, bottom_of_list);
             Widget *w_prev = w;
             w=widget_manager->addTextButtonWgt( WTOK_RESTART_RACE, 60, 7, _("Race in this track again"));
             w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0, w_prev);
             w_prev = w;
             if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_SINGLE)
             {
-                w=widget_manager->addTextButtonWgt( WTOK_SETUP_NEW_RACE, 60, 7, _("Back to the main menu"));
+                w=widget_manager->addTextButtonWgt( WTOK_CONTINUE, 60, 7, _("Back to the main menu"));
                 w->setPosition(WGT_DIR_CENTER, 0, NULL, WGT_DIR_UNDER_WIDGET, 0, w_prev);
             }
         }   // if !unlock_manager has something unlocked*/
