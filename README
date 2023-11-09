@@ -1,3 +1,8 @@
+SuperTuxKart 0.6.3
+==============
+SuperTuxKart 0.6.3 is a SuperTuxKart Fanmade Version of the 0.6.2a release. The project is 
+made by YoshiKartin'.
+
 SuperTuxKart
 ==============
 SuperTuxKart is a free kart racing game. It is focusing on fun and
@@ -12,18 +17,14 @@ A big "thank you" to Steve Baker for designing and implementing the
 original TuxKart, and to the GotM team for their invaluable work.
 See the data/CREDITS file for individual credits.
 
-Hope you enjoy the game.
- - The SuperTuxKart development team.
-
 
 
 HARDWARE REQUIREMENTS
 =====================
-* You need a 3D graphics card that supports OpenGL or Mesa.
-* You should have a CPU that's running at 450MHz or better.
-* You'll need at least 128Mb RAM. 
-* A sound card would be nice - but it's not essential.
-* Ideally, you want a joystick with at least 6 buttons.
+* You need at least an NVidia GeForce 7600 GS or equivalent.
+* You should have an AMD Athlon 64 3700+ (939) CPU or better.
+* You'll need at least 1gb of RAM. 
+* Ideally, if you want a joystick, get one with at least 6 buttons.
 
 PLAYING THE GAME
 ================
@@ -39,11 +40,11 @@ Player 1:
   Steer      : Left / Right arrow
   Accelerate : Up arrow
   Brake      : Down arrow
-  Use item   : Right control
-  Sharp Turn : Right shift
+  Use item   : Space
+  Look back  : J key
+  Sharp Turn : K key
+  Nitro      : L key
   Rescue     : Backspace
-  Nitro      : - (minus key)
-  Look back  : Right alt
 
 Player 2:
   Steer      : A / D key
@@ -80,13 +81,9 @@ The Escape key pauses the game and shows the race menu.
 
 SUPPORT
 =======
-The main webpage is at:
+The main webpage of SuperTuxKart is at:
 
   http://supertuxkart.sourceforge.net
-
-If you have any problems, please go to the official SuperTuxKart Forum at:
-
-http://supertuxkart.sourceforge.net/forum
 
 
 LICENSE
