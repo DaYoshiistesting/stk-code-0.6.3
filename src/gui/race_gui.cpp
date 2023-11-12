@@ -917,17 +917,6 @@ void RaceGUI::drawStatusText(const float dt)
             }
 
             Kart* player_kart = RaceManager::getWorld()->getLocalPlayerKart(pla);
-            drawPowerupIcons(player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x, split_screen_ratio_y );
-            drawEnergyMeter     (player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x, split_screen_ratio_y );
-            drawSpeed           (player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x, split_screen_ratio_y );
-            drawLap             (info, player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x, split_screen_ratio_y );
-            drawAllMessages     (player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x, split_screen_ratio_y );
-            
             if(player_kart->hasViewBlockedByPlunger())
             {
                 const int screen_width = (numPlayers > 2) ? user_config->m_width/2 : user_config->m_width;
@@ -945,6 +934,17 @@ void RaceGUI::drawStatusText(const float dt)
                 glTexCoord2f(1, 1); glVertex2i(plunger_x+plunger_size,    offset_y+plunger_size);
                 glEnd () ;                
             }
+            drawPowerupIcons(player_kart, offset_x, offset_y,
+                                 split_screen_ratio_x, split_screen_ratio_y );
+            drawEnergyMeter     (player_kart, offset_x, offset_y,
+                                 split_screen_ratio_x, split_screen_ratio_y );
+            drawSpeed           (player_kart, offset_x, offset_y,
+                                 split_screen_ratio_x, split_screen_ratio_y );
+            drawLap             (info, player_kart, offset_x, offset_y,
+                                 split_screen_ratio_x, split_screen_ratio_y );
+            drawAllMessages     (player_kart, offset_x, offset_y,
+                                 split_screen_ratio_x, split_screen_ratio_y );
+            
         }   // next player
         
         drawTimer();
