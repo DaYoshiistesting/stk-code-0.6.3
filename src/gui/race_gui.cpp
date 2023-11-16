@@ -925,7 +925,8 @@ void RaceGUI::drawStatusText(const float dt)
                 
                 if (numPlayers == 3 && pla > 1)
                     plunger_x = offset_x + user_config->m_width/2 - plunger_size/2;
-                        
+
+                glColor4f    ( 1, 1, 1, 1 ) ;
                 m_plunger_face->getState()->force();
                 glBegin ( GL_QUADS ) ;
                 glTexCoord2f(1, 0); glVertex2i(plunger_x+plunger_size,    offset_y);
