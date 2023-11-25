@@ -32,6 +32,7 @@
 #include "karts/kart_control.hpp"
 #include "karts/kart_model.hpp"
 #include "tracks/terrain_info.hpp"
+#include "material.hpp"
 
 class SkidMarks;
 class Item;

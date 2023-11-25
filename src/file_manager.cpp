@@ -210,6 +210,12 @@ std::string FileManager::getItemsDir() const
     return m_root_dir+"/data/items";
 }   // getItemsDir
 //-----------------------------------------------------------------------------
+std::string FileManager::getChallengeDir() const
+{
+    return m_root_dir+"/data/challenges";
+}   // getTranslationDir
+
+//-----------------------------------------------------------------------------
 std::string FileManager::getTranslationDir() const
 {
     return m_root_dir+"/data/po";
@@ -256,7 +262,11 @@ std::string FileManager::getItemFile(const std::string& fname) const
 {
     return getItemsDir()+"/"+fname;
 }   // getConfigFile
-
+//-----------------------------------------------------------------------------
+std::string FileManager::getChallengeFile(const std::string& fname) const
+{
+    return getChallengeDir()+"/"+fname;
+}   // getChallengeFile
 //-----------------------------------------------------------------------------
 std::string FileManager::getHomeDir() const
 {

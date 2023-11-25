@@ -21,7 +21,6 @@
 #include "gui/race_gui.hpp"
 
 #include "input.hpp"
-#include "static_ssg.cpp"
 #include "sdldrv.hpp"
 #include "user_config.hpp"
 #include "history.hpp"
@@ -813,7 +812,7 @@ void RaceGUI::drawStatusText(const float dt)
         {
             GLfloat const COLORS[] = { 0.9f, 0.66f, 0.62f, 1.0f };
             //I18N: as in "ready, set, go", shown at the beginning of the race
-            font_race->PrintShadow( _("Ready!"), 90,
+            font_race->PrintShadow( _("Ready?"), 90,
                                    Font::CENTER_OF_SCREEN,
                                    Font::CENTER_OF_SCREEN,
                                    COLORS );
@@ -823,7 +822,7 @@ void RaceGUI::drawStatusText(const float dt)
         {
             GLfloat const COLORS[] = { 0.9f, 0.9f, 0.62f, 1.0f };
             //I18N: as in "ready, set, go", shown at the beginning of the race
-            font_race->PrintShadow( _("Set!"), 90,
+            font_race->PrintShadow( _("Set?!"), 90,
                                    Font::CENTER_OF_SCREEN,
                                    Font::CENTER_OF_SCREEN,
                                    COLORS );
@@ -925,8 +924,8 @@ void RaceGUI::drawStatusText(const float dt)
                 
                 if (numPlayers == 3 && pla > 1)
                     plunger_x = offset_x + user_config->m_width/2 - plunger_size/2;
-
-                glColor4f    ( 1, 1, 1, 1 ) ;
+                        
+				glColor4f(1,1,1,1);
                 m_plunger_face->getState()->force();
                 glBegin ( GL_QUADS ) ;
                 glTexCoord2f(1, 0); glVertex2i(plunger_x+plunger_size,    offset_y);
@@ -935,7 +934,7 @@ void RaceGUI::drawStatusText(const float dt)
                 glTexCoord2f(1, 1); glVertex2i(plunger_x+plunger_size,    offset_y+plunger_size);
                 glEnd () ;                
             }
-            drawPowerupIcons(player_kart, offset_x, offset_y,
+            drawPowerupIcons    (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
             drawEnergyMeter     (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
@@ -945,7 +944,6 @@ void RaceGUI::drawStatusText(const float dt)
                                  split_screen_ratio_x, split_screen_ratio_y );
             drawAllMessages     (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
-            
         }   // next player
         
         drawTimer();

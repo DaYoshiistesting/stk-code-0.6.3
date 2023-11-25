@@ -53,6 +53,7 @@
 #include "utils/coord.hpp"
 #include "utils/ssg_help.hpp"
 #include "audio/sfx_manager.hpp"
+#include "material.hpp"
 
 #if defined(WIN32) && !defined(__CYGWIN__)
    // Disable warning for using 'this' in base member initializer list
