@@ -716,7 +716,7 @@ msgstr "Pista de curse"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:885
-msgid "Ready!"
+msgid "Ready?"
 msgstr "Pe locuri!"
 
 #. I18N: name of controls
@@ -747,7 +747,7 @@ msgstr ""
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:895
-msgid "Set!"
+msgid "Set?!"
 msgstr "Pe pozitii!"
 
 #: src/gui/race_menu.cpp:55

@@ -723,7 +723,7 @@ msgstr "Rennstrecke"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
-msgid "Ready!"
+msgid "Ready?"
 msgstr "Achtung!"
 
 #: src/gui/player_controls.cpp:72
@@ -753,7 +753,7 @@ msgstr "Waehle Netzwerkmodus"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:826
-msgid "Set!"
+msgid "Set?!"
 msgstr "Fertig?"
 
 #: src/gui/race_menu.cpp:55

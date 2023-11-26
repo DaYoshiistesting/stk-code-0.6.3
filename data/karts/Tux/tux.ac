@@ -6,7 +6,7 @@ MATERIAL "Engine" rgb 1 0.5 0  amb 0.5 0.5 0.5  emis 0 0 0  spec 1 1 1  shi 72  
 MATERIAL "Material.002" rgb 1 1 1  amb 0.5 0.5 0.5  emis 0 0 0  spec 1 1 1  shi 72  trans 0
 MATERIAL "Material.003" rgb 0.6 0.61 0.6  amb 0.5 0.5 0.5  emis 0 0 0  spec 1 1 1  shi 72  trans 0
 MATERIAL "Negro" rgb 1 1 1  amb 0.5 0.5 0.5  emis 0 0 0  spec 1 1 1  shi 32  trans 0
-MATERIAL "Material.003" rgb 0.4 0.410526 0.4  amb 0.831579 0.831579 0.831579  emis 0.163158 0.163158 0.163158  spec 0 0 0  shi 72  trans 0
+MATERIAL "Material.003" rgb 0.6 0.61 0.6  amb 1 1 1  emis 0 0 0  spec 1 1 1  shi 72  trans 0
 OBJECT world
 kids 11
 OBJECT poly

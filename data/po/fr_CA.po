@@ -677,7 +677,7 @@ msgstr ""
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
-msgid "Ready!"
+msgid "Ready?"
 msgstr ""
 
 #: src/gui/player_controls.cpp:72
@@ -697,10 +697,6 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: data/tracks/secretgarden/secretgarden.track:4
-msgid "Secret Garden"
-msgstr "Le Jardin Secret"
-
 #: data/grandprix/tothemoonandback.grandprix:5
 msgid "Second grand prix"
 msgstr ""
@@ -711,7 +707,7 @@ msgstr ""
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:826
-msgid "Set!"
+msgid "Set?!"
 msgstr ""
 
 #: src/gui/race_menu.cpp:55
@@ -770,10 +766,6 @@ msgstr ""
 #: src/gui/race_options.cpp:142
 msgid "Start race"
 msgstr ""
-
-#: data/tracks/subseatrack/subseatrack.track:4
-msgid "Subsea"
-msgstr "Sous la mer"
 
 #: src/gui/start_race_feedback.cpp:39
 msgid "Synchronising network..."

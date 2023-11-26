@@ -600,7 +600,7 @@ msgstr "OK"
 
 #: src/user_config.cpp:528
 msgid "Old config file found, check your key bindings!"
-msgstr "Vanha asetustiedosto löydetty, tarkista näppäinasetukset!"
+msgstr "Vanha asetustiedosto löydetty, tarkista näppäinasetukSet?!"
 
 #: data/tracks/olivermath/olivermath.track:4
 msgid "Oliver's Math Class"
@@ -735,7 +735,7 @@ msgstr "Kilparata"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
-msgid "Ready!"
+msgid "Ready?"
 msgstr "Paikoillenne!"
 
 #: src/gui/player_controls.cpp:72
@@ -765,7 +765,7 @@ msgstr "Valitse verkkoyhteyden muoto"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:826
-msgid "Set!"
+msgid "Set?!"
 msgstr "Valmiit!"
 
 #: src/gui/race_menu.cpp:55

@@ -676,7 +676,7 @@ msgid "Racer"
 msgstr "Závodník"
 
 #: src/gui/race_gui.cpp:930
-msgid "Ready!"
+msgid "Ready?"
 msgstr "Pripravit!"
 
 #: src/gui/player_controls.cpp:66
@@ -704,7 +704,7 @@ msgid "Second grand prix"
 msgstr "Druhá Velká Soutez"
 
 #: src/gui/race_gui.cpp:939
-msgid "Set!"
+msgid "Set?!"
 msgstr "Pozor!"
 
 #: src/gui/race_menu.cpp:57

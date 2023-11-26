@@ -680,7 +680,7 @@ msgid "Racer"
 msgstr "Corridore"
 
 #: src/gui/race_gui.cpp:928
-msgid "Ready!"
+msgid "Ready?"
 msgstr "Pronti!"
 
 #: src/gui/player_controls.cpp:66
@@ -704,7 +704,7 @@ msgid "Second grand prix"
 msgstr "Secondo Gran Premio"
 
 #: src/gui/race_gui.cpp:937
-msgid "Set!"
+msgid "Set?!"
 msgstr "Partenza!"
 
 #: src/gui/race_menu.cpp:57
