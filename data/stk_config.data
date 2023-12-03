@@ -115,7 +115,7 @@
    ;; hard, medium, low level order!
    (max-speed          35 28 25 ) ;; = 126 101 90 km/h
    (mass                    225    )
-   (suspension-stiffness     48.0  )
+   (suspension-stiffness     64.0  )
    (wheel-damping-relaxation 20    )
    (wheel-damping-compression 4.4  )
    (friction-slip      10000000    )
