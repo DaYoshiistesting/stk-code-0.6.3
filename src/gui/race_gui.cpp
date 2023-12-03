@@ -627,15 +627,9 @@ void RaceGUI::drawSpeed(Kart* kart, int offset_x, int offset_y,
     //convention taken from btRaycastVehicle::updateVehicle
     const float speed =  kart->getSpeed();
 
-    if ( !kart->isOnGround() )
-        font_race->PrintShadow("!", (int)(60*minRatio), 
-                               offset_x-(int)(30*minRatio), 
-                               offset_y-(int)(10*minRatio));
+    if ( !kart->isOnGround() ) return;
     /* Show speed */
-    if ( speed < 0 )
-        font_race->PrintShadow(_(""), (int)(40*minRatio), 
-                               offset_x+(int)(40*minRatio), 
-                               offset_y+(int)(10*minRatio));
+    if ( speed < 0 ) return;
     else
     {
         float speedRatio = speed/KILOMETERS_PER_HOUR/110.0f;
