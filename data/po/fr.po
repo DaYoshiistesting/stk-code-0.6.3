@@ -3,13 +3,14 @@ msgstr ""
 "Project-Id-Version: supertuxkart\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2009-01-13 15:03+1100\n"
-"PO-Revision-Date: 2009-01-21 17:10-0500\n"
-"Last-Translator: Marianne Gagnon (Auria) <auria.mg@gmail.com>\n"
+"PO-Revision-Date: 2023-12-09 00:40+0100\n"
+"Last-Translator: Yann Lenormand (Chungus) <>\n"
 "Language-Team: \n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: French\n"
+"X-Generator: Poedit 3.4.1\n"
 
 #: src/gui/config_display.cpp:395
 #, c-format
@@ -35,10 +36,9 @@ msgid ""
 "Hit others with weapons until they lose all their lives."
 msgstr ""
 "Combat '3 prises' : seulement dans les jeux multijoueurs.\n"
-"Utilise des armes pour faire perdre leurs vies à tes rivaux !"
+"Utilise des armes pour faire perdre la vie de tes rivaux."
 
-#: src/gui/help_page_three.cpp:83
-#: src/gui/help_page_two.cpp:128
+#: src/gui/help_page_three.cpp:83 src/gui/help_page_two.cpp:128
 msgid "< Back"
 msgstr "< Retour"
 
@@ -88,13 +88,11 @@ msgstr "Au bout du monde"
 msgid "Avoid bananas"
 msgstr "Évite les bananes"
 
-#: src/gui/grand_prix_ending.cpp:138
-#: src/gui/race_results_gui.cpp:70
+#: src/gui/grand_prix_ending.cpp:138 src/gui/race_results_gui.cpp:70
 msgid "Back to the main menu"
 msgstr "Retour au menu principal"
 
-#: src/gui/help_page_one.cpp:153
-#: src/gui/help_page_three.cpp:87
+#: src/gui/help_page_one.cpp:153 src/gui/help_page_three.cpp:87
 #: src/gui/help_page_two.cpp:131
 msgid "Back to the menu"
 msgstr "Retour au menu"
@@ -155,12 +153,12 @@ msgid "Clear from Blacklist"
 msgstr "Retirer de la liste noire"
 
 #: data/tracks/crescentcrossing/crescentcrossing.challenge:5
-msgid "Collect Nitro in Math Class"
-msgstr "Nitro dans la classe de maths !"
+msgid "Collect Nitro in Math Class."
+msgstr "Nitro dans la classe de maths."
 
 #: data/grandprix/tothemoonandback.challenge:5
-msgid "Collect the Pharaohs Treasure"
-msgstr "Le trésor du Pharaon"
+msgid "Collect the Pharaohs Treasure."
+msgstr "Le trésor du Pharaon."
 
 #: src/gui/help_page_one.cpp:123
 msgid ""
@@ -203,18 +201,16 @@ msgstr "Se connecter au serveur"
 msgid "Connected:"
 msgstr "Connecté :"
 
-#: src/gui/feature_unlocked.cpp:48
-#: src/gui/grand_prix_ending.cpp:134
+#: src/gui/feature_unlocked.cpp:48 src/gui/grand_prix_ending.cpp:134
 #: src/gui/race_results_gui.cpp:59
 msgid "Continue"
-msgstr "Continer"
+msgstr "Continuer"
 
 #: src/gui/race_results_gui.cpp:66
 msgid "Continue Grand Prix"
 msgstr "Continuer le Grand Prix"
 
-#: data/tracks/beach/beach.track:5
-#: data/tracks/lighthouse/lighthouse.track:5
+#: data/tracks/beach/beach.track:5 data/tracks/lighthouse/lighthouse.track:5
 msgid ""
 "Created by Ingo Ruhnke,\n"
 "modified by M. Gagnon"
@@ -305,16 +301,16 @@ msgstr ""
 "virtuels en 3:35."
 
 #: data/tracks/jungle/jungle.challenge:5
-msgid "Finish Race track in 2:40"
-msgstr "Piste de course en 2:40"
+msgid "Finish Race track in 2:40."
+msgstr "Piste de course en 2:40."
 
 #: data/tracks/canyon/canyon.challenge:5
-msgid "Finish Tux Tollway track in 3:35"
-msgstr "L'autoroute de Tux en 3:35"
+msgid "Finish Tux Tollway track in 3:35."
+msgstr "L'autoroute de Tux en 3:35."
 
 #: data/tracks/snowtuxpeak/snowtuxpeak.challenge:5
-msgid "Finish the City track in 4:20"
-msgstr "Course dans la ville en 4:20"
+msgid "Finish the City track in 4:20."
+msgstr "Course dans la ville en 4:20."
 
 #: data/grandprix/tothemoonandback.challenge:6
 msgid ""
@@ -330,7 +326,7 @@ msgstr ""
 #: src/gui/race_gui.cpp:685
 #, c-format
 msgid "Finished"
-msgstr "Fini"
+msgstr "Terminé."
 
 #: data/tracks/crescentcrossing/crescentcrossing.challenge:6
 msgid ""
@@ -353,8 +349,7 @@ msgstr "Tirer"
 msgid "First grand prix, easy to get started"
 msgstr "Premier grand prix, facile pour commencer"
 
-#: src/gui/game_mode.cpp:77
-#: src/gui/game_mode.cpp:115
+#: src/gui/game_mode.cpp:77 src/gui/game_mode.cpp:115
 #: data/followtheleader.challenge:7
 msgid "Follow the Leader"
 msgstr "Suis le meneur"
@@ -366,10 +361,10 @@ msgstr "Suis le meneur dans la jungle"
 #: data/grandprix/atworldsend.challenge:5
 msgid ""
 "Follow the Leader on a\n"
-"Desert Island"
+"Desert Island."
 msgstr ""
 "Suis le meneur sur une\n"
-"île déserte"
+"île déserte."
 
 #: src/gui/help_page_three.cpp:70
 msgid ""
@@ -393,8 +388,7 @@ msgstr "Fort Magma"
 msgid "Four Players"
 msgstr "Quatre joueurs"
 
-#: src/gui/config_display.cpp:80
-#: src/gui/config_display.cpp:135
+#: src/gui/config_display.cpp:80 src/gui/config_display.cpp:135
 #: src/gui/config_display.cpp:193
 msgid "Fullscreen mode"
 msgstr "Mode plein-écran"
@@ -407,8 +401,7 @@ msgstr "Aide sur les jeux"
 msgid "Game modes"
 msgstr "Modes de jeu"
 
-#: src/gui/challenges_menu.cpp:55
-#: src/gui/credits_menu.cpp:79
+#: src/gui/challenges_menu.cpp:55 src/gui/credits_menu.cpp:79
 msgid "Go back to the main menu"
 msgstr "Retour au menu principal"
 
@@ -435,8 +428,7 @@ msgstr ""
 "accumulant le plus de points dans\n"
 "plusieurs courses contre des adversaires."
 
-#: src/gui/main_menu.cpp:75
-#: src/gui/race_menu.cpp:49
+#: src/gui/main_menu.cpp:75 src/gui/race_menu.cpp:49
 msgid "Help"
 msgstr "Aide"
 
@@ -486,8 +478,7 @@ msgstr "Meneur"
 msgid "Left"
 msgstr "Gauche"
 
-#: src/gui/race_results_gui.cpp:303
-#: src/gui/start_race_feedback.cpp:86
+#: src/gui/race_results_gui.cpp:303 src/gui/start_race_feedback.cpp:86
 msgid "Loading race..."
 msgstr "Chargement en cours..."
 
@@ -560,8 +551,7 @@ msgstr ""
 "'%s'\n"
 "déverrouillée"
 
-#: src/gui/help_page_one.cpp:156
-#: src/gui/help_page_two.cpp:134
+#: src/gui/help_page_one.cpp:156 src/gui/help_page_two.cpp:134
 msgid "Next >"
 msgstr "Suivant >"
 
@@ -573,13 +563,11 @@ msgstr "Changer de fond"
 msgid "Nitro"
 msgstr "Nitro"
 
-#: src/gui/grand_prix_select.cpp:63
-#: src/gui/grand_prix_select.cpp:69
+#: src/gui/grand_prix_select.cpp:63 src/gui/grand_prix_select.cpp:69
 msgid "No Grand Prix selected"
 msgstr "Aucun Grand Prix n'est sélectionné"
 
-#: src/gui/race_options.cpp:325
-#: src/gui/race_options.cpp:328
+#: src/gui/race_options.cpp:325 src/gui/race_options.cpp:328
 msgid "Novice"
 msgstr "Débutant"
 
@@ -591,8 +579,7 @@ msgstr "Nombre de karts"
 msgid "Number of laps"
 msgstr "Nombre de tours"
 
-#: src/gui/network_gui.cpp:158
-#: src/gui/race_results_gui.cpp:49
+#: src/gui/network_gui.cpp:158 src/gui/race_results_gui.cpp:49
 msgid "OK"
 msgstr "OK"
 
@@ -608,9 +595,7 @@ msgstr "Classe de maths d'Oliver"
 msgid "On the Beach"
 msgstr "Sur la plage"
 
-#: src/gui/main_menu.cpp:63
-#: src/gui/options.cpp:40
-#: src/gui/race_menu.cpp:48
+#: src/gui/main_menu.cpp:63 src/gui/options.cpp:40 src/gui/race_menu.cpp:48
 msgid "Options"
 msgstr "Options"
 
@@ -680,16 +665,11 @@ msgstr "Île préhistorique"
 msgid "Press <ESC> to Cancel"
 msgstr "Appuie sur <ESC> pour annuler"
 
-#: src/gui/config_controls.cpp:53
-#: src/gui/config_display.cpp:108
-#: src/gui/config_sound.cpp:64
-#: src/gui/game_mode.cpp:158
-#: src/gui/grand_prix_select.cpp:80
-#: src/gui/network_gui.cpp:79
-#: src/gui/num_players.cpp:46
-#: src/gui/options.cpp:58
-#: src/gui/player_controls.cpp:124
-#: src/gui/race_options.cpp:152
+#: src/gui/config_controls.cpp:53 src/gui/config_display.cpp:108
+#: src/gui/config_sound.cpp:64 src/gui/game_mode.cpp:158
+#: src/gui/grand_prix_select.cpp:80 src/gui/network_gui.cpp:79
+#: src/gui/num_players.cpp:46 src/gui/options.cpp:58
+#: src/gui/player_controls.cpp:124 src/gui/race_options.cpp:152
 msgid "Press <ESC> to go back"
 msgstr "Appuie sur <ESC> pour revenir"
 
@@ -697,14 +677,13 @@ msgstr "Appuie sur <ESC> pour revenir"
 msgid "Press key"
 msgstr "Appuie sur une touche"
 
-#: src/gui/game_mode.cpp:67
-#: src/gui/game_mode.cpp:105
+#: src/gui/game_mode.cpp:67 src/gui/game_mode.cpp:105
 msgid "Quick Race"
 msgstr "Course directe"
 
 #: src/gui/help_page_three.cpp:58
 msgid "Quick race: Pick a single track, shortest time wins.         "
-msgstr "Course directe : choisis une piste et arrive en premier"
+msgstr "Course directe : choisis une piste et arrive en premier."
 
 #: src/gui/main_menu.cpp:64
 msgid "Quit"
@@ -733,7 +712,7 @@ msgstr "Piste de course"
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
 msgid "Ready?"
-msgstr "À vos marques..."
+msgstr "À vos marques ?"
 
 #: src/gui/player_controls.cpp:72
 msgid "Rescue"
@@ -752,9 +731,17 @@ msgstr "Continuer la course"
 msgid "Right"
 msgstr "Droite"
 
+#: data/tracks/scotland/scotland.track:4
+msgid "Scotland"
+msgstr "L'étang du Nessie"
+
 #: data/grandprix/tothemoonandback.grandprix:5
 msgid "Second grand prix"
 msgstr "Second grand prix"
+
+#: data/tracks/secretgarden/secretgarden.track:4
+msgid "Secret Garden"
+msgstr "Jardin Secret"
 
 #: src/gui/network_gui.cpp:52
 msgid "Select network mode"
@@ -765,8 +752,7 @@ msgstr "Choisis un mode de jeu en ligne"
 msgid "Set?!"
 msgstr "Prêts ?!"
 
-#: src/gui/race_menu.cpp:55
-#: src/gui/race_results_gui.cpp:79
+#: src/gui/race_menu.cpp:55 src/gui/race_results_gui.cpp:79
 msgid "Setup New Race"
 msgstr "Nouvelle course"
 
@@ -859,8 +845,8 @@ msgstr ""
 "trop vieux, il a donc été supprimé."
 
 #: data/tracks/mines/mines.track:4
-msgid "The old mine"
-msgstr "La vieille mine"
+msgid "The Old Mine"
+msgstr "La Vieille Mine"
 
 #: src/gui/grand_prix_ending.cpp:84
 #, c-format
@@ -875,8 +861,7 @@ msgstr "Troisième grand prix"
 msgid "Three Players"
 msgstr "Trois joueurs"
 
-#: src/gui/game_mode.cpp:72
-#: src/gui/game_mode.cpp:110
+#: src/gui/game_mode.cpp:72 src/gui/game_mode.cpp:110
 msgid "Time Trial"
 msgstr "Contre la montre"
 
@@ -892,23 +877,19 @@ msgstr "Pour t'aider à gagner, voici certains bonus que tu peux ramasser :"
 msgid "To the Moon and Back"
 msgstr "Jusqu'à la lune"
 
-#: src/gui/config_sound.cpp:46
-#: src/gui/config_sound.cpp:91
+#: src/gui/config_sound.cpp:46 src/gui/config_sound.cpp:91
 msgid "Turn off music"
 msgstr "Désactiver la musique"
 
-#: src/gui/config_sound.cpp:55
-#: src/gui/config_sound.cpp:104
+#: src/gui/config_sound.cpp:55 src/gui/config_sound.cpp:104
 msgid "Turn off sound effects"
 msgstr "Désactiver les sons"
 
-#: src/gui/config_sound.cpp:50
-#: src/gui/config_sound.cpp:85
+#: src/gui/config_sound.cpp:50 src/gui/config_sound.cpp:85
 msgid "Turn on music"
 msgstr "Activer la musique"
 
-#: src/gui/config_sound.cpp:59
-#: src/gui/config_sound.cpp:99
+#: src/gui/config_sound.cpp:59 src/gui/config_sound.cpp:99
 msgid "Turn on sound effects"
 msgstr "Activer les sons"
 
@@ -924,20 +905,18 @@ msgstr "Deux joueurs"
 msgid "WRONG WAY!"
 msgstr "MAUVAISE DIRECTION !"
 
-#: src/gui/char_sel.cpp:126
-#: src/gui/network_gui.cpp:162
+#: src/gui/char_sel.cpp:126 src/gui/network_gui.cpp:162
 msgid "Waiting for clients"
 msgstr "En attente de clients"
 
-#: src/gui/char_sel.cpp:124
-#: src/gui/network_gui.cpp:118
+#: src/gui/char_sel.cpp:124 src/gui/network_gui.cpp:118
 msgid "Waiting for server"
 msgstr "En attente du serveur"
 
 #: data/followtheleader.challenge:5
 msgid ""
 "Win Penguin Playground Grand\n"
-"Prix"
+"Prix."
 msgstr ""
 "Remporte le grand prix\n"
 "'Pour jeunes pingouins'."
@@ -954,7 +933,7 @@ msgstr ""
 #: data/grandprix/snagdrive.challenge:5
 msgid ""
 "Win To the Moon and Back\n"
-"Grand Prix"
+"Grand Prix."
 msgstr ""
 "Remporte le grand prix\n"
 "'Jusqu'à la lune'."
@@ -992,7 +971,7 @@ msgstr ""
 #: data/tracks/fortmagma/fortmagma.challenge:5
 msgid ""
 "Win a Head to Head on\n"
-"Tux Tollway"
+"Tux Tollway."
 msgstr ""
 "Remporte un duel sur\n"
 "l'Autoroute de Tux."
@@ -1000,7 +979,7 @@ msgstr ""
 #: data/grandprix/alltracks.challenge:5
 msgid ""
 "Win the At World's End\n"
-"Grand Prix"
+"Grand Prix."
 msgstr ""
 "Remporte le grand prix\n"
 "'Au bout du monde'."
@@ -1068,20 +1047,19 @@ msgstr "souris, axe %d %c"
 msgid "mouse btn %d"
 msgstr "souris, btn %d"
 
-#: src/user_config.cpp:980
-#: src/user_config.cpp:1025
+#: src/user_config.cpp:980 src/user_config.cpp:1025
 #, c-format
 msgid "not set"
 msgstr "non défini"
 
 #~ msgid "Skidding Preview"
 #~ msgstr "Dérapage (aperçu)"
+
 #~ msgid ""
 #~ "At high speeds wheelies drive you faster, but you can't steer. If you\n"
 #~ "get stuck or fall too far, use the rescue button to get back on track."
 #~ msgstr ""
-#~ "À grande vitesse, un \"roue arrière\" te fais aller plus vite, mais tu "
-#~ "ne\n"
+#~ "À grande vitesse, un \"roue arrière\" te fais aller plus vite, mais tu ne\n"
 #~ "peux pas tourner. En cas de pépin, utilise la touche de sauvetage!"
 
 #, fuzzy
@@ -1095,24 +1073,32 @@ msgstr "non défini"
 #~ "Après 5 sous argentés, chaque boîte bleue te donnera 2 bonus;\n"
 #~ "après 10 sous, 3 bonus; et ainsi de suite. Un sou d'or vaut 3 sous\n"
 #~ "argentés : garde l'oeil ouvert, ils sont souvent dissimulés!"
+
 #~ msgid "Go back to the menu"
 #~ msgstr "Retour au menu"
+
 #~ msgid "Jump"
 #~ msgstr "Sauter"
+
 #~ msgid "Next help screen"
 #~ msgstr "Prochain écran"
+
 #~ msgid "Previous help screen"
 #~ msgstr "Écran précédent"
+
 #~ msgid "Previous screen"
 #~ msgstr "Écran précédent"
+
 #~ msgid "Time Trial: As quick race, but no items.                       "
 #~ msgstr "Contre la montre: Comme 'course directe', mais sans items"
+
 #~ msgid "Wheelie"
 #~ msgstr "\"Roue Arrière\""
 
 #, fuzzy
 #~ msgid "Mars Track"
 #~ msgstr "Dans les étoiles"
+
 #~ msgid ""
 #~ "Follow the leader: Stay behind the leader kart.                 \n"
 #~ "When the countdown reaches zero, a kart ahead\n"
@@ -1121,44 +1107,63 @@ msgstr "non défini"
 #~ "Suis le meneur: reste derrière le kart du meneur.\n"
 #~ "Quand le compteur atteint zéro, tout kart devant\n"
 #~ "le meneur sera éliminé."
+
 #~ msgid "Homing missile - follows rivals, but is slower than the missile"
 #~ msgstr ""
 #~ "Missile à tête chercheuse - suis les rivaux, mais est plus lent\n"
 #~ "que le missile régulier"
+
 #~ msgid "Missile - fast stopper in a straight line"
 #~ msgstr "Missile - arme rapide qui voyage en ligne droite"
+
 #~ msgid "Multiplayer"
 #~ msgstr "Multijoueur"
+
 #~ msgid "Sub Sea"
 #~ msgstr "Fonds marins"
+
 #~ msgid "Volcano"
 #~ msgstr "Volcan"
+
 #~ msgid "Fulfil challenge to unlock"
 #~ msgstr "Réussis un défi pour y accéder"
+
 #~ msgid "You won"
 #~ msgstr "Tu as gagné"
+
 #~ msgid "Fuzzy blob/Spark - very slow, but bounces from walls"
 #~ msgstr "Étincelle - lent, mais rebondit sur les murs"
+
 #~ msgid "Result"
 #~ msgstr "Résultat"
+
 #~ msgid "No track selected"
 #~ msgstr "Aucune piste n'est sélectionnée"
+
 #~ msgid "Check the current key bindings for the first player"
 #~ msgstr "Touches du premier joueur"
+
 #~ msgid "Choose a Grand Prix"
 #~ msgstr "Choisis un Grand Prix"
+
 #~ msgid "Choose a Race Mode"
 #~ msgstr "Choisis le type de course"
+
 #~ msgid "Choose a track"
 #~ msgstr "Choisis une piste"
+
 #~ msgid "Little Volcano"
 #~ msgstr "Petit Volcan"
+
 #~ msgid "Choose the race options"
 #~ msgstr "Choisis les options de la course"
+
 #~ msgid "Less"
 #~ msgstr "Moins"
+
 #~ msgid "More"
 #~ msgstr "Plus"
+
 #~ msgid ""
 #~ "New Grand Prix: All Tracks GP\n"
 #~ "and Bonus Preview: Skidding\n"
@@ -1169,6 +1174,7 @@ msgstr "non défini"
 #~ "'Toutes les pistes' et une\n"
 #~ "nouvelle difficulté 'dérapage'\n"
 #~ "sont maintenant disponibles."
+
 #~ msgid ""
 #~ "New game mode\n"
 #~ "'Follow Leader'\n"
@@ -1177,18 +1183,21 @@ msgstr "non défini"
 #~ "Nouveau mode 'suis\n"
 #~ "le meneur' maintenant\n"
 #~ "disponible."
+
 #~ msgid ""
 #~ "New track: Amazonian Journey\n"
 #~ "now available"
 #~ msgstr ""
 #~ "Nouvelle piste 'Voyage Amazonien'\n"
 #~ "maintenant disponible"
+
 #~ msgid ""
 #~ "New track: Canyon\n"
 #~ "now available"
 #~ msgstr ""
 #~ "Nouvelle piste 'Canyon'\n"
 #~ "maintenant disponible"
+
 #~ msgid "Choose your skill level"
 #~ msgstr "Fais mordre la poussière à tes rivaux!"
 
@@ -1199,4 +1208,3 @@ msgstr "non défini"
 #, fuzzy
 #~ msgid "Laps: 3"
 #~ msgstr "Tours: 3"
-
