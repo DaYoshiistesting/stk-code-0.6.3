@@ -9,7 +9,7 @@
 "city_asphalt_2.rgb" N N    N    0.0    Y     N    0.0000003  N  N  N  N
 "city_asphalt_blend.rgb" N N N   0.0    Y     N    0.0000003  N  N  N  N
 "city_fern.rgb"      N N    Y    0.0    N     N    1.0   N   N   Y   N
-"city_tree_leaves.rgb" N N   Y    0.0    N     N    1.0   N   N   N   N
+"city_tree_leaves.rgb" N N   Y    0.1    N     N    1.0   N   N   N   N
 "city_grass.rgb"     N N    Y    0.0    N     N    1.0   N   N   N   N
 
 # EOF #

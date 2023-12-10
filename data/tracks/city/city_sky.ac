@@ -1,0 +1,107 @@
+AC3Db
+MATERIAL "Weeds.001" rgb 1 1 1  amb 1 1 1  emis 1 1 1  spec 1 1 1  shi 0  trans 0.05
+OBJECT world
+kids 1
+OBJECT group
+name "Sky"
+kids 5
+OBJECT poly
+name "Sky_0"
+data 3
+Sky
+texture "city_sky_3.rgb"
+crease 30.000000
+numvert 4
+-400 500 400
+600 500 400
+600 -500 400
+-400 -500 400
+numsurf 1
+SURF 0x10
+mat 0
+refs 4
+2 0.00195312 0.000942767
+3 0.998047 0.000942767
+0 0.998047 0.998047
+1 0.00195312 0.998047
+kids 0
+OBJECT poly
+name "Sky_1"
+data 3
+Sky
+texture "city_sky_5.rgb"
+crease 30.000000
+numvert 4
+-400 500 -600
+-400 500 400
+600 500 400
+600 500 -600
+numsurf 1
+SURF 0x10
+mat 0
+refs 4
+3 0.00195312 0.00195312
+2 0.998047 0.00195312
+1 0.998047 0.998047
+0 0.00195312 0.998047
+kids 0
+OBJECT poly
+name "Sky_2"
+data 3
+Sky
+texture "city_sky_4.rgb"
+crease 30.000000
+numvert 4
+-400 -500 400
+-400 500 400
+-400 500 -600
+-400 -500 -600
+numsurf 1
+SURF 0x10
+mat 0
+refs 4
+0 0.00195312 0.000942767
+3 0.998047 0.000942767
+2 0.998047 0.998047
+1 0.00195312 0.998047
+kids 0
+OBJECT poly
+name "Sky_4"
+data 3
+Sky
+texture "city_sky_2.rgb"
+crease 30.000000
+numvert 4
+600 500 -600
+600 500 400
+600 -500 400
+600 -500 -600
+numsurf 1
+SURF 0x10
+mat 0
+refs 4
+3 0.00195312 0.000942767
+2 0.998047 0.000942767
+1 0.998047 0.998047
+0 0.00195312 0.998047
+kids 0
+OBJECT poly
+name "Sky_5"
+data 3
+Sky
+texture "city_sky_1.rgb"
+crease 30.000000
+numvert 4
+600 -500 -600
+-400 -500 -600
+-400 500 -600
+600 500 -600
+numsurf 1
+SURF 0x10
+mat 0
+refs 4
+1 0.00195312 0.000942767
+0 0.998047 0.000942767
+3 0.998047 0.998047
+2 0.00195312 0.998047
+kids 0
