@@ -628,16 +628,15 @@ void RaceGUI::drawSpeed(Kart* kart, int offset_x, int offset_y,
     const float speed =  kart->getSpeed();
 
     if ( !kart->isOnGround() ) return;
-    /* Show speed */
     if ( speed < 0 ) return;
+
     else
     {
         float speedRatio = speed/KILOMETERS_PER_HOUR/110.0f;
         // The following does not work with wheelie or Zipper
         //float speedRatio = kart->getVelocity()->xyz[1]/(kart->getMaxSpeed();
 
-        if ( speedRatio > 1 )
-            speedRatio = 1;
+        if ( speedRatio > 1 || !kart->isOnGround()) speedRatio = 1;
         
         m_speed_fore_icon->getState()->force();
         glBegin ( GL_POLYGON ) ;
