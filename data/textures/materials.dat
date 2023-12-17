@@ -116,9 +116,11 @@
 
 # TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col mxSpd SldT
 "clouds.rgb"                N N    N    0.0    N     N    0.5   N   N   Y   N
-"sand.rgb"                  N N    N    0.0    Y     N    0.0000001     N   N   N   N 0.4 4
-"sandgrass.rgb"             N N    N    0.0    Y     N    0.00000015    N   N   N   N 0.4 4
-"grass.rgb"                 N N    N    0.0    Y     N    0.0000002     N   N   N   N 0.6 4
+"canyon_water.rgb"          N N    N    0.0    N     N    0.7   N   N   Y   N
+"sand.rgb"                  N N    N    0.0    Y     N    0.0000001 N N N   N   0.4   4.0
+"sandgrass.rgb"             N N    N    0.0    Y     N    0.00000015 N N N  N   0.4   4.0
+"grass.rgb"                 N N    N    0.0    Y     N    0.0000002 N N N   N   0.6   4.0
+"yellow_dirt.rgb"           N N    N    0.0    N     N    0.0000001 N N N   N   0.5   4.0
 "chrome.rgb"                N N    N    0.0    N     Y    0.5   N   N   N   N
 "chrome2.rgb"               N N    N    0.0    N     Y    0.5   N   N   N   N
 "railing.rgb"               N Y    Y    0.5    Y     N    1.0   N   N   N   N
@@ -183,6 +185,11 @@
 "dirt.rgb"		            N N    N    0.0    Y     N    0.00000025  N   N   N   N
 "city_asphalt_1.rgb"	    N N    N    0.0    Y     N    0.0000003   N   N   N   N
 "city_checker.rgb"	        N N    N    0.0    Y     N    0.0000003   N   N   N   N
+"canyon_sky_1.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_2.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_3.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_4.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_5.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
 "tank-blue.rgb"		        N N    N    0.0    Y     Y    0.5   N   N   N   N
 "tank-green.rgb"	        N N    N    0.0    Y     Y    0.5   N   N   N   N
 "tank-cyan.rgb"		        N N    N    0.0    Y     Y    0.5   N   N   N   N
