@@ -109,13 +109,13 @@ private:
     /* Display informat on screen */
     void drawStatusText        (const float dt);
     void drawEnergyMeter       (Kart *player_kart,
-                                int   offset_x, int   offset_y,
+                                float   offset_x, float   offset_y,
                                 float ratio_x,  float ratio_y  );
     void drawPowerupIcons  (Kart* player_kart,
-                                int   offset_x, int   offset_y,
+                                float   offset_x, float   offset_y,
                                 float ratio_x,  float ratio_y  );
     void drawAllMessages       (Kart* player_kart,
-                                int   offset_x, int   offset_y,
+                                float   offset_x, float   offset_y,
                                 float ratio_x,  float ratio_y  );
     void drawPlayerIcons       (const KartIconDisplayInfo* info);
     void oldDrawPlayerIcons    ();
@@ -124,7 +124,7 @@ private:
     void drawFPS               ();
     void drawMusicDescription  ();
     void cleanupMessages       (const float dt);
-    void drawSpeed                (Kart* kart, int offset_x, int offset_y,
+    void drawSpeed                (Kart* kart, float offset_x, float offset_y,
                                    float ratio_x, float ratio_y           );
     void drawLap                  (const KartIconDisplayInfo* info, Kart* kart, int offset_x,
                                    int offset_y, float ratio_x, float ratio_y  );
