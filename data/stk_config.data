@@ -113,7 +113,7 @@
    (engine-power        418  400  300)
    ;; Different maximum speed for different difficulties:
    ;; hard, medium, low level order!
-   (max-speed          35 28 25 ) ;; = 126 101 90 km/h
+   (max-speed          33.95 28 25 ) ;; = 122.22 101 90 km/h 
    (mass                    225    )
    (suspension-stiffness     64.0  )
    (wheel-damping-relaxation 20    )

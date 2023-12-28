@@ -32,7 +32,6 @@
 #include "tracks/track.hpp"
 #include "utils/constants.hpp"
 #include "utils/translation.hpp"
-#include <glm/glm.hpp>
 
 #undef USE_WIDGET_MANAGER
 #ifdef USE_WIDGET_MANAGER
@@ -614,8 +613,8 @@ void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
     const int SPEEDWIDTH = 128;
     int width  = (int)(SPEEDWIDTH*minRatio);
     int height = (int)(SPEEDWIDTH*minRatio);
-    offset_x  = (float)(viewportLowerRightX- width)- 10.0f*ratio_x;
-    offset_y  = viewportLowerRightY-10*ratio_y;
+    offset_x  = (float)(viewportLowerRightX- width)- 10.0f*ratio_x; // = 1228.0f
+    offset_y  = viewportLowerRightY-10*ratio_y; // = -10.0f
 
     glMatrixMode(GL_MODELVIEW);
     m_speed_back_icon->getState()->force();
@@ -638,24 +637,38 @@ void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
     else
     {
         float speedRatio = speed/KILOMETERS_PER_HOUR/110.0f;
-        // The following does not work with wheelie or Zipper
-        //float speedRatio = kart->getVelocity()->xyz[1]/(kart->getMaxSpeed();
+        if (speedRatio > 1) speedRatio = 1;
 
-        if ( speedRatio > 1 || !kart->isOnGround()) speedRatio = 1;
-        
         m_speed_fore_icon->getState()->force();
-        glBegin ( GL_POLYGON ) ;
-        glTexCoord2f(1, 0);glVertex2f(offset_x+width, offset_y);
-        glTexCoord2f(0, 0);glVertex2f(offset_x, offset_y);
-        if (speedRatio < 0.5)
+        glBegin(GL_POLYGON);
+        glTexCoord2f(0.5f, 0.0f);
+		glVertex2f(offset_x+width/2, offset_y);
+        glTexCoord2f(0, 0.0f);
+		glVertex2f(offset_x, offset_y);
+        if (speedRatio < 0.4f)
         {
-            glTexCoord2f(0, speedRatio*2);glVertex2f(offset_x, offset_y+width*speedRatio*2);
+			float f = speedRatio/0.4f;
+            glTexCoord2f(0, f);
+			glVertex2f(offset_x, offset_y+f*height);
         }
-        else
+        else if (speedRatio < 0.8f)
         {
-            glTexCoord2f(0, 1);glVertex2f(offset_x, offset_y+width);
-            glTexCoord2f((speedRatio-0.5f)*2, 1);glVertex2f((offset_x+height*(speedRatio-0.5f)*2), offset_y+height);
-        }
+			float f = (speedRatio-0.4f)/(0.8f-0.4f);
+            glTexCoord2f(0, 1.0f);
+			glVertex2f(offset_x, offset_y+height);
+            glTexCoord2f(f, 1.0f);
+			glVertex2f(offset_x+f*width, offset_y+height);
+		}
+		else
+		{
+			float f = (speedRatio - 0.8f)/(1-0.8f);
+			glTexCoord2f(0, 1.0f);
+			glVertex2f(offset_x, offset_y+height);
+			glTexCoord2f(1.0f,1.0f);
+			glVertex2f(offset_x+width, offset_y+height);
+			glTexCoord2f(1.0f, 1-f);
+			glVertex2f(offset_x+width, offset_y+(1-f)*height);
+		}
 
         glEnd () ;
     }   // speed<0
