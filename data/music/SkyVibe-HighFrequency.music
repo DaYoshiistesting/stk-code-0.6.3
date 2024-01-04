@@ -1,8 +1,0 @@
-(music-information
-  (title    "Sky Vibe - High Frequency")
-  (composer "Speedsound")
-  (music    "SkyVibe-HighFrequency.ogg")
-  (loop     10          )
-  (gain     0.5         )
-)
-

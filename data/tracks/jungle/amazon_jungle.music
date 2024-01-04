@@ -1,6 +1,0 @@
-(music-information
-  (title    "Amazon Jungle")
-  (composer "Auria")
-  (music    "amazon_jungle.ogg")
-  (loop     10)
-)

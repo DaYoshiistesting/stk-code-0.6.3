@@ -1,6 +1,0 @@
-(music-information
-  (title    "Kart Grand Prix"    )
-  (composer "Weirwood"           )
-  (music    "kart_grand_prix.ogg")
-  (loop     10                   )
-)

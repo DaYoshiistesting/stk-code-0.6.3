@@ -1,7 +1,0 @@
-(music-information
-  (title    "Penguin Party")
-  (enable-fast #t          )
-  (composer "Magne Djupvik")
-  (music    "Penguin_Party.ogg")
-  (loop     10)
-)
