@@ -1,0 +1,7 @@
+(music-information
+  (title    "West"    )
+  (composer "Chris Leutwyler (Krobonil)")
+  (music    "West.ogg")
+  (loop     10        )
+)
+

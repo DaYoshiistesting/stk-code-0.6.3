@@ -1,0 +1,16 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name       _("Star Track"))
+ (version    1)
+ (designer   "Ingo Ruhnke, modified by A. Billing")
+ (music      "Ethereal_Spectrum_\(ver_loop\).music")
+ (screenshot "sshot-startrack.rgb")
+ (topview    "topview-startrack.rgb")
+ (sky-color  0.0 0.0 0.0 0.0)
+ (camera-final-position  -5 25 5)
+ (camera-final-hpr       210 -10 0)
+)
+
+;; EOF ;;
+

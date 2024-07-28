@@ -1,0 +1,30 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Gooey")
+ (version     2)
+ (model-file  "gooey.ac")
+ (icon-file   "gooeyicon.rgb")
+ (shadow-file "gooeyshadow.rgb")
+ (groups      "standard") 
+ (engine-sound "small")
+ (rgb         0.8 0.0 0.5)
+  (wheel-front-right
+    (position 0.295805 0.431543 0.134951)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.298656 0.431543 0.134951)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.342563 -0.439540 0.164941)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.345413 -0.439540 0.164941)
+    (model    "wheel-rear-left.ac")
+  )
+       
+)
+;; EOF ;;

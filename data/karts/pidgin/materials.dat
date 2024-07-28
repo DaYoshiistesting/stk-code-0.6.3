@@ -1,0 +1,6 @@
+# See textures/materials.dat for a detailed description of the fields.
+
+# TextureName              Clamp Trans Alpha Light SphMp Frict Ign 
+"pidginicon.rgb"            Y Y    Y    0.0    N     N    1.0   Y 
+"pidginshadow.rgb"          Y Y    Y    0.0    N     N    1.0   Y
+# EOF #

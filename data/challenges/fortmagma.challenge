@@ -1,0 +1,19 @@
+;; -*- mode: lisp -*-
+
+(challenge
+ (id            "tollwayhead")
+ (name          _("Win a Head to Head on\nTux Tollway"))
+ (description   _("Win a 1 lap Head to Head\non Tux Tollway against 1 'Racer'\nlevel AI kart."))
+ (depend-on    "islandfollow")
+ (unlock-track "fortmagma")
+ (major        "single")
+ (minor        "timetrial")
+ (track        "tuxtollway")
+ (difficulty   "hard")
+ (laps         1)
+ (karts        2)
+ (position     1)
+)
+
+;; EOF ;;
+

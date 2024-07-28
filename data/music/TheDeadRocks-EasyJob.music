@@ -1,0 +1,7 @@
+(music-information
+  (title    "EasyJob"    )
+  (composer "The Dead Rocks"            )
+  (music    "TheDeadRocks-EasyJob.ogg")
+  (loop     10                 )
+)
+

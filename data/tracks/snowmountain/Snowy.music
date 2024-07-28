@@ -1,0 +1,7 @@
+(music-information
+  (title    "Snowy"    )
+  (composer "Chris Leutwyler (Krobonil)")
+  (music    "Snowy.ogg")
+  (loop     10        )
+)
+

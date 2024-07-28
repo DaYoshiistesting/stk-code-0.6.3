@@ -1,0 +1,17 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("King Weird's Castle"))
+ (version     1)
+ (designer    "Marianne Gagnon")
+ (music       "Penguin_Party.music")
+ (screenshot  "sshot-castle.rgb")
+ (topview     "topview-castle.rgb")
+ (arena       #t)
+ (groups      "standard")
+ (camera-final-position  5 20 3)
+ (camera-final-hpr       180 -10 0)
+)
+
+;; EOF ;;
+

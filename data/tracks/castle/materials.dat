@@ -1,0 +1,7 @@
+# See textures/materials.dat for a detailed description of the fields.
+
+# TextureName       Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"leaves.rgb"         N N    Y    0.0    N     N    0.7   N   N   N   N
+"grass.rgb"          N N    N    0.0    Y     N    0.7   N   N   N   N
+
+# EOF #

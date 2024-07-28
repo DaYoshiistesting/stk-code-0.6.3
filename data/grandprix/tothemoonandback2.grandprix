@@ -1,0 +1,10 @@
+;; -*- mode: lisp -*-
+
+(supertuxkart-grand-prix
+ (name _(" Just a lighthouse brah."))
+ (description _("Jesus is Lord."))
+ (tracks "lighthouse")
+ (laps        2      )
+)
+
+;; EOF ;;

@@ -1,0 +1,20 @@
+;; -*- mode: lisp -*-
+
+(challenge
+ (id            "xr591nitro")
+ (name          _("Collect Nitro in XR591"))
+ (description   _("Finish with at least 20 points\n of nitro on one lap of\nXR591\nin under 1:10 minutes."))
+ (depend-on   "tothemoonandbackgp")
+ (unlock-track "xr591")
+ (major        "single")
+ (minor        "quickrace")
+ (track        "xr591")
+ (difficulty   "hard")
+ (laps         1)
+ (karts        1)
+ (time        70)
+ (energy      18)
+)
+
+;; EOF ;;
+

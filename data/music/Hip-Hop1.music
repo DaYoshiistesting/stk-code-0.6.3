@@ -1,0 +1,8 @@
+(music-information
+  (title    "Hip-Hop 1"     )
+  (composer "Deff Syndicate")
+  (music    "Hip-Hop1.ogg"  )
+  (loop      10             )
+  (gain      0.7            )
+)
+

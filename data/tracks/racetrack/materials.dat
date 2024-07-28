@@ -1,0 +1,8 @@
+# See textures/materials.dat for a detailed description of the fields.
+
+# TextureName       Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"racetrack_sky.rgb"   N N    N    0.0    N     N    0.7   N   N   N   N
+"racetrack_crowd.rgb" N N    Y    0.95   Y     N    1.0   N   N   N   N
+"racetrack_grass.rgb" N N    N    0.1    Y     N    1.0   N   N   N   N 0.4 4
+
+# EOF #

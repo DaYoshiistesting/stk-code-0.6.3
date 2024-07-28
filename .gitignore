@@ -1,0 +1,16 @@
+
+*.lib
+*.exe
+*.pdb
+*.dll
+*.obj
+*.user
+*.htm
+*.idb
+*.suo
+*.ncb
+*.ilk
+*.manifest
+*.res
+*.dep
+*supertuxkart.ncb

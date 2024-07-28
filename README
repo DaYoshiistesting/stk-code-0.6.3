@@ -1,0 +1,94 @@
+SuperTuxKart 0.6.3
+==============
+SuperTuxKart 0.6.3 is a SuperTuxKart Fanmade Version of the 0.6.2a release. The project is 
+made by YoshiKartin'.
+
+SuperTuxKart
+==============
+SuperTuxKart is a free kart racing game. It is focusing on fun and
+not on realistic kart physics. The SuperTuxKart homepage can be found at:
+
+  http://supertuxkart.sourceforge.net
+
+The official SuperTuxKart forum is at:
+http://supertuxkart.sourceforge.net/forum
+
+A big "thank you" to Steve Baker for designing and implementing the
+original TuxKart, and to the GotM team for their invaluable work.
+See the data/CREDITS file for individual credits.
+
+
+
+HARDWARE REQUIREMENTS
+=====================
+* You need at least an NVidia GeForce 7600 GS or equivalent.
+* You should have an AMD Athlon 64 3700+ (939) CPU or better.
+* You'll need at least 1gb of RAM. 
+* Ideally, if you want a joystick, get one with at least 6 buttons.
+
+PLAYING THE GAME
+================
+SuperTuxKart is a kart racing game. Basically you run around the track,
+and give your best shot at reaching the goal before your opponents. The ?
+boxes can help you, and collection coins can build up your power, so you can
+grab more than one collectable! But avoid the bananas, since they might
+give you a nasty surprise.
+
+Controls can be configured from the game, here are the defaults mappings:
+
+Player 1:
+  Steer      : Left / Right arrow
+  Accelerate : Up arrow
+  Brake      : Down arrow
+  Use item   : Space
+  Look back  : J key
+  Sharp Turn : K key
+  Nitro      : L key
+  Rescue     : Backspace
+
+Player 2:
+  Steer      : A / D key
+  Accelerate : W key
+  Brake      : S key
+  Use item   : Left control
+  Sharp Turn : Left shift
+  Rescue     : Q key
+  Nitro      : Caps lock
+  Look back  : Left alt
+
+Player 3:
+  Steer      : F / H key
+  Accelerate : T key
+  Brake      : G key
+  Use item   : N key
+  Sharp Turn : C key
+  Rescue     : R key
+  Nitro      : V key
+  Look back  : N key
+
+Player 4:
+  Steer      : J / L key
+  Accelerate : I key
+  Brake      : K key
+  Use item   : . key
+  Sharp Turn : M key
+  Rescue     : u key
+  Nitro      : , key
+  Look back  : / key
+
+The Escape key pauses the game and shows the race menu.
+
+
+SUPPORT
+=======
+The main webpage of SuperTuxKart is at:
+
+  http://supertuxkart.sourceforge.net
+
+
+LICENSE
+=======
+This software is released under the GNU General Public License (GPL) which
+can be found in the file 'LICENSE' in the same directory as this file.
+Information about the licenses for artwork are contained in 
+data/licenses.

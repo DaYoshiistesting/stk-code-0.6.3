@@ -1,0 +1,22 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("Scotland"))
+ (designer     "CanisLupus")
+ (version                1)
+ (music       "scotland.music")
+ (screenshot             "sshot-scotland.rgb")
+ (topview                "topview-scotland.rgb")
+ (AI-curve-speed-adjust  2.0)
+ (AI-angle-adjust        2.3)
+
+ (use-fog  #t)
+ (fog-color   0.8 0.8 0.8)
+ (fog-start    25000.0)
+ (fog-end      50000.0)
+ (fog-density    0.001)
+
+)
+
+;; EOF ;;
+
