@@ -1,10 +1,13 @@
 SuperTuxKart 0.6.3
-==============
-SuperTuxKart 0.6.3 is a SuperTuxKart Fanmade Version of the 0.6.2a release. The project is 
-made by YoshiKartin'.
+==================
+SuperTuxKart 0.6.3 is a SuperTuxKart 0.6.2a fork.
+It is based on 0.6.2a and 0.7.
+
+It was supposed to be a private project, then I learned how to backport 
+karts and that's where everything you see here begun. 
 
 SuperTuxKart
-==============
+============
 SuperTuxKart is a free kart racing game. It is focusing on fun and
 not on realistic kart physics. The SuperTuxKart homepage can be found at:
 
@@ -16,8 +19,6 @@ http://supertuxkart.sourceforge.net/forum
 A big "thank you" to Steve Baker for designing and implementing the
 original TuxKart, and to the GotM team for their invaluable work.
 See the data/CREDITS file for individual credits.
-
-
 
 HARDWARE REQUIREMENTS
 =====================
