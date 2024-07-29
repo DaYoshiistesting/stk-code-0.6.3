@@ -182,7 +182,7 @@ public:
     const std::string& getTopviewFile    () const {return m_top_view;           }
     const std::string& getScreenshotFile () const {return m_screenshot;         }
     const std::vector<SGfloat>& getWidth () const {return m_path_width;         }
-    const std::string& getItemStyle   () const {return m_item_style;      }
+    const std::string& getItemStyle      () const {return m_item_style;         }
     bool               hasFinalCamera    () const {return m_has_final_camera;   }
     const Vec3&        getCameraPosition () const {return m_camera_final_position;}
     const Vec3&        getCameraHPR      () const {return m_camera_final_hpr;   }

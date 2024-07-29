@@ -2,16 +2,15 @@
 
 (tuxkart-track
  (name        _("Oliver's Math Class"))
- (version     2)
+ (version     1)
  (designer    "Oliver & Steve Baker")
  (music       "Boom_boom_boom.music")
  (screenshot  "sshot-olivermath.rgb")
  (topview     "topview-olivermath.rgb")
  (groups      "standard")
- (camera-final-position  -13 30 2)
+ (camera-final-position   2 30 3.2)
  (camera-final-hpr       180 -10 0)
- (start-x -13 -15.5 -13 -15.5 -13 -15.5 -13 -15.5 -13 -15.5)
-) 
+)
 
 ;; EOF ;;
 
