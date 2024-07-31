@@ -401,6 +401,8 @@ void DefaultRobot::handleSteering(float dt)
 }   // handleSteering
 
 //-----------------------------------------------------------------------------
+//void DefaultRobot::ItemCollectionAndAvoidance(Vec3 straight_point, sector)
+//-----------------------------------------------------------------------------
 void DefaultRobot::handleItems( const float DELTA, const int STEPS )
 {
     m_controls.m_fire = false;
@@ -438,7 +440,7 @@ void DefaultRobot::handleItems( const float DELTA, const int STEPS )
         // this approach helps preventing an overtaken kart to overtake us 
         // again.
         m_controls.m_fire = (m_distance_behind < 15.0f &&
-                               m_distance_behind > 3.0f   ) || 
+                               m_distance_behind > 2.3f   ) || 
                             m_time_since_last_shot>10.0f;
         if(m_distance_behind < 10.0f && m_distance_behind > 2.0f   )
             m_distance_behind *= 1.0f;
@@ -574,7 +576,7 @@ void DefaultRobot::handleAcceleration( const float DELTA )
 
     if(hasViewBlockedByPlunger())
     {
-        if(!(getSpeed() > getMaxSpeedOnTerrain() / 2))
+        if(!(getSpeed() > getMaxSpeedOnTerrain() / 1.4))
             m_controls.m_accel = 0.05f;
         else 
             m_controls.m_accel = 0.0f;
@@ -651,6 +653,12 @@ void DefaultRobot::handleNitroAndZipper()
     
     // Don't use nitro if the kart doesn't have any or is not on ground.
     if(!isOnGround() || hasFinishedRace()) return;
+
+	// Don't use nitro if the kart is rescued.
+	if(isRescue()) return;
+
+	// Don't use nitro if the kart is rescued.
+	if(m_crashes.m_road) return;
     
     // Don't compute nitro usage if we don't have nitro or are not supposed
     // to use it, and we don't have a zipper or are not supposed to use
@@ -761,7 +769,7 @@ float DefaultRobot::steerToPoint(const sgVec2 point, float dt)
     // Angle is the point is relative to the heading - but take the current
     // angular velocity into account, too. The value is multiplied by two
     // to avoid 'oversteering' - experimentally found.
-    float angle_2_point   = theta - getHPR().getHeading() 
+    float angle_2_point   = theta - getHeading() 
                                   - dt*m_body->getAngularVelocity().getZ()*2.0f;
     angle_2_point         = normalizeAngle(angle_2_point);
     if(fabsf(angle_2_point)<0.1) return 0.0f;

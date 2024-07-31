@@ -35,8 +35,8 @@ enum ItemType
     
     ITEM_BONUS_BOX = 0,
     ITEM_BANANA,
-    ITEM_GOLD_COIN,
-    ITEM_SILVER_COIN,
+    ITEM_BIG_NITRO,
+    ITEM_SMALL_NITRO,
     ITEM_BUBBLEGUM,
     ITEM_LAST,
 	ITEM_COUNT,
@@ -99,10 +99,10 @@ public:
      */
     void          deactivate(float t)  { m_deactive_time=t; }
     // ------------------------------------------------------------------------
-    unsigned int  getItemId()    const { return m_item_id;  }
-    ssgTransform* getRoot()      const { return m_root;     }
-    ItemType      getType()      const { return m_type;     }
-    bool          wasCollected() const { return m_collected;}
+    unsigned int  getItemId()    const {return m_item_id;   }
+    ssgTransform* getRoot()      const {return m_root;      }
+    ItemType      getType()      const {return m_type;      }
+    bool          wasCollected() const {return m_collected; }
     bool          isUsedUp()     const {return m_disappear_counter==0; }
 	bool          canBeUsedUp()  const {return m_disappear_counter>-1; }
     void          setParent(Kart* parent);

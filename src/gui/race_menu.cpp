@@ -48,13 +48,13 @@ RaceMenu::RaceMenu()
     widget_manager->addTextButtonWgt( WTOK_RETURN_RACE, 50, 7, _("Return To Race"));
     widget_manager->addTextButtonWgt( WTOK_OPTIONS, 50, 7, _("Options") );
     widget_manager->addTextButtonWgt( WTOK_HELP, 50, 7, _("Help") );
-	if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_GRAND_PRIX) 
+	if (race_manager->getMajorMode()==RaceManager::MAJOR_MODE_SINGLE)
 	{
-	    widget_manager->deactivateWgt( WTOK_RESTART_RACE );
-	} // delete the Restart Race button in GP;
-	else
+	    widget_manager->addTextButtonWgt( WTOK_RESTART_RACE, 50, 7, _("Restart Race") );
+	}
+	else if (race_manager->getMajorMode()==RaceManager::MAJOR_MODE_GRAND_PRIX)
 	{
-        widget_manager->addTextButtonWgt( WTOK_RESTART_RACE, 50, 7, _("Restart Race") );
+        widget_manager->deactivateWgt(WTOK_RESTART_RACE);
 	}
 
     if(race_manager->getMinorMode()==RaceManager::MINOR_MODE_QUICK_RACE)

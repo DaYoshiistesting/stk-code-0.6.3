@@ -38,7 +38,7 @@ private:
     AllItemTypes m_all_items;
 
     // This stores all item models
-    ssgEntity *m_item_model[ITEM_SILVER_COIN+1];
+    ssgEntity *m_item_model[ITEM_SMALL_NITRO+1];
 
     // This is the active model. It gets determined by first loading the
     // default, then track models, user models, grand prix models. This means that

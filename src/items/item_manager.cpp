@@ -159,8 +159,8 @@ void ItemManager::setDefaultItemStyle()
     std::string DEFAULT_NAMES[ITEM_LAST - ITEM_FIRST - 1];
     DEFAULT_NAMES[ITEM_BONUS_BOX]   = "gift-box";
     DEFAULT_NAMES[ITEM_BANANA]      = "banana";
-    DEFAULT_NAMES[ITEM_GOLD_COIN]   = "nitrotank-big";
-    DEFAULT_NAMES[ITEM_SILVER_COIN] = "nitrotank-small";
+    DEFAULT_NAMES[ITEM_BIG_NITRO]   = "nitrotank-big";
+    DEFAULT_NAMES[ITEM_SMALL_NITRO] = "nitrotank-small";
     DEFAULT_NAMES[ITEM_BUBBLEGUM]   = "bubblegum";
 
     bool bError=0;
@@ -408,10 +408,10 @@ void ItemManager::loadItemStyle(const std::string filename)
         throw std::runtime_error(msg.str());
         delete root;
     }
-    setItem(item_node, "red",   ITEM_BONUS_BOX   );
-    setItem(item_node, "green", ITEM_BANANA );
-    setItem(item_node, "gold"  ,ITEM_GOLD_COIN  );
-    setItem(item_node, "silver",ITEM_SILVER_COIN);
+    setItem(item_node, "red",    ITEM_BONUS_BOX   );
+    setItem(item_node, "green",  ITEM_BANANA      );
+    setItem(item_node, "gold",   ITEM_BIG_NITRO   );
+    setItem(item_node, "silver", ITEM_SMALL_NITRO);
     delete root;
 }   // loadItemStyle
 
