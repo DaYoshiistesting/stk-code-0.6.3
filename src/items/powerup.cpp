@@ -149,7 +149,7 @@ void Powerup::use()
         
         pos.setZ(z_coord-0.05f);
         
-        item_manager->newItem(ITEM_BUBBLEGUM, pos, normal, m_owner);
+        item_manager->newItem(Item::ITEM_BUBBLEGUM, pos, normal, m_owner);
         }
         break;
         
@@ -227,7 +227,7 @@ void Powerup::use()
 }   // use
 
 //-----------------------------------------------------------------------------
-void Powerup::hitBonusBox(int n, const Item &item, int add_info)
+void Powerup::hitBonusBox(int n, const Item *item, int add_info)
 {
     //The probabilities of getting the anvil or the parachute increase
     //depending on how bad the owner's position is. For the first
@@ -260,7 +260,7 @@ void Powerup::hitBonusBox(int n, const Item &item, int add_info)
                     if(network_manager->getMode()==NetworkManager::NW_SERVER)
                     {
                         race_state->itemCollected(m_owner->getWorldKartId(), 
-                                                  item.getItemId(), 
+                                                  item->getItemId(), 
                                                   m_type);
                     }
                     return;
@@ -272,7 +272,7 @@ void Powerup::hitBonusBox(int n, const Item &item, int add_info)
             if(network_manager->getMode()==NetworkManager::NW_SERVER)
             {
                 race_state->itemCollected(m_owner->getWorldKartId(), 
-                                          item.getItemId(), 
+                                          item->getItemId(), 
                                           (char)m_type);
             }
             return;
@@ -317,7 +317,7 @@ void Powerup::hitBonusBox(int n, const Item &item, int add_info)
     if(network_manager->getMode()==NetworkManager::NW_SERVER)
     {
         race_state->itemCollected(m_owner->getWorldKartId(), 
-                                  item.getItemId(), 
+                                  item->getItemId(), 
                                   newC);
     }
 

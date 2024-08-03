@@ -6,6 +6,8 @@
  (model-file  "hexley2.ac")
  (icon-file   "hexleyicon.rgb")
  (shadow-file "hexley2shadow.rgb")
+ (groups      "Standard")
+ (engine-sound "small")
  (rgb  0.540000 0.025000 0.340000 )
   (wheel-front-right
     (position 0.339697 0.379597 0.117290)

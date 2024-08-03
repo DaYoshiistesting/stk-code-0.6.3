@@ -6,8 +6,8 @@
  (model-file  "mozilla.ac")
  (icon-file   "mozillaicon.rgb")
  (shadow-file "mozillashadow.rgb")
- (groups      "standard")
- (engine-sound "large")
+ (groups      "Standard")
+ (engine-sound "small")
  (rgb         0.5 0.0 0.0)
   (wheel-front-right
     (position 0.237866 0.545136 0.114071)

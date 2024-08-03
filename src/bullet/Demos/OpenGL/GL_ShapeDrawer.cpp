@@ -309,7 +309,7 @@ void GL_ShapeDrawer::drawCylinder(float radius,float halfHeight, int upAxis)
 	gluDisk(quadObj,0,radius,15, 10);
 	
 	gluCylinder(quadObj, radius, radius, 2.f*halfHeight, 15, 10);
-	glTranslatef(0.0, 0.0, 2.*halfHeight);
+	glTranslatef(0.0f, 0.0f, 2.f*halfHeight);
 	glRotatef(-180.0, 0.0, 1.0, 0.0);
 	gluDisk(quadObj,0,radius,15, 10);
 
@@ -414,7 +414,7 @@ void GL_ShapeDrawer::drawOpenGL(btScalar* m, const btCollisionShape* shape, cons
 						}
 					};
 					
-					glTranslatef(0.0, 0.0, -0.5*height);
+					glTranslatef(0.0f, 0.0f, -0.5f*height);
 					glutSolidCone(radius,height,10,10);
 					useWireframeFallback = false;
 					break;

@@ -173,7 +173,7 @@ void Scene::draw(float dt)
             glEnable(GL_DEPTH_TEST);
             glDepthFunc(GL_LESS);
             
-            glClearColor(0.8,0.8,0.8,0);
+            glClearColor(0.8f,0.8f,0.8f,0.f);
             
             glMatrixMode(GL_PROJECTION);
             glLoadIdentity();

@@ -391,17 +391,71 @@ void DefaultRobot::handleSteering(float dt)
 #ifdef AI_DEBUG
         std::cout << "- Fallback."  << std::endl;
 #endif
+		// Potentially adjust the point to aim for in order to either
+        // aim to collect item, or steer to avoid a bad item.
+        //if(m_item_behaviour!=ITEM_COLLECT_NONE)
+            //handleItemCollectionAndAvoidance(&aim_point, last_node);
 
     }
     // avoid steer vibrations
     //if (fabsf(steer_angle) < 1.0f*3.1415/180.0f)
     //    steer_angle = 0.f;
 
+
     setSteering(steer_angle, dt);
 }   // handleSteering
 
 //-----------------------------------------------------------------------------
-//void DefaultRobot::ItemCollectionAndAvoidance(Vec3 straight_point, sector)
+//void DefaultRobot::handleItemCollectionAndAvoidance(Vec3 straight_point, int m_sector)
+//{
+    //const unsigned int DRIVELINE_SIZE = (unsigned int)m_track->m_driveline.size();
+    //const size_t NEXT_SECTOR = (unsigned int)m_track_sector + 1 < DRIVELINE_SIZE 
+                             //? m_track_sector + 1 : 0;
+
+    // Angle of line from kart to aim_point
+    //float kart_aim_angle = atan2(straight_point->getX()- getXYZ().getX(),
+                                 //straight_point->getY()- getXYZ().getY());
+
+    //if(m_item_to_collect)
+    //{
+        //if(handleSelectedItem(kart_aim_angle, straight_point, m_sector))
+        //{
+            // Still aim at the previsouly selected item.
+            //*straight_point = m_item_to_collect->getXYZ();
+            //return;
+        //}
+        // Otherwise remove the pre-selected item (and start
+        // looking for a new item).
+         //m_item_to_collect = NULL;
+    //} // m_item_to_collect
+
+    // Make sure we have a valid sector
+    //if(m_sector==Track::UNKNOWN_SECTOR)
+        //m_sector = NEXT_SECTOR;
+
+    //int sector = m_track_sector;
+    //float distance = 0;
+    //const Item *item_to_collect = NULL;
+    //const Item *item_to_avoid   = NULL;
+
+    //const float max_item_lookahead_distance = 30.f;
+    //while(distance < max_item_lookahead_distance)
+	//{
+        //int s_index = ;
+        //const std::vector<Item *> &items_ahead = getXYZ();
+            //ItemManager::get()->getItemsInQuads(s_index);
+        //for(unsigned int i=0; i<items_ahead.size(); i++)
+        //{
+            //evaluateItems(items_ahead[i],  kart_aim_angle, 
+                          //&item_to_avoid, &item_to_collect);
+        //}   // for i<items_ahead;
+        //distance += QuadGraph::get()->getDistanceToNext(node, 
+                                                      //m_successor_index[node]);
+        //node = m_next_node_index[node];
+        // Stop when we have reached the last quad
+        //if(node==last_node) break;
+    //}   // while (distance < max_item_lookahead_distance)
+//}
 //-----------------------------------------------------------------------------
 void DefaultRobot::handleItems( const float DELTA, const int STEPS )
 {
@@ -651,14 +705,15 @@ void DefaultRobot::handleNitroAndZipper()
     // Don't use nitro when the AI has a plunger in the face!
     if(hasViewBlockedByPlunger()) return;
     
-    // Don't use nitro if the kart doesn't have any or is not on ground.
+    // Don't use nitro if the kart doesn't have any wheels or is not on ground.
+	// Also don't use nitro when the race is finished.
     if(!isOnGround() || hasFinishedRace()) return;
 
-	// Don't use nitro if the kart is rescued.
-	if(isRescue()) return;
+    // Don't use nitro if the kart is rescued.
+    if(isRescue()) return;
 
-	// Don't use nitro if the kart is rescued.
-	if(m_crashes.m_road) return;
+    // Don't use nitro if the kart is not near ground.
+    if(!isNearGround()) return;
     
     // Don't compute nitro usage if we don't have nitro or are not supposed
     // to use it, and we don't have a zipper or are not supposed to use
@@ -738,7 +793,7 @@ float DefaultRobot::steerToAngle(const size_t SECTOR, const float ANGLE)
     float angle = m_track->m_angle[SECTOR];
 
     //Desired angle minus current angle equals how many angles to turn
-    float steer_angle = angle - getHPR().getHeading();
+    float steer_angle = angle - getHeading();
 
     if(hasViewBlockedByPlunger())
         steer_angle += ANGLE/5;

@@ -102,6 +102,7 @@ Kart::Kart (const std::string& kart_name, int position,
     m_wheel_rotation          = 0;
 
     m_engine_sound = sfx_manager->newSFX(m_kart_properties->getEngineSfxType());
+    m_ai_beep_sound= sfx_manager->newSFX(  SFXManager::SOUND_BEEP_AI          );
     m_beep_sound   = sfx_manager->newSFX(  SFXManager::SOUND_BEEP             );
     m_crash_sound  = sfx_manager->newSFX(  SFXManager::SOUND_CRASH            );
     m_skid_sound   = sfx_manager->newSFX(  SFXManager::SOUND_SKID             );
@@ -241,6 +242,7 @@ Kart::~Kart()
     }
     sfx_manager->deleteSFX(m_engine_sound );
     sfx_manager->deleteSFX(m_beep_sound   );
+    sfx_manager->deleteSFX(m_ai_beep_sound);
     sfx_manager->deleteSFX(m_crash_sound  );
     sfx_manager->deleteSFX(m_skid_sound   );
     sfx_manager->deleteSFX(m_goo_sound    );
@@ -369,16 +371,16 @@ void Kart::raceFinished(float time)
 }   // raceFinished
 
 //-----------------------------------------------------------------------------
-void Kart::collectedItem(const Item &item, int add_info)
+void Kart::collectedItem(const Item *item, int add_info)
 {
-    const ItemType type = item.getType();
+	const Item::ItemType type = item->getType();
 
     switch (type)
     {
-    case ITEM_BANANA      : m_attachment.hitBanana(item, add_info); break;
-    case ITEM_SILVER_COIN : m_collected_energy++ ;                  break;
-    case ITEM_GOLD_COIN   : m_collected_energy += 3 ;               break;
-    case ITEM_BONUS_BOX   : 
+    case Item::ITEM_BANANA      : m_attachment.hitBanana(item, add_info); break;
+    case Item::ITEM_SMALL_NITRO : m_collected_energy++ ;                  break;
+    case Item::ITEM_BIG_NITRO   : m_collected_energy += 3 ;               break;
+    case Item::ITEM_BONUS_BOX   : 
         { 
             // In wheelie style, karts get more items depending on energy,
             // in nitro mode it's only one item.
@@ -386,7 +388,7 @@ void Kart::collectedItem(const Item &item, int add_info)
             m_powerup.hitBonusBox(n, item,add_info);   
             break;
         }
-    case ITEM_BUBBLEGUM:
+    case Item::ITEM_BUBBLEGUM:
         // slow down
         m_body->setLinearVelocity(m_body->getLinearVelocity()*0.3f);
         m_goo_sound->position(getXYZ());
@@ -399,9 +401,9 @@ void Kart::collectedItem(const Item &item, int add_info)
     // functions (hit{Red,Green}Item), so only coins need to be
     // stored here.
     if(network_manager->getMode()==NetworkManager::NW_SERVER &&
-        (type==ITEM_SILVER_COIN || type==ITEM_GOLD_COIN)                       )
+       (type==Item::ITEM_SMALL_NITRO || type==Item::ITEM_BIG_NITRO))
     {
-        race_state->itemCollected(getWorldKartId(), item.getItemId());
+        race_state->itemCollected(getWorldKartId(), item->getItemId());
     }
 
     if ( m_collected_energy > MAX_ITEMS_COLLECTED )
@@ -557,10 +559,11 @@ void Kart::update(float dt)
 
     //kart_info.m_last_track_coords = kart_info.m_curr_track_coords;
 
-    m_engine_sound->position ( getXYZ() );
-    m_beep_sound->position   ( getXYZ() );
-    m_crash_sound->position  ( getXYZ() );
-    m_skid_sound->position   ( getXYZ() );
+    m_engine_sound->position  (getXYZ());
+    m_beep_sound->position    (getXYZ());
+    m_ai_beep_sound->position (getXYZ());
+    m_crash_sound->position   (getXYZ());
+    m_skid_sound->position    (getXYZ());
 
     // Check if a kart is (nearly) upside down and not moving much --> automatic rescue
     if((fabs(getHPR().getRoll())>60 && fabs(getSpeed())<3.0f) )
@@ -756,6 +759,12 @@ void Kart::beep()
 {
     m_beep_sound->play();
 } // beep
+
+// -----------------------------------------------------------------------------
+void Kart::beepAI()
+{
+    m_ai_beep_sound->play();
+} // beep_ai
 
 // -----------------------------------------------------------------------------
 void Kart::updatePhysics (float dt) 

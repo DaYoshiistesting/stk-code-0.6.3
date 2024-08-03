@@ -117,6 +117,7 @@ void SFXManager::loadSfx()
     loadSingleSfx(lisp, "explosion",     SOUND_EXPLOSION      );
     loadSingleSfx(lisp, "bzzt",          SOUND_BZZT           );
     loadSingleSfx(lisp, "beep",          SOUND_BEEP           );
+	loadSingleSfx(lisp, "beep-ai",       SOUND_BEEP_AI        );
     loadSingleSfx(lisp, "back_menu",     SOUND_BACK_MENU      );
     loadSingleSfx(lisp, "use_anvil",     SOUND_USE_ANVIL      );
     loadSingleSfx(lisp, "use_parachute", SOUND_USE_PARACHUTE  );

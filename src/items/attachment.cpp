@@ -89,7 +89,7 @@ void Attachment::clear()
 }   // clear
 
 // -----------------------------------------------------------------------------
-void Attachment::hitBanana(const Item &item, int new_attachment)
+void Attachment::hitBanana(const Item *item, int new_attachment)
 {
     if(user_config->m_profile) return;
     float leftover_time   = 0.0f;
@@ -123,7 +123,7 @@ void Attachment::hitBanana(const Item &item, int new_attachment)
     if(network_manager->getMode()==NetworkManager::NW_SERVER)
     {
         race_state->itemCollected(m_kart->getWorldKartId(),
-                                  item.getItemId(),
+                                  item->getItemId(),
                                   new_attachment);
     }
 

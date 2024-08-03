@@ -6,7 +6,7 @@
  (model-file  "eviltux.ac")
  (icon-file   "eviltuxicon.rgb")
  (shadow-file "generickartshadow.rgb")
- (groups      "standard") 
+ (groups      "Standard")
  (engine-sound "small")
  (rgb         0.3 0.1 0.6)
   (wheel-front-right

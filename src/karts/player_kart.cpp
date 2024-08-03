@@ -295,7 +295,7 @@ void PlayerKart::setPosition(int p)
             Kart *kart = RaceManager::getWorld()->getKart(i);
             if(kart->getPosition() == p + 1)
             {
-                kart->beep();
+                kart->beepAI();
                 break;
             }
         }
@@ -341,7 +341,7 @@ void PlayerKart::handleZipper()
  *                  let the server determine the powerup/attachment for
  *                  the clients.
  */
-void PlayerKart::collectedItem(const Item &item, int add_info)
+void PlayerKart::collectedItem(const Item *item, int add_info)
 {
     // FIXME - how does the old item relate to the total amount of items?
     const float old_energy= getEnergy();
@@ -354,12 +354,12 @@ void PlayerKart::collectedItem(const Item &item, int add_info)
     }
     else
     {
-        switch(item.getType())
+        switch(item->getType())
         {
-            case ITEM_BANANA:
+		    case Item::ITEM_BANANA:
                 m_ugh_sound->play();
                 break;
-            case ITEM_BUBBLEGUM:
+		    case Item::ITEM_BUBBLEGUM:
                 //The skid sound is played by the kart class. Do nothing here.
                 //See Kart::collectedItem()
                 break;

@@ -49,6 +49,7 @@ const int   Track::QUAD_TRI_NONE   = -1;
 const int   Track::QUAD_TRI_FIRST  =  1;
 const int   Track::QUAD_TRI_SECOND =  2;
 const int   Track::UNKNOWN_SECTOR  = -1;
+Track      *Track::m_track        = NULL;
 
 // ----------------------------------------------------------------------------
 Track::Track( std::string filename_, float w, float h, bool stretch )
@@ -65,6 +66,7 @@ Track::Track( std::string filename_, float w, float h, bool stretch )
     m_version          = 0;
     m_has_final_camera = false;
     m_is_arena         = false;
+	m_track            = this;
     loadTrack(m_filename);
     loadDriveline();
 
@@ -1218,67 +1220,67 @@ void Track::loadTrackModel()
         if ( sscanf ( s, "%cHERRING,%f,%f,%f", &htype,
                       &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 4 )
         {
-            ItemType type=ITEM_BANANA;
-            if ( htype=='Y' || htype=='y' ) { type = ITEM_GOLD_COIN   ;}
-            if ( htype=='G' || htype=='g' ) { type = ITEM_BANANA  ;}
-            if ( htype=='R' || htype=='r' ) { type = ITEM_BONUS_BOX    ;}
-            if ( htype=='S' || htype=='s' ) { type = ITEM_SILVER_COIN ;}
+            Item::ItemType type=Item::ITEM_BANANA;
+            if ( htype=='Y' || htype=='y' ) { type = Item::ITEM_BIG_NITRO   ;}
+            if ( htype=='G' || htype=='g' ) { type = Item::ITEM_BANANA  ;}
+            if ( htype=='R' || htype=='r' ) { type = Item::ITEM_BONUS_BOX    ;}
+            if ( htype=='S' || htype=='s' ) { type = Item::ITEM_SMALL_NITRO ;}
             itemCommand(&loc.xyz, type, false) ;
         }
         else if ( sscanf ( s, "%cHERRING,%f,%f", &htype,
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 3 )
         {
-            ItemType type=ITEM_BANANA;
-            if ( htype=='Y' || htype=='y' ) { type = ITEM_GOLD_COIN   ;}
-            if ( htype=='G' || htype=='g' ) { type = ITEM_BANANA  ;}
-            if ( htype=='R' || htype=='r' ) { type = ITEM_BONUS_BOX    ;}
-            if ( htype=='S' || htype=='s' ) { type = ITEM_SILVER_COIN ;}
+            Item::ItemType type=Item::ITEM_BANANA;
+            if ( htype=='Y' || htype=='y' ) { type = Item::ITEM_BIG_NITRO   ;}
+            if ( htype=='G' || htype=='g' ) { type = Item::ITEM_BANANA  ;}
+            if ( htype=='R' || htype=='r' ) { type = Item::ITEM_BONUS_BOX    ;}
+            if ( htype=='S' || htype=='s' ) { type = Item::ITEM_SMALL_NITRO ;}
             itemCommand (&loc.xyz, type, true) ;
         }
         /* and now the new names */
         else if ( sscanf ( s, "BBOX,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, ITEM_BONUS_BOX, false);
+            itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, false);
         }
         else if ( sscanf ( s, "BBOX,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, ITEM_BONUS_BOX, true);
+            itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, true);
         }
         
         else if ( sscanf ( s, "BANA,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, ITEM_BANANA, false);
+            itemCommand(&loc.xyz, Item::ITEM_BANANA, false);
         }
         
         else if ( sscanf ( s, "BANA,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, ITEM_BANANA, true);
+            itemCommand(&loc.xyz, Item::ITEM_BANANA, true);
         }
         
-        else if ( sscanf ( s, "COIN,%f,%f,%f",
+        else if ( sscanf ( s, "SMALLTANK,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, ITEM_SILVER_COIN, false);
+            itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, false);
         }
-        else if ( sscanf ( s, "COIN,%f,%f",
+        else if ( sscanf ( s, "SMALLTANK,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, ITEM_SILVER_COIN, true);
+            itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, true);
         }
         
-        else if ( sscanf ( s, "GOLD,%f,%f,%f",
+        else if ( sscanf ( s, "BIGTANK,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, ITEM_GOLD_COIN, false);
+            itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, false);
         }
-        else if ( sscanf ( s, "GOLD,%f,%f",
+        else if ( sscanf ( s, "BIGTANK,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, ITEM_GOLD_COIN, true);
+            itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, true);
         }
         
         else if ( sscanf ( s, "START,%f,%f,%f",
@@ -1429,7 +1431,7 @@ void Track::itemCommand (sgVec3 *xyz, int type, int bNeedHeight )
     (*xyz)[2] = getHeight( m_model, *xyz ) + 0.06f;
 
     // Some modes (e.g. time trial) don't have any bonus boxes
-    if(type==ITEM_BONUS_BOX && !RaceManager::getWorld()->enableBonusBoxes()) 
+    if(type==Item::ITEM_BONUS_BOX && !RaceManager::getWorld()->enableBonusBoxes()) 
         return;
     Vec3 loc((*xyz));
 
@@ -1437,11 +1439,11 @@ void Track::itemCommand (sgVec3 *xyz, int type, int bNeedHeight )
     // i.e. the items will not rotate around the normal, but 'wobble'
     // around.
     Vec3 normal(0, 0, 0.0f);
-    item_manager->newItem((ItemType)type, loc, normal);
+    item_manager->newItem((Item::ItemType)type, loc, normal);
 }   // itemCommand
 
 // ----------------------------------------------------------------------------
-void  Track::getTerrainInfo(const Vec3 &pos, float *hot, Vec3 *normal, 
+void Track::getTerrainInfo(const Vec3 &pos, float *hot, Vec3 *normal, 
                             const Material **material) const
 {
     btVector3 to_pos(pos);

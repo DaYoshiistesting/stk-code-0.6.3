@@ -6,7 +6,7 @@
  (model-file  "gooey.ac")
  (icon-file   "gooeyicon.rgb")
  (shadow-file "gooeyshadow.rgb")
- (groups      "standard") 
+ (groups      "Standard")
  (engine-sound "small")
  (rgb         0.8 0.0 0.5)
   (wheel-front-right

@@ -28,6 +28,7 @@
 #include "material.hpp"
 #include "items/item_manager.hpp"
 #include "karts/kart.hpp"
+#include "tracks/track.hpp"
 #include "network/network_manager.hpp"
 #include "utils/string_utils.hpp"
 
@@ -156,16 +157,17 @@ void ItemManager::loadDefaultItems()
 void ItemManager::setDefaultItemStyle()
 {
     // FIXME - This should go in an internal, system wide configuration file
-    std::string DEFAULT_NAMES[ITEM_LAST - ITEM_FIRST - 1];
-    DEFAULT_NAMES[ITEM_BONUS_BOX]   = "gift-box";
-    DEFAULT_NAMES[ITEM_BANANA]      = "banana";
-    DEFAULT_NAMES[ITEM_BIG_NITRO]   = "nitrotank-big";
-    DEFAULT_NAMES[ITEM_SMALL_NITRO] = "nitrotank-small";
-    DEFAULT_NAMES[ITEM_BUBBLEGUM]   = "bubblegum";
+    std::string DEFAULT_NAMES[Item::ITEM_LAST - Item::ITEM_FIRST + 1];
+    DEFAULT_NAMES[Item::ITEM_BONUS_BOX]   = "gift-box";
+    DEFAULT_NAMES[Item::ITEM_BANANA]      = "banana";
+    DEFAULT_NAMES[Item::ITEM_BIG_NITRO]   = "nitrotank-big";
+    DEFAULT_NAMES[Item::ITEM_SMALL_NITRO] = "nitrotank-small";
+    DEFAULT_NAMES[Item::ITEM_BUBBLEGUM]   = "bubblegum";
+    DEFAULT_NAMES[Item::ITEM_TRIGGER]     = "trigger";
 
     bool bError=0;
     std::ostringstream msg;
-    for(int i=ITEM_FIRST+1; i<ITEM_LAST; i++)
+    for(int i=Item::ITEM_FIRST; i<Item::ITEM_LAST; i++)
     {
         m_item_model[i] = m_all_models[DEFAULT_NAMES[i]];
         if(!m_item_model[i])
@@ -200,31 +202,52 @@ void ItemManager::setDefaultItemStyle()
     }   // if bError
 
 }   // setDefaultItemStyle
-
 //-----------------------------------------------------------------------------
-Item* ItemManager::newItem(ItemType type, const Vec3& xyz, const Vec3 &normal,
-                           Kart* parent)
+/** Inserts the new item into the items management data structures, if possible
+ *  reusing an existing, unused entry (e.g. due to a removed bubble gum). Then 
+ *  the item is also added to the quad-wise list of items.
+ */
+void ItemManager::insertItem(Item *h)
 {
-	// Find where the item can be stored in the index list: either in a
+    // Find where the item can be stored in the index list: either in a
     // previously deleted entry, otherwise at the end.
     int index = -1;
     for(index=m_all_items.size()-1; index>=0 && m_all_items[index]; index--) {}
-
+    
     if(index==-1) index = m_all_items.size();
 
-    Item* h;
-    h = new Item(type, xyz, normal, m_item_model[type], index);
-    
-    if(parent != NULL) h->setParent(parent);
-    
     if(index<(int)m_all_items.size())
         m_all_items[index] = h;
     else
         m_all_items.push_back(h);
+    h->setItemId(index);
+
+}   // insertItem
+//-----------------------------------------------------------------------------
+Item* ItemManager::newItem(Item::ItemType type, const Vec3& xyz, const Vec3 &normal,
+                           Kart* parent)
+{ 
+    Item *h = new Item(type, xyz, normal, m_item_model[type]);
+    
+    insertItem(h);
+    if(parent != NULL) h->setParent(parent);
 
     return h;
 }   // newItem
 
+//-----------------------------------------------------------------------------
+/** Creates a new trigger item.
+ *  \param xyz  Position of the item.
+ */
+Item* ItemManager::newItem(const Vec3& xyz, float distance, 
+                           TriggerItemListener* listener)
+{
+    Item* h;
+    h = new Item(xyz, distance, listener);
+    insertItem(h);
+
+    return h;
+}   // newItem
 //-----------------------------------------------------------------------------
 /** Set an item as collected.
  *  This function is called on the server when an item is collected, or on the
@@ -234,7 +257,7 @@ void ItemManager::collectedItem(int item_id, Kart *kart, int add_info)
     Item *item=m_all_items[item_id];
 	assert(item);
     item->isCollected(kart);
-    kart->collectedItem(*item, add_info);
+    kart->collectedItem(item, add_info);
 }   // collectedItem
 
 //-----------------------------------------------------------------------------
@@ -314,7 +337,7 @@ void ItemManager::reset()
     while(i!=m_all_items.end())
     {
         if(!*i) continue;
-        if((*i)->canBeUsedUp() || (*i)->getType()==ITEM_BUBBLEGUM)
+        if((*i)->canBeUsedUp() || (*i)->getType()==Item::ITEM_BUBBLEGUM)
         {
             Item *b=*i;
             AllItemTypes::iterator i_next = m_all_items.erase(i); 
@@ -408,16 +431,16 @@ void ItemManager::loadItemStyle(const std::string filename)
         throw std::runtime_error(msg.str());
         delete root;
     }
-    setItem(item_node, "red",    ITEM_BONUS_BOX   );
-    setItem(item_node, "green",  ITEM_BANANA      );
-    setItem(item_node, "gold",   ITEM_BIG_NITRO   );
-    setItem(item_node, "silver", ITEM_SMALL_NITRO);
+    setItem(item_node, "red",    Item::ITEM_BONUS_BOX   );
+    setItem(item_node, "green",  Item::ITEM_BANANA      );
+    setItem(item_node, "gold",   Item::ITEM_BIG_NITRO   );
+    setItem(item_node, "silver", Item::ITEM_SMALL_NITRO);
     delete root;
 }   // loadItemStyle
 
 //-----------------------------------------------------------------------------
 void ItemManager::setItem(const lisp::Lisp *item_node,
-                                const char *colour, ItemType type)
+                                const char *colour, Item::ItemType type)
 {
     std::string name;
     item_node->get(colour, name);

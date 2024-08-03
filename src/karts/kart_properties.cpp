@@ -43,7 +43,7 @@ float KartProperties::UNDEFINED = -99.9f;
 KartProperties::KartProperties() : m_icon_material(0)
 {
     m_name          = "Tux";
-    m_ident         = "Tux";
+    m_ident         = "tux";
     m_icon_file     = "tuxicon.rgb";
     m_shadow_file   = "tuxkartshadow.rgb";
     m_groups.clear();
@@ -123,7 +123,7 @@ void KartProperties::load(const std::string &filename, const std::string &node,
 
     // Set a default group (that has to happen after init_default and load)
     if(m_groups.size()==0)
-        m_groups.push_back("standard");
+        m_groups.push_back("Standard");
 
 
     // Load material

@@ -21,8 +21,10 @@
 #define HEADER_ITEMMANAGER_H
 
 
+#include <assert.h>
 #include <vector>
 #include <map>
+#include <string>
 #include "items/item.hpp"
 #include "lisp/lisp.hpp"
 
@@ -38,7 +40,7 @@ private:
     AllItemTypes m_all_items;
 
     // This stores all item models
-    ssgEntity *m_item_model[ITEM_SMALL_NITRO+1];
+    ssgEntity *m_item_model[Item::ITEM_LAST];
 
     // This is the active model. It gets determined by first loading the
     // default, then track models, user models, grand prix models. This means that
@@ -46,18 +48,21 @@ private:
     std::map<std::string,ssgEntity*> m_all_models;
 
     std::string m_user_filename;
+    void insertItem(Item *h);
     void createDefaultItem(sgVec3 colour, std::string name);
     void setDefaultItemStyle();
     void setItem(const lisp::Lisp *item_node, const char *colour,
-                 ItemType type);
+                 Item::ItemType type);
 
 public:
     ItemManager();
     ~ItemManager();
     void        loadDefaultItems();
     void        loadItemStyle   (const std::string filename);
-    Item*       newItem         (ItemType type, const Vec3& xyz, 
+    Item*       newItem         (Item::ItemType type, const Vec3& xyz, 
                                  const Vec3 &normal, Kart* parent=NULL);
+    Item*       newItem         (const Vec3& xyz, float distance, 
+                                 TriggerItemListener* listener);
     void        update          (float delta);
     void        hitItem         (Kart* kart);
     void        cleanup         ();
@@ -66,7 +71,7 @@ public:
     void        setUserFilename (char *s) {m_user_filename=s;}
     void        collectedItem   (int item_id, Kart *kart,
                                  int add_info=-1);
-    ssgEntity*  getItemModel (ItemType type)
+    ssgEntity*  getItemModel    (Item::ItemType type)
                                 {return m_item_model[type];}
 };
 

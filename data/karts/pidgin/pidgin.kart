@@ -6,7 +6,7 @@
  (model-file  "pidgin.ac")
  (icon-file   "pidginicon.rgb")
  (shadow-file "pidginshadow.rgb")
- (groups      "standard") 
+ (groups      "Standard")
  (engine-sound "small")
  (rgb         0.57 0.36 0.51)
   (wheel-front-right

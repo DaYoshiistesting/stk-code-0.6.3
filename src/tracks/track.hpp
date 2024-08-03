@@ -41,6 +41,7 @@ class TriangleMesh;
 class Track
 {
 private:
+	static Track*            m_track;
     float                    m_gravity;
     std::string              m_ident;
     std::string              m_screenshot;
@@ -134,6 +135,7 @@ public:
                        Track             (std::string filename,float w=100,
                                           float h=100, bool stretch=1);
                       ~Track             ();
+    static Track*      get               (){ return m_track;}
     bool               isArena           () const { return m_is_arena; }
     void               cleanup           ();
     void               addDebugToScene   (int type                    ) const;

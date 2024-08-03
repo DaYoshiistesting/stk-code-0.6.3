@@ -47,7 +47,7 @@ public:
     void            reset        ();
     int             getNum       () const {return m_number;}
     PowerupType     getType      () const {return m_type;  }
-    void            hitBonusBox  (int n, const Item &item, int newC=-1);
+    void            hitBonusBox  (int n, const Item *item, int newC=-1);
     Material*       getIcon      ();
     void            use          ();
 };

@@ -6,7 +6,7 @@
  (model-file  "nolok.ac")
  (icon-file   "nolokicon.rgb")
  (shadow-file "nolokshadow.rgb")
- (groups      "standard") 
+ (groups      "Standard")
  (engine-sound "small")
  (rgb         0.6 0.6 0.3)
   (wheel-front-right

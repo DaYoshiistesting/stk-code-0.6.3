@@ -4,7 +4,8 @@
   (model-file  "mriceblock.ac")
   (icon-file   "mriceblockicon.rgb")
   (shadow-file "mriceblockshadow.rgb")
-  (groups      "standard")
+  (groups      "Standard")
+  (engine-sound "small")
   (rgb         0.0 1.0 1.0)
   (wheel-front-right
     (position 0.282099 0.423071 0.109100)

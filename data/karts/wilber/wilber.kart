@@ -4,7 +4,8 @@
   (model-file  "wilber2.ac")
   (icon-file   "wilber2icon.rgb")
   (shadow-file "wilber2shadow.rgb")
-  (groups      "standard")
+  (groups      "Standard")
+  (engine-sound "small")
   (rgb         0.93 0.53 0.18)
   (wheel-front-right
     (position 0.345697 0.442242 0.103979)

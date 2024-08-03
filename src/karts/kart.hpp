@@ -112,6 +112,7 @@ private:
 
     SFXBase      *m_engine_sound;
     SFXBase      *m_beep_sound;
+	SFXBase      *m_ai_beep_sound;
     SFXBase      *m_crash_sound;
     SFXBase      *m_skid_sound;
     SFXBase      *m_goo_sound;
@@ -259,7 +260,7 @@ public:
     virtual void    doingShortcut() {};
     // addMessages gets called by world to add messages to the gui
     virtual void   addMessages      () {};
-    virtual void   collectedItem    (const Item &item, int random_attachment);
+    virtual void   collectedItem    (const Item *item, int random_attachment);
     virtual void   reset            ();
     virtual void   handleZipper     ();
     virtual void   crashed          (Kart *k);
@@ -267,6 +268,7 @@ public:
     virtual void   update           (float dt);
     virtual void   raceFinished     (float time);
     void           beep             ();
+	void           beepAI           ();
 };
 
 

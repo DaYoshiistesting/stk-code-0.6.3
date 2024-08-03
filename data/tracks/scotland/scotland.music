@@ -1,6 +1,0 @@
-(music-information
-  (title    "Scotland")
-  (composer "Jahzzar")
-  (music    "scotland.ogg")
-  (loop     10)
-)

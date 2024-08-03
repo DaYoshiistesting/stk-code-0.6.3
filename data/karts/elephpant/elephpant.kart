@@ -4,7 +4,8 @@
   (model-file  "elephpant.ac")
   (icon-file   "elephpanticon.rgb")
   (shadow-file "elephpantshadow.rgb")
-  (groups      "standard")
+  (groups      "Standard")
+  (engine-sound "small")
   (rgb         0.600000 0.830000 0.000000)
   (wheel-front-right
     (position 0.285767 0.514185 0.127514)
