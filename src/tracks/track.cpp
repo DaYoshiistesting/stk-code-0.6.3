@@ -24,6 +24,7 @@
 #include <sstream>
 #define _WINSOCKAPI_
 #include <plib/ssgAux.h>
+#include <GL/glut.h>
 
 #include "file_manager.hpp"
 #include "loader.hpp"
@@ -577,12 +578,13 @@ void Track::addDebugToScene(int type) const
  *  drawScaled2D is called from gui/TrackSel, draw2Dview from RaceGUI.
  */
 
-void Track::drawScaled2D(float x, float y, float w, float h) const
+/*void Track::drawScaled2D(float x, float y, float w, float h) const
 {
   float width = m_driveline_max.getX() - m_driveline_min.getX();
+  float height = m_driveline_max.getY() - m_driveline_min.getY();
 
     float sx = w / width;
-    float sy = h / ( m_driveline_max.getY()-m_driveline_min.getY() );
+    float sy = h / height;
 
     if( sx > sy )
     {
@@ -633,17 +635,17 @@ void Track::drawScaled2D(float x, float y, float w, float h) const
 
     glBegin ( GL_LINES ) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE - 1 ; ++i )
-    {
+    {*/
         /*Draw left driveline of the map*/
-        glVertex2f ( x + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * sx,
+        /*glVertex2f ( x + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * sx,
             y + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * sy ) ;
 
         glVertex2f ( x + ( m_left_driveline[i+1].getX() - m_driveline_min.getX() ) * sx,
-            y + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * sy ) ;
+            y + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * sy ) ;*
 
 
         /*Draw left driveline of the map*/
-        glVertex2f ( x + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * sx,
+        /*glVertex2f ( x + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * sx,
 	        y + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * sy ) ;
 
         glVertex2f ( x + ( m_right_driveline[i+1].getX() - m_driveline_min.getX() ) * sx,
@@ -717,7 +719,7 @@ void Track::draw2Dview (float x_offset, float y_offset) const
     glDisable (GL_TEXTURE_2D);
 
     //TODO: maybe colors should be configurable, or at least the alpha value
-    glColor4f ( 1.0f, 1.0f, 1.0f, 0.4f) ;
+    glColor4f ( 1.0f, 1.0f, 1.0f, 0.4f) ;*/
 
 
 /*FIXME: Too much calculations here, we should be generating scaled driveline arrays
@@ -725,7 +727,7 @@ void Track::draw2Dview (float x_offset, float y_offset) const
  * vertexes in-game.
  */
     /*Draw white filling of the map*/
-    glBegin ( GL_QUAD_STRIP ) ;
+    /*glBegin ( GL_QUAD_STRIP ) ;
 
     for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i ) {
       glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -754,25 +756,25 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 
     glBegin ( GL_LINES ) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE - 1 ; ++i )
-    {
+    {*/
         /*Draw left driveline of the map*/
-        glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+        /*glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
             y_offset + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
         glVertex2f ( x_offset + ( m_left_driveline[i+1].getX() - m_driveline_min.getX() ) * m_scale_x,
-            y_offset + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
+            y_offset + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;*/
 
 
         /*Draw left driveline of the map*/
-        glVertex2f ( x_offset + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+        /*glVertex2f ( x_offset + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
 	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
         glVertex2f ( x_offset + ( m_right_driveline[i+1].getX() - m_driveline_min.getX() ) * m_scale_x,
 	        y_offset + ( m_right_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
-    }
+    }*/
 
     //Close the left driveline
-    glVertex2f ( x_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getX() - m_driveline_min.getX() ) * m_scale_x,
+    /*glVertex2f ( x_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getX() - m_driveline_min.getX() ) * m_scale_x,
 		 y_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
     glVertex2f ( x_offset + ( m_left_driveline[0].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -807,13 +809,13 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
     }
     glEnd () ;
-#endif
+#endif*/
 
     /*Because of the way OpenGL draws lines of widths higher than 1,
      *we have to draw the joints too, in order to fill small spaces
      *between lines
      */
-    glBegin ( GL_POINTS) ;
+    /*glBegin ( GL_POINTS) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
     {
         glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -826,7 +828,7 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 
     glPopAttrib();
 
-}   // draw2Dview
+}   // draw2Dview*/
 
 //-----------------------------------------------------------------------------
 void Track::loadTrack(std::string filename_)

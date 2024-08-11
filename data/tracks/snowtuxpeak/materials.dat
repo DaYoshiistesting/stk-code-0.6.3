@@ -1,6 +1,6 @@
 # TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col mxSpd SldT
 "ice.rgb"                   N N    N    0.0    Y     N    1.0   N   N   Y   Y
-"snowyroad.rgb"		    N N    N	0.0    Y     N     0.00000018   N   N   N   N
+"snowyroad.rgb"		    N N    N	0.0    Y     N    0.00000018   N   N   N   N
 "fence.rgb"                 N N    Y    0.0    Y     N    1.0   N   N   N   N
 "greenice2.rgb"             N N    N    0.0    N     N    1.0   N   N   Y   N
 "wood_planks1_alpha.rgb"    N N    N    0.0    N     N    1.0   N   N   N   N

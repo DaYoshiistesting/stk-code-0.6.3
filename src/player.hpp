@@ -22,10 +22,12 @@
 
 #include <string>
 #include "input.hpp"
+#include "karts/kart.hpp"
 
 extern const char *sKartAction2String[KA_LAST+1];
 
 /*class for managing player name and control configuration*/
+class Kart;
 class Player
 {
 private:

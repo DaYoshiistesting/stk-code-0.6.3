@@ -32,6 +32,7 @@
 #include "tracks/track.hpp"
 #include "utils/constants.hpp"
 #include "utils/translation.hpp"
+#include <GL/glut.h>
 
 #undef USE_WIDGET_MANAGER
 #ifdef USE_WIDGET_MANAGER
@@ -84,18 +85,15 @@ enum WidgetTokens
 
 RaceGUI::RaceGUI()
 {
-    // FIXME: translation problem
-    m_pos_string[0] = "?!?";
-    m_pos_string[1] = "1st";
-    m_pos_string[2] = "2nd";
-    m_pos_string[3] = "3rd";
-    m_pos_string[4] = "4th";
-    m_pos_string[5] = "5th";
-    m_pos_string[6] = "6th";
-    m_pos_string[7] = "7th";
-    m_pos_string[8] = "8th";
-    m_pos_string[9] = "9th";
-    m_pos_string[10] = "10th";
+    m_marker_rendered_size =  32;
+    m_marker_ai_size       =  14;
+    m_marker_player_size   =  16;
+    m_map_rendered_width   = 128;
+    m_map_rendered_height  = 128;
+    m_map_width            = 100;
+    m_map_height           = 100;
+    m_map_left             =  10;
+    m_map_bottom           =  10;
 
     m_speed_back_icon = material_manager->getMaterial("speedback.rgb");
     m_speed_back_icon->getState()->disable(GL_CULL_FACE);
@@ -275,30 +273,34 @@ void RaceGUI::drawTimer ()
 }   // drawTimer
 
 //-----------------------------------------------------------------------------
-#define TRACKVIEW_SIZE 100
-
+/** Draws the mini map with the karts on it.
+*/
 void RaceGUI::drawMap ()
 {
     // arenas currently don't have a map.
     if(RaceManager::getTrack()->isArena()) return;
     
+	//const GLuint *mini_map = RaceManager::getTrack();
     glDisable ( GL_TEXTURE_2D ) ;
     assert(RaceManager::getWorld() != NULL);
-    int xLeft = 10;
-    int yTop   =  10;
+	
+    //int upper_y = user_config->m_height-m_map_bottom-m_map_height;
+    //int lower_y = user_config->m_height-m_map_bottom;
 
-    RaceManager::getTrack() -> draw2Dview ( (float)xLeft,   (float)yTop   );
+    /*RaceManager::getTrack() -> draw2Dview ( (float)xLeft,   (float)yTop   );*/
 
     glBegin ( GL_QUADS ) ;
 
     for ( unsigned int i = 0 ; i < race_manager->getNumKarts() ; i++ )
     {
-        Kart* kart = RaceManager::getKart(i);
+        const Kart* kart = RaceManager::getKart(i);
         if(kart->isEliminated()) continue;   // don't draw eliminated kart
         glColor3fv ( kart->getColor().toFloat());
-	const Vec3& xyz = kart->getXYZ();
+	    const Vec3& xyz = kart->getXYZ();
+		Vec3 draw_at;
+		//RaceManager::getTrack()->mapPoint2MiniMap(xyz, &draw_at);
 
-        /* If it's a player, draw a bigger sign */
+        /* If it's a player, draw a bigger sign 
         if (kart -> isPlayerKart ())
         {
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft+3, (float)yTop+3);
@@ -312,7 +314,7 @@ void RaceGUI::drawMap ()
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft-1, (float)yTop+2);
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft-1, (float)yTop-1);
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft+2, (float)yTop-1);
-        }
+        }*/
     }
 
     glEnd () ;
@@ -631,44 +633,44 @@ void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
     {
 		// The speedRatio is supposed to be KM/H/110 but on hard difficulty,
 		// the speedo'meter is going too high so we'll make it like this.
-		float speedRatio = NULL;
-		if (race_manager->RD_HARD)
-			speedRatio = speed/KILOMETERS_PER_HOUR/116.5f;
-		else speedRatio = speed/KILOMETERS_PER_HOUR/110.0f;
-		if (speedRatio > 1) speedRatio = 1;
+        float speedRatio = NULL;
+        if (race_manager->getDifficulty()==RaceManager::RD_HARD)
+             speedRatio = speed/KILOMETERS_PER_HOUR/116.7f;
+        else speedRatio = speed/KILOMETERS_PER_HOUR/113.5f;
+        if (speedRatio > 1) speedRatio = 1;
 
         m_speed_fore_icon->getState()->force();
         glBegin(GL_POLYGON);
         glTexCoord2f(0.5f, 0.0f);
-		glVertex2f(offset_x+width/2, offset_y);
+        glVertex2f(offset_x+width/2, offset_y);
         glTexCoord2f(0, 0.0f);
-		glVertex2f(offset_x, offset_y);
+        glVertex2f(offset_x, offset_y);
         if (speedRatio < 0.4f)
         {
-			float f = speedRatio/0.4f;
+            float f = speedRatio/0.4f;
             glTexCoord2f(0, f);
-			glVertex2f(offset_x, offset_y+f*height);
+            glVertex2f(offset_x, offset_y+f*height);
         }
         else if (speedRatio < 0.8f)
         {
-			float f = (speedRatio-0.4f)/(0.8f-0.4f);
+            float f = (speedRatio-0.4f)/(0.8f-0.4f);
             glTexCoord2f(0, 1.0f);
-			glVertex2f(offset_x, offset_y+height);
+            glVertex2f(offset_x, offset_y+height);
             glTexCoord2f(f, 1.0f);
-			glVertex2f(offset_x+f*width, offset_y+height);
-		}
-		else
-		{
-			float f = (speedRatio - 0.8f)/(1-0.8f);
-			glTexCoord2f(0, 1.0f);
-			glVertex2f(offset_x, offset_y+height);
-			glTexCoord2f(1.0f,1.0f);
-			glVertex2f(offset_x+width, offset_y+height);
-			glTexCoord2f(1.0f, 1-f);
-			glVertex2f(offset_x+width, offset_y+(1-f)*height);
-		}
+            glVertex2f(offset_x+f*width, offset_y+height);
+        }
+        else
+        {
+            float f = (speedRatio - 0.8f)/(1-0.8f);
+            glTexCoord2f(0, 1.0f);
+            glVertex2f(offset_x, offset_y+height);
+            glTexCoord2f(1.0f,1.0f);
+            glVertex2f(offset_x+width, offset_y+height);
+            glTexCoord2f(1.0f, 1-f);
+            glVertex2f(offset_x+width, offset_y+(1-f)*height);
+        }
 
-        glEnd () ;
+        glEnd();
     }   // speed<0
 
 } // drawSpeed
@@ -776,7 +778,9 @@ void RaceGUI::addMessage(const std::string &msg, const Kart *kart, float time,
 // Displays the description given for the music currently being played -
 // usually the title and composer.
 void RaceGUI::drawMusicDescription()
-{
+{ 
+	if(user_config->doMusic())
+	{
     const MusicInformation* mi=sound_manager->getCurrentMusic();
     if(!mi) return;
     int y=0;
@@ -790,6 +794,10 @@ void RaceGUI::drawMusicDescription()
     std::string s="\""+mi->getTitle()+"\"";
     font_race->Print( s.c_str(), 25, 
                       Font::CENTER_OF_SCREEN, y );
+	}
+    else if (!user_config->doMusic())
+	{return;}
+
 }   // drawMusicDescription
 
 //-----------------------------------------------------------------------------

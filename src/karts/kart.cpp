@@ -101,12 +101,12 @@ Kart::Kart (const std::string& kart_name, int position,
     m_rescue                  = false;
     m_wheel_rotation          = 0;
 
-    m_engine_sound = sfx_manager->newSFX(m_kart_properties->getEngineSfxType());
-    m_ai_beep_sound= sfx_manager->newSFX(  SFXManager::SOUND_BEEP_AI          );
-    m_beep_sound   = sfx_manager->newSFX(  SFXManager::SOUND_BEEP             );
-    m_crash_sound  = sfx_manager->newSFX(  SFXManager::SOUND_CRASH            );
-    m_skid_sound   = sfx_manager->newSFX(  SFXManager::SOUND_SKID             );
-    m_goo_sound    = sfx_manager->newSFX(  SFXManager::SOUND_GOO              );
+    m_engine_sound      = sfx_manager->newSFX(m_kart_properties->getEngineSfxType());
+    m_player_beep_sound = sfx_manager->newSFX(  SFXManager::SOUND_BEEP_PLAYER      );
+    m_beep_sound        = sfx_manager->newSFX(  SFXManager::SOUND_BEEP             );
+    m_crash_sound       = sfx_manager->newSFX(  SFXManager::SOUND_CRASH            );
+    m_skid_sound        = sfx_manager->newSFX(  SFXManager::SOUND_SKID             );
+    m_goo_sound         = sfx_manager->newSFX(  SFXManager::SOUND_GOO              );
     
     if(!m_engine_sound)
     {
@@ -240,12 +240,12 @@ Kart::~Kart()
     {
         m_engine_sound->stop();
     }
-    sfx_manager->deleteSFX(m_engine_sound );
-    sfx_manager->deleteSFX(m_beep_sound   );
-    sfx_manager->deleteSFX(m_ai_beep_sound);
-    sfx_manager->deleteSFX(m_crash_sound  );
-    sfx_manager->deleteSFX(m_skid_sound   );
-    sfx_manager->deleteSFX(m_goo_sound    );
+    sfx_manager->deleteSFX(m_engine_sound     );
+    sfx_manager->deleteSFX(m_beep_sound       );
+    sfx_manager->deleteSFX(m_player_beep_sound);
+    sfx_manager->deleteSFX(m_crash_sound      );
+    sfx_manager->deleteSFX(m_skid_sound       );
+    sfx_manager->deleteSFX(m_goo_sound        );
     
     if(m_smoke_system) ssgDeRefDelete(m_smoke_system);
     if(m_nitro)        ssgDeRefDelete(m_nitro);
@@ -535,8 +535,8 @@ void Kart::update(float dt)
         if(m_attachment.getType() != ATTACH_TINYTUX)
         {
             m_attachment.set( ATTACH_TINYTUX, rescue_time ) ;
-            m_rescue_pitch = getHPR().getPitch();
-            m_rescue_roll  = getHPR().getRoll();
+            m_rescue_pitch = getPitch();
+            m_rescue_roll  = getRoll();
             RaceManager::getWorld()->getPhysics()->removeKart(this);
             race_state->itemCollected(getWorldKartId(), -1, -1);
         }
@@ -559,11 +559,11 @@ void Kart::update(float dt)
 
     //kart_info.m_last_track_coords = kart_info.m_curr_track_coords;
 
-    m_engine_sound->position  (getXYZ());
-    m_beep_sound->position    (getXYZ());
-    m_ai_beep_sound->position (getXYZ());
-    m_crash_sound->position   (getXYZ());
-    m_skid_sound->position    (getXYZ());
+    m_engine_sound->position       (getXYZ());
+    m_beep_sound->position         (getXYZ());
+    m_player_beep_sound->position  (getXYZ());
+    m_crash_sound->position        (getXYZ());
+    m_skid_sound->position         (getXYZ());
 
     // Check if a kart is (nearly) upside down and not moving much --> automatic rescue
     if((fabs(getHPR().getRoll())>60 && fabs(getSpeed())<3.0f) )
@@ -761,9 +761,9 @@ void Kart::beep()
 } // beep
 
 // -----------------------------------------------------------------------------
-void Kart::beepAI()
+void Kart::beepPlayer()
 {
-    m_ai_beep_sound->play();
+    m_player_beep_sound->play();
 } // beep_ai
 
 // -----------------------------------------------------------------------------
@@ -955,7 +955,7 @@ void Kart::updatePhysics (float dt)
        ,m_body->getAngularVelocity().getX()
        ,m_body->getAngularVelocity().getY()
        ,m_body->getAngularVelocity().getZ()
-       ,getHPR().getHeading()
+       ,getHeading()
        );
 #endif
 }   // updatePhysics

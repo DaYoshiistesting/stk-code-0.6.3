@@ -160,6 +160,13 @@ private:
     void  handleBraking();
     void  handleNitroAndZipper();
     void  computeNearestKarts();
+    void  handleItemCollectionAndAvoidance(Vec3 *straight_point,
+                                           int m_sector);
+    bool  handleSelectedItem(float kart_aim_angle,
+                             Vec3 *straight_point, int m_sector);
+    void  evaluateItems(const Item *item, float kart_aim_angle, 
+                        const Item **item_to_avoid, 
+                        const Item **item_to_collect);
 
     /*Lower level functions not called directly from update()*/
     float steerToAngle(const size_t SECTOR, const float ANGLE);

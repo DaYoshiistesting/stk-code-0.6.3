@@ -9,7 +9,7 @@
  (min-track-version          1   )  ;; Minimum and maximum .track files supported
  (max-track-version          2   )  ;; by this binary, older/newer files are ignored.
  (max-karts                  10   )  ;; maximum number of karts
- (scores              12 11 10 8 6 5 4 3 2 1 ) ;; 12 11 10 8 6 5 4 3 2 1 0 0 
+ (scores              12 11 10 8 6 5 4 3 2 1 ) ;; 12 11 10 8 6 5 4 3 2 1
  (grid-order	   	     1   )  ;; order for grand prix, 1 is most 
 				    ;; points 1st, 0 is least points
 				    ;; 1st
@@ -21,7 +21,7 @@
 
  (max-history              10000)   ;; maximum number of history frames.
  (max-skidmarks             1000)   ;; max. number of skidmarks per kart.
- (skid-fadeout-time           60)   ;; Time till skidm marks fade out
+ (skid-fadeout-time           60)   ;; Time till skidmarks fade out
  (slowdown-factor             10)   ;; Engine reduction depending on terrain,
                                     ;; see kart for details.
  (near-ground                  2)   ;; Distance above ground when the upright
@@ -35,25 +35,25 @@
 
  ;; Attachment related parameters
  ;; -----------------------------
- (anvil-weight             150.0 )  ;; additional weight an anvil adds to a kart
- (anvil-speed-factor         0.2 )  ;; additional slowdown caused by anvil
- (parachute-friction         2.0 )  ;; friction increase when a parachute is sttached
- (parachute-time             4.0 )  ;; time an attached parachute is active
- (parachute-time-other       8.0 )  ;; time a parachute attached from other kart is active
- (parachute-done-fraction    0.7 )  ;; fraction of speed when lost will detach parachute
- (bomb-time                 30.0 )  ;; time till a bomb explodes
- (bomb-time-increase        -5.0 )  ;; time added to timer when bomb is passed on
+ (anvil-weight              150.0)  ;; additional weight an anvil adds to a kart
+ (anvil-speed-factor          0.2)  ;; additional slowdown caused by anvil
+ (parachute-friction          2.0)  ;; friction increase when a parachute is sttached
+ (parachute-time              4.0)  ;; time an attached parachute is active
+ (parachute-time-other        8.0)  ;; time a parachute attached from other kart is active
+ (parachute-done-fraction     0.7)  ;; fraction of speed when lost will detach parachute
+ (bomb-time                  30.0)  ;; time till a bomb explodes
+ (bomb-time-increase         -5.0)  ;; time added to timer when bomb is passed on
  (leader-intervals       30 20 10)  ;; Time till a kart is removed in follow leader mode
- (anvil-time                 2.0 )  ;; time an anvil is active
- (zipper-time                3.5 )  ;; time a zipper is active
- (zipper-force             250.0 )  ;; additional zipper force
- (zipper-speed-gain          4.5 )  ;; one time additional speed  
+ (anvil-time                  2.0)  ;; time an anvil is active
+ (zipper-time                 3.5)  ;; time a zipper is active
+ (zipper-force              250.0)  ;; additional zipper force
+ (zipper-speed-gain           4.5)  ;; one time additional speed  
  (bubblegum-disappear-counter   1)  ;; how often bubble gum get driven over before it disappears
- (shortcut-length            90  )  ;; leaving the road and coming back on it more than
+ (shortcut-length              90)  ;; leaving the road and coming back on it more than
                                     ;; x 'meters" later is considered to be a shortcut
  (offroad-tolerance          0.15)  ;; Widen the road 15% for shortcut detection.
  (enable_networking          #t  )  ;; enable networking
- (explosion-impulse     10000.0  )  ;; explosion impulse on not directly hit karts
+ (explosion-impulse       10000.0)  ;; explosion impulse on not directly hit karts
  (explosion-impulse-objects 500.0)  ;; explosion impulse for physics objects (smaller
                                     ;; else a cone e.g. will be pushed way too far)
 
@@ -106,8 +106,8 @@
    ;; radius = wheel_base/sin(steering_angle)
    ;; By specifying the radius the steering behaviour can be defined
    ;; independent of the kart size.
-   (min-speed-radius          0   6.64)
-   (max-speed-radius         15  21.5)
+   (min-speed-radius       0.00  6.64)
+   (max-speed-radius       15.0  21.5)
    ;; Different engine powers for different difficulties:
    ;; hard, medium, low level order!
    (engine-power        418  400  300)
@@ -115,7 +115,7 @@
    ;; hard, medium, low level order!
    (max-speed          33.95 28 25 ) ;; = 122.22 101 90 km/h 
    (mass                    225    )
-   (suspension-stiffness     64.0  )
+   (suspension-stiffness     54.0  )
    (wheel-damping-relaxation 20    )
    (wheel-damping-compression 4.4  )
    (friction-slip      10000000    )
@@ -126,7 +126,7 @@
    (chassis-angular-damping  30.2  )
    (max-speed-reverse-ratio   0.3  ) ;; percentage of max speed for reverse gear
    (suspension-rest           0.2  )
-   (suspension-travel-cm     19    )
+   (suspension-travel-cm      19   )
 
    ;; The z-axis velocity set when a jump is initiated. This will cause the
    ;; kart to start rising, till it is pulled back by gravity. A higher value
@@ -143,13 +143,13 @@
    ;; The position of the physics raycast wheels relative to the center of 
    ;; gravity. Default is to use the corners of the chassis to attach the
    ;; wheels to.
-   ;;(wheel-front-right (physics-position  0.38  0.6 0))
-   ;;(wheel-front-left  (physics-position -0.38  0.6 0))
-   ;;(wheel-rear-right  (physics-position  0.38 -0.6 0))
-   ;;(wheel-rear-left   (physics-position -0.38 -0.6 0))
+   (wheel-front-right (physics-position  0.38  0.6 0))
+   (wheel-front-left  (physics-position -0.38  0.6 0))
+   (wheel-rear-right  (physics-position  0.38 -0.6 0))
+   (wheel-rear-left   (physics-position -0.38 -0.6 0))
 
-   (gear-switch-ratio          0.25      0.7      1.0)
-   (gear-power-increase    2.2      1.7      1.3)
+   (gear-switch-ratio    0.25 0.7 1.0)
+   (gear-power-increase  2.2  1.7 1.3)
    (upright-tolerance         0.2)
    (upright-max-force         30)
    (track-connection-accel     2)
@@ -157,8 +157,8 @@
    (rubber-band-force       1500)  ;; Force a plunger/rubber band applies to the kart(s).
    (rubber-band-duration       1)  ;; Duration a rubber band acts.
    (camera-max-accel          10)
-   (camera-max-brake          5)
-   (camera-distance           3.5) 
+   (camera-max-brake           5)
+   (camera-distance          3.5) 
   )   ;; end kart-defaults
 )
 ;; EOF ;;

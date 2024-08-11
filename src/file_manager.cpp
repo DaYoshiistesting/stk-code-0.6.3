@@ -261,7 +261,7 @@ std::string FileManager::getConfigFile(const std::string& fname) const
 std::string FileManager::getItemFile(const std::string& fname) const
 {
     return getItemsDir()+"/"+fname;
-}   // getConfigFile
+}   // getItemFile
 //-----------------------------------------------------------------------------
 std::string FileManager::getChallengeFile(const std::string& fname) const
 {

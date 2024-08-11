@@ -78,13 +78,18 @@ protected:
     btUprightConstraint     *m_uprightConstraint;
 
 private:
-                       /** The amount of energy collected by hitting coins. */
+    /** The amount of energy collected by hitting coins. */
     float         m_collected_energy;
-    ssgTransform *m_shadow;  /**<The shadow of the kart. */
+
+    /**<The shadow of the kart. */
+    ssgTransform *m_shadow;
+
     /** If a kart is flying, the shadow is disabled (since it is
      *  stuck to the kart, i.e. the shadow would be flying, too). */
     bool          m_shadow_enabled;
-    Smoke        *m_smoke_system;    /**<Smoke from skidding. */
+
+    /**<Smoke from skidding. */
+    Smoke        *m_smoke_system;    
 
     /** Fire when using a nitro. */
     Nitro        *m_nitro;
@@ -112,7 +117,7 @@ private:
 
     SFXBase      *m_engine_sound;
     SFXBase      *m_beep_sound;
-	SFXBase      *m_ai_beep_sound;
+    SFXBase      *m_player_beep_sound;
     SFXBase      *m_crash_sound;
     SFXBase      *m_skid_sound;
     SFXBase      *m_goo_sound;
@@ -268,7 +273,7 @@ public:
     virtual void   update           (float dt);
     virtual void   raceFinished     (float time);
     void           beep             ();
-	void           beepAI           ();
+    void           beepPlayer       ();
 };
 
 

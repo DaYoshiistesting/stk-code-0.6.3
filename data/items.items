@@ -1,10 +1,21 @@
 ;; -*- mode: lisp -*-
 
-(item
-  (gold   "nitrotank-big"  )
-  (silver "nitrotank-small")
-  (green  "banana"    )
-  (red    "gift-box")
-)
+(tuxkart-items
+    ("bonus-box"
+        (model "../items/gift-box.ac")
+    )
+    ("banana"
+        (model "../items/banana.ac")
+    )
+    ("big-nitro" 
+        (model "../items/nitrotank-big.ac")
+    )
+    ("small-nitro" 
+        (model "../items/nitrotank-small.ac")
+    )
+    ("bubblegum" 
+        (model "../items/bubblegum.ac")
+    )
+) 
 
 ;; EOF ;;

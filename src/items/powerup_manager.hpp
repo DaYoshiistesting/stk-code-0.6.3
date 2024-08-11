@@ -29,28 +29,30 @@ class ssgEntity;
 
 // The anvil and parachute must be at the end of the enum, and the
 // zipper just before them (see Powerup::hitBonusBox).
-enum PowerupType {POWERUP_NOTHING,
-                  POWERUP_BUBBLEGUM, POWERUP_CAKE,
+enum PowerupType {POWERUP_NOTHING, POWERUP_FIRST,
+                  POWERUP_BUBBLEGUM = POWERUP_FIRST,
+                  POWERUP_CAKE,
                   POWERUP_BOWLING, POWERUP_ZIPPER, POWERUP_PLUNGER,
                   POWERUP_PARACHUTE, POWERUP_ANVIL, //powerup.cpp assumes these two come last
+                  POWERUP_LAST = POWERUP_ANVIL,
                   POWERUP_MAX};
 
 class PowerupManager
 {
-protected:
-    Material*    m_all_icons [POWERUP_MAX];
+private:
+    Material*    m_all_icons[POWERUP_MAX];
     float        m_all_max_distance[POWERUP_MAX];    // if a target is closer than this
     float        m_all_force_to_target[POWERUP_MAX]; // apply this force to move towards
                                                      // the target
     float        m_all_max_turn_angle[POWERUP_MAX];  // maximum turn angle for homing
     ssgEntity*   m_all_models[POWERUP_MAX];
     btVector3    m_all_extends[POWERUP_MAX];
-    void         LoadNode       (const lisp::Lisp* lisp, int collectType);
 public:
     PowerupManager           ();
+   ~PowerupManager           ();
     void         loadPowerups();
     void         removeTextures  ();
-    void         Load            (int collectType, const char* filename);
+    void         LoadOnePowerup  (const lisp::Lisp *lisp, const char *name, PowerupType type );
     Material*    getIcon         (int type) const {return m_all_icons [type];      }
     ssgEntity*   getModel        (int type) const {return m_all_models[type];      }
     float        getForceToTarget(int type) const {return m_all_force_to_target[type]; }

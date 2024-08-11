@@ -27,6 +27,7 @@
 #  endif
 #  include <GL/gl.h>
 #endif
+#include <GL/glut.h>
 #include <plib/sg.h>
 #include <plib/ssg.h>
 #include <string>
@@ -135,7 +136,7 @@ public:
                        Track             (std::string filename,float w=100,
                                           float h=100, bool stretch=1);
                       ~Track             ();
-    static Track*      get               (){ return m_track;}
+    static Track*      get               ()       { return m_track; }
     bool               isArena           () const { return m_is_arena; }
     void               cleanup           ();
     void               addDebugToScene   (int type                    ) const;

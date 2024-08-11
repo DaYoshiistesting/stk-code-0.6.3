@@ -8,19 +8,19 @@
   (engine-sound "small")
   (rgb         0.0 1.0 1.0)
   (wheel-front-right
-    (position 0.282099 0.423071 0.109100)
+    (position 0.282099 0.423071 0.108150)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
-    (position -0.282099 0.423071 0.107100)
+    (position -0.282099 0.423071 0.108150)
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.339922 -0.352108 0.128311)
+    (position 0.350000 -0.350604 0.128780)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.349922 -0.350504 0.128780)
+    (position -0.350000 -0.350604 0.128780)
     (model    "wheel-rear-left.ac")
   )
 )

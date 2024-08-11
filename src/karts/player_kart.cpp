@@ -252,8 +252,8 @@ void PlayerKart::update(float dt)
 
     if ( m_controls.m_fire && !isRescue())
     {
-        if (m_powerup.getType()==POWERUP_NOTHING) 
-            Kart::beep();
+		if (m_powerup.getType()==POWERUP_NOTHING) 
+            Kart::beepPlayer();
     }
 
     // We can't restrict rescue to fulfil isOnGround() (which would be more like
@@ -261,7 +261,7 @@ void PlayerKart::update(float dt)
     // up sitting on a brick wall, with all wheels in the air :((
     if ( m_controls.m_rescue )
     {
-        //m_beep_sound->play();
+      //Kart::beep();
         forceRescue();
         m_controls.m_rescue=false;
     }
@@ -295,9 +295,9 @@ void PlayerKart::setPosition(int p)
             Kart *kart = RaceManager::getWorld()->getKart(i);
             if(kart->getPosition() == p + 1)
             {
-                kart->beepAI();
+                kart->beep();
                 break;
-            }
+			}
         }
     }
     Kart::setPosition(p);

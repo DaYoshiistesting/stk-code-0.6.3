@@ -105,7 +105,7 @@ void UserConfig::setDefaults()
     m_background_music  = "";
     m_profile           = 0;
     m_print_kart_sizes  = false;
-    m_max_fps           = 120;
+    m_max_fps           = 144;
     m_sfx_volume        = 1.0f;
     m_use_kph           = false;
     m_width             = 800;
@@ -120,9 +120,9 @@ void UserConfig::setDefaults()
     m_difficulty        = 0;
     m_background_index  = 0;
     m_log_errors        = false;
-    m_kart_group        = "standard";
+    m_kart_group        = "Standard";
     m_track_group       = "standard";
-    m_last_track        = "scotland";
+    m_last_track        = "jungle";
     m_server_address    = "localhost";
     m_server_port       = 2305;
 
