@@ -95,9 +95,9 @@ public:
     float          getZ()       const     { return m_xyz.getZ();       }
     /** Returns the heading. */
     float          getHeading() const     { return m_hpr.getHeading(); }
-	/** Returns the pitch. */
+    /** Returns the pitch. */
     float          getPitch()   const     { return m_hpr.getPitch();   }
-	/** Returns the roll. */
+    /** Returns the roll. */
     float          getRoll()    const     { return m_hpr.getRoll();    }
 
     /** Sets hpr. \param a Heading, pitch and roll. */
