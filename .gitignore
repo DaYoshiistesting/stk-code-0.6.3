@@ -21,3 +21,4 @@
 *.unsuccessfulbuild
 *.opensdf
 *.sdf
+*.ipch

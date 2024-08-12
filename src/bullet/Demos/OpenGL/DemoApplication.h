@@ -132,7 +132,7 @@ public:
 	btScalar	getDeltaTimeMicroseconds()
 	{
 #ifdef USE_BT_CLOCK
-		btScalar dt = m_clock.getTimeMicroseconds();
+		btScalar dt = (const btScalar) m_clock.getTimeMicroseconds();
 		m_clock.reset();
 		return dt;
 #else

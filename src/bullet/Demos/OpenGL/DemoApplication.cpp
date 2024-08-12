@@ -588,8 +588,8 @@ btVector3	DemoApplication::getRayTo(int x,int y)
 	
 
 	btVector3 rayTo = rayToCenter - 0.5f * hor + 0.5f * vertical;
-	rayTo += x * dHor;
-	rayTo -= y * dVert;
+	rayTo += (const btScalar) x * dHor;
+	rayTo -= (const btScalar) y * dVert;
 	return rayTo;
 }
 
@@ -802,7 +802,7 @@ void DemoApplication::setOrthographicProjection()
 	glScalef(1, -1, 1);
 	// mover the origin from the bottom left corner
 	// to the upper left corner
-	glTranslatef(0, -m_glutScreenHeight, 0);
+	glTranslatef(0.0f, (float)-m_glutScreenHeight, 0.0f);
 
 }
 
