@@ -18,3 +18,6 @@
 *.log
 *.lastbuildstate
 *.cache
+*.unsuccessfulbuild
+*.opensdf
+*.sdf
