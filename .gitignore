@@ -14,3 +14,7 @@
 *.res
 *.dep
 *supertuxkart.ncb
+*.tlog
+*.log
+*.lastbuildstate
+*.cache

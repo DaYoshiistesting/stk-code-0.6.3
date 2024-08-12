@@ -1,0 +1,663 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="BulletDebug|Win32">
+      <Configuration>BulletDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="BulletRelease|Win32">
+      <Configuration>BulletRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PLibSoundDebug|Win32">
+      <Configuration>PLibSoundDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="PLibSoundRelease|Win32">
+      <Configuration>PLibSoundRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReplayDebug|Win32">
+      <Configuration>ReplayDebug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="ReplayRelease|Win32">
+      <Configuration>ReplayRelease</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{B1BC2764-1A43-4800-A654-788B0D05EDA2}</ProjectGuid>
+    <RootNamespace>supertuxkart</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">$(Configuration)\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">true</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">..\..\../</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">$(Configuration)\</IntDir>
+	<TargetName Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">$(ProjectName)_d</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">$(ProjectName)</TargetName>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../../src;$(PLIB_PATH);$(SDL_PATH)\include;$(ALUT_PATH)\include;$(OGG_PATH)\include;$(VORBIS_PATH)\include;$(OPENAL_PATH)\include;$(OPENAL_PATH)\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_OPENAL;HAVE_OGGVORBIS;_DEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.4alpha";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg_d.lib;ssg_d.lib;ul_d.lib;ssgAux_d.lib;fnt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName)_d.exe</OutputFile>
+      <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>./../../../src;$(PLIB_PATH);$(SDL_PATH)\include;$(ALUT_PATH)\include;$(OGG_PATH)\include;$(VORBIS_PATH)\include;$(OPENAL_PATH)\include;$(OPENAL_PATH)\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_OPENAL;HAVE_OGGVORBIS;NDEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.4alpha";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName).exe</OutputFile>
+      <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PLibSoundDebug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../../src;$(PLIB_PATH);$(SDL_PATH)\include;$(ALUT_PATH)\include;$(OGG_PATH)\include;$(VORBIS_PATH)\include;$(OPENAL_PATH)\include;$(OPENAL_PATH)\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.4alpha";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;fnt_d.lib;net_d.lib;psl_d.lib;pui_d.lib;sg_d.lib;sl_d.lib;ssgAux_d.lib;ul_d.lib;js_d.lib;puAux_d.lib;pw_d.lib;ssg_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName)_plib_sound_d.exe</OutputFile>
+      <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='PLibSoundRelease|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>./../../../src;$(PLIB_PATH);$(SDL_PATH)\include;$(ALUT_PATH)\include;$(OGG_PATH)\include;$(VORBIS_PATH)\include;$(OPENAL_PATH)\include;$(OPENAL_PATH)\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.4alpha";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;fnt.lib;net.lib;psl.lib;pui.lib;sg.lib;sl.lib;ssgAux.lib;ul.lib;js.lib;puAux.lib;pw.lib;ssg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName)_plib_sound.exe</OutputFile>
+      <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReplayDebug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>./../../../src;$(PLIB_PATH);$(SDL_PATH)\include;$(ALUT_PATH)\include;$(OGG_PATH)\include;$(VORBIS_PATH)\include;$(OPENAL_PATH)\include;$(OPENAL_PATH)\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_GHOST_REPLAY;HAVE_OPENAL;HAVE_OGGVORBIS;_DEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.4alpha";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg_d.lib;ssg_d.lib;ul_d.lib;ssgAux_d.lib;fnt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName)_replay_d.exe</OutputFile>
+      <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReplayRelease|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>./../../../src;$(PLIB_PATH);$(SDL_PATH)\include;$(ALUT_PATH)\include;$(OGG_PATH)\include;$(VORBIS_PATH)\include;$(OPENAL_PATH)\include;$(OPENAL_PATH)\include\AL;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_GHOST_REPLAY;HAVE_OPENAL;HAVE_OGGVORBIS;NDEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.4alpha";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName)_replay.exe</OutputFile>
+      <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>../../../src;../../../src/bullet/src;$(STK_INCLUDE);../../../src/enet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>BT_NO_PROFILE;HAVE_OPENAL;HAVE_OGGVORBIS;_DEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.6.3";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;DEBUG;PACKAGE="supertuxkart";HAVE_GETTEXT;ENABLE_NLS;HAVE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <FloatingPointExceptions>false</FloatingPointExceptions>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(OutDir)/$(ProjectName)_d.exe</OutputFile>
+      <AdditionalLibraryDirectories>$(STK_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <GenerateMapFile>false</GenerateMapFile>
+      <MapFileName>
+      </MapFileName>
+      <MapExports>false</MapExports>
+      <SubSystem>Console</SubSystem>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+      <Profile>false</Profile>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">
+    <ClCompile>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>../../../src;../../../src/bullet/src;$(STK_INCLUDE);../../../src/enet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>HAVE_OPENAL;HAVE_OGGVORBIS;NDEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.6.3";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;BT_NO_PROFILE;PACKAGE="supertuxkart";HAVE_GETTEXT;ENABLE_NLS;HAVE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <PrecompiledHeader>
+      </PrecompiledHeader>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>$(TargetPath)</OutputFile>
+      <AdditionalLibraryDirectories>$(STK_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\actionmap.cpp" />
+    <ClCompile Include="..\..\callback_manager.cpp" />
+    <ClCompile Include="..\..\explosion.cpp" />
+    <ClCompile Include="..\..\file_manager.cpp" />
+    <ClCompile Include="..\..\grand_prix_data.cpp" />
+    <ClCompile Include="..\..\grand_prix_manager.cpp" />
+    <ClCompile Include="..\..\highscore_manager.cpp" />
+    <ClCompile Include="..\..\highscores.cpp" />
+    <ClCompile Include="..\..\history.cpp" />
+    <ClCompile Include="..\..\isect.cpp" />
+    <ClCompile Include="..\..\loader.cpp" />
+    <ClCompile Include="..\..\main.cpp" />
+    <ClCompile Include="..\..\main_loop.cpp" />
+    <ClCompile Include="..\..\material.cpp" />
+    <ClCompile Include="..\..\material_manager.cpp" />
+    <ClCompile Include="..\..\race_manager.cpp" />
+    <ClCompile Include="..\..\sdldrv.cpp" />
+    <ClCompile Include="..\..\static_ssg.cpp" />
+    <ClCompile Include="..\..\stk_config.cpp" />
+    <ClCompile Include="..\..\user_config.cpp" />
+    <ClCompile Include="..\..\gui\base_gui.cpp" />
+    <ClCompile Include="..\..\gui\challenges_menu.cpp" />
+    <ClCompile Include="..\..\gui\char_sel.cpp" />
+    <ClCompile Include="..\..\gui\config_controls.cpp" />
+    <ClCompile Include="..\..\gui\config_display.cpp" />
+    <ClCompile Include="..\..\gui\config_sound.cpp" />
+    <ClCompile Include="..\..\gui\credits_menu.cpp" />
+    <ClCompile Include="..\..\gui\display_res_confirm.cpp" />
+    <ClCompile Include="..\..\gui\feature_unlocked.cpp" />
+    <ClCompile Include="..\..\gui\font.cpp" />
+    <ClCompile Include="..\..\gui\game_mode.cpp" />
+    <ClCompile Include="..\..\gui\grand_prix_ending.cpp" />
+    <ClCompile Include="..\..\gui\grand_prix_select.cpp" />
+    <ClCompile Include="..\..\gui\help_page_one.cpp" />
+    <ClCompile Include="..\..\gui\help_page_three.cpp" />
+    <ClCompile Include="..\..\gui\help_page_two.cpp" />
+    <ClCompile Include="..\..\gui\main_menu.cpp" />
+    <ClCompile Include="..\..\gui\menu_manager.cpp" />
+    <ClCompile Include="..\..\gui\network_gui.cpp" />
+    <ClCompile Include="..\..\gui\num_players.cpp" />
+    <ClCompile Include="..\..\gui\options.cpp" />
+    <ClCompile Include="..\..\gui\player_controls.cpp" />
+    <ClCompile Include="..\..\gui\race_gui.cpp" />
+    <ClCompile Include="..\..\gui\race_menu.cpp" />
+    <ClCompile Include="..\..\gui\race_options.cpp" />
+    <ClCompile Include="..\..\gui\race_results_gui.cpp" />
+    <ClCompile Include="..\..\gui\start_race_feedback.cpp" />
+    <ClCompile Include="..\..\gui\track_sel.cpp" />
+    <ClCompile Include="..\..\gui\widget.cpp" />
+    <ClCompile Include="..\..\gui\widget_manager.cpp" />
+    <ClCompile Include="..\..\lisp\lexer.cpp" />
+    <ClCompile Include="..\..\lisp\lisp.cpp" />
+    <ClCompile Include="..\..\lisp\parser.cpp" />
+    <ClCompile Include="..\..\lisp\writer.cpp" />
+    <ClCompile Include="..\..\robots\default_robot.cpp" />
+    <ClCompile Include="..\..\robots\track_info.cpp" />
+    <ClCompile Include="..\..\challenges\challenge.cpp" />
+    <ClCompile Include="..\..\challenges\challenge_data.cpp" />
+    <ClCompile Include="..\..\challenges\unlock_manager.cpp" />
+    <ClCompile Include="..\..\utils\random_generator.cpp" />
+    <ClCompile Include="..\..\utils\ssg_help.cpp" />
+    <ClCompile Include="..\..\utils\string_utils.cpp" />
+    <ClCompile Include="..\..\utils\translation.cpp" />
+    <ClCompile Include="..\..\utils\vec3.cpp" />
+    <ClCompile Include="..\..\audio\music_information.cpp" />
+    <ClCompile Include="..\..\audio\music_ogg.cpp" />
+    <ClCompile Include="..\..\audio\sfx_manager.cpp" />
+    <ClCompile Include="..\..\audio\sfx_openal.cpp" />
+    <ClCompile Include="..\..\audio\sound_manager.cpp" />
+    <ClCompile Include="..\..\modes\clock.cpp" />
+    <ClCompile Include="..\..\modes\follow_the_leader.cpp" />
+    <ClCompile Include="..\..\modes\linear_world.cpp" />
+    <ClCompile Include="..\..\modes\standard_race.cpp" />
+    <ClCompile Include="..\..\modes\three_strikes_battle.cpp" />
+    <ClCompile Include="..\..\modes\world.cpp" />
+    <ClCompile Include="..\..\items\attachment.cpp" />
+    <ClCompile Include="..\..\items\attachment_manager.cpp" />
+    <ClCompile Include="..\..\items\bowling.cpp" />
+    <ClCompile Include="..\..\items\cake.cpp" />
+    <ClCompile Include="..\..\items\flyable.cpp" />
+    <ClCompile Include="..\..\items\item.cpp" />
+    <ClCompile Include="..\..\items\item_manager.cpp" />
+    <ClCompile Include="..\..\items\plunger.cpp" />
+    <ClCompile Include="..\..\items\powerup.cpp" />
+    <ClCompile Include="..\..\items\powerup_manager.cpp" />
+    <ClCompile Include="..\..\items\projectile_manager.cpp" />
+    <ClCompile Include="..\..\items\rubber_band.cpp" />
+    <ClCompile Include="..\..\physics\btKart.cpp" />
+    <ClCompile Include="..\..\physics\btUprightConstraint.cpp" />
+    <ClCompile Include="..\..\physics\moving_physics.cpp" />
+    <ClCompile Include="..\..\physics\physics.cpp" />
+    <ClCompile Include="..\..\physics\triangle_mesh.cpp" />
+    <ClCompile Include="..\..\karts\kart.cpp" />
+    <ClCompile Include="..\..\karts\kart_model.cpp" />
+    <ClCompile Include="..\..\karts\kart_properties.cpp" />
+    <ClCompile Include="..\..\karts\kart_properties_manager.cpp" />
+    <ClCompile Include="..\..\karts\moveable.cpp" />
+    <ClCompile Include="..\..\karts\player_kart.cpp" />
+    <ClCompile Include="..\..\graphics\camera.cpp" />
+    <ClCompile Include="..\..\graphics\moving_texture.cpp" />
+    <ClCompile Include="..\..\graphics\nitro.cpp" />
+    <ClCompile Include="..\..\graphics\particle_system.cpp" />
+    <ClCompile Include="..\..\graphics\scene.cpp" />
+    <ClCompile Include="..\..\graphics\shadow.cpp" />
+    <ClCompile Include="..\..\graphics\skid_marks.cpp" />
+    <ClCompile Include="..\..\graphics\smoke.cpp" />
+    <ClCompile Include="..\..\network\connect_message.cpp" />
+    <ClCompile Include="..\..\network\kart_control_message.cpp" />
+    <ClCompile Include="..\..\network\kart_update_message.cpp" />
+    <ClCompile Include="..\..\network\message.cpp" />
+    <ClCompile Include="..\..\network\network_kart.cpp" />
+    <ClCompile Include="..\..\network\network_manager.cpp" />
+    <ClCompile Include="..\..\network\race_info_message.cpp" />
+    <ClCompile Include="..\..\network\race_result_message.cpp" />
+    <ClCompile Include="..\..\network\race_state.cpp" />
+    <ClCompile Include="..\..\tracks\terrain_info.cpp" />
+    <ClCompile Include="..\..\tracks\track.cpp" />
+    <ClCompile Include="..\..\tracks\track_manager.cpp" />
+    <ClCompile Include="..\..\replay\replay_base.cpp" />
+    <ClCompile Include="..\..\replay\replay_buffers.cpp" />
+    <ClCompile Include="..\..\replay\replay_player.cpp" />
+    <ClCompile Include="..\..\replay\replay_recorder.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\callback.hpp" />
+    <ClInclude Include="..\..\callback_manager.hpp" />
+    <ClInclude Include="..\..\constants.hpp" />
+    <ClInclude Include="..\..\explosion.hpp" />
+    <ClInclude Include="..\..\file_manager.hpp" />
+    <ClInclude Include="..\..\grand_prix_data.hpp" />
+    <ClInclude Include="..\..\grand_prix_manager.hpp" />
+    <ClInclude Include="..\..\gui\help_page_one.hpp" />
+    <ClInclude Include="..\..\gui\help_page_two.hpp" />
+    <ClInclude Include="..\..\herring_manager.hpp" />
+    <ClInclude Include="..\..\highscore_manager.hpp" />
+    <ClInclude Include="..\..\highscores.hpp" />
+    <ClInclude Include="..\..\history.hpp" />
+    <ClInclude Include="..\..\input.hpp" />
+    <ClInclude Include="..\..\isect.hpp" />
+    <ClInclude Include="..\..\loader.hpp" />
+    <ClInclude Include="..\..\main_loop.hpp" />
+    <ClInclude Include="..\..\material.hpp" />
+    <ClInclude Include="..\..\material_manager.hpp" />
+    <ClInclude Include="..\..\no_copy.hpp" />
+    <ClInclude Include="..\..\player.hpp" />
+    <ClInclude Include="..\..\position.hpp" />
+    <ClInclude Include="..\..\race_manager.hpp" />
+    <ClInclude Include="..\..\sdldrv.hpp" />
+    <ClInclude Include="..\..\ssg_help.hpp" />
+    <ClInclude Include="..\..\static_ssg.hpp" />
+    <ClInclude Include="..\..\stk_config.hpp" />
+    <ClInclude Include="..\..\user_config.hpp" />
+    <ClInclude Include="..\..\user_pointer.hpp" />
+    <ClInclude Include="..\..\vec3.hpp" />
+    <ClInclude Include="..\..\gui\base_gui.hpp" />
+    <ClInclude Include="..\..\gui\challenges_menu.hpp" />
+    <ClInclude Include="..\..\gui\char_sel.hpp" />
+    <ClInclude Include="..\..\gui\config_controls.hpp" />
+    <ClInclude Include="..\..\gui\config_display.hpp" />
+    <ClInclude Include="..\..\gui\config_sound.hpp" />
+    <ClInclude Include="..\..\gui\credits_menu.hpp" />
+    <ClInclude Include="..\..\gui\display_res_confirm.hpp" />
+    <ClInclude Include="..\..\gui\feature_unlocked.hpp" />
+    <ClInclude Include="..\..\gui\font.hpp" />
+    <ClInclude Include="..\..\gui\game_mode.hpp" />
+    <ClInclude Include="..\..\gui\grand_prix_ending.hpp" />
+    <ClInclude Include="..\..\gui\grand_prix_select.hpp" />
+    <ClInclude Include="..\..\gui\help_page_three.hpp" />
+    <ClInclude Include="..\..\gui\main_menu.hpp" />
+    <ClInclude Include="..\..\gui\menu_manager.hpp" />
+    <ClInclude Include="..\..\gui\network_gui.hpp" />
+    <ClInclude Include="..\..\gui\num_players.hpp" />
+    <ClInclude Include="..\..\gui\options.hpp" />
+    <ClInclude Include="..\..\gui\player_controls.hpp" />
+    <ClInclude Include="..\..\gui\race_gui.hpp" />
+    <ClInclude Include="..\..\gui\race_menu.hpp" />
+    <ClInclude Include="..\..\gui\race_options.hpp" />
+    <ClInclude Include="..\..\gui\race_results_gui.hpp" />
+    <ClInclude Include="..\..\gui\start_race_feedback.hpp" />
+    <ClInclude Include="..\..\gui\track_sel.hpp" />
+    <ClInclude Include="..\..\widget.hpp" />
+    <ClInclude Include="..\..\widget_manager.hpp" />
+    <ClInclude Include="..\..\lisp\lexer.hpp" />
+    <ClInclude Include="..\..\lisp\lisp.hpp" />
+    <ClInclude Include="..\..\lisp\parser.hpp" />
+    <ClInclude Include="..\..\lisp\writer.hpp" />
+    <ClInclude Include="..\..\robots\default_robot.hpp" />
+    <ClInclude Include="..\..\robots\track_info.hpp" />
+    <ClInclude Include="..\..\challenges\challenge.hpp" />
+    <ClInclude Include="..\..\challenges\challenge_data.hpp" />
+    <ClInclude Include="..\..\challenges\unlock_manager.hpp" />
+    <ClInclude Include="..\..\network\character_confirm_message.hpp" />
+    <ClInclude Include="..\..\network\character_info_message.hpp" />
+    <ClInclude Include="..\..\network\character_selected_message.hpp" />
+    <ClInclude Include="..\..\network\connect_message.hpp" />
+    <ClInclude Include="..\..\network\flyable_info.hpp" />
+    <ClInclude Include="..\..\network\item_info.hpp" />
+    <ClInclude Include="..\..\network\kart_control_message.hpp" />
+    <ClInclude Include="..\..\network\kart_packet.hpp" />
+    <ClInclude Include="..\..\network\kart_update_message.hpp" />
+    <ClInclude Include="..\..\network\message.hpp" />
+    <ClInclude Include="..\..\network\network_kart.hpp" />
+    <ClInclude Include="..\..\network\network_manager.hpp" />
+    <ClInclude Include="..\..\network\race_info_message.hpp" />
+    <ClInclude Include="..\..\network\race_result_ack_message.hpp" />
+    <ClInclude Include="..\..\network\race_result_message.hpp" />
+    <ClInclude Include="..\..\network\race_start_message.hpp" />
+    <ClInclude Include="..\..\network\race_state.hpp" />
+    <ClInclude Include="..\..\network\remote_kart_info.hpp" />
+    <ClInclude Include="..\..\network\world_loaded_message.hpp" />
+    <ClInclude Include="..\..\utils\constants.hpp" />
+    <ClInclude Include="..\..\utils\coord.hpp" />
+    <ClInclude Include="..\..\utils\random_generator.hpp" />
+    <ClInclude Include="..\..\utils\ssg_help.hpp" />
+    <ClInclude Include="..\..\utils\string_utils.hpp" />
+    <ClInclude Include="..\..\utils\translation.hpp" />
+    <ClInclude Include="..\..\utils\vec3.hpp" />
+    <ClInclude Include="..\..\audio\music.hpp" />
+    <ClInclude Include="..\..\audio\music_information.hpp" />
+    <ClInclude Include="..\..\audio\music_ogg.hpp" />
+    <ClInclude Include="..\..\audio\sfx_base.hpp" />
+    <ClInclude Include="..\..\audio\sfx_manager.hpp" />
+    <ClInclude Include="..\..\audio\sfx_openal.hpp" />
+    <ClInclude Include="..\..\audio\sound_manager.hpp" />
+    <ClInclude Include="..\..\modes\clock.hpp" />
+    <ClInclude Include="..\..\modes\follow_the_leader.hpp" />
+    <ClInclude Include="..\..\modes\linear_world.hpp" />
+    <ClInclude Include="..\..\modes\standard_race.hpp" />
+    <ClInclude Include="..\..\modes\three_strikes_battle.hpp" />
+    <ClInclude Include="..\..\modes\world.hpp" />
+    <ClInclude Include="..\..\items\attachment.hpp" />
+    <ClInclude Include="..\..\items\attachment_manager.hpp" />
+    <ClInclude Include="..\..\items\bowling.hpp" />
+    <ClInclude Include="..\..\items\cake.hpp" />
+    <ClInclude Include="..\..\items\flyable.hpp" />
+    <ClInclude Include="..\..\items\item.hpp" />
+    <ClInclude Include="..\..\items\item_manager.hpp" />
+    <ClInclude Include="..\..\items\plunger.hpp" />
+    <ClInclude Include="..\..\items\powerup.hpp" />
+    <ClInclude Include="..\..\items\powerup_manager.hpp" />
+    <ClInclude Include="..\..\items\projectile_manager.hpp" />
+    <ClInclude Include="..\..\items\rubber_band.hpp" />
+    <ClInclude Include="..\..\physics\btKart.hpp" />
+    <ClInclude Include="..\..\physics\btUprightConstraint.hpp" />
+    <ClInclude Include="..\..\physics\kart_motion_state.hpp" />
+    <ClInclude Include="..\..\physics\physics.hpp" />
+    <ClInclude Include="..\..\physics\triangle_mesh.hpp" />
+    <ClInclude Include="..\..\karts\auto_kart.hpp" />
+    <ClInclude Include="..\..\karts\kart.hpp" />
+    <ClInclude Include="..\..\karts\kart_control.hpp" />
+    <ClInclude Include="..\..\karts\kart_model.hpp" />
+    <ClInclude Include="..\..\karts\kart_properties.hpp" />
+    <ClInclude Include="..\..\karts\kart_properties_manager.hpp" />
+    <ClInclude Include="..\..\karts\moveable.hpp" />
+    <ClInclude Include="..\..\karts\player_kart.hpp" />
+    <ClInclude Include="..\..\graphics\camera.hpp" />
+    <ClInclude Include="..\..\graphics\moving_texture.hpp" />
+    <ClInclude Include="..\..\graphics\nitro.hpp" />
+    <ClInclude Include="..\..\graphics\particle_system.hpp" />
+    <ClInclude Include="..\..\graphics\scene.hpp" />
+    <ClInclude Include="..\..\graphics\shadow.hpp" />
+    <ClInclude Include="..\..\graphics\skid_marks.hpp" />
+    <ClInclude Include="..\..\graphics\smoke.hpp" />
+    <ClInclude Include="..\..\tracks\terrain_info.hpp" />
+    <ClInclude Include="..\..\tracks\track.hpp" />
+    <ClInclude Include="..\..\tracks\track_manager.hpp" />
+    <ClInclude Include="..\..\replay\replay_base.hpp" />
+    <ClInclude Include="..\..\replay\replay_buffer_tpl.hpp" />
+    <ClInclude Include="..\..\replay\replay_buffers.hpp" />
+    <ClInclude Include="..\..\replay\replay_player.hpp" />
+    <ClInclude Include="..\..\replay\replay_recorder.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="bullet_lib.vcxproj">
+      <Project>{54aa44b9-b07b-49da-8b1a-05bbfe8ad5d4}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="enet.vcxproj">
+      <Project>{b0e92b97-089a-4d5b-bf17-77f1bc5daeef}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
