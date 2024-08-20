@@ -34,11 +34,20 @@
 
 ItemManager* item_manager;
 std::vector<ssgEntity *> ItemManager::m_item_model;
-typedef std::map<std::string,ssgEntity*>::const_iterator CI_type;
 
 ItemManager::ItemManager()
 {
     // The actual loading is done in loadDefaultItems
+    if(Track::get())
+    {
+        m_items_in_sector = new std::vector<AllItemTypes>;
+        m_items_in_sector->resize(Track::get()->m_driveline.size());
+    }
+    else
+    {
+        m_items_in_sector = NULL;
+    }
+
 }   // ItemManager
 
 //-----------------------------------------------------------------------------
@@ -61,6 +70,9 @@ void ItemManager::removeTextures()
 //-----------------------------------------------------------------------------
 ItemManager::~ItemManager()
 {
+    if(m_items_in_sector)
+        delete m_items_in_sector;
+
     for(unsigned int i=0; i<Item::ITEM_LAST-Item::ITEM_FIRST+1; i++)
     {
         if(m_item_model[i]) m_item_model[i]->deRef();
@@ -128,9 +140,16 @@ void ItemManager::insertItem(Item *h)
         m_all_items.push_back(h);
     h->setItemId(index);
 
+    if(m_items_in_sector)
+	{
     const Vec3 &xyz = h->getXYZ();
     int sector = Track::UNKNOWN_SECTOR;
     Track::get()->findRoadSector(xyz, &sector);
+    if(sector==Track::UNKNOWN_SECTOR)
+        (*m_items_in_sector)[m_items_in_sector->size()-1].push_back(h);
+    else
+        (*m_items_in_sector)[sector].push_back(h);
+    }
 
 }   // insertItem
 //-----------------------------------------------------------------------------
@@ -162,12 +181,11 @@ Item* ItemManager::newItem(const Vec3& xyz, float distance,
 /** Set an item as collected.
  *  This function is called on the server when an item is collected, or on the
  *  client upon receiving information about collected items.                  */
-void ItemManager::collectedItem(int item_id, Kart *kart, int add_info)
+void ItemManager::collectedItem(Item *h, Kart *kart, int add_info)
 {
-    Item *item=m_all_items[item_id];
-    assert(item);
-    item->isCollected(kart);
-    kart->collectedItem(item, add_info);
+    assert(h);
+    h->isCollected(kart);
+    kart->collectedItem(h, add_info);
 }   // collectedItem
 
 //-----------------------------------------------------------------------------
@@ -180,9 +198,9 @@ void ItemManager::hitItem(Kart* kart)
         i!=m_all_items.end();  i++)
     {
         if((!*i) || (*i)->wasCollected()) continue;
-        if((*i)->hitKart(kart))
+        if((*i)->hitKart(kart, kart->getXYZ()))
         {
-            collectedItem(i-m_all_items.begin(), kart);
+            collectedItem(*i, kart);
         }   // if hit
     }   // for m_all_items
 }   // hitItem
@@ -219,10 +237,8 @@ void ItemManager::reset()
         }
         if((*i)->canBeUsedUp() || (*i)->getType()==Item::ITEM_BUBBLEGUM)
         {
-            Item *b=*i;
-            AllItemTypes::iterator i_next = m_all_items.erase(i); 
-            delete b;
-            i = i_next;
+            deleteItem(*i);
+            i++;
         }
         else
         {
@@ -243,9 +259,35 @@ void ItemManager::update(float delta)
             (*i)->update(delta);
             if( (*i)->isUsedUp())
             {
-                delete *i;
-                m_all_items[i-m_all_items.begin()] = NULL;
+                deleteItem(*i);
             }   // if usedUp
         }   // if *i
     }   // for m_all_items
 }   // delta
+//-----------------------------------------------------------------------------
+/** Removes an items from the items-in-sector list, from the list of all
+ *  items, and then frees the item itself.
+ *  \param h The item to delete.
+ */
+void ItemManager::deleteItem(Item *h)
+{
+    // First check if the item needs to be removed from the items-in-quad list
+    if(m_items_in_sector)
+    {
+        const Vec3 &xyz = h->getXYZ();
+        int sector = Track::UNKNOWN_SECTOR;
+        Track::get()->findRoadSector(xyz, &sector);
+        unsigned int indx = sector==Track::UNKNOWN_SECTOR
+                          ? m_items_in_sector->size()-1
+                          : sector;
+        AllItemTypes &items = (*m_items_in_sector)[indx];
+        AllItemTypes::iterator it = std::find(items.begin(), items.end(), h);
+        assert(it!=items.end());
+        items.erase(it);
+    }   // if m_items_in_quads
+
+    int index = h->getItemId();
+    m_all_items[index] = NULL;
+    delete h;
+}   // delete item
+//------------------------------------------------------------------------------

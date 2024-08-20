@@ -205,11 +205,10 @@
 
 "st_title_screen.rgb"       Y Y    N    1.0    N     N    1.0   N   N   N   Y
 "menu_background.rgb"       Y Y    N    1.0    N     N    1.0   N   N   N   Y
+"st_title_screen1.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
+"menu_background1.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
 "st_title_screen2.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
 "menu_background2.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
-"st_title_screen3.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
-"menu_background3.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
-"st_title_screen4.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
 
 
 # EOF #

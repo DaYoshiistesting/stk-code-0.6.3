@@ -103,10 +103,10 @@ public:
      *  the item is not deactivated anymore.
      *  \param kart Kart to test.
      */
-    bool hitKart (Kart* kart ) const
+    bool hitKart (Kart* kart, const Vec3& xyz) const
     {
         return (m_parent!=kart || m_deactive_time <=0) &&
-               (kart->getXYZ()-m_coord.getXYZ()).length2()<0.8f;
+               (xyz-m_coord.getXYZ()).length2()<0.8f;
     }   // hitKart
 
     // ------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 (music-information
-  (title    "One Million Dollar"    )
-  (composer "The Dead Rocks"            )
+  (title    "One Million Dollar")
+  (composer "The Dead Rocks"    )
   (music    "TheDeadRocks-OneMillionDollar.ogg")
-  (loop     10                 )
+  (loop     10                  )
 )
 

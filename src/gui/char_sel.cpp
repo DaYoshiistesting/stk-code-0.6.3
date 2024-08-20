@@ -253,7 +253,7 @@ void CharSel::switchGroup()
     m_index_avail_karts.clear();
     bool group_exist = 
         kart_properties_manager->getKartsInGroup(user_config->m_kart_group).size()>0;
-    if(!group_exist) user_config->m_kart_group = "standard";
+    if(!group_exist) user_config->m_kart_group = "Standard";
 
     const std::vector<int> &karts = 
         kart_properties_manager->getKartsInGroup(user_config->m_kart_group);

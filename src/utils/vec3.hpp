@@ -45,6 +45,7 @@ public:
         {m_x=heading;
          setPitchRoll(normal);}
 
+    void                  setHPR(const btQuaternion& q);
     void                  setHPR(const btMatrix3x3& m);
     inline const float    operator[](int n) const         {return *(&m_x+n); }
     inline const float    getHeading() const       {return m_x; }
@@ -57,6 +58,7 @@ public:
     void                  degreeToRad();
     Vec3&          operator=(const btVector3& a)   {*(btVector3*)this=a; return *this;}
     Vec3&          operator=(const btMatrix3x3& m) {setHPR(m);           return *this;}
+    Vec3&          operator=(const btQuaternion& q){setHPR(q);           return *this;}
     Vec3           operator-(const Vec3& v1) const {return (Vec3)(*(btVector3*)this-(btVector3)v1);}
     /** Helper functions to treat this vec3 as a 2d vector. This returns the
      *  square of the length of the first 2 dimensions. */

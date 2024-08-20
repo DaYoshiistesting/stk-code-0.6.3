@@ -40,7 +40,7 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
     // time a homing-track collision happens).
     float y_offset=kart->getKartLength()/2.0f + m_extend.getY()/2.0f;
     
-    float up_velocity = m_speed/7.0f;
+    float z_velocity = m_speed/7.0f;
     
     // give a speed proportional to kart speed.
     m_speed = kart->getSpeed() * m_speed / 23.0f;
@@ -54,13 +54,8 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
 
     btTransform trans = kart->getTrans();
 
-    btMatrix3x3 thisKartDirMatrix = kart->getKartHeading().getBasis();
-    btVector3 thisKartDirVector(thisKartDirMatrix[0][1],
-                                thisKartDirMatrix[1][1],
-                                thisKartDirMatrix[2][1]);
-
-    float heading=atan2f(-thisKartDirVector.getX(), thisKartDirVector.getY());
-    float pitch = kart->getTerrainPitch(heading);
+	float heading = kart->getHeading();
+    float pitch   = kart->getTerrainPitch(heading);
 
     // find closest kart in front of the current one.
     const bool  backwards = kart->getControls().m_look_back;
@@ -74,18 +69,14 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
         m_target = (Kart*)closest_kart;
 
         float projectileAngle = 0.0f;
-		float time_estimated  = 0.0f;
-
-        getLinearKartItemIntersection (kart->getTrans().getOrigin(), closest_kart,
+        getLinearKartItemIntersection (kart->getXYZ(), closest_kart,
                                        m_speed, m_gravity, y_offset,
-                                       &projectileAngle, &up_velocity, &time_estimated);
+                                       &projectileAngle, &z_velocity);
 
         // apply transformation to the bullet object (without pitch).
-        btMatrix3x3 m;
-        m.setEulerZYX(0.0f, 0.0f, projectileAngle /*+thisKartAngle*/);
-        trans.setBasis(m);
+        trans.setRotation(btQuaternion(btVector3(0,0,1), projectileAngle));
         
-	    m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
+        m_initial_velocity = btVector3(0.0f, m_speed, z_velocity);
     
             createPhysics(y_offset, m_initial_velocity, 
                   new btCylinderShape(0.5f*m_extend), -m_gravity,
@@ -98,14 +89,14 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
         // straight ahead, without trying to hit anything in particular
         trans = kart->getKartHeading(pitch);
 
-		m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
+        m_initial_velocity = btVector3(0.0f, m_speed, z_velocity);
     
             createPhysics(y_offset, m_initial_velocity, 
                   new btCylinderShape(0.5f*m_extend), -m_gravity,
                   true /* rotation */, backwards, &trans);
     }
 
-	setAdjustZVelocity(false);
+    setAdjustZVelocity(false);
 
     m_body->setActivationState(DISABLE_DEACTIVATION);
     
@@ -117,7 +108,7 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
 void Cake::init(const lisp::Lisp* lisp, ssgEntity *cake_model)
 {
     Flyable::init(lisp, cake_model, POWERUP_CAKE);
-    m_st_max_distance   = 80.0f;
+    m_st_max_distance         = 80.0f;
     m_st_max_distance_squared = 80.0f * 80.0f;
     m_gravity                 = 9.8f;
 
@@ -130,46 +121,29 @@ void Cake::init(const lisp::Lisp* lisp, ssgEntity *cake_model)
 // -----------------------------------------------------------------------------
 void Cake::update(float dt)
 {
-    /*    
+    //The following commented out code adds a lock on to the cake. It is kept
+    //because it shows how to lock on to a moving target precisely with the
+    //intersection algorithm and may be one day useful for something else.
+	/*
     if(m_target != NULL)
     {
         // correct direction to go towards aimed kart
         btTransform my_trans = getTrans();
-        btTransform target   = m_target->getTrans();
-        
-        btVector3 ideal_direction = target.getOrigin() - my_trans.getOrigin();
-        ideal_direction.normalize();
-        
-        const btVector3& actual_direction = m_body -> getLinearVelocity();
 
-        ideal_direction.setInterpolate3(actual_direction.normalized(), ideal_direction, dt);
-        
-        const float current_xy_speed = sqrt( actual_direction.getX()*actual_direction.getX() +
-                                             actual_direction.getY()*actual_direction.getY());
-        
-        m_body->setLinearVelocity( btVector3(ideal_direction.getX()*current_xy_speed,
-                                             ideal_direction.getY()*current_xy_speed,
-                                             actual_direction.getZ()) );
-        
-
-        // pull towards aimed kart
-        btVector3 pullForce = target.getOrigin() - my_trans.getOrigin();
-        pullForce.setZ(0);
-        pullForce.normalize();
-        pullForce *= 10;
-        m_body->applyCentralImpulse( pullForce );
-        
-        
-        // if over aimed kart, pull down
-        if(fabsf(my_trans.getOrigin().getX() - target.getOrigin().getX()) < 5.0 &&
-           fabsf(my_trans.getOrigin().getY() - target.getOrigin().getY()) < 5.0)
-        {
-            m_body->applyCentralForce( btVector3(0, 0, -20.0f) );
-        }
-        
-	}
-       */ 
-    
+        float projectileAngle = 0.0f;
+        float time_estimated  = 0.0f;
+        float z_velocity      = 0.0f;
+        btVector3 origin      = my_trans.getOrigin() 
+                              - m_target->getNormal() 
+                              * 0.5 * m_target->getKartHeight();
+        getLinearKartItemIntersection (origin, m_target,
+                                       m_speed, m_gravity, 0,
+                                       &projectileAngle, &z_velocity);
+        m_body->setLinearVelocity( btVector3(-m_speed * sinf (projectileAngle),
+                                             m_speed * cosf (projectileAngle),
+                                             z_velocity) );
+    }
+    */
     
     Flyable::update(dt);
 }   // update

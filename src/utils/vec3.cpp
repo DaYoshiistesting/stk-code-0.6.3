@@ -73,6 +73,22 @@ void Vec3::setHPR(const btMatrix3x3& m)
         setZ(atan2(sr, cr ));
     }
 }   // setHPR
+// ----------------------------------------------------------------------------
+void Vec3::setHPR(const btQuaternion& q)
+{
+    float W = q.getW();
+    float X = q.getX();
+    float Y = q.getY();
+    float Z = q.getZ();
+    float WSquared = W * W;
+    float XSquared = X * X;
+    float YSquared = Y * Y;
+    float ZSquared = Z * Z;
+
+    //setX(atan2f(2.0f * (X * Z + Y * W), -YSquared - XSquared + ZSquared + WSquared));
+    //setY(asinf(2.0f * (X * Z + Y * W)));
+    //setZ(atan2f(2.0f * (X * Z - Y * W), XSquared - YSquared - ZSquared + WSquared));
+}   // setHPR(btQuaternion)
 
 // ----------------------------------------------------------------------------
 void Vec3::degreeToRad()

@@ -121,19 +121,12 @@ Kart::Kart (const std::string& kart_name, int position,
 
 btTransform Kart::getKartHeading(const float customPitch)
 {
-    btTransform trans = this->getTrans();
-    
-    // get heading=trans.getBasis*(0,1,0) ... so save the multiplication:
-    btVector3 direction(trans.getBasis()[0][1],
-                        trans.getBasis()[1][1],
-                        trans.getBasis()[2][1]);
-    float heading=atan2(-direction.getX(), direction.getY());
-    
-    TerrainInfo::update(this->getXYZ());
-    float pitch = (customPitch == -1 ? getTerrainPitch(heading) : customPitch);
+    btTransform trans = getTrans();
+
+    float pitch = (customPitch == -1 ? getTerrainPitch(getHeading()) : customPitch);
     
     btMatrix3x3 m;
-    m.setEulerZYX(pitch, 0.0f, heading);
+    m.setEulerZYX(pitch, 0.0f, getHeading());
     trans.setBasis(m);
     
     return trans;
@@ -566,7 +559,7 @@ void Kart::update(float dt)
     m_skid_sound->position         (getXYZ());
 
     // Check if a kart is (nearly) upside down and not moving much --> automatic rescue
-    if((fabs(getHPR().getRoll())>60 && fabs(getSpeed())<3.0f) )
+    if((fabs(getRoll())>60 && fabs(getSpeed())<3.0f) )
     {
         forceRescue();
     }
@@ -1057,7 +1050,7 @@ void Kart::applyEngineForce(float force)
 }   // applyEngineForce
 
 //-----------------------------------------------------------------------------
-void Kart::updateGraphics(const Vec3& off_xyz,  const Vec3& off_hpr)
+void Kart::updateGraphics(const Vec3& off_xyz, const Vec3& off_hpr)
 {
     float wheel_z_axis[4];
     KartModel *kart_model = m_kart_properties->getKartModel();

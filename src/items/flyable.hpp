@@ -85,11 +85,11 @@ protected:
                                      btVector3 *minDelta, const Kart* inFrontOf=NULL,
                                      const bool backwards=false) const;
 
-    void getLinearKartItemIntersection(const btVector3 origin, 
-                                       const Kart *kart,
+    void getLinearKartItemIntersection(const Vec3 &origin, 
+                                       const Kart *target,
                                        float item_XY_velocity, float gravity,
                                        float y_offset,
-                                       float *projectileAngle, float *z_velocity, float *time);
+                                       float *projectileAngle, float *z_velocity);
 
 
     /** init bullet for moving objects like projectiles */

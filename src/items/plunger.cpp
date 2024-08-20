@@ -59,10 +59,9 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     if(closest_kart != NULL && kartDistSquared < 30*30)
     {
         float projectileAngle = 0.0f;
-        float time_estimated  = 0.0f;
-        getLinearKartItemIntersection (kart->getTrans().getOrigin(), closest_kart,
+        getLinearKartItemIntersection (kart->getXYZ(), closest_kart,
                                        plunger_speed, gravity, y_offset,
-                                       &projectileAngle, &up_velocity, &time_estimated);
+                                       &projectileAngle, &up_velocity);
 
         // apply transformation to the bullet object (without pitch)
         btMatrix3x3 m;
@@ -166,7 +165,7 @@ void Plunger::hit(Kart *kart, MovingPhysics *mp)
         if(kart) kart->blockViewWithPlunger();
 
         m_keep_alive = 0;
-        // Make this object invisible by placing it faaar down. Not that if this
+        // Make this object invisible by placing it faaar down. Note that if this
         // objects is simply removed from the scene graph, it might be auto-deleted
         // because the ref count reaches zero.
         Vec3 hell(0, 0, -10000);
@@ -177,7 +176,7 @@ void Plunger::hit(Kart *kart, MovingPhysics *mp)
     {
         m_keep_alive = m_owner->getKartProperties()->getRubberBandDuration();
 
-        // Make this object invisible by placing it faaar down. Not that if this
+        // Make this object invisible by placing it faaar down. Note that if this
         // objects is simply removed from the scene graph, it might be auto-deleted
         // because the ref count reaches zero.
         Vec3 hell(0, 0, -10000);

@@ -135,7 +135,8 @@ public:
     unsigned int   getWorldKartId() const            { return m_world_kart_id;   }
     void           setWorldKartId(unsigned int n)    { m_world_kart_id=n;        }
     void           loadData();
-    virtual void   updateGraphics(const Vec3& off_xyz,  const Vec3& off_hpr);
+    virtual void   updateGraphics(const Vec3& off_xyz, 
+                                  const Vec3& off_hpr);
     const KartProperties* 
                    getKartProperties() const      { return m_kart_properties; }
     // ------------------------------------------------------------------------

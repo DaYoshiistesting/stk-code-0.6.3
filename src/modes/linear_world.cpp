@@ -641,7 +641,7 @@ void LinearWorld::checkForWrongDirection(unsigned int i)
 
     const Kart *kart=m_kart[i];
     // check if the player is going in the wrong direction
-    float angle_diff = kart->getHPR().getHeading() -
+    float angle_diff = kart->getHeading() -
                        m_track->m_angle[m_kart_info[i].m_track_sector];
     if(angle_diff > M_PI) angle_diff -= 2*M_PI;
     else if (angle_diff < -M_PI) angle_diff += 2*M_PI;

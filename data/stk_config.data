@@ -16,8 +16,8 @@
  (title-music              "MayDayMayhem.music")
  ;; Two lists which must have the same length, containing the list of all
  ;; possible main menu and background images.
- (mainmenu-background      "st_title_screen.rgb" "st_title_screen2.rgb" "st_title_screen3.rgb" "st_title_screen4.rgb")
- (menu-background          "menu_background.rgb" "menu_background2.rgb" "menu_background3.rgb" "menu_background2.rgb")
+ (mainmenu-background      "st_title_screen.rgb" "st_title_screen1.rgb" "st_title_screen2.rgb")
+ (menu-background          "menu_background.rgb" "menu_background1.rgb" "menu_background2.rgb")
 
  (max-history              10000)   ;; maximum number of history frames.
  (max-skidmarks             1000)   ;; max. number of skidmarks per kart.
@@ -51,7 +51,7 @@
  (bubblegum-disappear-counter   1)  ;; how often bubble gum get driven over before it disappears
  (shortcut-length              90)  ;; leaving the road and coming back on it more than
                                     ;; x 'meters" later is considered to be a shortcut
- (offroad-tolerance          0.15)  ;; Widen the road 15% for shortcut detection.
+ (offroad-tolerance          0.07)  ;; Widen the road 7% for shortcut detection.
  (enable_networking          #t  )  ;; enable networking
  (explosion-impulse       10000.0)  ;; explosion impulse on not directly hit karts
  (explosion-impulse-objects 500.0)  ;; explosion impulse for physics objects (smaller

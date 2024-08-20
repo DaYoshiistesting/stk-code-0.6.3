@@ -141,9 +141,12 @@ void RaceState::receive(ENetPacket *pkt)
         if(hi.m_item_id==-1)     // Rescue triggered
             RaceManager::getKart(hi.m_kart_id)->forceRescue();
         else
-            item_manager->collectedItem(hi.m_item_id,
-                                          RaceManager::getKart(hi.m_kart_id),
-                                          hi.m_add_info);
+        {
+            Item *h = item_manager->getItem(hi.m_item_id);
+            item_manager->collectedItem(h,
+                                        RaceManager::getKart(hi.m_kart_id),
+                                        hi.m_add_info);
+        }
     }
 
     // 3. Projectiles
