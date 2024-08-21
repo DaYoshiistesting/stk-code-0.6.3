@@ -16,7 +16,7 @@ First, make sure that you have the following packages installed/compiled :
   * LibVorbis.
   * LibOgg.
 
-ALL OF THE PACKAGES ABOVE MUST BE IN COMPILED IN RELEASE AND WIN32 CONFIG!!
+ALL OF THE PACKAGES ABOVE MUST BE COMPILED IN RELEASE AND WIN32 CONFIG!!
 
 Secondly, make a folder for the includes and another one for the libraries.
 
@@ -57,7 +57,7 @@ Go to the stk folder and enjoy the game!
 Linux Installation Process :
 ----------------------------
 
-I don't know how to compile the game on Linux :/
+I don't know how to compile the game on modern Linux :/
 I would recommend to get help on the Unofficial Discord server of SuperTuxKart :
 https://discord.gg/u2AJDpF
 
