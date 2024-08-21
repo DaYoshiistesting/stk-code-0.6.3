@@ -1,34 +1,38 @@
-SuperTuxKart 0.6.3
-==================
-SuperTuxKart 0.6.3 is a SuperTuxKart 0.6.2a fork.
-It is based on 0.6.2a and 0.7.
+# SuperTuxKart 0.6.3 :
 
-It was supposed to be a private project, then I learned how to backport 
-karts and that's where everything you see here begun. 
+SuperTuxKart 0.6.3 is a SuperTuxKart 0.6.2a fork
+and was made by one man : DaYoshiistesting (me).
 
-SuperTuxKart
-============
-SuperTuxKart is a free kart racing game. It is focusing on fun and
-not on realistic kart physics. The SuperTuxKart homepage can be found at:
+Then, I asked for help and P1ngvin join the 0.6.3 Team.
+In October 2023, we released the latest binary version, 
+that's available right here :
+https://www.mediafire.com/file/1q0l2ghzom6f5yq
 
-  http://supertuxkart.sourceforge.net
+If you want to get older binaries you can get them right here :
+https://www.mediafire.com/folder/y58ywbk2f3waw
 
-The official SuperTuxKart forum is at:
-http://supertuxkart.sourceforge.net/forum
+In January 2024, I've decided to delete SuperTuxKart 0.6.3.
+The development of SuperTuxKart 0.6.3 continued while I was out
+of the project. In July 2024, I've decided to re-launch the project.
+Then, I came back in the SuperTuxKart 0.6.3 Team and learned that we have
+more members : DaYoshiistesting (me), P1ngvin, PeppermintPatty (leader of the
+"alternative" SuperTuxKart 0.6.3 Project).
 
-A big "thank you" to Steve Baker for designing and implementing the
-original TuxKart, and to the GotM team for their invaluable work.
-See the data/CREDITS file for individual credits.
+If you want to play SuperTuxKart you can get it right here :
+http://supertuxkart.sourceforge.net
 
-HARDWARE REQUIREMENTS
-=====================
-* You need at least an NVidia GeForce 7600 GS or equivalent.
-* You should have an AMD Athlon 64 3700+ (939) CPU or better.
-* You'll need at least 1gb of RAM. 
+If you want to discuss with players or the actual SuperTuxKart team, 
+here is the forum : http://supertuxkart.sourceforge.net/forum
+
+## Hardware Requirements :
+
+* You will need a Geforce 7300LE or better (a Geforce 210 should be enough :)).
+* You should have atleast a single core CPU with a frequence of 2GHz.
+* You'll need at least 1024MB of RAM. 
 * Ideally, if you want a joystick, get one with at least 6 buttons.
 
-PLAYING THE GAME
-================
+## Playing the game :
+
 SuperTuxKart is a kart racing game. Basically you run around the track,
 and give your best shot at reaching the goal before your opponents. The ?
 boxes can help you, and collection coins can build up your power, so you can
@@ -79,17 +83,8 @@ Player 4:
 
 The Escape key pauses the game and shows the race menu.
 
+## License :
 
-SUPPORT
-=======
-The main webpage of SuperTuxKart is at:
-
-  http://supertuxkart.sourceforge.net
-
-
-LICENSE
-=======
 This software is released under the GNU General Public License (GPL) which
-can be found in the file 'LICENSE' in the same directory as this file.
-Information about the licenses for artwork are contained in 
-data/licenses.
+can be found in the file [`LICENSE`](/LICENSE) in the same directory as this file.
+Information about the licenses for artwork are contained in [`data/CREDITS`](/data/CREDITS).
