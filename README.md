@@ -1,9 +1,10 @@
-# SuperTuxKart 0.6.3 :
+# SuperTuxKart 0.6.3 
 
 SuperTuxKart 0.6.3 is a SuperTuxKart 0.6.2a fork
 and was made by one man : DaYoshiistesting (me).
 
 Then, I asked for help and P1ngvin join the 0.6.3 Team.
+
 In October 2023, we released the latest binary version, 
 that's available right here :
 https://www.mediafire.com/file/1q0l2ghzom6f5yq
@@ -18,70 +19,28 @@ Then, I came back in the SuperTuxKart 0.6.3 Team and learned that we have
 more members : DaYoshiistesting (me), P1ngvin, PeppermintPatty (leader of the
 "alternative" SuperTuxKart 0.6.3 Project).
 
-If you want to play SuperTuxKart you can get it right here :
-http://supertuxkart.sourceforge.net
+If you want to play SuperTuxKart you can get it right [here](http://supertuxkart.sourceforge.net).
 
 If you want to discuss with players or the actual SuperTuxKart team, 
-here is the forum : http://supertuxkart.sourceforge.net/forum
+[click here](http://supertuxkart.sourceforge.net/forum).
 
-## Hardware Requirements :
+## Hardware Requirements 
 
 * You will need a Geforce 7300LE or better (a Geforce 210 should be enough :)).
 * You should have atleast a single core CPU with a frequence of 2GHz.
 * You'll need at least 1024MB of RAM. 
 * Ideally, if you want a joystick, get one with at least 6 buttons.
 
-## Playing the game :
+## Playing the game 
 
 SuperTuxKart is a kart racing game. Basically you run around the track,
-and give your best shot at reaching the goal before your opponents. The ?
-boxes can help you, and collection coins can build up your power, so you can
-grab more than one collectable! But avoid the bananas, since they might
-give you a nasty surprise.
+and give your best shot at reaching the goal before your opponents. The 
+gift-boxes can help you, and nitros can build up your power-boost, 
+so you can grab more than one collectable! But avoid the bananas,
+since they might give you a nasty surprise.
 
-Controls can be configured from the game, here are the defaults mappings:
-
-Player 1:
-  Steer      : Left / Right arrow
-  Accelerate : Up arrow
-  Brake      : Down arrow
-  Use item   : Space
-  Look back  : J key
-  Sharp Turn : K key
-  Nitro      : L key
-  Rescue     : Backspace
-
-Player 2:
-  Steer      : A / D key
-  Accelerate : W key
-  Brake      : S key
-  Use item   : Left control
-  Sharp Turn : Left shift
-  Rescue     : Q key
-  Nitro      : Caps lock
-  Look back  : Left alt
-
-Player 3:
-  Steer      : F / H key
-  Accelerate : T key
-  Brake      : G key
-  Use item   : N key
-  Sharp Turn : C key
-  Rescue     : R key
-  Nitro      : V key
-  Look back  : N key
-
-Player 4:
-  Steer      : J / L key
-  Accelerate : I key
-  Brake      : K key
-  Use item   : . key
-  Sharp Turn : M key
-  Rescue     : u key
-  Nitro      : , key
-  Look back  : / key
-
-The Escape key pauses the game and shows the race menu.
+Controls can be configured from the game.
+Note that the escape key pauses the game and shows the race menu.
 
 ## License :
 
