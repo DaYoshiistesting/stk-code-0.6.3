@@ -1,8 +1,8 @@
-SUPERTUXKART INSTALLATION INSTRUCTIONS :
-========================================
+SuperTuxKart Installation instructions 
+======================================
 
-Windows Installation Process :
-------------------------------
+Windows Installation Process 
+----------------------------
 
 First, make sure that you have the following packages installed/compiled :
 
@@ -54,19 +54,19 @@ To compile just change the BulletDebug to BulletRelease and the game will be com
 
 Go to the stk folder and enjoy the game!
 
-Linux Installation Process :
-----------------------------
+Linux Installation Process 
+--------------------------
 
 I don't know how to compile the game on modern Linux :/
 
 I would recommend to get help on the Unofficial Discord server of SuperTuxKart :
 https://discord.gg/u2AJDpF
 
-MacOs Installlation Process (not tested) :
-------------------------------------------
-(*) The latest information about compilation on Mac are on SuperTuxKart wiki:
+MacOs Installlation Process (not tested) 
+----------------------------------------
+* The latest information about compilation on Mac are on SuperTuxKart's old wiki (use internetarchive to access to that link) :
 http://supertuxkart.sourceforge.net/Building_and_packaging_on_OSX
-(*) There is an experimental Xcode project in /src/ide/Xcode/. It will still require that all dependencies are installed as explained on the wiki.
+* There is an experimental Xcode project in /src/ide/Xcode/. It will still require that all dependencies are installed as explained on the wiki.
 
 System requirements Mac: 
 PowerPC- or Intel-Mac with  800 MHz or more, 
@@ -506,11 +506,10 @@ e.g.: chmod 744 buildUB.sh
 Print version information
 
 e.g.:
--------------------------------------------------------------------------
-SuperTuxKart, 0.3alpha.
+
+SuperTuxKart, 0.6.3 - DEV.
 
 SuperTuxKart, SVN revision number '975M'.
--------------------------------------------------------------------------
 
 
 7.03 Is this a universal binary?
@@ -519,13 +518,12 @@ file supertuxkart
 
 
 e.g.:
--------------------------------------------------------------------------
+
 supertuxkart: Mach-O fat file with 2 architectures
 
 supertuxkart (for architecture ppc): Mach-O executable ppc
 
 supertuxkart (for architecture i386): Mach-O executable i386
--------------------------------------------------------------------------
 
 
 7.04 otool -L supertuxkart
@@ -533,7 +531,7 @@ supertuxkart (for architecture i386): Mach-O executable i386
 Print shared library dependencies.
 
 e.g.:
-------------------------------------------------------------------------------------------------
+
 supertuxkart:
 
 /System/Library/Frameworks/OpenAL.framework/Versions/A/OpenAL (compatibility version 1.0.0,
