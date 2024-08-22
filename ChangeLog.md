@@ -237,24 +237,34 @@
 * New user-interface.
 * Added some additional effects. (skid-marks, smoke)
 
+----------------------------------------------------
+
 ### TuxKart v0.4.0 (March 19th 2004)
 
 * Changes for compatibility with PLIB 1.8.0 and later.
 * Removed some features that were only there to support
   truly ancient graphics cards like 3Dfx Voodoo-1/2.
+  
+----------------------------------------------------
 
 ### TuxKart v0.3.0 (??)
 
 * Converted to use the new PLIB/PW library and thus
   avoid the need to link to GLUT.
 
+----------------------------------------------------
+
 ### TuxKart v0.2.0 (Sept 3rd 2002)
 
 * Changes for compatibility with PLIB 1.6.0 and later.
 
+----------------------------------------------------
+
 ### TuxKart v0.0.5 (??)
 
 * Changes for compatibility with PLIB 1.4.0 and later.
+
+----------------------------------------------------
 
 ### TuxKart v0.0.4 (??)
 
@@ -262,6 +272,8 @@
 * Steady-cam camera - courtesy of cowtan@ysbl.york.ac.uk
 * Changes for compatibility with PLIB 1.3.1 and later.
 * Added new music courtesy of Matt Thomas.
+
+----------------------------------------------------
 
 ### TuxKart v0.0.3 (July 4th 2000)
 
@@ -271,6 +283,8 @@
 * Started new feature to allow you to be
   rescued from lava, etc.
 
+----------------------------------------------------
+
 ### TuxKart v0.0.2 (July 2nd 2000)
 
 * Added ability to add new tracks without
@@ -279,14 +293,20 @@
   required.
 * Should compile and run under Windows using CygWin.
 
+----------------------------------------------------
+
 ### TuxKart v0.0.1 (July 1st 2000)
 
 * Fixed a couple of files missing in initial
   Distro.
 
+----------------------------------------------------
+
 ### TuxKart v0.0.0 (June 29th 2000)
 
 * First CVS release.
+
+----------------------------------------------------
 
 ### TuxKart (unnumbered) (April 13th 2000)
 
