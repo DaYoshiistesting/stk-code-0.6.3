@@ -240,6 +240,7 @@
 ----------------------------------------------------
 
 ### TuxKart v0.4.0 (March 19th 2004)
+----------------------------------------------------
 
 * Changes for compatibility with PLIB 1.8.0 and later.
 * Removed some features that were only there to support
@@ -248,6 +249,7 @@
 ----------------------------------------------------
 
 ### TuxKart v0.3.0 (??)
+----------------------------------------------------
 
 * Converted to use the new PLIB/PW library and thus
   avoid the need to link to GLUT.
@@ -255,18 +257,21 @@
 ----------------------------------------------------
 
 ### TuxKart v0.2.0 (Sept 3rd 2002)
+----------------------------------------------------
 
 * Changes for compatibility with PLIB 1.6.0 and later.
 
 ----------------------------------------------------
 
 ### TuxKart v0.0.5 (??)
+----------------------------------------------------
 
 * Changes for compatibility with PLIB 1.4.0 and later.
 
 ----------------------------------------------------
 
 ### TuxKart v0.0.4 (??)
+----------------------------------------------------
 
 * Changes to suit rassin-frassin-Windows-junk.
 * Steady-cam camera - courtesy of cowtan@ysbl.york.ac.uk
@@ -276,6 +281,7 @@
 ----------------------------------------------------
 
 ### TuxKart v0.0.3 (July 4th 2000)
+----------------------------------------------------
 
 * Fixed bug in Keyboard driver when no
   joystick driver is installed.
@@ -286,6 +292,7 @@
 ----------------------------------------------------
 
 ### TuxKart v0.0.2 (July 2nd 2000)
+----------------------------------------------------
 
 * Added ability to add new tracks without
   recompiling.
@@ -296,6 +303,7 @@
 ----------------------------------------------------
 
 ### TuxKart v0.0.1 (July 1st 2000)
+----------------------------------------------------
 
 * Fixed a couple of files missing in initial
   Distro.
@@ -309,6 +317,7 @@
 ----------------------------------------------------
 
 ### TuxKart (unnumbered) (April 13th 2000)
+----------------------------------------------------
 
 * First hack.
  
