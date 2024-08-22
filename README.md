@@ -42,7 +42,7 @@ since they might give you a nasty surprise.
 Controls can be configured from the game.
 Note that the escape key pauses the game and shows the race menu.
 
-## License :
+## License
 
 This software is released under the GNU General Public License (GPL) which
 can be found in the file [`LICENSE`](/LICENSE) in the same directory as this file.
