@@ -141,18 +141,19 @@ void ProjectileManager::updateServer(float dt)
     {
         race_state->setNumFlyables(m_active_projectiles.size());
     }
-    for(Projectiles::iterator i  = m_active_projectiles.begin();
-                              i != m_active_projectiles.end();   ++i)
+    Projectiles::iterator i = m_active_projectiles.begin();
+    while(i!=m_active_projectiles.end())
     {
-        (*i)->update(dt);
+        (*i)->updateAndDel(dt);
         // Store the state information on the server
         if(network_manager->getMode()!=NetworkManager::NW_NONE)
         {
             race_state->setFlyableInfo(i-m_active_projectiles.begin(),
                                        FlyableInfo((*i)->getXYZ(), 
                                                    (*i)->getRotation(),
-                                                   (*i)->hasHit())      );
+                                                   (*i)->hasHit()));
         }
+        else i++;
     }
 }   // updateServer
 
@@ -191,7 +192,6 @@ Flyable *ProjectileManager::newProjectile(Kart *kart, PowerupType type)
         case POWERUP_BOWLING: f = new Bowling(kart); break;
         case POWERUP_PLUNGER: f = new Plunger(kart); break;
         case POWERUP_CAKE:    f = new Cake(kart);  break;
-       // case POWERUP_BUBBLEGUM: f = new BubbleGum(kart); break;
         default:              return NULL;
     }
     m_active_projectiles.push_back(f);

@@ -56,7 +56,6 @@ Track      *Track::m_track        = NULL;
 Track::Track( std::string filename_, float w, float h, bool stretch )
 {
     m_filename         = filename_;
-    m_item_style    = "";
     m_track_2d_width   = w;
     m_track_2d_height  = h;
     m_do_stretch       = stretch;
@@ -83,6 +82,7 @@ Track::~Track()
  */
 void Track::cleanup()
 {
+    ItemManager::destroy();
     delete m_non_collision_mesh;
     delete m_track_mesh;
 
@@ -463,6 +463,9 @@ btTransform Track::getStartTransform(unsigned int pos) const
         if(m_left_driveline[0].getY() > 0 || m_right_driveline[0].getY() > 0)
             offset += std::max(m_left_driveline[0].getY(), m_left_driveline[0].getY());
         
+        // FIXME : Replace these old start settings and instead,
+        // replace it with an automatic system that makes the karts pop
+        // between left and right drivelines.
         orig.setX( pos<m_start_x.size() ? m_start_x[pos] : ((pos%2==0)?1.5f:-1.5f) );
         orig.setY( pos<m_start_y.size() ? m_start_y[pos] : -1.5f*pos-offset        );
         orig.setZ( pos<m_start_z.size() ? m_start_z[pos] : 1.0f                    );
@@ -580,20 +583,26 @@ void Track::addDebugToScene(int type) const
 
 /*void Track::drawScaled2D(float x, float y, float w, float h) const
 {
-  float width = m_driveline_max.getX() - m_driveline_min.getX();
-  float height = m_driveline_max.getY() - m_driveline_min.getY();
+  float width  = m_driveline_max.getX() - m_driveline_min.getX();
+  float height = m_driveline_max.getY()-m_driveline_min.getY();
+
+    GLfloat viewport[4];
+    glGetFloatv(GL_VIEWPORT, viewport);
+    float window_width  = viewport[2];
+    float window_height = viewport[3];
 
     float sx = w / width;
     float sy = h / height;
 
-    if( sx > sy )
+    if (sx > sy)
     {
         sx = sy;
-        x += w/2 - width*sx/2;
+        x += (w - width * sx) / 2;
     }
     else
     {
         sy = sx;
+        y += (h - height * sy) / 2;
     }
 
     const unsigned int DRIVELINE_SIZE = (unsigned int)m_driveline.size();
@@ -635,17 +644,17 @@ void Track::addDebugToScene(int type) const
 
     glBegin ( GL_LINES ) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE - 1 ; ++i )
-    {*/
-        /*Draw left driveline of the map*/
-        /*glVertex2f ( x + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * sx,
+    {
+        //Draw left driveline of the map
+        glVertex2f ( x + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * sx,
             y + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * sy ) ;
 
         glVertex2f ( x + ( m_left_driveline[i+1].getX() - m_driveline_min.getX() ) * sx,
-            y + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * sy ) ;*
+            y + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * sy ) ;
 
 
-        /*Draw left driveline of the map*/
-        /*glVertex2f ( x + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * sx,
+        //Draw left driveline of the map
+        glVertex2f ( x + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * sx,
 	        y + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * sy ) ;
 
         glVertex2f ( x + ( m_right_driveline[i+1].getX() - m_driveline_min.getX() ) * sx,
@@ -709,6 +718,27 @@ void Track::addDebugToScene(int type) const
 //-----------------------------------------------------------------------------
 void Track::draw2Dview (float x_offset, float y_offset) const
 {
+#if 0
+  //FIXME: We are not sure if it's a videocard problem, but on Linux with a
+  //Nvidia Geforce4 mx 440, we get problems with GL_LINE_LOOP;
+  //If this issue is solved, using GL_LINE_LOOP is a better solution than
+  //GL_LINES
+    glBegin ( GL_LINE_LOOP ) ;
+    for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
+    {
+        glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+            y_offset + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
+    }
+    glEnd () ;
+
+    glBegin ( GL_LINE_LOOP ) ;
+    for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
+    {
+        glVertex2f ( x_offset + ( m_right_driveline[i].get() - m_driveline_min.getX() ) * m_scale_x,
+	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
+    }
+    glEnd () ;
+#endif
 
     const unsigned int DRIVELINE_SIZE = (unsigned int)m_driveline.size();
 
@@ -719,15 +749,15 @@ void Track::draw2Dview (float x_offset, float y_offset) const
     glDisable (GL_TEXTURE_2D);
 
     //TODO: maybe colors should be configurable, or at least the alpha value
-    glColor4f ( 1.0f, 1.0f, 1.0f, 0.4f) ;*/
+    glColor4f ( 1.0f, 1.0f, 1.0f, 0.4f) ;
 
 
 /*FIXME: Too much calculations here, we should be generating scaled driveline arrays
  * in Track::loadDriveline so all we'd be doing is pumping out predefined
  * vertexes in-game.
- */
-    /*Draw white filling of the map*/
-    /*glBegin ( GL_QUAD_STRIP ) ;
+ *
+    //Draw white filling of the map
+    glBegin ( GL_QUAD_STRIP ) ;
 
     for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i ) {
       glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -756,25 +786,25 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 
     glBegin ( GL_LINES ) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE - 1 ; ++i )
-    {*/
-        /*Draw left driveline of the map*/
-        /*glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+    {
+        //Draw left driveline of the map
+        glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
             y_offset + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
         glVertex2f ( x_offset + ( m_left_driveline[i+1].getX() - m_driveline_min.getX() ) * m_scale_x,
-            y_offset + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;*/
+            y_offset + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
 
-        /*Draw left driveline of the map*/
-        /*glVertex2f ( x_offset + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+        //Draw left driveline of the map
+        glVertex2f ( x_offset + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
 	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
         glVertex2f ( x_offset + ( m_right_driveline[i+1].getX() - m_driveline_min.getX() ) * m_scale_x,
 	        y_offset + ( m_right_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
-    }*/
+    }
 
     //Close the left driveline
-    /*glVertex2f ( x_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getX() - m_driveline_min.getX() ) * m_scale_x,
+    glVertex2f ( x_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getX() - m_driveline_min.getX() ) * m_scale_x,
 		 y_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
     glVertex2f ( x_offset + ( m_left_driveline[0].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -789,33 +819,14 @@ void Track::draw2Dview (float x_offset, float y_offset) const
         y_offset + ( m_right_driveline[0].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
     glEnd () ;
 
-#if 0
-  //FIXME: We are not sure if it's a videocard problem, but on Linux with a
-  //Nvidia Geforce4 mx 440, we get problems with GL_LINE_LOOP;
-  //If this issue is solved, using GL_LINE_LOOP is a better solution than
-  //GL_LINES
-    glBegin ( GL_LINE_LOOP ) ;
-    for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
-    {
-        glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
-            y_offset + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
-    }
-    glEnd () ;
 
-    glBegin ( GL_LINE_LOOP ) ;
-    for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
-    {
-        glVertex2f ( x_offset + ( m_right_driveline[i].get() - m_driveline_min.getX() ) * m_scale_x,
-	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
-    }
-    glEnd () ;
-#endif*/
 
-    /*Because of the way OpenGL draws lines of widths higher than 1,
+
+    Because of the way OpenGL draws lines of widths higher than 1,
      *we have to draw the joints too, in order to fill small spaces
      *between lines
-     */
-    /*glBegin ( GL_POINTS) ;
+     
+    glBegin ( GL_POINTS) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
     {
         glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -848,7 +859,6 @@ void Track::loadTrack(std::string filename_)
 
     sgSetVec3 ( m_sun_position,  0.4f, 0.4f, 0.4f      );
     sgSetVec4 ( m_sky_color,     0.3f, 0.7f, 0.9f, 1.0f );
-    sgSetVec4 ( m_fog_color,     0.3f, 0.7f, 0.9f, 1.0f );
     sgSetVec4 ( m_ambient_col,   0.5f, 0.5f, 0.5f, 1.0f );
     sgSetVec4 ( m_specular_col,  1.0f, 1.0f, 1.0f, 1.0f );
     sgSetVec4 ( m_diffuse_col,   1.0f, 1.0f, 1.0f, 1.0f );
@@ -872,7 +882,6 @@ void Track::loadTrack(std::string filename_)
     std::vector<std::string> filenames;
     LISP->getVector("music",                 filenames);
     getMusicInformation(filenames, m_music);
-    LISP->get      ("item",                  m_item_style);
     LISP->get      ("screenshot",            m_screenshot);
     LISP->get      ("topview",               m_top_view);
     LISP->get      ("sky-color",             m_sky_color);
@@ -954,7 +963,7 @@ void Track::loadDriveline()
         std::cout << "Error: driveline's sizes do not match, right " <<
         "driveline is " << m_right_driveline.size() << " vertex long " <<
         "and the left driveline is " << m_left_driveline.size()
-        << " vertex long. Track is " << m_name << " ." << std::endl;
+        << " vertex long. The targered track is " << m_name << " ." << std::endl;
 
     m_dl_with_tolerance_left.reserve(DRIVELINE_SIZE);
     m_dl_with_tolerance_right.reserve(DRIVELINE_SIZE);
@@ -1008,6 +1017,11 @@ void Track::loadDriveline()
     }
     m_total_distance = d;
     Vec3 sc = m_driveline_max - m_driveline_min;
+
+    GLfloat viewport[4];
+    glGetFloatv(GL_VIEWPORT, viewport);
+    float window_width  = viewport[2];
+    float window_height = viewport[3];
 
     m_scale_x = m_track_2d_width  / sc.getX();
     m_scale_y = m_track_2d_height / sc.getY();
@@ -1441,7 +1455,7 @@ void Track::itemCommand (sgVec3 *xyz, int type, int bNeedHeight )
     // i.e. the items will not rotate around the normal, but 'wobble'
     // around.
     Vec3 normal(0, 0, 0.0f);
-    item_manager->newItem((Item::ItemType)type, loc, normal);
+    ItemManager::get()->newItem((Item::ItemType)type, loc, normal);
 }   // itemCommand
 
 // ----------------------------------------------------------------------------

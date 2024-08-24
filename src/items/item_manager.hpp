@@ -42,43 +42,49 @@ private:
     // This stores all item models
     static std::vector<ssgEntity *> m_item_model;
 
-    std::string m_user_filename;
+    // The instance of ItemManager while a race is on
+    static ItemManager *m_item_manager;
+
     void insertItem(Item *h);
     void deleteItem(Item *h);
 
 	// Stores which items are on which sectors
     std::vector< AllItemTypes > *m_items_in_sector;
 
-public:
     ItemManager();
-    ~ItemManager();
-    void        loadDefaultItems();
-    Item*       newItem         (Item::ItemType type, const Vec3& xyz, 
+   ~ItemManager();
+
+public:
+    // Return an instance of the item manager
+    static       ItemManager *get() 
+    { 
+        assert(m_item_manager); 
+        return m_item_manager;
+    }
+    static void  loadDefaultItems();
+    static void  removeTextures  ();
+    static void  create          ();
+    static void  destroy         ();
+    Item*        newItem         (Item::ItemType type, const Vec3& xyz, 
                                  const Vec3 &normal, Kart* parent=NULL);
-    Item*       newItem         (const Vec3& xyz, float distance, 
+    Item*        newItem         (const Vec3& xyz, float distance, 
                                  TriggerItemListener* listener);
-    void        update          (float delta);
-    void        hitItem         (Kart* kart);
-    void        cleanup         ();
-    void        reset           ();
-    void        removeTextures  ();
-    void        setUserFilename (char *s) {m_user_filename=s;}
-    void        collectedItem   (Item *h, Kart *kart,
+    void         update          (float delta);
+    void         hitItem         (Kart* kart);
+    void         reset           ();
+    void         collectedItem   (Item *h, Kart *kart,
                                  int add_info=-1);
-    unsigned int getNumberOfItems()     const {return m_all_items.size();}
-    const Item* getItem(unsigned int n) const {return m_all_items[n];};
-    Item*       getItem(unsigned int n)       {return m_all_items[n];};
-    const AllItemTypes& getItemsInDriveline   (unsigned int n) const 
+    unsigned int getNumberOfItems()      const {return m_all_items.size();}
+    const Item*  getItem(unsigned int n) const {return m_all_items[n];};
+    Item*        getItem(unsigned int n)       {return m_all_items[n];};
+	static ssgEntity*    getItemModel   (Item::ItemType type)
+                                        {return m_item_model[type];}
+    const AllItemTypes& getItemsInDriveline (unsigned int n) const 
     {
-        //assert(m_items_in_sector); 
-        //assert(n<(*m_items_in_sector).size());
+        assert(m_items_in_sector); 
+        assert(n<(*m_items_in_sector).size());
         return (*m_items_in_sector)[n];
 	}
-    static ssgEntity*  getItemModel  (Item::ItemType type)
-                                     {return m_item_model[type];}
 };
-
-extern ItemManager* item_manager;
-
 
 #endif

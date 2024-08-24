@@ -28,6 +28,7 @@
 
 class ssgTransform;
 class ssgEntity;
+class Item;
 
 class TriggerItemListener
 {

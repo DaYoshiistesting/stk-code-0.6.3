@@ -76,25 +76,25 @@ HelpPageOne::HelpPageOne()
     widget_manager->breakLine();
 
     /*Rotating 3D models*/
-	ssgEntity* hm = item_manager->getItemModel(Item::ITEM_BONUS_BOX);
+    ssgEntity* hm = ItemManager::getItemModel(Item::ITEM_BONUS_BOX);
     ssgDeRefDelete(m_box);
     m_box = new ssgTransform;
     m_box->ref();
     m_box->addKid(hm);
 
-	hm = item_manager->getItemModel(Item::ITEM_SMALL_NITRO);
-    ssgDeRefDelete(m_silver_coin);
+    hm = ItemManager::getItemModel(Item::ITEM_SMALL_NITRO);
+    ssgDeRefDelete(m_small_nitro);
     m_silver_coin = new ssgTransform;
     m_silver_coin->ref();
     m_silver_coin->addKid(hm);
 
-    hm = item_manager->getItemModel(Item::ITEM_BIG_NITRO);
-    ssgDeRefDelete(m_gold_coin);
+    hm = ItemManager::getItemModel(Item::ITEM_BIG_NITRO);
+    ssgDeRefDelete(m_big_nitro);
     m_gold_coin = new ssgTransform;
     m_gold_coin->ref();
     m_gold_coin->addKid(hm);
 
-    hm = item_manager->getItemModel(Item::ITEM_BANANA);
+    hm = ItemManager::getItemModel(Item::ITEM_BANANA);
     ssgDeRefDelete(m_banana);
     m_banana = new ssgTransform;
     m_banana->ref();
@@ -164,12 +164,12 @@ HelpPageOne::~HelpPageOne()
 {
     widget_manager->reset();
 
-	if (m_box != NULL && m_silver_coin != NULL && m_gold_coin != NULL
+	if (m_box != NULL && m_small_nitro != NULL && m_big_nitro != NULL
         && m_banana != NULL )
 	{
 		ssgDeRefDelete(m_box);
-		ssgDeRefDelete(m_silver_coin);
-		ssgDeRefDelete(m_gold_coin);
+		ssgDeRefDelete(m_small_nitro);
+		ssgDeRefDelete(m_big_nitro);
 		ssgDeRefDelete(m_banana);
 	}
 
@@ -182,7 +182,7 @@ void HelpPageOne::update(float dt)
 {
     m_clock += dt * 40.0f;
 
-    if (m_box != NULL && m_silver_coin != NULL && m_gold_coin != NULL
+    if (m_box != NULL && m_small_nitro != NULL && m_big_nitro != NULL
         && m_banana != NULL )
     {
         ssgContext* oldContext = ssgGetCurrentContext();
@@ -210,8 +210,8 @@ void HelpPageOne::update(float dt)
 
         //glShadeModel(GL_SMOOTH);
         ssgCullAndDraw ( m_box ) ;
-        ssgCullAndDraw ( m_silver_coin ) ;
-        ssgCullAndDraw ( m_gold_coin ) ;
+        ssgCullAndDraw ( m_small_nitro ) ;
+        ssgCullAndDraw ( m_big_nitro ) ;
         ssgCullAndDraw ( m_banana ) ;
         glViewport ( 0, 0, user_config->m_width, user_config->m_height ) ;
 

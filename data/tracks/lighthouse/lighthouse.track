@@ -9,8 +9,15 @@ modified by M. Gagnon"))
  (screenshot  "sshot-lighthouse.rgb")
  (topview     "topview-lighthouse.rgb")
  (groups      "standard")
- (camera-final-position  -10 25 3)
+ (use-fog     #t)
+ (fog-color   0.0  0.54  0.5  0.43)
+ (fog-density 0.009) 
+ (fog-start   100) 
+ (fog-end     300)
+ (sun-position   55.72 -9.8 25.24 )
+ (camera-final-position  -10 25 3 )
  (camera-final-hpr       -140 -7 0)
+ 
 ;; Start position for the jump at the light house. 
 ;; Useful for debugging.
 ;;(start-x -2.57)

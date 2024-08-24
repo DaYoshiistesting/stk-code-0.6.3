@@ -142,10 +142,10 @@ void RaceState::receive(ENetPacket *pkt)
             RaceManager::getKart(hi.m_kart_id)->forceRescue();
         else
         {
-            Item *h = item_manager->getItem(hi.m_item_id);
-            item_manager->collectedItem(h,
-                                        RaceManager::getKart(hi.m_kart_id),
-                                        hi.m_add_info);
+            Item *h = ItemManager::get()->getItem(hi.m_item_id);
+            ItemManager::get()->collectedItem(h,
+                                RaceManager::getKart(hi.m_kart_id),
+                                hi.m_add_info);
         }
     }
 

@@ -149,7 +149,7 @@ void Powerup::use()
         
         pos.setZ(z_coord-0.05f);
         
-        item_manager->newItem(Item::ITEM_BUBBLEGUM, pos, normal, m_owner);
+        ItemManager::get()->newItem(Item::ITEM_BUBBLEGUM, pos, normal, m_owner);
         }
         break;
         

@@ -4,8 +4,8 @@
  (name       _("Hacienda"))
  (version     1)
  (description _("Created by Jean-Manuel Clemencon
-and ported by Chungus"))
- (music       "Dance_cleopatra.music")
+and ported by DaYoshiistesting"))
+ (music       "dance_cleopatra.music")
  (screenshot  "sshot-hacienda.rgb")
  (topview     "topview-hacienda.rgb")
  (groups      "standard")

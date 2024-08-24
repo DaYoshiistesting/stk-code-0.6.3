@@ -101,7 +101,6 @@ void cmdLineHelp (char* invocation)
     //FIXME"     --players n             Define number of players to between 1 and 4.\n"
     //FIXME     "  --reverse               Enable reverse mode\n"
     //FIXME     "  --mirror                Enable mirror mode (when supported)\n"
-    "       --item STYLE       Use STYLE as your item style\n"
     "  -f,  --fullscreen       Fullscreen display\n"
     "  -w,  --windowed         Windowed display (default)\n"
     "  -s,  --screensize WxH   Set the screen size (e.g. 320x200)\n"
@@ -409,10 +408,6 @@ int handleCmdLine(int argc, char **argv)
         {
             history->doReplayHistory(History::HISTORY_POSITION);
         }
-        else if( !strcmp(argv[i], "--item") && i+1<argc )
-        {
-            item_manager->setUserFilename(argv[i+1]);
-        }
         else
         {
             fprintf ( stderr, "Invalid parameter: %s.\n\n", argv[i] );
@@ -449,9 +444,9 @@ void InitTuxkart()
     stk_config              = new STKConfig            ();
     kart_properties_manager = new KartPropertiesManager();
     projectile_manager      = new ProjectileManager    ();
-    powerup_manager         = new PowerupManager   ();
+    powerup_manager         = new PowerupManager       ();
+    ItemManager::                 create               ();
     callback_manager        = new CallbackManager      ();
-    item_manager            = new ItemManager       ();
     attachment_manager      = new AttachmentManager    ();
     highscore_manager       = new HighscoreManager     ();
     grand_prix_manager      = new GrandPrixManager     ();
@@ -489,8 +484,8 @@ void CleanTuxKart()
     if(grand_prix_manager)      delete grand_prix_manager;
     if(highscore_manager)       delete highscore_manager;
     if(attachment_manager)      delete attachment_manager;
-    if(item_manager)            delete item_manager;
     if(callback_manager)        delete callback_manager;
+       ItemManager                ::   destroy();
     if(powerup_manager)         delete powerup_manager;   
     if(projectile_manager)      delete projectile_manager;
     if(kart_properties_manager) delete kart_properties_manager;
@@ -554,7 +549,7 @@ int main(int argc, char *argv[] )
         kart_properties_manager -> loadKartData    ();
         projectile_manager      -> loadData        ();
         powerup_manager         -> loadPowerups    ();
-        item_manager            -> loadDefaultItems();
+        ItemManager             :: loadDefaultItems();
         attachment_manager      -> loadModels      ();
         scene = new Scene();
 

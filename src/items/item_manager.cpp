@@ -34,50 +34,24 @@
 
 ItemManager* item_manager;
 std::vector<ssgEntity *> ItemManager::m_item_model;
-
-ItemManager::ItemManager()
-{
-    // The actual loading is done in loadDefaultItems
-    if(Track::get())
-    {
-        m_items_in_sector = new std::vector<AllItemTypes>;
-        m_items_in_sector->resize(Track::get()->m_driveline.size());
-    }
-    else
-    {
-        m_items_in_sector = NULL;
-    }
-
-}   // ItemManager
+ItemManager * ItemManager::m_item_manager = NULL;
 
 //-----------------------------------------------------------------------------
-void ItemManager::removeTextures()
+/** Creates one instance of the item manager. */
+void ItemManager::create()
 {
-    for(AllItemTypes::iterator i =m_all_items.begin();
-        i!=m_all_items.end();  i++)
-    {
-        delete *i;
-    }
-    m_all_items.clear();
-
-    for(unsigned int i=0; i<Item::ITEM_LAST-Item::ITEM_FIRST+1; i++)
-    {
-        if(m_item_model[i]) m_item_model[i]->deRef();
-    }
-    callback_manager->clear(CB_ITEM);
-}   // removeTextures
+    assert(!m_item_manager);
+    m_item_manager = new ItemManager();
+}   // create
 
 //-----------------------------------------------------------------------------
-ItemManager::~ItemManager()
+/** Destroys the one instance of the item manager. */
+void ItemManager::destroy()
 {
-    if(m_items_in_sector)
-        delete m_items_in_sector;
-
-    for(unsigned int i=0; i<Item::ITEM_LAST-Item::ITEM_FIRST+1; i++)
-    {
-        if(m_item_model[i]) m_item_model[i]->deRef();
-    }
-}   // ~ItemManager
+    assert(m_item_manager);
+    delete m_item_manager;
+    m_item_manager = NULL;
+}   // destroy
 
 //-----------------------------------------------------------------------------
 void ItemManager::loadDefaultItems()
@@ -121,6 +95,48 @@ void ItemManager::loadDefaultItems()
 }  //loadDefaultItems
 
 //-----------------------------------------------------------------------------
+void ItemManager::removeTextures()
+{
+    for(unsigned int i=0; i<Item::ITEM_LAST-Item::ITEM_FIRST+1; i++)
+    {
+        if(m_item_model[i]) m_item_model[i]->deRef();
+           m_item_model[i] = NULL;
+    }
+    callback_manager->clear(CB_ITEM);
+}   // removeTextures
+
+//-----------------------------------------------------------------------------
+ItemManager::ItemManager()
+{
+    // The actual loading is done in loadDefaultItems
+    if(Track::get())
+    {
+        m_items_in_sector = new std::vector<AllItemTypes>;
+        m_items_in_sector->resize(Track::get()->m_driveline.size()-1);
+    }
+    else
+    {
+        m_items_in_sector = NULL;
+    }
+
+}   // ItemManager
+
+//-----------------------------------------------------------------------------
+ItemManager::~ItemManager()
+{
+    if(m_items_in_sector)
+        delete m_items_in_sector;
+
+    for(AllItemTypes::iterator i =m_all_items.begin();
+        i!=m_all_items.end();  i++)
+    {
+        if(*i)
+            delete *i;
+    }
+    m_all_items.clear();
+
+}   // ~ItemManager
+//-----------------------------------------------------------------------------
 /** Inserts the new item into the items management data structures, if possible
  *  reusing an existing, unused entry (e.g. due to a removed bubble gum). Then 
  *  the item is also added to the sector-wise list of items.
@@ -142,17 +158,25 @@ void ItemManager::insertItem(Item *h)
 
     if(m_items_in_sector)
 	{
-    const Vec3 &xyz = h->getXYZ();
-    int sector = Track::UNKNOWN_SECTOR;
-    Track::get()->findRoadSector(xyz, &sector);
-    if(sector==Track::UNKNOWN_SECTOR)
-        (*m_items_in_sector)[m_items_in_sector->size()-1].push_back(h);
-    else
-        (*m_items_in_sector)[sector].push_back(h);
+        const Vec3 &xyz = h->getXYZ();
+        int sector = Track::UNKNOWN_SECTOR;
+        Track::get()->findRoadSector(xyz, &sector);
+        if(sector==Track::UNKNOWN_SECTOR)
+            (*m_items_in_sector)[m_items_in_sector->size()-1].push_back(h);
+        else
+            (*m_items_in_sector)[sector].push_back(h);
     }
 
 }   // insertItem
+
 //-----------------------------------------------------------------------------
+/** Creates a new item.
+ *  \param type Type of the item.
+ *  \param xyz Position of the item.
+ *  \param normal The normal of the terrain to set roll and pitch.
+ *  \param parent In case of a dropped item used to avoid that a kart
+ *         is affected by its own items.
+ */
 Item* ItemManager::newItem(Item::ItemType type, const Vec3& xyz, const Vec3 &normal,
                            Kart* parent)
 { 
@@ -177,6 +201,7 @@ Item* ItemManager::newItem(const Vec3& xyz, float distance,
 
     return h;
 }   // newItem
+
 //-----------------------------------------------------------------------------
 /** Set an item as collected.
  *  This function is called on the server when an item is collected, or on the
@@ -207,22 +232,6 @@ void ItemManager::hitItem(Kart* kart)
 
 //-----------------------------------------------------------------------------
 /** Remove all item instances, and the track specific models. This is used
- *  just before a new track is loaded and a race is started.
- */
-void ItemManager::cleanup()
-{
-    for(AllItemTypes::iterator i =m_all_items.begin();
-        i!=m_all_items.end();  i++)
-    {
-        if(*i)
-            delete *i;
-    }
-    m_all_items.clear();
-
-}   // cleanup
-
-//-----------------------------------------------------------------------------
-/** Remove all item instances, and the track specific models. This is used
  * just before a new track is loaded and a race is started
  */
 void ItemManager::reset()
@@ -249,6 +258,9 @@ void ItemManager::reset()
 }   // reset
 
 //-----------------------------------------------------------------------------
+/** Updates all items.
+* \param dt Time step.
+*/
 void ItemManager::update(float delta)
 {
     for(AllItemTypes::iterator i =m_all_items.begin();
@@ -271,7 +283,7 @@ void ItemManager::update(float delta)
  */
 void ItemManager::deleteItem(Item *h)
 {
-    // First check if the item needs to be removed from the items-in-quad list
+    // First check if the item needs to be removed from the items-in-sector list
     if(m_items_in_sector)
     {
         const Vec3 &xyz = h->getXYZ();
@@ -284,10 +296,10 @@ void ItemManager::deleteItem(Item *h)
         AllItemTypes::iterator it = std::find(items.begin(), items.end(), h);
         assert(it!=items.end());
         items.erase(it);
-    }   // if m_items_in_quads
+    }   // if m_items_in_sector
 
     int index = h->getItemId();
     m_all_items[index] = NULL;
     delete h;
-}   // delete item
+}   // deleteItem
 //------------------------------------------------------------------------------

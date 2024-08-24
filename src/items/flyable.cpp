@@ -19,6 +19,9 @@
 
 #include "items/flyable.hpp"
 
+#if defined(WIN32) && !defined(__CYGWIN__) && !defined(__MINGW32__)
+#  define isnan _isnan
+#endif
 #include <math.h>
 
 #include "callback_manager.hpp"
@@ -57,6 +60,7 @@ Flyable::Flyable(Kart *kart, PowerupType type, float mass) : Moveable()
     m_shape             = NULL;
     m_mass              = mass;
     m_adjust_z_velocity = true;
+    do_terrain_info     = true;
     m_time_since_thrown = 0;
     m_owner_has_temporary_immunity = true;
     m_max_lifespan = -1;
@@ -91,14 +95,14 @@ void Flyable::createPhysics(float y_offset, const btVector3 &velocity,
     // Apply offset
     btTransform offset_transform;
     offset_transform.setIdentity();
-    btVector3 offset=btVector3(0,y_offset,m_average_height);
+    btVector3 offset = Vec3(0,y_offset,m_average_height);
     offset_transform.setOrigin(offset);
         
     // turn around
     if(turn_around)
     {
         btTransform turn_around_trans;
-        //turn_around_trans.setOrigin(trans.getOrigin());
+     // turn_around_trans.setOrigin(trans.getOrigin());
         turn_around_trans.setIdentity();
         turn_around_trans.setRotation(btQuaternion(btVector3(0, 0, 1), M_PI));
         trans  *= turn_around_trans;
@@ -145,14 +149,14 @@ void Flyable::init(const lisp::Lisp* lisp, ssgEntity *model,
     m_st_model[type]  = model;
 }   // init
 
-//-----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 Flyable::~Flyable()
 {
     if(m_shape) delete m_shape;
     RaceManager::getWorld()->getPhysics()->removeBody(getBody());
 }   // ~Flyable
 
-//-----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 void Flyable::getClosestKart(const Kart **minKart, float *minDistSquared,
                              btVector3 *minDelta, const Kart* inFrontOf, 
                              const bool backwards) const
@@ -194,7 +198,7 @@ void Flyable::getClosestKart(const Kart **minKart, float *minDistSquared,
     }  // for i<getNumKarts
     
 }   // getClosestKart
-//-----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 /** Returns information on the parameters needed to hit a target kart moving 
  *  at constant velocity and direction for a given speed in the XY-plane.
  *  \param origin Location of the kart shooting the item.
@@ -223,8 +227,6 @@ void Flyable::getLinearKartItemIntersection (const Vec3 &origin,
     float dy = relative_target_kart_loc.getY();
     float dz = relative_target_kart_loc.getZ();
 
-    float gx = target_direction.getX();
-    float gy = target_direction.getY();
     float gz = target_direction.getZ();
 
     //Projected onto X-Y plane
@@ -259,15 +261,16 @@ void Flyable::getLinearKartItemIntersection (const Vec3 &origin,
     *z_velocity = (0.5f * time * gravity) + (dz / time) + (gz * target->getSpeed());
 
 }   // getLinearKartItemIntersection
-//-----------------------------------------------------------------------------
-void Flyable::update (float dt)
+// ----------------------------------------------------------------------------
+bool Flyable::updateAndDel(float dt)
 {
 	m_time_since_thrown += dt;
 	if(m_max_lifespan > -1 && m_time_since_thrown > m_max_lifespan) hit(NULL);
 	
-    if(m_exploded) return;
+    if(m_exploded) return false;
+	if(m_has_hit_something) return true;
 	
-    Vec3 pos=getBody()->getWorldTransform().getOrigin();
+    Vec3 pos = getXYZ();
     // Check if the flyable is out of the track  boundary. If so, let it explode.
     Vec3 min, max;
     RaceManager::getTrack()->getAABB(&min, &max);
@@ -281,22 +284,24 @@ void Flyable::update (float dt)
     // But since we couldn't reproduce the problem, and the epsilon used
     // here does not hurt, I'll leave it in.
     float eps = 0.1f;
+    assert(!isnan(pos.getX()));
+    assert(!isnan(pos.getY()));
+    assert(!isnan(pos.getZ()));
     if(pos[0]<(min)[0]+eps || pos[1]<(min)[1]+eps || pos[2]<(min)[2]+eps ||
        pos[0]>(max)[0]-eps || pos[1]>(max)[1]-eps || pos[2]>(max)[2]-eps   )   
     {
         hit(NULL);    // flyable out of track boundary
-        return;
+        return true;
     }
-	TerrainInfo::update(pos);
+    if(do_terrain_info) 
+        TerrainInfo::update(pos);
     if(m_adjust_z_velocity)
 
     {
         float hat = pos.getZ()-getHoT();
-
         // Use the Height Above Terrain to set the Z velocity.
         // HAT is clamped by min/max height. This might be somewhat
         // unphysical, but feels right in the game.
-
         float delta = m_average_height - std::max(std::min(hat, m_max_height), m_min_height);
         Vec3 v = getVelocity();
         float heading = atan2f(v.getX(), v.getY());
@@ -304,15 +309,16 @@ void Flyable::update (float dt)
         float vel_up = m_force_updown*(delta);
         if (hat < m_max_height) // take into account pitch of surface
             vel_up += v.length_2d()*tanf(pitch);
-        v.setZ(m_force_updown*delta);
+        v.setZ(vel_up);
         setVelocity(v);
     }   // if m_adjust_z_velocity
 
     Moveable::update(dt);
+    return false;
 }   // update
 
 // -----------------------------------------------------------------------------
-/** Updates the position of a projectile based on information received frmo the
+/** Updates the position of a projectile based on information received from the
  *  server. 
  */
 void Flyable::updateFromServer(const FlyableInfo &f, float dt)
@@ -338,12 +344,19 @@ bool Flyable::isOwnerImmunity(const Kart* kart_hit) const
 }   // isOwnerImmunity
 
 // -----------------------------------------------------------------------------
-void Flyable::hit(Kart *kart_hit, MovingPhysics* moving_physics)
+/** Callback from the physics in case that a kart or physical object is hit. 
+ *  \param kart The kart hit (NULL if no kart was hit).
+ *  \param object The object that was hit (NULL if none).
+ *  \return True if there was actually a hit (i.e. not owner, and target is 
+ *          not immune), false otherwise.
+ */
+bool Flyable::hit(Kart *kart_hit, MovingPhysics *mp)
 {
-	// the owner of this flyable should not be hit by his own flyable
-	if(m_exploded || isOwnerImmunity(kart_hit)) return;
-	
+    // the owner of this flyable should not be hit by his own flyable
+    if(m_exploded || isOwnerImmunity(kart_hit)) return false;
+
     m_has_hit_something=true;
+
     // Notify the projectile manager that this rocket has hit something.
     // The manager will create the appropriate explosion object.
     projectile_manager->notifyRemove();
@@ -356,10 +369,11 @@ void Flyable::hit(Kart *kart_hit, MovingPhysics* moving_physics)
     // The explosion is a bit higher in the air
     Vec3 pos_explosion=getXYZ();
     pos_explosion.setZ(pos_explosion.getZ()+1.2f);
+    pos_explosion.setY(pos_explosion.getY()+3.2f);
     RaceManager::getWorld()->getPhysics()->removeBody(getBody());
-	m_exploded=true;
+    m_exploded=true;
 
-    if(!needsExplosion()) return;
+    if(!needsExplosion()) return false;
 
     // Apply explosion effect
     // ----------------------
@@ -379,7 +393,8 @@ void Flyable::hit(Kart *kart_hit, MovingPhysics* moving_physics)
             }
         }
     }
-    callback_manager->handleExplosion(pos_explosion, moving_physics);
-}   // hit
+    callback_manager->handleExplosion(pos_explosion, mp);
+    return true;
+}
 
 /* EOF */

@@ -92,7 +92,7 @@ void World::init()
 
     // Load the track models - this must be done before the karts so that the
     // karts can be positioned properly on (and not in) the tracks.
-    item_manager->cleanup();
+    ItemManager::create();
     m_track->loadTrackModel();
 
     m_player_karts.resize(race_manager->getNumPlayers());
@@ -171,7 +171,7 @@ void World::init()
 //-----------------------------------------------------------------------------
 World::~World()
 {
-    item_manager->cleanup();
+    ItemManager::destroy();
     delete race_state;
     // In case that a race is aborted (e.g. track not found) m_track is 0.
     if(m_track)
@@ -290,7 +290,7 @@ void World::update(float dt)
     }
 
     projectile_manager->update(dt);
-    item_manager->update(dt);
+    ItemManager::get()->update(dt);
 
     /* Routine stuff we do even when paused */
     callback_manager->update(dt);
@@ -470,7 +470,7 @@ void World::restartRace()
     // Enable SFX again
     sfx_manager->resumeAll();
 
-    item_manager->reset();
+    ItemManager::get()->reset();
     projectile_manager->cleanup();
     race_manager->reset();
     callback_manager->reset();

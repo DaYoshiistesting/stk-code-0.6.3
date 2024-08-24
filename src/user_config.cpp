@@ -101,7 +101,6 @@ void UserConfig::setDefaults()
     m_music             = UC_ENABLE;
     m_graphical_effects = true;
     m_display_fps       = false;
-    m_item_style        = "items";
     m_background_music  = "";
     m_profile           = 0;
     m_print_kart_sizes  = false;
@@ -408,7 +407,6 @@ void UserConfig::loadConfig(const std::string& filename)
         m_music = doMusic ? UC_ENABLE : UC_DISABLE;
         lisp->get("graphical-effects",m_graphical_effects);
         lisp->get("displayFPS",       m_display_fps);
-        lisp->get("itemStyle",        m_item_style);
         lisp->get("background-music", m_background_music);
         lisp->get("max-fps",          m_max_fps);
         lisp->get("sfx-volume",       m_sfx_volume);
@@ -709,8 +707,6 @@ void UserConfig::saveConfig(const std::string& filename)
         writer->write("graphical-effects\t", m_graphical_effects);
         writer->writeComment("Display frame per seconds");
         writer->write("displayFPS\t", m_display_fps);
-        writer->writeComment("Name of the .items file to use.");
-        writer->write("itemStyle\t", m_item_style);
         writer->writeComment("Background music file to use,");
         writer->write("background-music\t", m_background_music);
         writer->writeComment("Use of kilometers per hours (km/h) instead of mph");

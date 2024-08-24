@@ -314,7 +314,7 @@ void SDLDriver::setVideoMode(bool resetTextures)
         // startScreen             -> removeTextures();
         attachment_manager      -> removeTextures();
         projectile_manager      -> removeTextures();
-        item_manager            -> removeTextures();
+        ItemManager             :: removeTextures();
         kart_properties_manager -> removeTextures();
         powerup_manager         -> removeTextures();
 
@@ -323,7 +323,7 @@ void SDLDriver::setVideoMode(bool resetTextures)
 
         powerup_manager         -> loadPowerups();
         kart_properties_manager -> loadKartData();
-        item_manager            -> loadDefaultItems();
+        ItemManager             :: loadDefaultItems();
         projectile_manager      -> loadData();
         attachment_manager      -> loadModels();
 

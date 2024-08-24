@@ -44,9 +44,9 @@ public:
      *  at the next update - which is used if the rubber band snaps. 
      */
     void         setKeepAlive(float t) {m_keep_alive = t;}
-    virtual void update   (float dt);
+    virtual bool updateAndDel(float dt);
     virtual void hitTrack ();
-    virtual void hit      (Kart *kart, MovingPhysics *mp=NULL);
+    virtual bool hit      (Kart *kart, MovingPhysics *mp=NULL);
 
     /** A plunger does not explode if it is removed. */
     virtual bool needsExplosion() const {return false;}

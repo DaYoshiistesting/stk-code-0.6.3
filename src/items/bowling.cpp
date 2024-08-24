@@ -84,9 +84,12 @@ void Bowling::init(const lisp::Lisp* lisp, ssgEntity *bowling)
 }   // init
 
 // -----------------------------------------------------------------------------
-void Bowling::update(float dt)
+bool Bowling::updateAndDel(float dt)
 {
-    Flyable::update(dt);    
+    bool can_be_delete = Flyable::updateAndDel(dt);   
+    if(can_be_delete)
+        return true;
+
     const Kart *kart=0;
     btVector3   direction;
     float       minDistance;
@@ -101,7 +104,6 @@ void Bowling::update(float dt)
             m_body->applyCentralForce(direction);
         }
     }
-    
     // Bowling balls lose energy (e.g. when hitting the track), so increase
     // the speed if the ball is too slow, but only if it's not too high (if
     // the ball is too high, it is 'pushed down', which can reduce the
@@ -109,6 +111,17 @@ void Bowling::update(float dt)
     // the ball to fly higher and higher.
     btTransform trans = getTrans();
     float hat         = trans.getOrigin().getZ();
+    // If the bowling ball is on a reset material or 
+    // is in the air, destroy it.
+    if(hat-0.5f*m_extend.getZ()<0.01f)
+    {
+        const Material *material = getMaterial();
+        if(!material || material->isReset())
+        {
+            hit(NULL);
+            return true;
+        }
+    }
     btVector3 v       = m_body->getLinearVelocity();
     float vlen        = v.length2();
     if (hat<= m_max_height)
@@ -123,6 +136,25 @@ void Bowling::update(float dt)
     }   // hat< m_max_height  
     
     if(vlen<0.1)
+    {
         hit(NULL);
-}   // update
+        return true;
+    }
+    return false;
+
+}   // updateAndDel
 // -----------------------------------------------------------------------------
+/** Callback from the physics in case that a kart or physical object is hit. 
+ *  The bowling ball triggers an explosion when hit.
+ *  \param kart The kart hit (NULL if no kart was hit).
+ *  \param object The object that was hit (NULL if none).
+ *  \returns True if there was actually a hit (i.e. not owner, and target is 
+ *           not immune), false otherwise.
+ */
+bool Bowling::hit(Kart* kart, MovingPhysics* mp)
+{
+    bool was_real_hit = Flyable::hit(kart, mp);
+    if(was_real_hit)
+        hit(kart, mp);
+    return was_real_hit;
+}

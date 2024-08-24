@@ -5,5 +5,5 @@
   (gain     1.4                  )
   (loop     10                   )
   (enable-fast      #t)
-  (max-pitch     0.0812)
+  (max-pitch     0.0810)
 )

@@ -194,7 +194,7 @@ void Material::install(bool is_full_path)
     m_state -> setMaterial   ( GL_SPECULAR, 0, 0, 0, 1 ) ;
     m_state -> setShininess  ( 0 ) ;
 
-    if ( m_transparency )
+    if (m_transparency )
     {
         m_state -> setTranslucent () ;
         m_state -> enable         ( GL_ALPHA_TEST ) ;

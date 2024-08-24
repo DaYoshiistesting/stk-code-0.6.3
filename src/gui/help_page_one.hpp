@@ -32,8 +32,8 @@ private:
     ssgContext* m_context;
     ssgTransform* m_box;
     ssgTransform* m_banana;
-    ssgTransform* m_silver_coin;
-    ssgTransform* m_gold_coin;
+    ssgTransform* m_small_nitro;
+    ssgTransform* m_big_nitro;
     float m_clock;
 
 public:

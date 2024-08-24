@@ -4,7 +4,7 @@
  (name       _("The Island"))
  (version     2)
  (designer   "Johannes Sjolund")
- (music       "Dance_cleopatra.music")
+ (music       "dance_cleopatra.music")
  (screenshot  "sshot-islandtrack.rgb")
  (topview     "topview-islandtrack.rgb")
  (groups      "standard")
@@ -12,7 +12,6 @@
  (camera-final-hpr       170 -10 0)
  (start-heading  0.0  3.7  9.5 11.5 15.1 17.0  20.2  22.0  22.0  22.0 ) 
  (start-x  11.2 8.8 11.8 9.5 12.5 10.2 13.5 11.2 14.5 12.4)
- (AI-angle-adjust    1.7)
 )
 
 ;; EOF ;;

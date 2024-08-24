@@ -45,15 +45,14 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     const Kart *closest_kart=0;   btVector3 direction;   float kartDistSquared;
     getClosestKart(&closest_kart, &kartDistSquared, &direction, kart /* search in front of this kart */, m_reverse_mode);
     
-    btTransform trans = kart->getTrans();
+    btTransform trans = kart->getKartHeading();
+    btMatrix3x3 kart_rotation = trans.getBasis();
     
-    btMatrix3x3 thisKartDirMatrix = kart->getKartHeading().getBasis();
-    btVector3 thisKartDirVector(thisKartDirMatrix[0][1],
-                                thisKartDirMatrix[1][1],
-                                thisKartDirMatrix[2][1]);
-    
-    float heading=atan2(-thisKartDirVector.getX(), thisKartDirVector.getY());
-    float pitch = kart->getTerrainPitch(heading);
+    // The current y vector is rotation*(0,1,0), or:
+    btVector3 y(kart_rotation.getColumn(1));
+
+    float heading = kart->getHeading();
+    float pitch   = kart->getTerrainPitch(heading);
 
     // aim at this kart if it's not too far
     if(closest_kart != NULL && kartDistSquared < 30*30)
@@ -63,10 +62,10 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
                                        plunger_speed, gravity, y_offset,
                                        &projectileAngle, &up_velocity);
 
+        btTransform trans = kart->getTrans();
+
         // apply transformation to the bullet object (without pitch)
-        btMatrix3x3 m;
-        m.setEulerZYX(0.0f, 0.0f, projectileAngle);
-        trans.setBasis(m);
+        trans.setRotation(btQuaternion(btVector3(0,0,1), projectileAngle));
 
         m_initial_velocity = btVector3(0.0f, plunger_speed, up_velocity);
 
@@ -75,14 +74,12 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     }
     else
     {
-        trans = kart->getKartHeading();
-
         createPhysics(y_offset, btVector3(pitch, plunger_speed, 0.0f),
                       new btCylinderShape(0.5f*m_extend), gravity, false /* rotates */, m_reverse_mode, &trans );
     }
     
 	//adjust height according to terrain
-    setAdjustZVelocity(true);
+    setAdjustZVelocity(false);
 
     // pulling back makes no sense in battle mode, since this mode is not a race.
     // so in battle mode, always hide view
@@ -110,7 +107,7 @@ void Plunger::init(const lisp::Lisp* lisp, ssgEntity *plunger_model)
 }   // init
 
 // -----------------------------------------------------------------------------
-void Plunger::update(float dt)
+bool Plunger::updateAndDel(float dt)
 {
     // In keep-alive mode, just update the rubber band
     if(m_keep_alive >= 0)
@@ -123,28 +120,17 @@ void Plunger::update(float dt)
             ssgTransform *m = getModelTransform();
             m->removeAllKids();
             scene->remove(m);
+			return true;
         }
         if(m_rubber_band != NULL) m_rubber_band->update(dt);
-        return;
+        return false;
     }
 
     // Else: update the flyable and rubber band
-    Flyable::update(dt);
+    bool ret = Flyable::updateAndDel(dt);
     if(m_rubber_band != NULL) m_rubber_band->update(dt);
-    
-    if(getHoT()==Track::NOHIT) return;
-    float hat = getTrans().getOrigin().getZ()-getHoT();
-    
-    // Use the Height Above Terrain to set the Z velocity.
-    // HAT is clamped by min/max height. This might be somewhat
-    // unphysical, but feels right in the game.
-    hat = std::max(std::min(hat, m_max_height) , m_min_height);
-    float delta = m_average_height - hat;
-    btVector3 v=getVelocity();
-    v.setZ( m_st_force_updown[POWERUP_PLUNGER]*delta);
-    setVelocity(v);
-    
-}   // update
+    return ret;
+}   // updateAndDel
 
 // -----------------------------------------------------------------------------
 /** Virtual function called when the plunger hits something.
@@ -154,9 +140,9 @@ void Plunger::update(float dt)
  *  \param kart Pointer to the kart hit (NULL if not a kart).
  *  \param mp  Pointer to MovingPhysics object if hit (NULL otherwise).
  */
-void Plunger::hit(Kart *kart, MovingPhysics *mp)
+bool Plunger::hit(Kart *kart, MovingPhysics *mp)
 {
-    if(isOwnerImmunity(kart)) return;
+    if(isOwnerImmunity(kart)) return false;
 
     // pulling back makes no sense in battle mode, since this mode is not a race.
     // so in battle mode, always hide view
@@ -186,7 +172,7 @@ void Plunger::hit(Kart *kart, MovingPhysics *mp)
         if(kart)
         {
             m_rubber_band->hit(kart);
-            return;
+            return false;
         }
         else if(mp)
         {
@@ -198,6 +184,9 @@ void Plunger::hit(Kart *kart, MovingPhysics *mp)
             m_rubber_band->hit(NULL, &(getXYZ()));
         }
     }
+
+	// Ruberband attached.
+	return false;
 }   // hit
 
 // -----------------------------------------------------------------------------

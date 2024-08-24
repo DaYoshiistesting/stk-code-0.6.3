@@ -37,7 +37,7 @@ private:
 public:
     Cake (Kart *kart);
     static  void init     (const lisp::Lisp* lisp, ssgEntity* cake_model);
-    virtual void update   (float dt);
+    virtual bool hit      (Kart *kart, MovingPhysics *mp=NULL);
     virtual void hitTrack ()                      { hit(NULL);               }
     // Kinematic objects are not allowed to have a velocity (assertion in 
     // bullet), so we have to do our own velocity handling here

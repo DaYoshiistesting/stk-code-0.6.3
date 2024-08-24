@@ -136,16 +136,19 @@ void Item::update(float delta)
         m_time_till_return -= delta;
         if ( m_time_till_return > 0 )
         {
-            Vec3 hell(m_coord.getXYZ());
-
-            hell.setZ( (m_time_till_return>1.0f) ? -1000000.0f 
-		       : m_coord.getXYZ().getZ() - m_time_till_return / 2.0f);
-            m_root->setTransform(hell.toFloat());
+            if (m_root != NULL)
+            {
+                Vec3 hell(m_coord.getXYZ());
+                hell.setZ( (m_time_till_return>1.0f) ? -1000000.0f 
+		            : m_coord.getXYZ().getZ() - m_time_till_return / 2.0f);
+                m_root->setTransform(hell.toFloat());
+            }
         }
         else
         {
             m_collected    = false;
-            m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
+            if(m_root != NULL)
+                m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
         }   // T>0
 
     }
@@ -155,7 +158,7 @@ void Item::update(float delta)
         if(!m_rotate) return;
         // have it rotate
         Vec3 rotation(delta*M_PI, 0, 0);
-        m_coord.setHPR(m_coord.getHPR()+rotation);
+		m_coord.setHPR(m_coord.getHPR()+rotation);
         m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
     }
 }   // update
@@ -189,6 +192,11 @@ void Item::isCollected(const Kart *kart, float t)
         {
             m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
         }
+    }
+
+    if (m_listener != NULL)
+    {
+        m_listener->onTriggerItemApproached(this);
     }
 }  // isCollected
 

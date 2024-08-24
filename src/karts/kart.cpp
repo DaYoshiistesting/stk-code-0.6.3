@@ -629,7 +629,7 @@ void Kart::update(float dt)
     }   // if there is material
 
     // Check if any item was hit.
-    item_manager->hitItem(this);
+    ItemManager::get()->hitItem(this);
     if(m_kart_properties->hasSkidmarks())
         m_skidmarks->update(dt);
 
