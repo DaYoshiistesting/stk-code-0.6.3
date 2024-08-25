@@ -188,6 +188,75 @@ void Flyable::getClosestKart(const Kart **minKart, float *minDistSquared,
 }   // getClosestKart
 
 //-----------------------------------------------------------------------------
+/** Returns information on the parameters needed to hit a target kart moving 
+ *  at constant velocity and direction for a given speed in the XY-plane.
+ *  \param origin Location of the kart shooting the item.
+ *  \param target_kart Which kart to target.
+ *  \param item_xy_speed Speed of the item projected in XY plane.
+ *  \param gravity The gravity used for this item.
+ *  \param forw_offset How far ahead of the kart the item is shot (so that
+ *         the item does not originate inside of the shooting kart.
+ *  \param fire_angle Returns the angle to fire the item at.
+ *  \param up_velocity Returns the upwards velocity to use for the item.
+ */
+void Flyable::getLinearKartItemIntersection (const btVector3 origin, 
+											 const Kart *kart,
+                                             float item_XY_speed, 
+											 float gravity, 
+											 float y_offset,
+                                             float *projectileAngle, 
+											 float *z_velocity, float *time_estimated)
+{
+    Vec3 relative_target_kart_loc = kart->getTrans().getOrigin() - origin;
+
+    btTransform trans = kart->getTrans();
+
+    Vec3 target_direction(trans.getBasis()[0][1],
+                          trans.getBasis()[1][1],
+                          trans.getBasis()[2][1]);
+
+    float dx = relative_target_kart_loc.getX();
+    float dy = relative_target_kart_loc.getY();
+    float dz = relative_target_kart_loc.getZ();
+
+	float gx = target_direction.getX();
+    float gy = target_direction.getY();
+	float gz = target_direction.getZ();
+
+    //Projected onto X-Y plane
+    float target_kart_speed = target_direction.length_2d() * kart->getSpeed();
+
+    float target_kart_heading = atan2f(-gx, gy); 
+
+    float dist = -(target_kart_speed / item_XY_speed) * (dx * cosf(target_kart_heading) +
+                                                         dy * sinf(target_kart_heading));
+
+    float fire_th = (dx*dist - dy * sqrtf(dx*dx + dy*dy - dist*dist)) / (dx*dx + dy*dy);
+    fire_th = (((dist - dx*fire_th) / dy < 0) ? -acosf(fire_th): acosf(fire_th));
+
+    float time = 0.0f;
+    float a = item_XY_speed * sinf (fire_th) + target_kart_speed * sinf (target_kart_heading);
+    float b = item_XY_speed * cosf (fire_th) + target_kart_speed * cosf (target_kart_heading);
+
+    if (fabsf(a) > fabsf(b)) 
+		time = fabsf (dx / a);
+    else if (b != 0.0f)      
+		time = fabsf(dy / b);
+
+    if (fire_th > M_PI)
+        fire_th -= M_PI;
+    else
+        fire_th += M_PI;
+
+    //createPhysics offset
+    time -= y_offset / sqrt(a*a+b*b);
+
+    *projectileAngle = fire_th;
+    *z_velocity = (0.5f * time * gravity) + (dz / time) + (gz * kart->getSpeed());
+	*time_estimated = time;
+
+}   // getLinearKartItemIntersection
+//-----------------------------------------------------------------------------
 void Flyable::update (float dt)
 {
 	m_time_since_thrown += dt;

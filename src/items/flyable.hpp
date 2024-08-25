@@ -84,6 +84,12 @@ protected:
     void              getClosestKart(const Kart **minKart, float *minDistSquared, 
                                      btVector3 *minDelta, const Kart* inFrontOf=NULL,
                                      const bool backwards=false) const;
+
+    void getLinearKartItemIntersection(const btVector3 origin, 
+                                       const Kart *kart,
+                                       float item_XY_velocity, float gravity,
+                                       float y_offset,
+                                       float *projectileAngle, float *z_velocity, float *time);
     /** init bullet for moving objects like projectiles */
     void              createPhysics(float y_offset, 
                                     const btVector3 &velocity,

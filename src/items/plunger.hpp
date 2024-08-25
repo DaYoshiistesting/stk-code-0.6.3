@@ -33,6 +33,7 @@ private:
     RubberBand  *m_rubber_band;
     /** Timer to keep the plunger alive while the rubber band is working. */
     float        m_keep_alive;
+    btVector3    m_initial_velocity;
 
     bool m_reverse_mode;
 public:

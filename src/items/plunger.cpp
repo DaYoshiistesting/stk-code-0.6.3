@@ -32,7 +32,11 @@
 // -----------------------------------------------------------------------------
 Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
 {
+    const float gravity = 0.0f;
+
     float y_offset = 0.5f*kart->getKartLength()+0.5f*m_extend.getY();
+    float up_velocity = 0.0f;
+    float plunger_speed = 2 * m_speed;
     
     // if the kart is looking backwards, release from the back
     m_reverse_mode = kart->getControls().m_look_back;
@@ -54,37 +58,32 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     // aim at this kart if it's not too far
     if(closest_kart != NULL && kartDistSquared < 30*30)
     {
-        btVector3 closestKartLoc = closest_kart->getTrans().getOrigin();
-        
-        if(!m_reverse_mode) // substracting speeds doesn't work backwards, since both speeds go in opposite directions
-        {
-            // FIXME - this approximation will be wrong if both karts' directions are not colinear
-            const float time = sqrt(kartDistSquared) / (m_speed - closest_kart->getSpeed());
-            
-            // calculate the approximate location of the aimed kart in 'time' seconds
-            closestKartLoc += time*closest_kart->getVelocity();
-        }
-        
-        // calculate the angle at which the projectile should be thrown
-        // to hit the aimed kart
-        float projectileAngle=atan2(-(closestKartLoc.getX() - kart->getTrans().getOrigin().getX()),
-                                    closestKartLoc.getY() - kart->getTrans().getOrigin().getY() );
-        
-        // apply transformation to the bullet object
+        float projectileAngle = 0.0f;
+		float time_estimated  = 0.0f;
+        getLinearKartItemIntersection (kart->getTrans().getOrigin(), closest_kart,
+                                       plunger_speed, gravity, y_offset,
+                                       &projectileAngle, &up_velocity, &time_estimated);
+
+        // apply transformation to the bullet object (without pitch)
         btMatrix3x3 m;
-        m.setEulerZYX(pitch, 0.0f, projectileAngle);
+        m.setEulerZYX(0.0f, 0.0f, projectileAngle);
         trans.setBasis(m);
         
-        createPhysics(y_offset, btVector3(0.0f, m_speed*2, 0.0f),
+        m_initial_velocity = btVector3(0.0f, plunger_speed, up_velocity);
+
+        createPhysics(y_offset, m_initial_velocity,
                       new btCylinderShape(0.5f*m_extend), 0.0f /* gravity */, false /* rotates */, false, &trans );
     }
     else
     {
         trans = kart->getKartHeading();
 
-        createPhysics(y_offset, btVector3(0.0f, m_speed*2, 0.0f),
+        createPhysics(y_offset, btVector3(pitch, plunger_speed, 0.0f),
                       new btCylinderShape(0.5f*m_extend), 0.0f /* gravity */, false /* rotates */, m_reverse_mode, &trans );
     }
+
+	//adjust height according to terrain
+    setAdjustZVelocity(true);
     
     // pulling back makes no sense in battle mode, since this mode is not a race.
     // so in battle mode, always hide view

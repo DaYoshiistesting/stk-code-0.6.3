@@ -26,6 +26,7 @@
 
 float Cake::m_st_max_distance;
 float Cake::m_st_max_distance_squared;
+float Cake::m_gravity;
 
 Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
 {
@@ -41,19 +42,32 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
     
     float up_velocity = m_speed/7.0f;
     
-    // give a speed proportinal to kart speed
-    m_speed = 25.0f + kart->getSpeed()/25.0f * m_speed;
+    // give a speed proportional to kart speed.
+    m_speed = kart->getSpeed() * m_speed / 23.0f;
+
+    //when going backwards, decrease speed of cake by less.
+    if (kart->getSpeed() < 0) m_speed /= 3.6f;
+
+    m_speed += 16.0f;
+
+    if (m_speed < 1.0f) m_speed = 1.0f;
     
     btTransform trans = kart->getTrans();
 
-    const float pitch = 0.0f; //getTerrainPitch(heading); TODO: take pitch in account
+    btMatrix3x3 thisKartDirMatrix = kart->getKartHeading().getBasis();
+    btVector3 thisKartDirVector(thisKartDirMatrix[0][1],
+                                thisKartDirMatrix[1][1],
+                                thisKartDirMatrix[2][1]);
+
+    float heading=atan2f(-thisKartDirVector.getX(), thisKartDirVector.getY());
+    float pitch = getTerrainPitch(heading);
 
     // if the kart is looking backwards, release from the back
-    bool m_look_back = kart->getControls().m_look_back;
+    const bool backwards = kart->getControls().m_look_back;
     
     // find closest kart in front of the current one
     const Kart *closest_kart=0;   btVector3 direction;   float kartDistSquared;
-    getClosestKart(&closest_kart, &kartDistSquared, &direction, kart /* search in front of this kart */, m_look_back);
+    getClosestKart(&closest_kart, &kartDistSquared, &direction, kart /* search in front of this kart */, backwards);
     
     // aim at this kart if 1) it's not too far, 2) if the aimed kart's speed
     // allows the projectile to catch up with it
@@ -61,36 +75,22 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
     {
         m_target = (Kart*)closest_kart;
 
-        // calculate appropriate initial up velocity so that the
-        // projectile lands on the aimed kart (9.8 is the gravity)
-        // FIXME - this approximation will be wrong if both karts' directions are not colinear
-        // FIXME - this approximation will be wrong if both karts' directions are not at the same height
-        const float time = sqrt(kartDistSquared) / (m_speed - closest_kart->getSpeed()/1.2f); // division is an empirical estimation
-        up_velocity = time*9.8f;
-        
-        // calculate the approximate location of the aimed kart in 'time' seconds
-        btVector3 closestKartLoc = closest_kart->getTrans().getOrigin();
-        closestKartLoc += time*closest_kart->getVelocity();
-        
-        // calculate the angle at which the projectile should be thrown
-        // to hit the aimed kart
-        float projectileAngle=atan2(-(closestKartLoc.getX() - kart->getTrans().getOrigin().getX()),
-                                      closestKartLoc.getY() - kart->getTrans().getOrigin().getY() );
+        float projectileAngle = 0.0f;
+		float time_estimated  = 0.0f;
 
-        btMatrix3x3 thisKartDirMatrix = kart->getKartHeading().getBasis();
-        btVector3 thisKartDirVector(thisKartDirMatrix[0][1],
-                                    thisKartDirMatrix[1][1],
-                                    thisKartDirMatrix[2][1]);
+        getLinearKartItemIntersection (kart->getTrans().getOrigin(), closest_kart,
+                                       m_speed, m_gravity, y_offset,
+                                       &projectileAngle, &up_velocity, &time_estimated);
 
-        // apply transformation to the bullet object
+        // apply transformation to the bullet object (without pitch)
         btMatrix3x3 m;
-        m.setEulerZYX(pitch, 0.0f, projectileAngle /*+thisKartAngle*/);
+        m.setEulerZYX(0.0f, 0.0f, projectileAngle /*+thisKartAngle*/);
         trans.setBasis(m);
 
         m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
     
         createPhysics(y_offset, m_initial_velocity, 
-                      new btCylinderShape(0.5f*m_extend), -9.8f /* gravity */,
+                      new btCylinderShape(0.5f*m_extend), -m_gravity,
                       true /* rotation */, false /* backwards */, &trans);    
     }
     else
@@ -103,9 +103,11 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
         m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
     
         createPhysics(y_offset, m_initial_velocity, 
-                      new btCylinderShape(0.5f*m_extend), -9.8f /* gravity */,
-                      true /* rotation */, m_look_back, &trans);
+                      new btCylinderShape(0.5f*m_extend), -m_gravity,
+                      true /* rotation */, backwards, &trans);
     }
+	setAdjustZVelocity(false);
+
     m_body->setActivationState(DISABLE_DEACTIVATION);
     
     m_body->applyTorque( btVector3(5,-3,7) );
@@ -118,7 +120,10 @@ void Cake::init(const lisp::Lisp* lisp, ssgEntity *cake_model)
     Flyable::init(lisp, cake_model, POWERUP_CAKE);
     m_st_max_distance   = 80.0f;
     m_st_max_distance_squared = 80.0f * 80.0f;
-    
+    m_gravity                 = 9.8f;
+
+	if (m_gravity < 0) m_gravity *= -1.0f;
+
     lisp->get("max-distance",    m_st_max_distance  );
     m_st_max_distance_squared = m_st_max_distance*m_st_max_distance;
 }   // init
@@ -126,7 +131,7 @@ void Cake::init(const lisp::Lisp* lisp, ssgEntity *cake_model)
 // -----------------------------------------------------------------------------
 void Cake::update(float dt)
 {
-    
+    /*
     if(m_target != NULL)
     {
         // correct direction to go towards aimed kart
@@ -147,7 +152,7 @@ void Cake::update(float dt)
                                              ideal_direction.getY()*current_xy_speed,
                                              actual_direction.getZ()) );
         
-        /*
+        
         // pull towards aimed kart
         btVector3 pullForce = target.getOrigin() - my_trans.getOrigin();
         pullForce.setZ(0);
@@ -162,8 +167,8 @@ void Cake::update(float dt)
         {
             m_body->applyCentralForce( btVector3(0, 0, -20.0f) );
         }
-        */
-    }
-    
+        
+	}
+    */
     Flyable::update(dt);
 }   // update
