@@ -14546,6 +14546,11 @@ refs 4
 269 0.679307341576 0.711285769939
 kids 0
 OBJECT poly
+name "wrapperr"
+data 15
+@autotex x=0.05
+kids 1
+OBJECT poly
 name "Sphere"
 data 10
 Sphere.001
@@ -22653,6 +22658,11 @@ refs 3
 993 0.591286182404 0.882061839104
 932 0.595383405685 0.878258168697
 kids 0
+OBJECT poly
+name "wrapper69"
+data 15
+@autotex x=0.1
+kids 1
 OBJECT poly
 name "Sphere.001"
 data 6
@@ -30762,6 +30772,11 @@ refs 3
 933 0.279704779387 0.184212684631
 kids 0
 OBJECT poly
+name "wrapper9"
+data 16
+@autotex x=0.24
+kids 1
+OBJECT poly
 name "Sphere.002"
 data 10
 Sphere.002
@@ -38869,6 +38884,11 @@ refs 3
 993 0.281122863293 0.204553693533
 933 0.283389627934 0.207994669676
 kids 0
+OBJECT poly
+name "wrapper8"
+data 15
+@autotex x=0.1
+kids 1
 OBJECT poly
 name "Sphere.003"
 data 10
@@ -46978,6 +46998,11 @@ refs 3
 933 0.283389627934 0.207994669676
 kids 0
 OBJECT poly
+name "wrapper7"
+data 15
+@autotex x=-0.1
+kids 1
+OBJECT poly
 name "Sphere.004"
 data 10
 Sphere.004
@@ -55085,6 +55110,11 @@ refs 3
 993 0.591286182404 0.882061839104
 932 0.595383405685 0.878258168697
 kids 0
+OBJECT poly
+name "wrapper6"
+data 15
+@autotex x=-0.1
+kids 1
 OBJECT poly
 name "Sphere.005"
 data 10
@@ -63194,6 +63224,11 @@ refs 3
 932 0.595383405685 0.878258168697
 kids 0
 OBJECT poly
+name "wrapper5"
+data 15
+@autotex x=-0.1
+kids 1
+OBJECT poly
 name "Sphere.006"
 data 10
 Sphere.006
@@ -71301,6 +71336,11 @@ refs 3
 993 0.591286182404 0.882061839104
 932 0.595383405685 0.878258168697
 kids 0
+OBJECT poly
+name "wrapper4"
+data 15
+@autotex x=0.1
+kids 1
 OBJECT poly
 name "Sphere.007"
 data 10
@@ -79410,6 +79450,11 @@ refs 3
 932 0.595383405685 0.878258168697
 kids 0
 OBJECT poly
+name "wrapper3"
+data 15
+@autotex x=-0.1
+kids 1
+OBJECT poly
 name "Sphere.008"
 data 10
 Sphere.008
@@ -87518,6 +87563,11 @@ refs 3
 932 0.595383405685 0.878258168697
 kids 0
 OBJECT poly
+name "wrapper2"
+data 15
+@autotex x=0.1
+kids 1
+OBJECT poly
 name "Sphere.009"
 data 10
 Sphere.009
@@ -95625,6 +95675,11 @@ refs 3
 993 0.591286182404 0.882061839104
 932 0.595383405685 0.878258168697
 kids 0
+OBJECT poly
+name "wrapper"
+data 16
+@autotex x=-0.03
+kids 1
 OBJECT poly
 name "Sphere.010"
 data 10

@@ -2,15 +2,15 @@
 
 (tuxkart-kart
  (name        "Nolok")
- (version     1)
+ (version     2)
  (model-file  "nolok.ac")
  (icon-file   "nolokicon.rgb")
- (shadow-file "generickartshadow.rgb")
+ (shadow-file "nolokshadow.rgb")
  (groups      "standard") 
  (engine-sound "small")
  (rgb         0.6 0.6 0.3)
   (wheel-front-right
-    (position 0.233682 0.437532 0.103120)
+    (position 0.237682 0.437532 0.103120)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
@@ -18,11 +18,11 @@
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.321569 -0.432732 0.147538)
+    (position 0.303469 -0.432732 0.147538)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.323476 -0.432732 0.147538)
+    (position -0.323469 -0.432732 0.147538)
     (model    "wheel-rear-left.ac")
   )
        

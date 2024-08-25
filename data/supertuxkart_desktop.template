@@ -2,7 +2,7 @@
 [Desktop Entry]
 Encoding=UTF-8
 Name=Supertuxkart
-Version=0.5
+Version=0.6.3
 Icon=PREFIX/share/pixmaps/supertuxkart_64.xpm
 Comment=A kart racing game
 Comment[fr_FR]=Un jeu de karting

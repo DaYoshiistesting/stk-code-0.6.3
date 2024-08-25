@@ -1,8 +1,0 @@
-AUDAcity's kart for Super Tux Kart 0.5 by Francisco Ortiz AKA Mechdroid.
-chicortiz@gmail.com
-
-If you share or remix this work, please give credit to its original creator, thank you!
-
-Creative Commons 3.0
-
-http://creativecommons.org/licenses/by/3.0/

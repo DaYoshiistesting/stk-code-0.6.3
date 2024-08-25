@@ -47,10 +47,13 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
     btTransform trans = kart->getTrans();
 
     const float pitch = 0.0f; //getTerrainPitch(heading); TODO: take pitch in account
+
+    // if the kart is looking backwards, release from the back
+    bool m_look_back = kart->getControls().m_look_back;
     
     // find closest kart in front of the current one
     const Kart *closest_kart=0;   btVector3 direction;   float kartDistSquared;
-    getClosestKart(&closest_kart, &kartDistSquared, &direction, kart /* search in front of this kart */);
+    getClosestKart(&closest_kart, &kartDistSquared, &direction, kart /* search in front of this kart */, m_look_back);
     
     // aim at this kart if 1) it's not too far, 2) if the aimed kart's speed
     // allows the projectile to catch up with it
@@ -83,23 +86,26 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
         btMatrix3x3 m;
         m.setEulerZYX(pitch, 0.0f, projectileAngle /*+thisKartAngle*/);
         trans.setBasis(m);
-        
+
+        m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
+    
+        createPhysics(y_offset, m_initial_velocity, 
+                      new btCylinderShape(0.5f*m_extend), -9.8f /* gravity */,
+                      true /* rotation */, false /* backwards */, &trans);    
     }
     else
     {
-        m_target = NULL;
+		m_target = NULL;
         // kart is too far to be hit. so throw the projectile in a generic way,
         // straight ahead, without trying to hit anything in particular
-        trans = kart->getKartHeading(pitch);
+		trans = kart->getKartHeading(pitch);
+
+        m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
+    
+        createPhysics(y_offset, m_initial_velocity, 
+                      new btCylinderShape(0.5f*m_extend), -9.8f /* gravity */,
+                      true /* rotation */, m_look_back, &trans);
     }
-    
-
-    m_initial_velocity = btVector3(0.0f, m_speed, up_velocity);
-    
-    createPhysics(y_offset, m_initial_velocity, 
-                  new btCylinderShape(0.5f*m_extend), -9.8f /* gravity */,
-                  true /* rotation */, false /* backwards */, &trans);
-
     m_body->setActivationState(DISABLE_DEACTIVATION);
     
     m_body->applyTorque( btVector3(5,-3,7) );

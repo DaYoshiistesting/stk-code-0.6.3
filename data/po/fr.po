@@ -513,6 +513,10 @@ msgstr ""
 "Nouveau grand prix\n"
 "'%s' déverrouillé"
 
+#: data/tracks/secretgarden.secretgarden.track:4
+msgid "Secret Garden"
+msgstr "Jardin Secret"
+
 #: src/challenges/challenge.cpp:140
 #, c-format
 msgid ""
@@ -838,10 +842,6 @@ msgstr ""
 "La touche 'virage brusque' te permet de faire des virages\n"
 "rapides et d'avoir un meilleur contrôle dans les courbes prononcées"
 
-#: data/tracks/secretgarden/secretgarden.track:4
-msgid "Secret Garden"
-msgstr "Le Jardin Secret"
-
 #: data/tracks/subseatrack/subseatrack.track:4
 msgid "Subsea"
 msgstr "Sous la mer"
@@ -867,7 +867,7 @@ msgstr ""
 "trop vieux, il a donc été supprimé."
 
 #: data/tracks/mines/mines.track:4
-msgid "The old mine"
+msgid "The Old Mine"
 msgstr "La vieille mine"
 
 #: src/gui/grand_prix_ending.cpp:84
@@ -1023,6 +1023,15 @@ msgstr ""
 "la lune' contre 3 opposants\n"
 "virtuels expérimentés."
 
+#: data/tracks/secretgarden/secretgarden.challenge:6
+msgid ""
+"Finish 3 laps on the Secret Garden\n"
+"Track with 4 AI karts\n"
+"under 1:45 minute."
+msgstr ""
+"Gagne en 1 minutes et 45 secondes\n"
+"3 tours sur la piste "Jardin Secret"."
+
 #: src/gui/config_display.cpp:75
 msgid "Window mode"
 msgstr "Mode fenêtré"
@@ -1149,6 +1158,8 @@ msgstr "non défini"
 #~ msgstr "Étincelle - lent, mais rebondit sur les murs"
 #~ msgid "Result"
 #~ msgstr "Résultat"
+#~ msgid "Secret Garden"
+#~ msgstr "Jardin Secret"
 #~ msgid "No track selected"
 #~ msgstr "Aucune piste n'est sélectionnée"
 #~ msgid "Check the current key bindings for the first player"

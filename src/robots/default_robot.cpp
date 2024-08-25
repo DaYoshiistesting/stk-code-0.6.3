@@ -447,9 +447,20 @@ void DefaultRobot::handleItems( const float DELTA, const int STEPS )
     // towards m_kart_ahead. And some of them can fire backwards, too - which
     // isn't yet supported for AI karts.
     case POWERUP_CAKE:
-        m_controls.m_fire = (m_kart_ahead && m_distance_ahead < 20.0f) ||
-                             m_time_since_last_shot > 10.0f;
-        break;
+        {
+            // Cakes can be fired backwards and are faster,
+            // so allow more distance for shooting.
+            bool fire_backwards = (m_kart_behind && m_kart_ahead && 
+                                   m_distance_behind < m_distance_ahead) ||
+                                  !m_kart_ahead;
+            float distance = fire_backwards ? m_distance_behind 
+                                            : m_distance_ahead;
+            m_controls.m_fire = distance < 20.0f                ||
+                                m_time_since_last_shot > 10.0f;
+            if(m_controls.m_fire)
+                m_controls.m_look_back = fire_backwards;
+            break;
+        }
     case POWERUP_BOWLING:
         {
             // Bowling balls slower, so only fire on closer karts - but when

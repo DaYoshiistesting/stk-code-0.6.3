@@ -1,1 +1,0 @@
-Python kart by Laslo Hunhold is released under GPL v.3

@@ -3,5 +3,7 @@
 # TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
 "gnushadow.rgb"             Y Y    Y    0.0    N     N    1.0   Y   N   N   N
 "gnuicon.rgb"               Y Y    Y    0.0    N     N    1.0   Y   N   N   N
-"gnu.rgb"                   N N    Y    0.0    N     N    1.0   Y   N   N   N
+"gnu.rgb"                   N N    N    0.0    N     N    1.0   Y   N   N   N
+"gnu2.rgb"                  N N    Y    0.0    N     N    1.0   Y   N   N   N
+"tapis.rgb"                 N N    N    0.0    N     N    1.0   Y   N   N   N
 # EOF #

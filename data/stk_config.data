@@ -5,19 +5,19 @@
  ;; STK parameters
  ;; --------------
  (min-kart-version           1   )  ;; Minimum and maximum .kart files supported
- (max-kart-version           1   )  ;; by this binary. Older/newer files are ignored.
+ (max-kart-version           2   )  ;; by this binary. Older/newer files are ignored.
  (min-track-version          1   )  ;; Minimum and maximum .track files supported
- (max-track-version          1   )  ;; by this binary, older/newer files are ignored.
+ (max-track-version          2   )  ;; by this binary, older/newer files are ignored.
  (max-karts                  10   )  ;; maximum number of karts
- (scores              14 12 10 8 6 5 4 3 2 1 ) ;; 14 12 10 8 6 5 4 3 2 1 0 0 
+ (scores              12 11 10 8 6 5 4 3 2 1 ) ;; 12 11 10 8 6 5 4 3 2 1 0 0 
  (grid-order	   	     1   )  ;; order for grand prix, 1 is most 
 				    ;; points 1st, 0 is least points
 				    ;; 1st
- (title-music              "main_theme.music")
+ (title-music              "MayDayMayhem.music")
  ;; Two lists which must have the same length, containing the list of all
  ;; possible main menu and background images.
- (mainmenu-background      "st_title_screen.rgb" "st_title_screen2.rgb")
- (menu-background          "menu_background.rgb" "menu_background2.rgb")
+ (mainmenu-background      "st_title_screen.rgb" "st_title_screen2.rgb" "st_title_screen3.rgb" "st_title_screen4.rgb")
+ (menu-background          "menu_background.rgb" "menu_background2.rgb" "menu_background3.rgb" "menu_background2.rgb")
 
  (max-history              10000)   ;; maximum number of history frames.
  (max-skidmarks             1000)   ;; max. number of skidmarks per kart.
@@ -43,16 +43,16 @@
  (parachute-done-fraction    0.7 )  ;; fraction of speed when lost will detach parachute
  (bomb-time                 30.0 )  ;; time till a bomb explodes
  (bomb-time-increase        -5.0 )  ;; time added to timer when bomb is passed on
- (leader-intervals          30 20 10)  ;; Time till a kart is removed in follow leader mode
+ (leader-intervals       30 20 10)  ;; Time till a kart is removed in follow leader mode
  (anvil-time                 2.0 )  ;; time an anvil is active
  (zipper-time                3.5 )  ;; time a zipper is active
  (zipper-force             250.0 )  ;; additional zipper force
  (zipper-speed-gain          4.5 )  ;; one time additional speed  
- (bubble-gum-disappear-time    1 )  ;; how often bubble gum get driven over before it disappears
+ (bubblegum-disappear-time     1 )  ;; how often bubble gum get driven over before it disappears
  (shortcut-length            90  )  ;; leaving the road and coming back on it more than
                                     ;; x 'meters" later is considered to be a shortcut
  (offroad-tolerance          0.15)  ;; Widen the road 15% for shortcut detection.
- (enable_networking          #t  )  ;; For now enable networking
+ (enable_networking          #t  )  ;; enable networking
  (explosion-impulse     10000.0  )  ;; explosion impulse on not directly hit karts
  (explosion-impulse-objects 500.0)  ;; explosion impulse for physics objects (smaller
                                     ;; else a cone e.g. will be pushed way too far)
@@ -110,10 +110,10 @@
    (max-speed-radius         15  21.5)
    ;; Different engine powers for different difficulties:
    ;; hard, medium, low level order!
-   (engine-power        400 400  300    )
+   (engine-power        420  400  300    )
    ;; Different maximum speed for different difficulties:
    ;; hard, medium, low level order!
-   (max-speed           32.22 28 25 ) ;; = 116 101 90 km/h
+   (max-speed          35.5 28 25 ) ;; = 200 101 90 km/h
    (mass                    225    )
    (suspension-stiffness     48.0  )
    (wheel-damping-relaxation 20    )
@@ -121,7 +121,7 @@
    (friction-slip      10000000    )
    (roll-influence            0.03 )
    (wheel-radius              0.25 )
-   (wheel-width               0.3  )
+   (wheel-width               0.5  )
    (chassis-linear-damping    0.2  )
    (chassis-angular-damping  30.2  )
    (max-speed-reverse-ratio   0.3  ) ;; percentage of max speed for reverse gear
@@ -132,7 +132,7 @@
    ;; kart to start rising, till it is pulled back by gravity. A higher value
    ;; means higher Z velocity, meaning the kart will rise faster and higher,
    ;; and will be in the air longer
-   (jump-velocity             3.0  )
+   (jump-velocity             2.5  )
 
    ;; The following two vectors define at what ratio of the maximum speed what
    ;; gear is selected, e.g. 0.25 means: if speed <=0.25*maxSpeed --> gear 1,
@@ -156,8 +156,8 @@
    (rubber-band-max-length    50)  ;; Maximum length of rubber band
    (rubber-band-force       1500)  ;; Force a plunger/rubber band applies to the kart(s).
    (rubber-band-duration       1)  ;; Duration a rubber band acts.
-   (camera-max-accel          10)
-   (camera-max-brake          10)
+   (camera-max-accel          3.5)
+   (camera-max-brake            1)
    (camera-distance           3.5) 
   )   ;; end kart-defaults
 )

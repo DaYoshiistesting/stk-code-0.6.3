@@ -2,7 +2,7 @@
 
 (tuxkart-kart
  (name        "Gooey")
- (version     1)
+ (version     2)
  (model-file  "gooey.ac")
  (icon-file   "gooeyicon.rgb")
  (shadow-file "gooeyshadow.rgb")

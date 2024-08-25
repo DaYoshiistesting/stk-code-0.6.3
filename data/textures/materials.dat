@@ -145,7 +145,7 @@
 "zipper_collect.rgb"        N N    N    0.0    N     N    1.0   N   Y   N   N
 "zipper.rgb"                N N    N    0.0    N     N    1.0   N   Y   N   N
 # TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
-"banana.rgb"                N N    N    0.5    N     N    1.0   N   N   N   N
+"banana.rgb"                N N    N    0.5    Y     N    1.0   N   N   N   N
 "bananawrap.rgb"            Y Y    Y    0.5    N     N    1.0   N   Y   N   N
 "fuzzy.rgb"                 Y Y    Y    0.2    N     N    0.5   Y   N   N   N
 "generickartshadow.rgb"     Y Y    Y    0.0    N     N    1.0   Y   N   N   N
@@ -162,9 +162,10 @@
 
 
 "water_light.rgb"           N N    N    0.1    N     N    1.0   N   N   Y   N
+"palm_b.rgb"                N N    Y    0.0    N     N    0.5   N   N   N   N
 "sea.rgb"                   N N    N    0.0    N     N    0.5   N   N   Y   Y
 "rock.rgb"                  N N    N    0.0    N     N    0.5   N   N   N   N
-"coniferous_tree.rgb"       Y Y    Y    0.5    N     N    0.5   N   N   N   N
+"coniferous_tree.rgb"       N N    Y    0.5    N     N    0.5   N   N   N   N
 "window.rgb"                N N    Y    0.0    Y     N    1.0   N   N   N   N
 "signs.rgb"                 N N    Y    0.5    N     N    0.5   N   N   N   N
 "greenice.rgb"              N N    N    0.0    N     N    0.5   N   N   Y   N
@@ -193,10 +194,15 @@
 "plunger-icon.rgb"          N N    Y    0.0    N     N    1.0   N   N   N   N
 "plungerface.rgb"           N N    Y    0.0    N     N    1.0   N   N   N   N
 "nitro-tank.rgb"            N Y    Y    0.5    Y     N    1.0   N   N   N   N
+"parachutetexture.rgb"      N N    N    0.0    Y     N    1.0   Y   N   N   N
 
 "st_title_screen.rgb"       Y Y    N    1.0    N     N    1.0   N   N   N   Y
 "menu_background.rgb"       Y Y    N    1.0    N     N    1.0   N   N   N   Y
 "st_title_screen2.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
 "menu_background2.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
+"st_title_screen3.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
+"menu_background3.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
+"st_title_screen4.rgb"      Y Y    N    1.0    N     N    1.0   N   N   N   Y
+
 
 # EOF #
