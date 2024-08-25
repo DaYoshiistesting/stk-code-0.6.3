@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (name        "chinchila")
+  (model-file  "chinchila.ac")
+  (icon-file   "chinch-icon.rgb")
+  (shadow-file "chinch-shadow.rgb")
+  (groups      "standard")
+  (version	1)
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.340669 0.261178 0.111710)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.332175 0.261178 0.111710)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.340669 -0.241488 0.111710)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.332175 -0.241488 0.111710)
+    (model    "wheel-rear-left.ac")
+  )
+)

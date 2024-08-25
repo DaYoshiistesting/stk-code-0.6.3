@@ -6,8 +6,9 @@
 "zipper.ac",-45,25,{},90,{},{}
 "zipper.ac",-45,-35,{},90,{},{}
 "zipper.ac",-152,-25,{},180,{},{}
-"zipper.ac",-50,-90,{},90,{},{}
-"zipper.ac",-15,-60,{},180,{},{}
+"zipper.ac",-53,-90,{},90,{},{}
+"zipper.ac",-15,-61,{},-90,{},{}
+"zipper.ac",-15,-64,{},-90,{},{}
 #
 #"roadblock.ac",60,-29,{},0,{},{}
 #"roadcone.ac",58,-33,{},27,{},{}
@@ -51,9 +52,9 @@ SHERRING,70,-80
 SHERRING,70,-90
 SHERRING,70,-100
 
-GHERRING,0,-30
-GHERRING,5,-30
-GHERRING,-5,-30
+GHERRING,1,-30
+GHERRING,6,-30
+GHERRING,-4,-30
 
 GHERRING,-100,-10
 GHERRING,-100,-20

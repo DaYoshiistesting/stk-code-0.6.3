@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (version	1)
+  (name        "Chuck")
+  (model-file  "Chuck.ac")
+  (icon-file   "Chuckicon.rgb")
+  (shadow-file "Chuckshadow.rgb")
+  (groups      "standard")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.321881 0.228215 0.109014)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.321881 0.228215 0.109014)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.321881 -0.245886 0.109014)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.321881 -0.245886 0.109014)
+    (model    "wheel-rear-left.ac")
+  )
+)

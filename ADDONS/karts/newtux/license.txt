@@ -1,0 +1,38 @@
+Tux (Linux) Kart by Julian Schönbächler for SuperTuxKart
+Last edited on 15.03.2015
+
+Please contact me for any use which is not allowed by this license.
+	Julian Schönbächler
+	http://creative-forge.ch/
+	info@creative-forge.ch
+
+
+Character information:
+----------------------------------------------------------------------------
+Tux is the official mascot of the Linux kernel. Tux is also the most
+commonly used icon for Linux.
+
+See for example: http://www.linux.org/
+
+
+License information:
+----------------------------------------------------------------------------
+- Creative Commons Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
+	Visit the following link for detailed informations:
+	http://creativecommons.org/licenses/by-sa/3.0/
+
+- GNU General Public License (GPL)
+	Visit following the link for detailed informations:
+	http://www.gnu.org/licenses/gpl
+
+
+Licensing of this work
+----------------------------------------------------------------------------
+Tux 2dVector icon: "tux_icon.png"
+	- GPL / Author: yekCim
+	
+Tux textures
+	- CC BY-SA 3.0 / Author: Julian Schönbächler
+
+Tux all other kart files
+	- CC BY-SA 3.0 / Author: Julian Schönbächler

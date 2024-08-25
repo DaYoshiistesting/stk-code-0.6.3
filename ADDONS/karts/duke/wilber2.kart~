@@ -1,0 +1,24 @@
+(tuxkart-kart
+  (name        "Wilber")
+  (model-file  "wilber2.ac")
+  (icon-file   "wilber2icon.rgb")
+  (shadow-file "wilber2shadow.rgb")
+  (groups      "standard")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.275697 0.339242 0.112979)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.294220 0.337597 0.111252)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.300863 -0.305902 0.112090)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.315232 -0.307547 0.110255)
+    (model    "wheel-rear-left.ac")
+  )
+)

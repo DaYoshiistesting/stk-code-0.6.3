@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (version	1)
+  (name        "Teddy")
+  (model-file  "Baer.ac")
+  (icon-file   "Baericon.rgb")
+  (shadow-file "Baershadow.rgb")
+  (groups      "addon")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.440000 0.290492 0.136631)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.440000 0.290492 0.136631)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.440000 -0.290000 0.136631)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.440000 -0.290000 0.136631)
+    (model    "wheel-rear-left.ac")
+  )
+)

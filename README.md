@@ -24,6 +24,8 @@ If you want to play SuperTuxKart you can get it right [here](http://supertuxkart
 If you want to discuss with players or the actual SuperTuxKart team, 
 [click here](http://supertuxkart.sourceforge.net/forum).
 
+This is the Pre-Alpha-3's source code.
+
 ## Hardware Requirements 
 
 * You will need a Geforce 7300LE or better (a Geforce 210 should be enough :)).

@@ -1,0 +1,6 @@
+# See textures/materials.dat for a detailed description of the fields.
+# TextureName        Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"chinch-shadow.rgb"    Y Y    Y    0.0    N     N    1.0   Y   N   N   N
+"chinch-icon.rgb"      Y Y    Y    0.0    N     N    1.0   Y   N   N   N
+# EOF #
+

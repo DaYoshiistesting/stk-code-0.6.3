@@ -110,7 +110,7 @@
 # TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
 
 "stars.rgb"                 Y Y    N    0.0    N     N    1.0   N   N   N   N
-"startrack3.rgb"            Y N    Y    0.1    N     N    1.0   N   N   N   N
+"startrack3.rgb"            Y N    Y    0.05   N     N    1.0   N   N   N   N
 "startrack2.rgb"            N N    Y    0.1    Y     N    1.0   N   N   N   N
 "moon.rgb"                  N N    N    0.0    N     N    1.0   N   N   N   N
 "planet_saturn_rings.rgb"   N N    Y    0.1    Y     N    1.0   N   N   N   N

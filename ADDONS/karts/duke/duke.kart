@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (version	1)
+  (name        "duke")
+  (model-file  "duke.ac")
+  (icon-file   "dukeicon.rgb")
+  (shadow-file "dukeshadow.rgb")
+  (groups      "standard")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.164937 0.320442 0.096020)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.159319 0.320442 0.096020)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.205469 -0.328071 0.096020)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.199851 -0.328071 0.096020)
+    (model    "wheel-rear-left.ac")
+  )
+)

@@ -1,4 +1,9 @@
 # Same setting as the snow texture in the main texture directory, but it does not
 # have a slowdown when driving on it.
 # TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col mxSpd SldT
-"snow.rgb"		            N N    N	0.0    Y     N    0.00000018   N   N   N   N
+"ice.rgb"                   N N    N    0.0    Y     N    1.0   N   N   Y   Y
+"snow.rgb"		    N N    N	0.0    Y     N     0.00000018   N   N   N   N
+"fence.rgb"                 N N    Y    0.0    Y     N    1.0   N   N   N   N
+"greenice2.rgb"             N N    N    0.0    N     N    1.0   N   N   N   N
+"wood_planks1_alpha.rgb"    N N    N    0.0    N     N    1.0   N   N   N   N
+"coniferous_tree.rgb"       N N    Y    0.0    Y     N    1.0   N   N   N   N

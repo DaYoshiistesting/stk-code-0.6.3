@@ -15,11 +15,11 @@
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position -0.27109 -0.378886 0.076657)
+    (position 0.027891 -0.378886 0.076657)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.83688 -0.378886 0.076657)
+    (position -0.028688 -0.378886 0.076657)
     (model    "wheel-rear-left.ac")
   )
 )

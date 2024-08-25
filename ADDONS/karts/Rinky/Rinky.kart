@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (name        "Rinky")
+  (version 1)
+  (model-file  "Rinky.ac")
+  (icon-file   "Rinky-icon.rgb")
+  (shadow-file "Rinky-shadow.rgb")
+  (groups      "standard")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.144875 0.252750 0.070389)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.141134 0.252750 0.070389)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.345596 -0.193230 0.090290)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.307499 -0.193230 0.090290)
+    (model    "wheel-rear-left.ac")
+  )
+)

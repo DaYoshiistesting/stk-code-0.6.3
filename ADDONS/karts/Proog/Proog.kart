@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (name        "Proog")
+  (model-file  "Proog.ac")
+  (icon-file   "Proog-icon.rgb")
+  (shadow-file "Proog-shadow.rgb")
+  (groups      "standard")
+  (version     1)
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position -0.399787 0.362727 0.090419)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position 0.366291 0.362728 0.090419)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position -0.395956 -0.245891 0.135132)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position 0.388124 -0.245890 0.135132)
+    (model    "wheel-rear-left.ac")
+  )
+)

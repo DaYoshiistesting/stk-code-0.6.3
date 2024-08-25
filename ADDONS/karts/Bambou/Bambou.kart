@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (version	1)
+  (name        "Bambou")
+  (model-file  "bambou.ac")
+  (icon-file   "bambouicon.rgb")
+  (shadow-file "bamboushadow.rgb")
+  (groups      "standard")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.379817 0.453062 0.134913)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.370986 0.453477 0.138124)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.380835 -0.354570 0.136247)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.370986 -0.354570 0.137888)
+    (model    "wheel-rear-left.ac")
+  )
+)

@@ -1,0 +1,13 @@
+Suzanne's Kart
+License: GPL
+Poly tris:
+Suzanne: 1572 tris
+Kart:	 458 tris
+Wheels:  160 tris(x4)
+total:	 2670 tris
+
+By Cédric Archambault
+Alias: Céa
+G+:https://plus.google.com/117805441573276168348/
+
+

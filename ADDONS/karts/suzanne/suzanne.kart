@@ -1,0 +1,31 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Suzanne")
+ (version     1)
+ (model-file  "suzanne-kart.ac")
+ (icon-file   "suzanneicon.rgb")
+ (shadow-file "shadow.rgb")
+ (groups      "Add-on") 
+ (engine-sound "small")
+ (rgb         0.57 0.36 0.51)
+  (wheel-front-right
+    (position 0.337000 0.353532 0.124375)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.337001 0.353532 0.124375)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.377290 -0.372732 0.170517)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.377000 -0.372732 0.170517)
+    (model    "wheel-rear-left.ac")
+  )
+       
+)
+
+;; EOF ;;

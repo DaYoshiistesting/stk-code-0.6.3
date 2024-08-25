@@ -1,24 +1,3 @@
-# SuperTuxKart 0.6.3 Alpha-3a (October 2023)
-
-* Bugfix : Powerups didn't calculate pitch while aiming.
-* Bugfix : In Mines, the last kart couldn't get the first lap
-           in a Grand Prix.
-
-# SuperTuxKart 0.6.3 Alpha-3 (October 2023) (not released)
-
-* Bugfix : The Island track wasn't working.
-* Bugfix : Parachute was using light.
-* Bugfix : Title screen texture wasn't coordinated to the GUI.
-* Bugfix : In Secret Garden, the first kart wasn't counted as first.
-* Replaced some textures with ones from 0.7.
-* Fixed Fort Magma.
-* Added Scotland track.
-* Added challenges.
-* Updated all karts and lightened some karts to gain performance.
-* Updated tracks screenshots.
-* Updated Jungle, Shifting Sands, Star Track
-* Ported 0.7 Oliver's math class.
-
 # SuperTuxKart 0.6.3 Pre-alpha 3 (July 2023)
 
 * Added two new menu background pictures.

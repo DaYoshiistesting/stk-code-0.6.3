@@ -5,7 +5,7 @@
  (version     1)
  (model-file  "nolok.ac")
  (icon-file   "nolokicon.rgb")
- (shadow-file "generickartshadow.rgb")
+ (shadow-file "nolokshadow.rgb")
  (groups      "standard") 
  (engine-sound "small")
  (rgb         0.6 0.6 0.3)

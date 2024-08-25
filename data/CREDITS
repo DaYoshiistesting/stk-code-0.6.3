@@ -1,10 +1,11 @@
-Super TuxKart - 0.6.2a
+SuperTuxKart - 0.6.3 - Alpha - 3
 ======================
-Visit us at http://supertuxkart.sourceforge.net
+Visit SuperTuxKart at :
+http://supertuxkart.sourceforge.net
 
 
-SuperTuxKart Administrators:
-----------------------------
+Original SuperTuxKart Administrators:
+-------------------------------------
 
 Joerg Henrichs (hiker)
 - Project leader
@@ -18,6 +19,15 @@ Constantin Pelikan (conso)
 - Art director
 - Add-on package administrator
 
+SuperTuxKart 0.6.3 Administrators:
+----------------------------------
+
+Chungus
+- Project leader
+- Main editor
+
+P1gvin
+- Add-ons
 
 Additional Programming
 ----------------------
@@ -54,15 +64,27 @@ Robert Schuster
 Visual art
 ----------
 
+Chungus
+- Update Tracks such as Mines, Hacienda
+- New karts such as Nolok, Pidgin or Mozilla
+
+Jean-Manuel Clemençon (Samuncle)
+- 'Hacienda' track (port by Chungus)
+- Several textures (port by Chungus)
+
 Benjamin Arnaudet
-- GNU Kart
+- GNU Kart (edit by Chungus)
 
 MacIO
-- Cave X arena
+- Cave X arena (update by Chungus)
 
 Canarix, Andy (Needer)
 - 2D art
 - startrack improvements (modified by conso)
+
+Cheleb
+- Made Nolok Kart
+- Made Pidgin Kart
 
 Marianne Gagnon (Auria)
 - 'SnowTux peak' track (Based on previous track 'Geeko peak' from original TuxKart)
@@ -93,7 +115,7 @@ Thomas Oppl
 - New banana model
 
 Christian Framing 
-- Updated EvilTux kart
+- Updated EvilTux kart (edit by Chungus)
 
 Minibjorn
 - Puffy kart
@@ -103,6 +125,7 @@ Minibjorn
 Ivar ten Cate (Varivar)
 - Old mine track
 - Tux Tollway track
+- Improvements to 'Snow Peak' (port by Chungus)
 
 Robert Howie
 - Skyline Track  (with modifications by conso)
@@ -144,6 +167,8 @@ Other music (not specifically created for STK):
 - Speedsound for 'Sky Vibe - High Frequency'
 - Daniel Bautista for 'Symphony No. 5' (modified by conso)
 - TheDeadRocks for 'GreenSecretFromAmazonia', 'EasyJob', 'OneMillionDollar'
+- ZamalSka for 'Dance Cleopatra'
+- DJ Helium : 'Secret Garden'
 
 SFX
 ---
@@ -170,7 +195,6 @@ The Dead Rocks
 -Easy Job
 -Green Secret from Amazonia
 -One Million dollar
-
 
 Stephen Dunn, based on work by morgantj
 - Engine sound

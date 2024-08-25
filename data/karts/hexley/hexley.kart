@@ -6,21 +6,21 @@
  (model-file  "hexley2.ac")
  (icon-file   "hexleyicon.rgb")
  (shadow-file "hexley2shadow.rgb")
- (rgb  0.700000 0.000000 0.500000 )
+ (rgb  0.650000 0.040000 0.370000 )
   (wheel-front-right
-    (position 0.345697 0.419242 0.112979)
+    (position 0.365697 0.479242 0.102090)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
-    (position -0.344220 0.417597 0.111252)
+    (position -0.365232 0.477597 0.100255)
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.340863 -0.305902 0.112090)
+    (position 0.365697 -0.305902 0.102090)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.345232 -0.307547 0.110255)
+    (position -0.365232 -0.307547 0.100255)
     (model    "wheel-rear-left.ac")
   )
        

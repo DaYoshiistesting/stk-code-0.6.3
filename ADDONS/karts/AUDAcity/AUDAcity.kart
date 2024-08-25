@@ -1,25 +1,25 @@
 (tuxkart-kart
+  (version	1)
   (name        "AUDAcity")
-  (version     1)
   (model-file  "AUDAcity.ac")
   (icon-file   "audaIcon.rgb")
   (shadow-file "audaShadow.rgb")
   (groups      "addon")
   (rgb         0.700000 0.000000 0.000000)
   (wheel-front-right
-    (position 0.328123 0.343860 0.093322)
+    (position 0.328216 0.344092 0.086529)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
-    (position -0.319917 0.345399 0.093322)
+    (position -0.317257 0.343676 0.086333)
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.328123 -0.357105 0.093322)
+    (position 0.326218 -0.299791 0.084442)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.319917 -0.355565 0.093322)
+    (position -0.315029 -0.300034 0.084490)
     (model    "wheel-rear-left.ac")
   )
 )

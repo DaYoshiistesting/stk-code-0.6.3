@@ -1,0 +1,29 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Tux")
+ (version     1)
+ (model-file  "newtux.ac")
+ (icon-file   "new_tuxicon.rgb")
+ (shadow-file "new_tux_shadow.rgb")
+ (groups      "Add-on") 
+ (engine-sound "small")
+ (rgb         0.7 0.0 0.0)
+ (wheel-front-right
+   (position  0.295  0.405 0.103)
+   (model     "wheel-front-right.ac")
+ )
+ (wheel-front-left
+   (position  -0.285  0.405 0.103)
+   (model     "wheel-front-left.ac")
+ )
+ (wheel-rear-right
+   (position  0.361 -0.344 0.143)
+   (model     "wheel-rear-right.ac")
+ )
+ (wheel-rear-left
+   (position  -0.349 -0.344 0.143)
+   (model     "wheel-rear-left.ac")
+ )
+)
+;; EOF ;;

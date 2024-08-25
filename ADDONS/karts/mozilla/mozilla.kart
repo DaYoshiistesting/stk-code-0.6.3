@@ -1,0 +1,28 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Mozilla")
+ (version     1)
+ (model-file  "mozilla-high.ac")
+ (icon-file   "mozillaicon.rgb")
+ (shadow-file "mozillashadow.rgb")
+ (groups      "standard")
+ (engine-sound "large")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.245901 0.543757 0.112440)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.254099 0.543757 0.112440)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.399366 -0.538187 0.193826)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.394427 -0.538187 0.193826)
+    (model    "wheel-rear-left.ac")
+  )
+)
