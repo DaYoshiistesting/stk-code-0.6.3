@@ -1,3 +1,45 @@
+# SuperTuxKart 0.6.3 Alpha-3 (October 2023) (not released)
+
+* Bugfix : The Island track wasn't working.
+* Bugfix : Parachute was using light.
+* Bugfix : Title screen texture wasn't coordinated to the GUI.
+* Bugfix : In Secret Garden, the first kart wasn't counted as first.
+* Replaced some textures with ones from 0.7.
+* Fixed Fort Magma.
+* Added Scotland track.
+* Added challenges.
+* Updated all karts and lightened some karts to gain performance.
+* Updated tracks screenshots.
+* Updated Jungle, Shifting Sands, Star Track
+* Ported 0.7 Oliver's math class.
+
+# SuperTuxKart 0.6.3 Pre-alpha 3 (July 2023)
+
+* Added two new menu background pictures.
+* Added Mozilla kart from 0.7.
+* Added Elephpant kart from 0.7-SVN.
+* Fixed Tux and Evil Tux being too heavy for the game.
+* Fixed Nolok and Puffy's wheels.
+* Deleted Subsea track.
+* For the first time, four tracks from 0.7 were backported :
+  - Hacienda.
+  - The Island (broken atm).
+  - Mines.
+  - Snow Tux Peak.
+* Updated Secret Garden and Canyon.
+* Added more karts in the add-ons folder.
+* Bugfix : It was possible to see through Gnu's beard.
+
+# SuperTuxKart 0.6.3 Alpha-2.2 (June 2023)
+
+* Updated Tux, Evil Tux and Gooey karts 
+  but with **HUGE** performance problems.
+* Updated XR591.
+* Added back Subsea track.
+* Replaced old parachute, with the one from 0.7.
+* Replaced Nolok's icon.
+* Bugfix: Pidgin skidmarks wouldn't display.
+
 # SuperTuxKart 0.6.3 Alpha-2 (June 2023)
 
 * Replaced Hexley's **BIG** wheels with little ones.
