@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (version	1)
+  (name        "python")
+  (model-file  "python.ac")
+  (icon-file   "pythonicon.rgb")
+  (shadow-file "pythonshadow.rgb")
+  (groups      "addon")
+  (rgb         0.700000 0.000000 0.000000)
+  (wheel-front-right
+    (position 0.228887 0.459455 0.122514)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.232554 0.459455 0.122514)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.286567 -0.463427 0.122514)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.290234 -0.463427 0.122514)
+    (model    "wheel-rear-left.ac")
+  )
+)

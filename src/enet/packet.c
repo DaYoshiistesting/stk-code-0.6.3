@@ -11,7 +11,7 @@
 */
 
 /** Creates a packet that may be sent to a peer.
-    @param data         initial contents of the packet's data; the packet's data will remain uninitialized if data is NULL.
+    @param dataContents initial contents of the packet's data; the packet's data will remain uninitialized if dataContents is NULL.
     @param dataLength   size of the data allocated for this packet
     @param flags        flags for this packet as described for the ENetPacket structure.
     @returns the packet on success, NULL on failure
@@ -20,14 +20,9 @@ ENetPacket *
 enet_packet_create (const void * data, size_t dataLength, enet_uint32 flags)
 {
     ENetPacket * packet = (ENetPacket *) enet_malloc (sizeof (ENetPacket));
-    if (packet == NULL)
-      return NULL;
 
     if (flags & ENET_PACKET_FLAG_NO_ALLOCATE)
       packet -> data = (enet_uint8 *) data;
-    else
-    if (dataLength <= 0)
-      packet -> data = NULL;
     else
     {
        packet -> data = (enet_uint8 *) enet_malloc (dataLength);
@@ -45,7 +40,6 @@ enet_packet_create (const void * data, size_t dataLength, enet_uint32 flags)
     packet -> flags = flags;
     packet -> dataLength = dataLength;
     packet -> freeCallback = NULL;
-    packet -> userData = NULL;
 
     return packet;
 }
@@ -56,13 +50,9 @@ enet_packet_create (const void * data, size_t dataLength, enet_uint32 flags)
 void
 enet_packet_destroy (ENetPacket * packet)
 {
-    if (packet == NULL)
-      return;
-
     if (packet -> freeCallback != NULL)
       (* packet -> freeCallback) (packet);
-    if (! (packet -> flags & ENET_PACKET_FLAG_NO_ALLOCATE) &&
-        packet -> data != NULL)
+    if (! (packet -> flags & ENET_PACKET_FLAG_NO_ALLOCATE))
       enet_free (packet -> data);
     enet_free (packet);
 }
@@ -101,28 +91,13 @@ enet_packet_resize (ENetPacket * packet, size_t dataLength)
 static int initializedCRC32 = 0;
 static enet_uint32 crcTable [256];
 
-static enet_uint32 
-reflect_crc (int val, int bits)
-{
-    int result = 0, bit;
-
-    for (bit = 0; bit < bits; bit ++)
-    {
-        if(val & 1) result |= 1 << (bits - 1 - bit); 
-        val >>= 1;
-    }
-
-    return result;
-}
-
-static void 
-initialize_crc32 (void)
+static void initialize_crc32 ()
 {
     int byte;
 
     for (byte = 0; byte < 256; ++ byte)
     {
-        enet_uint32 crc = reflect_crc (byte, 8) << 24;
+        enet_uint32 crc = byte << 24;
         int offset;
 
         for(offset = 0; offset < 8; ++ offset)
@@ -133,7 +108,7 @@ initialize_crc32 (void)
                 crc <<= 1;
         }
 
-        crcTable [byte] = reflect_crc (crc, 32);
+        crcTable [byte] = crc;
     }
 
     initializedCRC32 = 1;
@@ -153,7 +128,7 @@ enet_crc32 (const ENetBuffer * buffers, size_t bufferCount)
 
         while (data < dataEnd)
         {
-            crc = (crc >> 8) ^ crcTable [(crc & 0xFF) ^ *data++];        
+            crc = ((crc << 8) | * data ++) ^ crcTable [crc >> 24];        
         }
 
         ++ buffers;

@@ -39,7 +39,6 @@
 #include <ctime>
 #include <cstdio>
 #include <iostream>
-#include <plib/sg.h>
 #include "race_manager.hpp"
 #include "graphics/scene.hpp"
 #include "modes/linear_world.hpp"
@@ -117,7 +116,6 @@ DefaultRobot::DefaultRobot(const std::string& kart_name,
 DefaultRobot::~DefaultRobot()
 {
     m_num_of_track_info_instances--;
-  //m_item_to_collect = NULL;
 
     if(m_num_of_track_info_instances==0)
     {
@@ -393,86 +391,15 @@ void DefaultRobot::handleSteering(float dt)
 #ifdef AI_DEBUG
         std::cout << "- Fallback."  << std::endl;
 #endif
-		// Potentially adjust the point to aim for in order to either
-        // aim to collect item, or steer to avoid a bad item.
-        //if(m_item_behaviour!=ITEM_COLLECT_NONE)
-            //handleItemCollectionAndAvoidance(straight_point, last_node);
 
     }
     // avoid steer vibrations
     //if (fabsf(steer_angle) < 1.0f*3.1415/180.0f)
     //    steer_angle = 0.f;
 
-
     setSteering(steer_angle, dt);
 }   // handleSteering
 
-//-----------------------------------------------------------------------------
-/*void DefaultRobot::handleItemCollectionAndAvoidance(Vec3 *straight_point, int m_sector)
-{
-    const unsigned int DRIVELINE_SIZE = (unsigned int)m_track->m_driveline.size();
-    const size_t NEXT_SECTOR = (unsigned int)m_track_sector + 1 < DRIVELINE_SIZE 
-                             ? m_track_sector + 1 : 0;
-
-    // Angle of line from kart to aim_point
-    float kart_aim_angle = atan2(straight_point->getX()- getXYZ().getX(),
-                                 straight_point->getY()- getXYZ().getY());
-
-    if(m_item_to_collect)
-    {
-        if(handleSelectedItem(kart_aim_angle, straight_point, m_sector))
-        {
-            // Still aim at the previsouly selected item.
-            *straight_point = m_item_to_collect->getXYZ();
-            return;
-        }
-        // Otherwise remove the pre-selected item (and start
-        // looking for a new item).
-         m_item_to_collect = NULL;
-    } // m_item_to_collect
-
-    // Make sure we have a valid sector
-    if(m_sector==Track::UNKNOWN_SECTOR)
-       m_sector = NEXT_SECTOR;
-
-    int sector = m_track_sector;
-    float distance = 0;
-    const Item *item_to_collect = NULL;
-    const Item *item_to_avoid   = NULL;
-
-    const float max_item_lookahead_distance = 30.f;
-    while(distance < max_item_lookahead_distance)
-	{
-        int s_index = m_track_mesh;
-        const std::vector<Item *> &items_ahead = item->getXYZ();
-            ItemManager::get()->getItemsInQuads(s_index);
-        for(unsigned int i=0; i<items_ahead.size(); i++)
-        {
-            evaluateItems(items_ahead[i],  kart_aim_angle, 
-                          &item_to_avoid, &item_to_collect);
-        }   // for i<items_ahead;
-        distance += sgDistanceVec2
-                   (m_track->m_driveline[sector], m_track->m_driveline[NEXT_SECTOR]); 
-
-        sector = m_track->m_driveline[NEXT_SECTOR];
-        // Stop when we have reached the last quad
-        if(sector==m_sector) break;
-    }   // while (distance < max_item_lookahead_distance)
-
-    sgFloat Line1
-    sgFloat Line2;
-	Line1 = sgSetVec2(30.f, getXYZ().getX(), getXYZ().getY());
-	Line2 = sgSetVec2(30.f, straight_point->getX(), straight_point->getY());
-	sgVec2 *line_to_target = Line1 + Line2;
-
-
-    if(item_to_collect)
-    {
-        sgFloat collect(item_to_collect->getXYZ().getX(),
-                                item_to_collect->getXYZ().getY());
-        core::vector2df cp = line_to_target.getClosestPoint(collect);
-        Vec3 xyz(cp.X, item_to_collect->getXYZ().getY(), cp.Y);
-}//*/
 //-----------------------------------------------------------------------------
 void DefaultRobot::handleItems( const float DELTA, const int STEPS )
 {
@@ -511,7 +438,7 @@ void DefaultRobot::handleItems( const float DELTA, const int STEPS )
         // this approach helps preventing an overtaken kart to overtake us 
         // again.
         m_controls.m_fire = (m_distance_behind < 15.0f &&
-                               m_distance_behind > 2.3f   ) || 
+                               m_distance_behind > 3.0f   ) || 
                             m_time_since_last_shot>10.0f;
         if(m_distance_behind < 10.0f && m_distance_behind > 2.0f   )
             m_distance_behind *= 1.0f;
@@ -520,21 +447,9 @@ void DefaultRobot::handleItems( const float DELTA, const int STEPS )
     // towards m_kart_ahead. And some of them can fire backwards, too - which
     // isn't yet supported for AI karts.
     case POWERUP_CAKE:
-        {
-            // Since cakes can be fired all around, just use a sane distance
-            // with a bit of extra for backwards, as enemy will go towards cake
-            bool fire_backwards = (m_kart_behind && m_kart_ahead &&
-                                   m_distance_behind < m_distance_ahead) ||
-                                  !m_kart_ahead;
-            float distance = fire_backwards ? m_distance_behind
-                                            : m_distance_ahead;
-            m_controls.m_fire = (fire_backwards && distance < 25.0f)  ||
-                               (!fire_backwards && distance < 20.0f)  ||
-			                     m_time_since_last_shot > 3.0f;
-            if(m_controls.m_fire)
-                m_controls.m_look_back = fire_backwards;
-            break;
-        }
+        m_controls.m_fire = (m_kart_ahead && m_distance_ahead < 20.0f) ||
+                             m_time_since_last_shot > 10.0f;
+        break;
     case POWERUP_BOWLING:
         {
             // Bowling balls slower, so only fire on closer karts - but when
@@ -647,7 +562,7 @@ void DefaultRobot::handleAcceleration( const float DELTA )
 
     if(hasViewBlockedByPlunger())
     {
-        if(!(getSpeed() > getMaxSpeedOnTerrain() / 1.4))
+        if(!(getSpeed() > getMaxSpeedOnTerrain() / 2))
             m_controls.m_accel = 0.05f;
         else 
             m_controls.m_accel = 0.0f;
@@ -722,15 +637,8 @@ void DefaultRobot::handleNitroAndZipper()
     // Don't use nitro when the AI has a plunger in the face!
     if(hasViewBlockedByPlunger()) return;
     
-    // Don't use nitro if the kart doesn't have any wheels or is not on ground.
-	// Also don't use nitro when the race is finished.
+    // Don't use nitro if the kart doesn't have any or is not on ground.
     if(!isOnGround() || hasFinishedRace()) return;
-
-    // Don't use nitro if the kart is rescued.
-    if(isRescue()) return;
-
-    // Don't use nitro if the kart is not near ground.
-    if(!isNearGround()) return;
     
     // Don't compute nitro usage if we don't have nitro or are not supposed
     // to use it, and we don't have a zipper or are not supposed to use
@@ -810,7 +718,7 @@ float DefaultRobot::steerToAngle(const size_t SECTOR, const float ANGLE)
     float angle = m_track->m_angle[SECTOR];
 
     //Desired angle minus current angle equals how many angles to turn
-    float steer_angle = angle - getHeading();
+    float steer_angle = angle - getHPR().getHeading();
 
     if(hasViewBlockedByPlunger())
         steer_angle += ANGLE/5;
@@ -841,7 +749,7 @@ float DefaultRobot::steerToPoint(const sgVec2 point, float dt)
     // Angle is the point is relative to the heading - but take the current
     // angular velocity into account, too. The value is multiplied by two
     // to avoid 'oversteering' - experimentally found.
-    float angle_2_point   = theta - getHeading() 
+    float angle_2_point   = theta - getHPR().getHeading() 
                                   - dt*m_body->getAngularVelocity().getZ()*2.0f;
     angle_2_point         = normalizeAngle(angle_2_point);
     if(fabsf(angle_2_point)<0.1) return 0.0f;

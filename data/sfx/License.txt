@@ -16,11 +16,8 @@ All sounds are released under GPL, except:
     Released under the Creative Commons Sampling Plus 1.0 license (http://creativecommons.org/licenses/sampling+/1.0/)
     By Marianne Gagnon (Auria), based on "Approx_850_Enthusiast_Audience" by lonemonk, released under the same license
 * horn.wav
-    Released under the Creative Commons BY (Attribution) 3.0
-    Recorded by Mike Koenig, with modifications by Marianne Gagnon (Auria)
-* horn_ai.wav
-    Released under the Creative Commons BY (Attribution) 3.0
-    Recorded by Mike Koenig, with modifications by Marianne Gagnon (Auria)
+    Released under the Creative Commons Sampling Plus 1.0 license (http://creativecommons.org/licenses/sampling+/1.0/)
+    By Marianne Gagnon (Auria), based on "claxon" by han1, released under the same license
 * parachute.wav
     Released under the Creative Commons Sampling Plus 1.0 license (http://creativecommons.org/licenses/sampling+/1.0/)
     By Marianne Gagnon (Auria), based on "kiss" by roscoetoon, "kissy_sound" by FreqMan,

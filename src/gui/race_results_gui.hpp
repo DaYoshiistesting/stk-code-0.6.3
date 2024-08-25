@@ -35,7 +35,6 @@ private:
     {
         WTOK_NONE,
         WTOK_CONTINUE,
-		WTOK_CONTINUE_GP,
         WTOK_RESTART_RACE,
         WTOK_SETUP_NEW_RACE,
         WTOK_RESULTS,

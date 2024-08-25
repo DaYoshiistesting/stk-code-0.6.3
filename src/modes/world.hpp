@@ -105,6 +105,7 @@ protected:
     bool        m_use_highscores;
     
     void  updateHighscores  ();
+    void  loadTrack         ();
     void  resetAllKarts     ();
     void  removeKart        (int kart_number);
     Kart* loadRobot         (const std::string& kart_name, int position,

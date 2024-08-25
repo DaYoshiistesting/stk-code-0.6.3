@@ -39,19 +39,82 @@ UnlockManager::UnlockManager()
     // in main).
     unlock_manager=this;
 
-    // Read challenges from .../data/challenges/
-    // -----------------------------------------
+    // Read challenges from .../data
+    // -----------------------------
     std::set<std::string> result;
-    file_manager->listFiles(result, "data/challenges");
+    file_manager->listFiles(result, "data");
     for(std::set<std::string>::iterator i  = result.begin();
                                         i != result.end()  ; i++)
     {
         if (StringUtils::has_suffix(*i, ".challenge")) 
-            addChallenge(file_manager->getConfigFile("challenges/"+*i));
-    }
+            addChallenge(file_manager->getConfigFile(*i));
+    }   // for i
 
+    // Read challenges from .../data/tracks/*
+    // --------------------------------------
     std::set<std::string> dirs;
-    file_manager->listFiles(dirs, file_manager->getChallengeDir(), /*is_full_path*/ true);
+    file_manager->listFiles(dirs, file_manager->getTrackDir(), /*is_full_path*/ true);
+    for(std::set<std::string>::iterator dir = dirs.begin(); dir != dirs.end(); dir++)
+    {
+        if(*dir=="." || *dir=="..") continue;
+        std::string config_file;
+        try
+        {
+            // getTrackFile appends dir, so it's opening: *dir/*dir.track
+            config_file = file_manager->getTrackFile((*dir)+".track");
+        }
+        catch (std::exception& e)
+        {
+            (void)e;   // remove warning about unused variable
+            continue;
+        }
+        // Check for a challenge file
+        std::string challenge_file = 
+            StringUtils::without_extension(config_file)+".challenge";
+        FILE *f=fopen(challenge_file.c_str(), "r");
+        if(f)
+        {
+            fclose(f);
+            addChallenge(new ChallengeData(challenge_file));
+        }
+    }   // for dirs
+
+    // Load challenges from .../data/karts
+    // -----------------------------------
+    file_manager->listFiles(dirs, file_manager->getKartDir(), 
+                            /*is_full_path*/ true);
+
+    // Find out which characters are available and load them
+    for(std::set<std::string>::iterator i  = dirs.begin();
+                                        i != dirs.end();  i++)
+    {
+        std::string challenge_file;
+        try
+        {
+            challenge_file = file_manager->getKartFile((*i)+".challenge");
+        }
+        catch (std::exception& e)
+        {
+            (void)e;   // remove warning about unused variable
+            continue;
+        }
+        FILE *f=fopen(challenge_file.c_str(),"r");
+        if(!f) continue;
+        fclose(f);
+        addChallenge(new ChallengeData(challenge_file));
+    }   // for i
+
+    // Challenges from .../data/grandprix
+    // ----------------------------------
+    file_manager->listFiles(result, "data/grandprix");
+    for(std::set<std::string>::iterator i  = result.begin();
+                                        i != result.end()  ; i++)
+    {
+        if (StringUtils::has_suffix(*i, ".challenge")) 
+            addChallenge(file_manager->getConfigFile("grandprix/"+*i));
+    }   // for i
+
+    // Hard coded challenges can be added here.
 
     computeActive();
 

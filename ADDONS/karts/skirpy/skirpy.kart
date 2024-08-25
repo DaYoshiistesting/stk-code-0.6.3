@@ -1,0 +1,30 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Skirpy")
+ (version     1)
+ (model-file  "skirpy-high.ac")
+ (icon-file   "skirpyicon.rgb")
+ (shadow-file "generickartshadow.rgb")
+ (groups      "addon")  
+ (engine-sound "small")
+ (rgb         0.1 0.5 0.1)
+  (wheel-front-right
+    (position 0.260838 0.402148 0.117280)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.254903 0.402148 0.117280)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.310187 -0.408388 0.149036)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.304252 -0.408388 0.149036)
+    (model    "wheel-rear-left.ac")
+  )
+       
+)
+;; EOF ;;

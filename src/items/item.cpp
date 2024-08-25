@@ -25,78 +25,30 @@
 #include "utils/vec3.hpp"
 
 Item::Item(ItemType type, const Vec3& xyz, const Vec3& normal,
-           ssgEntity* model)
+           ssgEntity* model, unsigned int item_id, bool rotate)
 {
-	assert(type != ITEM_TRIGGER);
-	initItem(type, xyz);
+    m_rotate           = rotate;
+    m_parent           = NULL;
+    m_deactive_time    = 0;
     // Sets heading to 0, and sets pitch and roll depending on the normal. */
-    Vec3 hpr           = Vec3(0, normal);
+    Vec3  hpr          = Vec3(0, normal);
     m_coord            = Coord(xyz, hpr);
+    m_item_id          = item_id;
+    m_type             = type;
+    m_collected        = false;
+    m_time_till_return = 0.0f;  // not strictly necessary, see isCollected()
     m_root             = new ssgTransform();
-    m_distance_2       = 0.8f;
-    m_original_model   = model;
-    m_listener         = NULL;
     m_root->ref();
     m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
     m_root->addKid(model);
     scene->add(m_root);
 }   // Item
-//-----------------------------------------------------------------------------
-
-/** \brief Constructor to create a trigger item.
-  * Trigger items are invisible and can be used to trigger a behavior when
-  * approaching a point.
-  */
-Item::Item(const Vec3& xyz, float distance, TriggerItemListener* trigger)
-{
-    initItem(ITEM_TRIGGER, xyz);
-    // Sets heading to 0, and sets pitch and roll depending on the normal. */
-    m_original_hpr      = Vec3(0, 0, 0);
-    m_original_model    = NULL;
-    m_root              = NULL;
-    m_listener          = trigger;
-    m_distance_2        = distance*distance;
-}   // Item(xyz, distance, trigger)
-
-//-----------------------------------------------------------------------------
-/** Initialises the item.
- *  \param type Type of the item.
- */
-void Item::initItem(ItemType type, const Vec3 &xyz)
-{
-	m_type              = type;
-	m_parent            = NULL;
-	m_xyz               = xyz;
-    m_deactive_time     = 0;
-    m_item_id           = -1;
-	m_original_type     = ITEM_NONE;
-    m_collected         = false;
-    m_time_till_return  = 0.0f;  // not strictly necessary, see isCollected()
-	m_rotate            = (type!=ITEM_BUBBLEGUM) && (type!=ITEM_TRIGGER);
-    m_disappear_counter = m_type==ITEM_BUBBLEGUM 
-                        ? stk_config->m_bubble_gum_counter
-                        : -1 ;
-}   //initItem
-
-//-----------------------------------------------------------------------------
-/** Sets the type of this item, but also derived values, e.g. m_rotate.
- *  (bubblegums do not return).
- *  \param type New type of the item.
- */
-void Item::setType(ItemType type)
-{
-    m_type   = type;
-    m_rotate = (type!=ITEM_BUBBLEGUM) && (type!=ITEM_TRIGGER);
-}   // setType
 
 //-----------------------------------------------------------------------------
 Item::~Item()
 {
-    if (m_root != NULL)
-    {
-        scene->remove(m_root);
-        ssgDeRefDelete(m_root);
-    }
+    scene->remove(m_root);
+    ssgDeRefDelete(m_root);
 }   // ~Item
 
 //-----------------------------------------------------------------------------
@@ -105,19 +57,7 @@ void Item::reset()
     m_collected        = false;
     m_time_till_return = 0.0f;
     m_deactive_time    = 0.0f;
-	m_disappear_counter = m_type==ITEM_BUBBLEGUM 
-                        ? stk_config->m_bubble_gum_counter
-                        : -1 ;
-	if(m_original_type!=ITEM_NONE)
-    {
-        setType(m_original_type);
-        m_original_type = ITEM_NONE;
-    }
-
-    if (m_root !=NULL)
-    {
-        m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
-    }
+    m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
 }   // reset
 //-----------------------------------------------------------------------------
 void Item::setParent(Kart* parent)
@@ -129,7 +69,7 @@ void Item::setParent(Kart* parent)
 //-----------------------------------------------------------------------------
 void Item::update(float delta)
 {
-    if(m_deactive_time > 0) m_deactive_time -= delta;
+    if(m_parent != NULL && m_deactive_time > 0) m_deactive_time -= delta;
     
     if(m_collected)
     {
@@ -165,30 +105,11 @@ void Item::update(float delta)
  *  has been collected, and the time to return to the parameter. 
  *  \param t Time till the object reappears (defaults to 2 seconds).
  */
-void Item::isCollected(const Kart *kart, float t)
+void Item::isCollected(float t)
 {
-    m_collected = true;
-    m_parent    = kart;
-    if(m_type==ITEM_BUBBLEGUM && m_disappear_counter>0)
-    {
-        m_disappear_counter --;
-        // Deactivates the item for a certain amount of time. It is used to
-        // prevent bubble gum from hitting a kart over and over again (in each
-        // frame) by giving it time to drive away.
-        m_deactive_time = 0.0f;
-        // Set the time till reappear to -1 seconds --> the item will 
-        // reappear immediately.
-        m_time_till_return = -1;
-    }
-    else
-    {
-        // Note if the time is negative, in update the m_collected flag will
-        // be automatically set to false again.
-        m_time_till_return = t;
-        if (m_root != NULL)
-        {
-            m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
-        }
-    }
-}  // isCollected
+    m_collected        = true;
+    // Note if the time is negative, in update the m_collected flag will
+    // be automatically set to false again.
+    m_time_till_return = t;
+}
 

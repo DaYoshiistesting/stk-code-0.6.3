@@ -1,25 +1,15 @@
 ;; -*- mode: lisp -*-
 
 (tuxkart-track
- (name        _("The Old Mine"))
- (version     2)
+ (name        _("The old mine"))
+ (version     1)
  (designer    "Ivar ten Cate")
  (music       "West.music")
  (screenshot  "sshot-mines.rgb")
  (topview     "topview-mines.rgb")
  (sky-color  0.0 0.0 0.0 0.0)
- (sun-ambient  0.2 0.15 0.15)
- (sun-diffuse  0.2 0.15 0.15)
- (sun-specular 0.2 0.15 0.15)
- (camera-final-position  2 20 3)
+ (camera-final-position  5 20 3)
  (camera-final-hpr       180 -10 0)
- (start-y -5 -5.5 -7 -7.5 -9 -9.5 -11 -11.5 -13 -13.5)
-
- (use-fog    #t)
- (fog-color    0.0 0.0 0.0)
- (fog-start    10.0)
- (fog-end      300.0)
- (fog-density  0.025)
 )
 
 ;; EOF ;;

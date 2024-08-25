@@ -1,0 +1,17 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("The Ring"))
+ (version     1)
+ (designer    "Constantin Pelikan")
+ (music       "Penguin_Party.music")
+ (screenshot  "sshot-ring.rgb")
+ (topview     "topview-ring.rgb")
+ (arena       #t)
+ (groups      "addon")
+ (camera-final-position  5 20 3)
+ (camera-final-hpr       180 -10 0)
+)
+
+;; EOF ;;
+

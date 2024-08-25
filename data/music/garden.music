@@ -1,8 +1,0 @@
-(music-information
-  (title    "The Garden")
-  (composer "DJ Helium" )
-  (music    "garden.ogg")
-  (loop     10          )
-  (gain     0.8)
-)
-

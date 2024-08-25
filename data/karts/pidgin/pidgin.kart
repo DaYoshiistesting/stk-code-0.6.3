@@ -6,23 +6,24 @@
  (model-file  "pidgin.ac")
  (icon-file   "pidginicon.rgb")
  (shadow-file "pidginshadow.rgb")
- (groups      "Standard")
+ (groups      "standard") 
  (engine-sound "small")
+ (has-skidmarks #t)
  (rgb         0.57 0.36 0.51)
   (wheel-front-right
-    (position 0.323682 0.327532 0.113120)
+    (position 0.323682 0.327532 0.103120)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
-    (position -0.325589 0.327532 0.113120)
+    (position -0.325589 0.327532 0.103120)
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.381569 -0.372732 0.157538)
+    (position 0.381569 -0.372732 0.147538)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.383476 -0.372732 0.157538)
+    (position -0.383476 -0.372732 0.147538)
     (model    "wheel-rear-left.ac")
   )
        

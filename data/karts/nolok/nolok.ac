@@ -16867,7 +16867,7 @@ refs 3
 kids 0
 OBJECT poly
 name "Sphere"
-loc -0.683482 0.0336178 -0.142864
+loc -0.683049 0.0337623 -0.142864
 texture "nolok_kart_.rgb"
 crease 35.000000
 numvert 30

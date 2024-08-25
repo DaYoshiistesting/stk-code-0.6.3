@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-09 00:05+0100\n"
+"POT-Creation-Date: 2009-01-19 03:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Yann Lenormand <>\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
@@ -147,11 +147,11 @@ msgid "Clear from Blacklist"
 msgstr ""
 
 #: data/tracks/crescentcrossing/crescentcrossing.challenge:5
-msgid "Collect Nitro in Math Class."
+msgid "Collect Nitro in Math Class"
 msgstr ""
 
 #: data/grandprix/tothemoonandback.challenge:5
-msgid "Collect the Pharaohs Treasure."
+msgid "Collect the Pharaohs Treasure"
 msgstr ""
 
 #: src/gui/help_page_one.cpp:123
@@ -322,7 +322,7 @@ msgid "Follow the Leader"
 msgstr ""
 
 #: data/tracks/city/city.challenge:5
-msgid "Follow the Leader in the Jungle."
+msgid "Follow the Leader in the Jungle"
 msgstr ""
 
 #: data/grandprix/atworldsend.challenge:5
@@ -630,6 +630,10 @@ msgstr ""
 msgid "Quit"
 msgstr ""
 
+#: src/gui/race_gui.cpp:637
+msgid "REV"
+msgstr ""
+
 #: src/gui/race_results_gui.cpp:74
 msgid "Race in this track again"
 msgstr ""
@@ -648,7 +652,7 @@ msgstr ""
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
-msgid "Ready?"
+msgid "Ready!"
 msgstr ""
 
 #: src/gui/player_controls.cpp:72
@@ -668,16 +672,8 @@ msgstr ""
 msgid "Right"
 msgstr ""
 
-#: data/tracks/scotland/scotland.track:4
-msgid "Scotland"
-msgstr ""
-
 #: data/grandprix/tothemoonandback.grandprix:5
 msgid "Second grand prix"
-msgstr ""
-
-#: data/tracks/secretgarden/secretgarden.track:4
-msgid "Secret Garden"
 msgstr ""
 
 #: src/gui/network_gui.cpp:52
@@ -686,7 +682,7 @@ msgstr ""
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:826
-msgid "Set?!"
+msgid "Set!"
 msgstr ""
 
 #: src/gui/race_menu.cpp:55 src/gui/race_results_gui.cpp:79
@@ -776,7 +772,7 @@ msgid ""
 msgstr ""
 
 #: data/tracks/mines/mines.track:4
-msgid "The Old Mine"
+msgid "The old mine"
 msgstr ""
 
 #: src/gui/grand_prix_ending.cpp:84
@@ -847,7 +843,7 @@ msgstr ""
 #: data/followtheleader.challenge:5
 msgid ""
 "Win Penguin Playground Grand\n"
-"Prix."
+"Prix"
 msgstr ""
 
 #: data/followtheleader.challenge:6
@@ -859,7 +855,7 @@ msgstr ""
 #: data/grandprix/snagdrive.challenge:5
 msgid ""
 "Win To the Moon and Back\n"
-"Grand Prix."
+"Grand Prix"
 msgstr ""
 
 #: data/tracks/fortmagma/fortmagma.challenge:6
@@ -886,13 +882,13 @@ msgstr ""
 #: data/tracks/fortmagma/fortmagma.challenge:5
 msgid ""
 "Win a Head to Head on\n"
-"Tux Tollway."
+"Tux Tollway"
 msgstr ""
 
 #: data/grandprix/alltracks.challenge:5
 msgid ""
 "Win the At World's End\n"
-"Grand Prix."
+"Grand Prix"
 msgstr ""
 
 #: data/grandprix/snagdrive.challenge:6

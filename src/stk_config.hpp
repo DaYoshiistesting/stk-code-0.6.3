@@ -60,8 +60,6 @@ public:
                                          more forgiving.                     */
     float m_final_camera_time;       /**<Time for the movement of the final
                                       *  camera.                             */
-	int   m_bubble_gum_counter;      /**< How many times bananas must be eaten
-                                          before they disappear.             */
     float m_explosion_impulse;       /**<Impulse affecting each non-hit kart.*/
     float m_explosion_impulse_objects;/**<Impulse of explosion on moving 
                                          objects, e.g. road cones, ...       */

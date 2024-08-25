@@ -111,13 +111,11 @@ GrandPrixEnd::GrandPrixEnd()
                 break;
             }
         }
-        const std::string& kart_name = race_manager->getKartName(this_kart_id);
-        const KartProperties* other_kart = kart_properties_manager->getKart(kart_name);
+        
         sprintf((char*)(m_score + MAX_STR_LEN * i), "#%d (%d) : %s",
             i-start + 1 /* add 1 because, while the inner ranks start at 0, users expect them to start at 1 */,
             race_manager->getKartScore(this_kart_id),
-            other_kart->getName().c_str());
-		
+            race_manager->getKartName(this_kart_id).c_str() );
         
         widget_manager->addWgt(WTOK_FIRSTKART + i, 40, 5);
         widget_manager->showWgtRect(WTOK_FIRSTKART + i);

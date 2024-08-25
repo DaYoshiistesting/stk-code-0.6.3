@@ -83,8 +83,10 @@ bool NetworkManager::initServer()
      address.host = ENET_HOST_ANY;
      address.port = user_config->m_server_port;
 
-     m_host = enet_host_create (&address /* the address to bind the server host to */, 10 /* number of connections */, 2 /* allow up to 2 channels to be used, 0 and 1 */, 0 /* incoming bandwidth */,0 /* outgoing bandwidth */); 
-
+     m_host = enet_host_create (& address     /* the address to bind the server host to */, 
+                                stk_config->m_max_karts /* number of connections */,
+                                0             /* incoming bandwidth */,
+                                0             /* outgoing bandwidth */     );
     if (m_host == NULL)
     {
         fprintf (stderr, 
@@ -108,7 +110,6 @@ bool NetworkManager::initClient()
 {
     m_host = enet_host_create (NULL /* create a client host */,
                                1    /* only allow 1 outgoing connection */,
-							   2    /* allow up 2 channels to be used, 0 and 1 */,
                                0    /* downstream bandwidth unlimited   */,
                                0    /*  upstream bandwidth unlimited    */ );
     
@@ -127,7 +128,7 @@ bool NetworkManager::initClient()
     address.port = user_config->m_server_port;
 
     /* Initiate the connection, allocating the two channels 0 and 1. */
-    peer = enet_host_connect (m_host, &address, 2, 0);    
+    peer = enet_host_connect (m_host, &address, 2);    
     
     if (peer == NULL)
     {

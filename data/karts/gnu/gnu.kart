@@ -5,26 +5,26 @@
  (model-file  "gnu.ac")
  (icon-file   "gnuicon.rgb")
  (shadow-file "gnushadow.rgb")
- (groups      "Standard")
- (engine-sound "small")
- (version     2)
+ (version     1)
+ (groups      "standard")
  (has-skidmarks #f)
+ 
  (rgb  1.0 0.97 0.86)
-  (wheel-front-right
+ (wheel-front-right
     (position 0.275697 0.339242 0.112979)
-    (model    "LordThankYou.ac")
+    (model    "JesusIsLord.ac")
   )
   (wheel-front-left
     (position -0.294220 0.337597 0.111252)
-    (model    "LordThankYou.ac")
+    (model    "JesusIsLord.ac")
   )
   (wheel-rear-right
     (position 0.300863 -0.305902 0.112090)
-    (model    "LordThankYou.ac")
+    (model    "JesusIsLord.ac")
   )
   (wheel-rear-left
     (position -0.315232 -0.307547 0.110255)
-    (model    "LordThankYou.ac")
- )      
+    (model    "JesusIsLord.ac")
+ )            
 )
 ;; EOF ;;

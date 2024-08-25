@@ -1,8 +1,7 @@
 (music-information
-  (title       "Penguin Party")
-  (enable-fast #t             )
-  (max-pitch   0.0900         ) 
-  (composer    "Magne Djupvik")
-  (music       "Penguin_Party.ogg")
-  (loop        10)
+  (title    "Penguin Party")
+  (enable-fast #t          )
+  (composer "Magne Djupvik")
+  (music    "Penguin_Party.ogg")
+  (loop     10)
 )

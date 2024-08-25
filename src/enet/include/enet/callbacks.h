@@ -7,11 +7,11 @@
 
 #include <stdlib.h>
 
-typedef struct _ENetCallbacks
+typedef struct
 {
     void * (ENET_CALLBACK * malloc) (size_t size);
     void (ENET_CALLBACK * free) (void * memory);
-    void (ENET_CALLBACK * no_memory) (void);
+    int (ENET_CALLBACK * rand) (void);
 } ENetCallbacks;
 
 /** @defgroup callbacks ENet internal callbacks
@@ -20,6 +20,7 @@ typedef struct _ENetCallbacks
 */
 extern void * enet_malloc (size_t);
 extern void   enet_free (void *);
+extern int    enet_rand (void);
 
 /** @} */
 

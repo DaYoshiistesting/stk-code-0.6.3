@@ -802,8 +802,8 @@ void Widget::draw()
 
         if( m_track_num != -1 )
         {
-            /*track_manager->getTrack( m_track_num )->drawScaled2D( 0.0f, 
-                0.0f, (float)m_width, (float)m_height);*/
+            track_manager->getTrack( m_track_num )->drawScaled2D( 0.0f, 
+                0.0f, (float)m_width, (float)m_height);
         }
         else
         {

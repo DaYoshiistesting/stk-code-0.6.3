@@ -253,7 +253,7 @@ void CharSel::switchGroup()
     m_index_avail_karts.clear();
     bool group_exist = 
         kart_properties_manager->getKartsInGroup(user_config->m_kart_group).size()>0;
-    if(!group_exist) user_config->m_kart_group = "Standard";
+    if(!group_exist) user_config->m_kart_group = "standard";
 
     const std::vector<int> &karts = 
         kart_properties_manager->getKartsInGroup(user_config->m_kart_group);
@@ -410,9 +410,9 @@ void CharSel::update(float dt)
         // applying a big camera FOV.
         int w = user_config->m_width;
         int h = user_config->m_height;
-        glViewport ( -116, h*1/6, (int)(0.85f*w), (int)(0.85f*h));
+        glViewport ( 0, h*1/4, (int)(0.7f*w), (int)(0.7f*h));
 
-        m_context -> setFOV ( 77.0f, 77.0f * h/w ) ;
+        m_context -> setFOV ( 65.0f, 65.0f * h/w ) ;
         m_context -> setNearFar ( 0.05f, 1000.0f ) ;
 
         sgCoord cam_pos;

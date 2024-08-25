@@ -727,7 +727,7 @@ msgstr "Pista de Corrida"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:808
-msgid "Ready?"
+msgid "Ready!"
 msgstr "Atenção!"
 
 #: src/gui/player_controls.cpp:72
@@ -757,7 +757,7 @@ msgstr "Selecione o modo de rede"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:818
-msgid "Set?!"
+msgid "Set!"
 msgstr "Preparar!"
 
 #: src/gui/race_menu.cpp:55

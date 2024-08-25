@@ -1,7 +1,7 @@
 (music-information
-  (title    "Symphony No. 5"   )
-  (composer "Daniel Bautista"  )
-  (music    "SymphonyNo5.ogg"  )
+  (title    "Symphony No. 5"    )
+  (composer "Daniel Bautista"            )
+  (music    "SymphonyNo5.ogg")
   (loop     10                 )
 )
 

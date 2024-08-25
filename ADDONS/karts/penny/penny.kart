@@ -1,0 +1,30 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-kart
+ (name        "Penny")
+ (version     1)
+ (model-file  "penny-med.ac")
+ (icon-file   "pennyicon.rgb")
+ (shadow-file "pennyshadow.rgb")
+ (groups      "addon") 
+ (engine-sound "small")
+ (rgb         0.8 0.2 0.6)
+  (wheel-front-right
+    (position 0.253742 0.432308 0.103671)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.250246 0.432308 0.103671)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.283033 -0.264789 0.142464)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.279537 -0.264789 0.142464)
+    (model    "wheel-rear-left.ac")
+  )
+       
+)
+;; EOF ;;

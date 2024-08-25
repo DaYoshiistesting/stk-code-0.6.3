@@ -1,6 +1,0 @@
-(music-information
-  (title    "MayDay Mayhem"     )
-  (composer "Alessandro Bottura")
-  (music    "MayDayMayhem.ogg"  )
-  (loop     10)
-)

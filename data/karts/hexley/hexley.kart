@@ -2,27 +2,25 @@
 
 (tuxkart-kart
  (name        "Hexley")
- (version     2)
+ (version     1)
  (model-file  "hexley2.ac")
  (icon-file   "hexleyicon.rgb")
  (shadow-file "hexley2shadow.rgb")
- (groups      "Standard")
- (engine-sound "small")
- (rgb  0.540000 0.025000 0.340000 )
+ (rgb  0.700000 0.000000 0.500000 )
   (wheel-front-right
-    (position 0.339697 0.379597 0.117290)
+    (position 0.345697 0.419242 0.092979)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
-    (position -0.339232 0.379597 0.117290)
+    (position -0.344220 0.417597 0.091252)
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.345697 -0.379597 0.117290)
+    (position 0.340863 -0.305902 0.102090)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.345232 -0.379597 0.117290)
+    (position -0.345232 -0.307547 0.100255)
     (model    "wheel-rear-left.ac")
   )
        

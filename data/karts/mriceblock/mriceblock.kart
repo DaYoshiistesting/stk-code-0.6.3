@@ -1,26 +1,25 @@
 (tuxkart-kart
-  (name        "Mr. Iceblock")
-  (version     2)
+  (name        "Mr.Iceblock")
+  (version     1)
   (model-file  "mriceblock.ac")
   (icon-file   "mriceblockicon.rgb")
   (shadow-file "mriceblockshadow.rgb")
-  (groups      "Standard")
-  (engine-sound "small")
+  (groups      "standard")
   (rgb         0.0 1.0 1.0)
   (wheel-front-right
-    (position 0.282099 0.423071 0.108150)
+    (position 0.270099 0.447726 0.10000)
     (model    "wheel-front-right.ac")
   )
   (wheel-front-left
-    (position -0.282099 0.423071 0.108150)
+    (position -0.284098 0.443071 0.09710)
     (model    "wheel-front-left.ac")
   )
   (wheel-rear-right
-    (position 0.350000 -0.350604 0.128780)
+    (position 0.301257 -0.352108 0.128311)
     (model    "wheel-rear-right.ac")
   )
   (wheel-rear-left
-    (position -0.350000 -0.350604 0.128780)
+    (position -0.312922 -0.350504 0.131780)
     (model    "wheel-rear-left.ac")
   )
 )

@@ -77,23 +77,16 @@ RaceResultsGUI::RaceResultsGUI()
             }
             else
             {
-                w=widget_manager->addTextButtonWgt( WTOK_SETUP_NEW_RACE, 60, 7, _("Setup New Race"));
+                w=widget_manager->addTextButtonWgt( WTOK_CONTINUE, 60, 7, _("Back to the main menu"));
             }
-            w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0, bottom_of_list);
+            w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0.1f, bottom_of_list);
             Widget *w_prev = w;
-			if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_GRAND_PRIX)
-			{
-				w=widget_manager->addTextButtonWgt ( WTOK_CONTINUE_GP, 60, 7, _("Back to the main menu"));
-			}
-			else
-			{
             w=widget_manager->addTextButtonWgt( WTOK_RESTART_RACE, 60, 7, _("Race in this track again"));
-			}
             w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0, w_prev);
             w_prev = w;
             if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_SINGLE)
             {
-                w=widget_manager->addTextButtonWgt( WTOK_CONTINUE, 60, 7, _("Back to the main menu"));
+                w=widget_manager->addTextButtonWgt( WTOK_SETUP_NEW_RACE, 60, 7, _("Setup New Race"));
                 w->setPosition(WGT_DIR_CENTER, 0, NULL, WGT_DIR_UNDER_WIDGET, 0, w_prev);
             }
         }   // if !unlock_manager has something unlocked*/
@@ -181,8 +174,8 @@ Widget *RaceResultsGUI::displayKartList(Widget *w_prev, int *order, float horizo
         
         const Kart *current_kart = RaceManager::getKart(order[i]);
         const std::string& kart_name = current_kart->getName();
-        char sTime[20]; sTime[0]=0;
-        const float T = current_kart->getFinishTime();
+        char sTime[20];sTime[0]=0;
+        const float T      = current_kart->getFinishTime();
 
         if(display_time)
             TimeToString(T, sTime);
@@ -326,13 +319,6 @@ void RaceResultsGUI::update(float dt)
 
     switch(m_selected_widget)
     {
-	case WTOK_CONTINUE_GP:
-		// Needed to create this
-		// to make players not 
-		// restarting a race.
-        race_manager->exit_race();
-		menu_manager->switchToMainMenu();
-		break;
     case WTOK_CONTINUE:
         // Gets called when:
         // 1) something was unlocked
