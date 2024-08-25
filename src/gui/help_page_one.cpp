@@ -50,8 +50,8 @@ HelpPageOne::HelpPageOne()
     oldContext->makeCurrent();
 
     m_box = 0;
-    m_silver_coin = 0;
-    m_gold_coin = 0;
+    m_small_nitro = 0;
+    m_big_nitro = 0;
     m_banana = 0;
 
 	m_clock = 0;
@@ -84,15 +84,15 @@ HelpPageOne::HelpPageOne()
 
     hm = ItemManager::getItemModel(Item::ITEM_SMALL_NITRO);
     ssgDeRefDelete(m_small_nitro);
-    m_silver_coin = new ssgTransform;
-    m_silver_coin->ref();
-    m_silver_coin->addKid(hm);
+    m_small_nitro = new ssgTransform;
+    m_small_nitro->ref();
+    m_small_nitro->addKid(hm);
 
     hm = ItemManager::getItemModel(Item::ITEM_BIG_NITRO);
     ssgDeRefDelete(m_big_nitro);
-    m_gold_coin = new ssgTransform;
-    m_gold_coin->ref();
-    m_gold_coin->addKid(hm);
+    m_big_nitro = new ssgTransform;
+    m_big_nitro->ref();
+    m_big_nitro->addKid(hm);
 
     hm = ItemManager::getItemModel(Item::ITEM_BANANA);
     ssgDeRefDelete(m_banana);
@@ -200,10 +200,10 @@ void HelpPageOne::update(float dt)
         m_box->setTransform (&trans);
 
         sgSetCoord(&trans, -2, 8, 1.5f, m_clock, 0, 0);
-        m_silver_coin->setTransform (&trans);
+        m_small_nitro->setTransform (&trans);
 
         sgSetCoord(&trans, -1, 8, 1.5f, m_clock, 0, 0);
-        m_gold_coin->setTransform (&trans);
+        m_big_nitro->setTransform (&trans);
 
         sgSetCoord(&trans, 5, 15, 3, m_clock, 0, 0);
         m_banana->setTransform (&trans);
