@@ -103,7 +103,6 @@ void STKConfig::load(const std::string &filename)
     CHECK_NEG(m_anvil_weight,              "anvil-weight"               );
     CHECK_NEG(m_zipper_time,               "zipper-time"                );
     CHECK_NEG(m_zipper_force,              "zipper-force"               );
-    CHECK_NEG(m_bubble_gum_counter,        "bubblegum-disappear-counter");
     CHECK_NEG(m_zipper_speed_gain,         "zipper-speed-gain"          );
     CHECK_NEG(m_shortcut_length,           "shortcut-length"            );
     CHECK_NEG(m_offroad_tolerance,         "offroad-tolerance"          );
@@ -143,7 +142,6 @@ void STKConfig::init_defaults()
         m_slowdown_factor      = m_offroad_tolerance         =
         m_final_camera_time    = m_near_ground               =
         UNDEFINED;
-	m_bubble_gum_counter       = -100;
     m_max_karts                = -100;
     m_grid_order               = -100;
     m_max_history              = -100;
@@ -200,7 +198,6 @@ void STKConfig::getAllData(const lisp::Lisp* lisp)
     lisp->get("anvil-time",                   m_anvil_time               );
     lisp->get("zipper-time",                  m_zipper_time              );
     lisp->get("zipper-force",                 m_zipper_force             );
-	lisp->get("bubblegum-disappear-counter",  m_bubble_gum_counter       );
     lisp->get("zipper-speed-gain",            m_zipper_speed_gain        );
     lisp->get("explosion-impulse",            m_explosion_impulse        );
     lisp->get("explosion-impulse-objects",    m_explosion_impulse_objects);

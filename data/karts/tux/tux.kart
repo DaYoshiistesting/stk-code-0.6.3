@@ -2,13 +2,13 @@
 
 (tuxkart-kart
  (name        "Tux")
- (version     2)
+ (version     1)
  (model-file  "tux.ac")
  (icon-file   "tuxicon.rgb")
- (shadow-file "tuxkartshadow.rgb") 
- (groups      "Standard")
+ (shadow-file "tuxkartshadow.rgb")
+ (groups      "standard") 
  (engine-sound "small")
- (rgb         0.9 0.25 0.25)
+ (rgb         0.7 0.0 0.0)
  (wheel-front-right
    (position  0.295  0.412 0.103)
    (model     "wheel-front-right.ac")

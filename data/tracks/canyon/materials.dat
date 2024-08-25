@@ -1,6 +1,12 @@
 # See textures/materials.dat for a detailed description of the fields.
 
 # TextureName       Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"canyon_sky_1.rgb"   N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_2.rgb"   N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_3.rgb"   N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_4.rgb"   N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_5.rgb"   N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_water.rgb"   N N    N    0.0    N     N    0.7   N   N   Y   N
 "canyon_asphalt_blend_1.rgb"	N N    N    0.0    Y     N    0.0000003 N  N  N  N
 "canyon_asphalt_blend_2.rgb"	N N    N    0.0    Y     N    0.0000003 N  N  N  N
 "canyon_boards.rgb"		N N    N    0.0    Y     N    0.0000003 N  N  N  N

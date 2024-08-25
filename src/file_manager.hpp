@@ -42,7 +42,6 @@ public:
 
     std::string getHomeDir       () const;
     std::string getTrackDir      () const;
-	std::string getChallengeDir () const;
     std::string getKartDir       () const;
     std::string getItemsDir    () const;
     std::string getTranslationDir() const;
@@ -52,7 +51,6 @@ public:
                                   const std::string& kart="") const;
     std::string getTrackFile     (const std::string& fname, 
                                   const std::string& track="") const;
-	std::string getChallengeFile (const std::string& fname) const;
     std::string getConfigFile    (const std::string& fname) const;
     std::string getHighscoreFile (const std::string& fname) const;
     std::string getLogFile       (const std::string& fname) const;

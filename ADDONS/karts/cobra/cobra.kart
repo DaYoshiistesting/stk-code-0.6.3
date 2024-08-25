@@ -1,0 +1,25 @@
+(tuxkart-kart
+  (name        "Frankie")
+  (version     1)
+  (model-file  "cobra.ac")
+  (icon-file   "cobraicon.rgb")
+  (shadow-file "cobrashadow.rgb")
+  (groups      "addon")
+  (rgb         0.830000 0.420000 0.000000)
+  (wheel-front-right
+    (position 0.284793 0.422396 0.125997)
+    (model    "wheel-front-right.ac")
+  )
+  (wheel-front-left
+    (position -0.292171 0.422396 0.125997)
+    (model    "wheel-front-left.ac")
+  )
+  (wheel-rear-right
+    (position 0.284793 -0.513306 0.125997)
+    (model    "wheel-rear-right.ac")
+  )
+  (wheel-rear-left
+    (position -0.288245 -0.513306 0.128718)
+    (model    "wheel-rear-left.ac")
+  )
+)

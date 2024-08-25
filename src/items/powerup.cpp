@@ -33,9 +33,9 @@
 #include "tracks/track.hpp"
 
 //-----------------------------------------------------------------------------
-Powerup::Powerup(Kart* kart)
+Powerup::Powerup(Kart* kart_)
 {
-    m_owner               = kart;
+    m_owner               = kart_;
 	m_sound_use			  = NULL;
     reset();
 }   // Powerup
@@ -149,7 +149,7 @@ void Powerup::use()
         
         pos.setZ(z_coord-0.05f);
         
-        item_manager->newItem(Item::ITEM_BUBBLEGUM, pos, normal, m_owner);
+        item_manager->newItem(ITEM_BUBBLEGUM, pos, normal, m_owner);
         }
         break;
         
@@ -162,15 +162,12 @@ void Powerup::use()
             Kart *kart=RaceManager::getKart(i);
             if(kart->isEliminated()) continue;
             if(kart == m_owner) continue;
-            // FIXME : In follow the leader,
-            // the leader shouldn't get the anvil when the owner uses it.
             if(kart->getPosition() == 1)
             {
                 kart->attach(ATTACH_ANVIL, stk_config->m_anvil_time);
                 kart->updatedWeight();
                 kart->adjustSpeed(stk_config->m_anvil_speed_factor*0.5f);
                 
-				
                 // should we position the sound at the kart that is hit,
                 // or the kart "throwing" the anvil? Ideally it should be both.
                 // Meanwhile, don't play it near AI karts since they obviously
@@ -230,7 +227,7 @@ void Powerup::use()
 }   // use
 
 //-----------------------------------------------------------------------------
-void Powerup::hitBonusBox(int n, const Item *item, int add_info)
+void Powerup::hitBonusBox(int n, const Item &item, int add_info)
 {
     //The probabilities of getting the anvil or the parachute increase
     //depending on how bad the owner's position is. For the first
@@ -263,7 +260,7 @@ void Powerup::hitBonusBox(int n, const Item *item, int add_info)
                     if(network_manager->getMode()==NetworkManager::NW_SERVER)
                     {
                         race_state->itemCollected(m_owner->getWorldKartId(), 
-                                                  item->getItemId(), 
+                                                  item.getItemId(), 
                                                   m_type);
                     }
                     return;
@@ -275,7 +272,7 @@ void Powerup::hitBonusBox(int n, const Item *item, int add_info)
             if(network_manager->getMode()==NetworkManager::NW_SERVER)
             {
                 race_state->itemCollected(m_owner->getWorldKartId(), 
-                                          item->getItemId(), 
+                                          item.getItemId(), 
                                           (char)m_type);
             }
             return;
@@ -320,7 +317,7 @@ void Powerup::hitBonusBox(int n, const Item *item, int add_info)
     if(network_manager->getMode()==NetworkManager::NW_SERVER)
     {
         race_state->itemCollected(m_owner->getWorldKartId(), 
-                                  item->getItemId(), 
+                                  item.getItemId(), 
                                   newC);
     }
 

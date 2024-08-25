@@ -1,0 +1,7 @@
+# See textures/materials.dat for a detailed description of the fields.
+
+# TextureName       Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+"Turnleft.rgb"       N N    Y    0.0    N     N    1.0   N   N   N   N
+"Turnright.rgb"      N N    Y    0.0    N     N    1.0   N   N   N   N
+
+# EOF #

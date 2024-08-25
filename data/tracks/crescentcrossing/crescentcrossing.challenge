@@ -1,0 +1,20 @@
+;; -*- mode: lisp -*-
+
+(challenge
+ (id            "energymathclass")
+ (name          _("Collect Nitro in Math Class"))
+ (description   _("Finsih with at least 6 points\n of intro on three laps of\nOliver's Math Class\nin under 52 seconds."))
+ (unlock-track "crescentcrossing")
+ (depend-on    "penguinplaygroundgp")
+ (major        "single")
+ (minor        "quickrace")
+ (track        "olivermath")
+ (difficulty   "hard")
+ (laps         3)
+ (karts        1)
+ (energy       6)
+ (time        52)
+)
+
+;; EOF ;;
+

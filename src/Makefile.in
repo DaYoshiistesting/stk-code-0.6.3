@@ -77,7 +77,8 @@ am_supertuxkart_OBJECTS = main.$(OBJEXT) actionmap.$(OBJEXT) \
 	attachment_manager.$(OBJEXT) flyable.$(OBJEXT) \
 	powerup.$(OBJEXT) powerup_manager.$(OBJEXT) item.$(OBJEXT) \
 	item_manager.$(OBJEXT) projectile_manager.$(OBJEXT) \
-	plunger.$(OBJEXT) \ rubber_band.$(OBJEXT) cake.$(OBJEXT) bowling.$(OBJEXT) \
+	bubblegumitem.$(OBJEXT) plunger.$(OBJEXT) \
+	rubber_band.$(OBJEXT) cake.$(OBJEXT) bowling.$(OBJEXT) \
 	kart.$(OBJEXT) kart_model.$(OBJEXT) kart_properties.$(OBJEXT) \
 	kart_properties_manager.$(OBJEXT) moveable.$(OBJEXT) \
 	player_kart.$(OBJEXT) isect.$(OBJEXT) explosion.$(OBJEXT) \

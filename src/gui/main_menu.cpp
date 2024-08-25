@@ -51,18 +51,18 @@ MainMenu::MainMenu()
     const bool challenges_active = all_challenges.size()>0 && network_manager->getMode()==NetworkManager::NW_NONE;
     
     const int WIDTH=30;
-    widget_manager->addTextButtonWgt( WTOK_SINGLE, WIDTH, 6, _("Single Player") );
-    widget_manager->addTextButtonWgt( WTOK_MULTI, WIDTH, 6, _("Splitscreen") );
+    widget_manager->addTextButtonWgt( WTOK_SINGLE, WIDTH, 7, _("Single Player") );
+    widget_manager->addTextButtonWgt( WTOK_MULTI, WIDTH, 7, _("Splitscreen") );
 
     // Only display the networking entry when not already connected (and networking is enabled)
     if(network_manager->getMode()==NetworkManager::NW_NONE && stk_config->m_enable_networking)
-        widget_manager->addTextButtonWgt( WTOK_NETWORK, WIDTH, 6, _("Networking") );
+        widget_manager->addTextButtonWgt( WTOK_NETWORK, WIDTH, 7, _("Networking") );
 
     if(challenges_active)
-        widget_manager->addTextButtonWgt( WTOK_CHALLENGES, WIDTH, 6, _("Challenges") );
+        widget_manager->addTextButtonWgt( WTOK_CHALLENGES, WIDTH, 7, _("Challenges") );
 
-    widget_manager->addTextButtonWgt( WTOK_OPTIONS, WIDTH, 6, _("Options") );
-    widget_manager->addTextButtonWgt( WTOK_QUIT, WIDTH, 6, _("Quit") );
+    widget_manager->addTextButtonWgt( WTOK_OPTIONS, WIDTH, 7, _("Options") );
+    widget_manager->addTextButtonWgt( WTOK_QUIT, WIDTH, 7, _("Quit") );
 
     if(user_config->getWarning()!="")
     {
@@ -73,10 +73,10 @@ MainMenu::MainMenu()
     else
         widget_manager->addEmptyWgt( WidgetManager::WGT_NONE, WIDTH, 6 );
 
-    widget_manager->addTextButtonWgt( WTOK_HELP, WIDTH, 6, _("Help") );
+    widget_manager->addTextButtonWgt( WTOK_HELP, WIDTH, 7, _("Help") );
     widget_manager->setWgtTextSize( WTOK_HELP, WGT_FNT_SML );
 
-    widget_manager->addTextButtonWgt( WTOK_CREDITS, WIDTH, 6, _("Credits") );
+    widget_manager->addTextButtonWgt( WTOK_CREDITS, WIDTH, 7, _("Credits") );
     widget_manager->setWgtTextSize( WTOK_CREDITS, WGT_FNT_SML );
     
     widget_manager->addEmptyWgt( WidgetManager::WGT_NONE, WIDTH, 15 );

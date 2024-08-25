@@ -94,12 +94,12 @@ DemoApplication::~DemoApplication()
 void DemoApplication::myinit(void)
 {
 
-    GLfloat light_ambient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-    GLfloat light_diffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-    GLfloat light_specular[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+    GLfloat light_ambient[] = { 0.2, 0.2, 0.2, 1.0 };
+    GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
+    GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
     /*	light_position is NOT default value	*/
-    GLfloat light_position0[] = { 1.0f, 10.0f, 1.0f, 0.0f };
-    GLfloat light_position1[] = { -1.0f, -10.0f, -1.0f, 0.0f };
+    GLfloat light_position0[] = { 1.0, 10.0, 1.0, 0.0 };
+    GLfloat light_position1[] = { -1.0, -10.0, -1.0, 0.0 };
   
     glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -120,7 +120,7 @@ void DemoApplication::myinit(void)
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
 
-		glClearColor(0.7f,0.7f,0.7f,0);
+		glClearColor(0.7,0.7,0.7,0);
 
     //  glEnable(GL_CULL_FACE);
     //  glCullFace(GL_BACK);
@@ -156,8 +156,8 @@ void DemoApplication::updateCamera() {
 	
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	float rele = m_ele * 0.01745329251994329547f;// rads per deg
-	float razi = m_azi * 0.01745329251994329547f;// rads per deg
+	float rele = m_ele * 0.01745329251994329547;// rads per deg
+	float razi = m_azi * 0.01745329251994329547;// rads per deg
 	
 
 	btQuaternion rot(m_cameraUp,razi);
@@ -220,14 +220,14 @@ void DemoApplication::stepBack()
 }
 void DemoApplication::zoomIn() 
 { 
-	m_cameraDistance -= 0.4f; updateCamera(); 
-	if (m_cameraDistance < 0.1f)
-		m_cameraDistance = 0.1f;
+	m_cameraDistance -= 0.4; updateCamera(); 
+	if (m_cameraDistance < 0.1)
+		m_cameraDistance = 0.1;
 
 }
 void DemoApplication::zoomOut() 
 { 
-	m_cameraDistance += 0.4f; updateCamera(); 
+	m_cameraDistance += 0.4; updateCamera(); 
 	
 }
 
@@ -550,7 +550,7 @@ btVector3	DemoApplication::getRayTo(int x,int y)
 	float bottom = -1.f;
 	float nearPlane = 1.f;
 	float tanFov = (top-bottom)*0.5f / nearPlane;
-	float fov = 2.0f * atanf (tanFov);
+	float fov = 2.0 * atanf (tanFov);
 
 	btVector3	rayFrom = getCameraPosition();
 	btVector3 rayForward = (getCameraTargetPosition()-getCameraPosition());
@@ -588,8 +588,8 @@ btVector3	DemoApplication::getRayTo(int x,int y)
 	
 
 	btVector3 rayTo = rayToCenter - 0.5f * hor + 0.5f * vertical;
-	rayTo += (const btScalar) x * dHor;
-	rayTo -= (const btScalar) y * dVert;
+	rayTo += x * dHor;
+	rayTo -= y * dVert;
 	return rayTo;
 }
 
@@ -802,7 +802,7 @@ void DemoApplication::setOrthographicProjection()
 	glScalef(1, -1, 1);
 	// mover the origin from the bottom left corner
 	// to the upper left corner
-	glTranslatef(0.0f, (float)-m_glutScreenHeight, 0.0f);
+	glTranslatef(0, -m_glutScreenHeight, 0);
 
 }
 
@@ -822,7 +822,7 @@ extern CProfileIterator * m_profileIterator;
 
 void DemoApplication::displayProfileString(int xOffset,int yStart,char* message)
 {
-	glRasterPos3f((float)xOffset, (float)yStart,0);
+	glRasterPos3f(xOffset,yStart,0);
 	BMF_DrawString(BMF_GetFont(BMF_kHelvetica10),message);
 }
 

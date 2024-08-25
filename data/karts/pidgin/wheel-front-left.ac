@@ -1,12 +1,11 @@
 AC3Db
-MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  shi 128  trans 0
+MATERIAL "DefaultWhite" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.5 0.5 0.5  shi 10  trans 0
 OBJECT world
 kids 2
 OBJECT poly
 name "christmas_hat"
 data 13
 christmas_hat
-texture "smallpidginwheel.rgb"
 crease 40.000000
 kids 0
 OBJECT poly
@@ -14,7 +13,7 @@ name "WheelFront.L"
 loc 0.346953 -0.120733 0.302733
 data 18
 mesh1-geometry.001
-texture "smallpidginwheel.rgb"
+texture "pidginwheel.rgb"
 crease 40.000000
 numvert 59
 -0.26156 0.012 -0.303

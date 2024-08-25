@@ -725,7 +725,7 @@ msgstr "Trawa wyścigowa"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
-msgid "Ready?"
+msgid "Ready!"
 msgstr "Gotowy!"
 
 #: src/gui/player_controls.cpp:72
@@ -755,7 +755,7 @@ msgstr "Wybierz tryb sieci"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:826
-msgid "Set?!"
+msgid "Set!"
 msgstr "Do startu!"
 
 #: src/gui/race_menu.cpp:55

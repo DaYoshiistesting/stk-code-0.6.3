@@ -252,8 +252,8 @@ void PlayerKart::update(float dt)
 
     if ( m_controls.m_fire && !isRescue())
     {
-		if (m_powerup.getType()==POWERUP_NOTHING) 
-            Kart::beepPlayer();
+        if (m_powerup.getType()==POWERUP_NOTHING) 
+            Kart::beep();
     }
 
     // We can't restrict rescue to fulfil isOnGround() (which would be more like
@@ -261,7 +261,7 @@ void PlayerKart::update(float dt)
     // up sitting on a brick wall, with all wheels in the air :((
     if ( m_controls.m_rescue )
     {
-      //Kart::beep();
+        //m_beep_sound->play();
         forceRescue();
         m_controls.m_rescue=false;
     }
@@ -297,7 +297,7 @@ void PlayerKart::setPosition(int p)
             {
                 kart->beep();
                 break;
-			}
+            }
         }
     }
     Kart::setPosition(p);
@@ -341,7 +341,7 @@ void PlayerKart::handleZipper()
  *                  let the server determine the powerup/attachment for
  *                  the clients.
  */
-void PlayerKart::collectedItem(const Item *item, int add_info)
+void PlayerKart::collectedItem(const Item &item, int add_info)
 {
     // FIXME - how does the old item relate to the total amount of items?
     const float old_energy= getEnergy();
@@ -354,12 +354,12 @@ void PlayerKart::collectedItem(const Item *item, int add_info)
     }
     else
     {
-        switch(item->getType())
+        switch(item.getType())
         {
-		    case Item::ITEM_BANANA:
+            case ITEM_BANANA:
                 m_ugh_sound->play();
                 break;
-		    case Item::ITEM_BUBBLEGUM:
+            case ITEM_BUBBLEGUM:
                 //The skid sound is played by the kart class. Do nothing here.
                 //See Kart::collectedItem()
                 break;

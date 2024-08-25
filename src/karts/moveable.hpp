@@ -61,10 +61,7 @@ public:
     virtual void  setVelocity(const btVector3& v) {m_body->setLinearVelocity(v);   }
     const Vec3&   getXYZ()        const        {return (Vec3&)m_transform.getOrigin();}
     const Vec3&   getHPR()        const        {return m_hpr;                      }
-	float         getHeading()    const        {return m_hpr.getHeading();         }
-    float         getPitch()      const        {return m_hpr.getPitch();           }
-    float         getRoll()       const        {return m_hpr.getRoll();            }
-    const btQuaternion
+    const btQuaternion 
                   getRotation()   const          {return m_transform.getRotation();  }
 
     /** Sets the XYZ coordinates of the moveable. */

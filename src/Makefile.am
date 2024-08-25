@@ -103,6 +103,8 @@ supertuxkart_SOURCES = \
  items/item_manager.hpp \
  items/projectile_manager.cpp \
  items/projectile_manager.hpp \
+ items/bubblegumitem.cpp \
+ items/bubblegumitem.hpp \
  items/plunger.cpp \
  items/plunger.hpp \
  items/rubber_band.cpp \

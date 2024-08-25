@@ -5,9 +5,9 @@
  (model-file  "gnu.ac")
  (icon-file   "gnuicon.rgb")
  (shadow-file "gnushadow.rgb")
- (groups      "Standard")
+ (groups      "standard")
  (engine-sound "small")
- (version     2)
+ (version     1)
  (has-skidmarks #f)
  (rgb  1.0 0.97 0.86)
   (wheel-front-right

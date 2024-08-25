@@ -32,7 +32,6 @@
 #include "tracks/track.hpp"
 #include "utils/constants.hpp"
 #include "utils/translation.hpp"
-#include <GL/glut.h>
 
 #undef USE_WIDGET_MANAGER
 #ifdef USE_WIDGET_MANAGER
@@ -85,15 +84,18 @@ enum WidgetTokens
 
 RaceGUI::RaceGUI()
 {
-    m_marker_rendered_size =  32;
-    m_marker_ai_size       =  14;
-    m_marker_player_size   =  16;
-    m_map_rendered_width   = 128;
-    m_map_rendered_height  = 128;
-    m_map_width            = 100;
-    m_map_height           = 100;
-    m_map_left             =  10;
-    m_map_bottom           =  10;
+    // FIXME: translation problem
+    m_pos_string[0] = "?!?";
+    m_pos_string[1] = "1st";
+    m_pos_string[2] = "2nd";
+    m_pos_string[3] = "3rd";
+    m_pos_string[4] = "4th";
+    m_pos_string[5] = "5th";
+    m_pos_string[6] = "6th";
+    m_pos_string[7] = "7th";
+    m_pos_string[8] = "8th";
+    m_pos_string[9] = "9th";
+    m_pos_string[10] = "10th";
 
     m_speed_back_icon = material_manager->getMaterial("speedback.rgb");
     m_speed_back_icon->getState()->disable(GL_CULL_FACE);
@@ -173,7 +175,7 @@ RaceGUI::handle(GameAction ga, int value)
 			}
 			break;
 		case GA_DEBUG_ADD_MISSILE:
-		if (race_manager->getNumPlayers() ==1 )
+//FIXME			if (race_manager->getNumPlayers() ==1 )
 			{
 				Kart* kart = RaceManager::getPlayerKart(0);
 				kart->setPowerup(POWERUP_PLUNGER, 10000);
@@ -273,34 +275,30 @@ void RaceGUI::drawTimer ()
 }   // drawTimer
 
 //-----------------------------------------------------------------------------
-/** Draws the mini map with the karts on it.
-*/
+#define TRACKVIEW_SIZE 100
+
 void RaceGUI::drawMap ()
 {
     // arenas currently don't have a map.
     if(RaceManager::getTrack()->isArena()) return;
     
-	//const GLuint *mini_map = RaceManager::getTrack();
     glDisable ( GL_TEXTURE_2D ) ;
     assert(RaceManager::getWorld() != NULL);
-	
-    //int upper_y = user_config->m_height-m_map_bottom-m_map_height;
-    //int lower_y = user_config->m_height-m_map_bottom;
+    int xLeft = 10;
+    int yTop   =  10;
 
-    /*RaceManager::getTrack() -> draw2Dview ( (float)xLeft,   (float)yTop   );*/
+    RaceManager::getTrack() -> draw2Dview ( (float)xLeft,   (float)yTop   );
 
     glBegin ( GL_QUADS ) ;
 
     for ( unsigned int i = 0 ; i < race_manager->getNumKarts() ; i++ )
     {
-        const Kart* kart = RaceManager::getKart(i);
+        Kart* kart = RaceManager::getKart(i);
         if(kart->isEliminated()) continue;   // don't draw eliminated kart
         glColor3fv ( kart->getColor().toFloat());
-	    const Vec3& xyz = kart->getXYZ();
-		Vec3 draw_at;
-		//RaceManager::getTrack()->mapPoint2MiniMap(xyz, &draw_at);
+	const Vec3& xyz = kart->getXYZ();
 
-        /* If it's a player, draw a bigger sign 
+        /* If it's a player, draw a bigger sign */
         if (kart -> isPlayerKart ())
         {
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft+3, (float)yTop+3);
@@ -314,7 +312,7 @@ void RaceGUI::drawMap ()
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft-1, (float)yTop+2);
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft-1, (float)yTop-1);
             RaceManager::getTrack() -> glVtx ( xyz.toFloat(), (float)xLeft+2, (float)yTop-1);
-        }*/
+        }
     }
 
     glEnd () ;
@@ -421,8 +419,8 @@ void RaceGUI::drawPlayerIcons (const KartIconDisplayInfo* info)
 }   // drawPlayerIcons
 
 //-----------------------------------------------------------------------------
-void RaceGUI::drawPowerupIcons ( Kart* player_kart, float offset_x,
-                                     float offset_y, float ratio_x,
+void RaceGUI::drawPowerupIcons ( Kart* player_kart, int offset_x,
+                                     int offset_y, float ratio_x,
                                      float ratio_y                    )
 {
     // If player doesn't have anything, do nothing.
@@ -430,8 +428,8 @@ void RaceGUI::drawPowerupIcons ( Kart* player_kart, float offset_x,
     if(powerup->getType() == POWERUP_NOTHING) return;
 
     // Originally the hardcoded sizes were 320-32 and 400
-    int x1 = (int)((user_config->m_width/2-32) * ratio_x) + (int)(offset_x);
-    int y1 = (int)(user_config->m_height*5/6 * ratio_y)      + (int)(offset_y);
+    int x1 = (int)((user_config->m_width/2-32) * ratio_x) + offset_x ;
+    int y1 = (int)(user_config->m_height*5/6 * ratio_y)      + offset_y;
 
     int nSize=(int)(64.0f*std::min(ratio_x, ratio_y));
     powerup->getIcon()->apply();
@@ -467,13 +465,13 @@ void RaceGUI::drawPowerupIcons ( Kart* player_kart, float offset_x,
 #define METER_TARGET_RED   1.0, 0.0, 0.0
 
 //-----------------------------------------------------------------------------
-void RaceGUI::drawEnergyMeter ( Kart *player_kart, float offset_x, float offset_y,
+void RaceGUI::drawEnergyMeter ( Kart *player_kart, int offset_x, int offset_y,
                                 float ratio_x, float ratio_y             )
 {
     float state = (float)(player_kart->getEnergy()) /
                   MAX_ITEMS_COLLECTED;
-    int x = (int)((user_config->m_width-24) * ratio_x) + (int)(offset_x);
-    int y = (int)(250 * ratio_y) + (int)(offset_y);
+    int x = (int)((user_config->m_width-24) * ratio_x) + offset_x;
+    int y = (int)(250 * ratio_y) + offset_y;
     int w = (int)(16 * ratio_x);
     int h = (int)(user_config->m_height/4 * ratio_y);
     int wl = (int)(ratio_x);
@@ -603,74 +601,65 @@ void RaceGUI::drawEnergyMeter ( Kart *player_kart, float offset_x, float offset_
 }   // drawEnergyMeter
 
 //-----------------------------------------------------------------------------
-void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
+void RaceGUI::drawSpeed(Kart* kart, int offset_x, int offset_y,
                         float ratio_x, float ratio_y           )
 {
-	
+
     float minRatio = std::min(ratio_x, ratio_y);
-    const int SPEEDWIDTH = 128;
+#define SPEEDWIDTH 128
     int width  = (int)(SPEEDWIDTH*minRatio);
     int height = (int)(SPEEDWIDTH*minRatio);
-	offset_x  += (float)((user_config->m_width- 10.0f) -width);
-    offset_y  += 10.0f*ratio_y;
+    offset_x += (int)((user_config->m_width-10)*ratio_x) - width;
+    offset_y += (int)(10*ratio_y);
 
     glMatrixMode(GL_MODELVIEW);
     m_speed_back_icon->getState()->force();
     // If the colour isn't set, the speedometer is blended with the last
     // used colour.
     glColor4f(1,1,1,1);
-    glBegin (GL_QUADS) ;
-    glTexCoord2f(0, 0);glVertex2f(offset_x      , offset_y       );
-    glTexCoord2f(1, 0);glVertex2f(offset_x+width, offset_y       );
-    glTexCoord2f(1, 1);glVertex2f(offset_x+width, offset_y+height);
-    glTexCoord2f(0, 1);glVertex2f(offset_x      , offset_y+height);
+    glBegin ( GL_QUADS ) ;
+    glTexCoord2f(0, 0);glVertex2i(offset_x      , offset_y       );
+    glTexCoord2f(1, 0);glVertex2i(offset_x+width, offset_y       );
+    glTexCoord2f(1, 1);glVertex2i(offset_x+width, offset_y+height);
+    glTexCoord2f(0, 1);glVertex2i(offset_x      , offset_y+height);
     glEnd () ;
 
     //convention taken from btRaycastVehicle::updateVehicle
     const float speed =  kart->getSpeed();
-    if ( speed < 0 ) return;
+
+    if ( !kart->isOnGround() )
+        font_race->PrintShadow("!", (int)(60*minRatio), 
+                               offset_x-(int)(30*minRatio), 
+                               offset_y-(int)(10*minRatio));
+    /* Show speed */
+    if ( speed < 0 )
+        font_race->PrintShadow(_("REV"), (int)(40*minRatio), 
+                               offset_x+(int)(40*minRatio), 
+                               offset_y+(int)(10*minRatio));
     else
     {
-		// The speedRatio is supposed to be KM/H/110 but on hard difficulty,
-		// the speedo'meter is going too high so we'll make it like this.
-        float speedRatio = NULL;
-        if (race_manager->getDifficulty()==RaceManager::RD_HARD)
-             speedRatio = speed/KILOMETERS_PER_HOUR/116.7f;
-        else speedRatio = speed/KILOMETERS_PER_HOUR/113.5f;
-        if (speedRatio > 1) speedRatio = 1;
+        float speedRatio = speed/KILOMETERS_PER_HOUR/110.0f;
+        // The following does not work with wheelie or Zipper
+        //float speedRatio = kart->getVelocity()->xyz[1]/(kart->getMaxSpeed();
 
+        if ( speedRatio > 1 )
+            speedRatio = 1;
+        
         m_speed_fore_icon->getState()->force();
-        glBegin(GL_POLYGON);
-        glTexCoord2f(0.5f, 0.0f);
-        glVertex2f(offset_x+width/2, offset_y);
-        glTexCoord2f(0, 0.0f);
-        glVertex2f(offset_x, offset_y);
-        if (speedRatio < 0.4f)
+        glBegin ( GL_POLYGON ) ;
+        glTexCoord2f(1, 0);glVertex2i(offset_x+width, offset_y);
+        glTexCoord2f(0, 0);glVertex2i(offset_x, offset_y);
+        if (speedRatio < 0.5)
         {
-            float f = speedRatio/0.4f;
-            glTexCoord2f(0, f);
-            glVertex2f(offset_x, offset_y+f*height);
-        }
-        else if (speedRatio < 0.8f)
-        {
-            float f = (speedRatio-0.4f)/(0.8f-0.4f);
-            glTexCoord2f(0, 1.0f);
-            glVertex2f(offset_x, offset_y+height);
-            glTexCoord2f(f, 1.0f);
-            glVertex2f(offset_x+f*width, offset_y+height);
+            glTexCoord2f(0, speedRatio*2);glVertex2i(offset_x, (int)(offset_y+width*speedRatio*2));
         }
         else
         {
-            float f = (speedRatio - 0.8f)/(1-0.8f);
-            glTexCoord2f(0, 1.0f);
-            glVertex2f(offset_x, offset_y+height);
-            glTexCoord2f(1.0f,1.0f);
-            glVertex2f(offset_x+width, offset_y+height);
-            glTexCoord2f(1.0f, 1-f);
-            glVertex2f(offset_x+width, offset_y+(1-f)*height);
+            glTexCoord2f(0, 1);glVertex2i(offset_x, offset_y+width);
+            glTexCoord2f((speedRatio-0.5f)*2, 1);glVertex2i((int)(offset_x+height*(speedRatio-0.5f)*2), offset_y+height);
         }
 
-        glEnd();
+        glEnd () ;
     }   // speed<0
 
 } // drawSpeed
@@ -732,13 +721,13 @@ void RaceGUI::cleanupMessages(const float dt)
 //-----------------------------------------------------------------------------
 /** Displays all messages in the message queue
  **/
-void RaceGUI::drawAllMessages(Kart* player_kart, float offset_x, float offset_y,
+void RaceGUI::drawAllMessages(Kart* player_kart, int offset_x, int offset_y,
                               float ratio_x,  float ratio_y  )
 {
     int y;
     // First line of text somewhat under the top of the screen. For now
     // start just under the timer display
-    y = (int)(ratio_y*(user_config->m_height -164)+(int)(offset_y));
+    y = (int)(ratio_y*(user_config->m_height -164)+offset_y);
     // The message are displayed in reverse order, so that a multi-line
     // message (addMessage("1", ...); addMessage("2",...) is displayed
     // in the right order: "1" on top of "2"
@@ -755,7 +744,7 @@ void RaceGUI::drawAllMessages(Kart* player_kart, float offset_x, float offset_y,
                           Font::CENTER_OF_SCREEN, y,
                           COLORS,
                           ratio_x, ratio_y,
-                          (int)(offset_x), (int)(offset_x)+(int)(user_config->m_width*ratio_x));
+                          offset_x, offset_x+(int)(user_config->m_width*ratio_x));
         // Add 20% of font size as space between the lines
         y-=msg.m_font_size*12/10;
         
@@ -778,9 +767,7 @@ void RaceGUI::addMessage(const std::string &msg, const Kart *kart, float time,
 // Displays the description given for the music currently being played -
 // usually the title and composer.
 void RaceGUI::drawMusicDescription()
-{ 
-	if(user_config->doMusic())
-	{
+{
     const MusicInformation* mi=sound_manager->getCurrentMusic();
     if(!mi) return;
     int y=0;
@@ -794,10 +781,6 @@ void RaceGUI::drawMusicDescription()
     std::string s="\""+mi->getTitle()+"\"";
     font_race->Print( s.c_str(), 25, 
                       Font::CENTER_OF_SCREEN, y );
-	}
-    else if (!user_config->doMusic())
-	{return;}
-
 }   // drawMusicDescription
 
 //-----------------------------------------------------------------------------
@@ -829,7 +812,7 @@ void RaceGUI::drawStatusText(const float dt)
         {
             GLfloat const COLORS[] = { 0.9f, 0.66f, 0.62f, 1.0f };
             //I18N: as in "ready, set, go", shown at the beginning of the race
-            font_race->PrintShadow( _("Ready?"), 90,
+            font_race->PrintShadow( _("Ready!"), 90,
                                    Font::CENTER_OF_SCREEN,
                                    Font::CENTER_OF_SCREEN,
                                    COLORS );
@@ -839,7 +822,7 @@ void RaceGUI::drawStatusText(const float dt)
         {
             GLfloat const COLORS[] = { 0.9f, 0.9f, 0.62f, 1.0f };
             //I18N: as in "ready, set, go", shown at the beginning of the race
-            font_race->PrintShadow( _("Set?!"), 90,
+            font_race->PrintShadow( _("Set!"), 90,
                                    Font::CENTER_OF_SCREEN,
                                    Font::CENTER_OF_SCREEN,
                                    COLORS );
@@ -901,18 +884,18 @@ void RaceGUI::drawStatusText(const float dt)
         
         const int numPlayers = race_manager->getNumLocalPlayers();
 
-        for(float pla = 0; pla < numPlayers; pla++)
+        for(int pla = 0; pla < numPlayers; pla++)
         {
-            float offset_x = 0, offset_y = 0;
+            int offset_x = 0, offset_y = 0;
 
             if(numPlayers == 2)
             {
-              if(pla == 0) offset_y = (float)(user_config->m_height/2);
+              if(pla == 0) offset_y = user_config->m_height/2;
             }
             else if (numPlayers == 3)
             {
               if (pla == 0  || pla == 1)
-                offset_y = (float)(user_config->m_height/2);
+                offset_y = user_config->m_height/2;
               else
               {
                 // Fixes width for player 3
@@ -920,47 +903,47 @@ void RaceGUI::drawStatusText(const float dt)
               }
 
               if (pla == 1)
-               offset_x = (float)(user_config->m_width/2);
+                offset_x = user_config->m_width/2;
 
             }
             else if(numPlayers == 4)
             {
               if(pla == 0  || pla == 1)
-              offset_y = (float)(user_config->m_height/2);
+                offset_y = user_config->m_height/2;
 
               if((pla == 1) || pla == 3)
-              offset_x = (float)(user_config->m_width/2);
+                offset_x = user_config->m_width/2;
             }
 
-            Kart* player_kart = RaceManager::getWorld()->getLocalPlayerKart((int) pla);
-            if(player_kart->hasViewBlockedByPlunger())
-            {
-                const int screen_width = (numPlayers > 2) ? user_config->m_width/2 : user_config->m_width;
-                const int plunger_size = (numPlayers > 1) ? user_config->m_height/2 : user_config->m_height;
-                float plunger_x = offset_x + screen_width/2 - plunger_size/2;
-                
-                if (numPlayers == 3 && pla > 1)
-                    plunger_x = offset_x + user_config->m_width/2 - plunger_size/2;
-                        
-				glColor4f(1,1,1,1);
-                m_plunger_face->getState()->force();
-                glBegin ( GL_QUADS ) ;
-                glTexCoord2f(1, 0); glVertex2f(plunger_x+plunger_size,    offset_y);
-                glTexCoord2f(0, 0); glVertex2f(plunger_x,                 offset_y);
-                glTexCoord2f(0, 1); glVertex2f(plunger_x,                 offset_y+plunger_size);
-                glTexCoord2f(1, 1); glVertex2f(plunger_x+plunger_size,    offset_y+plunger_size);
-                glEnd () ;                
-            }
-            drawPowerupIcons    (player_kart, offset_x, offset_y,
+            Kart* player_kart = RaceManager::getWorld()->getLocalPlayerKart(pla);
+            drawPowerupIcons(player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
             drawEnergyMeter     (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
             drawSpeed           (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
-            drawLap             (info, player_kart, (int)(offset_x), (int)(offset_y),
+            drawLap             (info, player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
             drawAllMessages     (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y );
+            
+            if(player_kart->hasViewBlockedByPlunger())
+            {
+                const int screen_width = (numPlayers > 2) ? user_config->m_width/2 : user_config->m_width;
+                const int plunger_size = (numPlayers > 1) ? user_config->m_height/2 : user_config->m_height;
+                int plunger_x = offset_x + screen_width/2 - plunger_size/2;
+                
+                if (numPlayers == 3 && pla > 1)
+                    plunger_x = offset_x + user_config->m_width/2 - plunger_size/2;
+                        
+                m_plunger_face->getState()->force();
+                glBegin ( GL_QUADS ) ;
+                glTexCoord2f(1, 0); glVertex2i(plunger_x+plunger_size,    offset_y);
+                glTexCoord2f(0, 0); glVertex2i(plunger_x,                 offset_y);
+                glTexCoord2f(0, 1); glVertex2i(plunger_x,                 offset_y+plunger_size);
+                glTexCoord2f(1, 1); glVertex2i(plunger_x+plunger_size,    offset_y+plunger_size);
+                glEnd () ;                
+            }
         }   // next player
         
         drawTimer();
