@@ -1,12 +1,12 @@
 ;; -*- mode: lisp -*-
 
 (tuxkart-kart
- (name        "Evil Tux")
- (version     2)
+ (name        "Eviltux")
+ (version     1)
  (model-file  "eviltux.ac")
  (icon-file   "eviltuxicon.rgb")
  (shadow-file "generickartshadow.rgb")
- (groups      "Standard")
+ (groups      "standard") 
  (engine-sound "small")
  (rgb         0.3 0.1 0.6)
   (wheel-front-right

@@ -32,7 +32,6 @@
 #include "karts/kart_control.hpp"
 #include "karts/kart_model.hpp"
 #include "tracks/terrain_info.hpp"
-#include "material.hpp"
 
 class SkidMarks;
 class Item;
@@ -78,18 +77,13 @@ protected:
     btUprightConstraint     *m_uprightConstraint;
 
 private:
-    /** The amount of energy collected by hitting coins. */
+                       /** The amount of energy collected by hitting coins. */
     float         m_collected_energy;
-
-    /**<The shadow of the kart. */
-    ssgTransform *m_shadow;
-
+    ssgTransform *m_shadow;  /**<The shadow of the kart. */
     /** If a kart is flying, the shadow is disabled (since it is
      *  stuck to the kart, i.e. the shadow would be flying, too). */
     bool          m_shadow_enabled;
-
-    /**<Smoke from skidding. */
-    Smoke        *m_smoke_system;    
+    Smoke        *m_smoke_system;    /**<Smoke from skidding. */
 
     /** Fire when using a nitro. */
     Nitro        *m_nitro;
@@ -117,7 +111,6 @@ private:
 
     SFXBase      *m_engine_sound;
     SFXBase      *m_beep_sound;
-    SFXBase      *m_player_beep_sound;
     SFXBase      *m_crash_sound;
     SFXBase      *m_skid_sound;
     SFXBase      *m_goo_sound;
@@ -135,8 +128,7 @@ public:
     unsigned int   getWorldKartId() const            { return m_world_kart_id;   }
     void           setWorldKartId(unsigned int n)    { m_world_kart_id=n;        }
     void           loadData();
-    virtual void   updateGraphics(const Vec3& off_xyz, 
-                                  const Vec3& off_hpr);
+    virtual void   updateGraphics(const Vec3& off_xyz,  const Vec3& off_hpr);
     const KartProperties* 
                    getKartProperties() const      { return m_kart_properties; }
     // ------------------------------------------------------------------------
@@ -244,7 +236,6 @@ public:
      *  from the server information.                                       */
     void           setSpeed         (float s) {m_speed = s;                   }
     void           setSuspensionLength();
-	void           applyEngineForce (float force);
     float          handleNitro      (float dt);
     float          getActualWheelForce();
     bool           isOnGround       () const;
@@ -266,7 +257,7 @@ public:
     virtual void    doingShortcut() {};
     // addMessages gets called by world to add messages to the gui
     virtual void   addMessages      () {};
-    virtual void   collectedItem    (const Item *item, int random_attachment);
+    virtual void   collectedItem    (const Item &item, int random_attachment);
     virtual void   reset            ();
     virtual void   handleZipper     ();
     virtual void   crashed          (Kart *k);
@@ -274,7 +265,6 @@ public:
     virtual void   update           (float dt);
     virtual void   raceFinished     (float time);
     void           beep             ();
-    void           beepPlayer       ();
 };
 
 

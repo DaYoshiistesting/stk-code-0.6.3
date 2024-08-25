@@ -1,8 +1,8 @@
 (music-information
-  (title    "Out of it"            )
-  (composer "Brad Sucks"           )
+  (title    "Out of it"    )
+  (composer "Brad Sucks"            )
   (music    "BradSucks-OutOfIt.ogg")
-  (loop     10                     )
+  (loop     10                 )
   (gain     0.8)
 )
 

@@ -649,6 +649,8 @@
 		95C2B0F90F296545000D3E5D /* attachment_manager.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = attachment_manager.hpp; path = ../../items/attachment_manager.hpp; sourceTree = SOURCE_ROOT; };
 		95C2B0FA0F296545000D3E5D /* bowling.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bowling.cpp; path = ../../items/bowling.cpp; sourceTree = SOURCE_ROOT; };
 		95C2B0FB0F296545000D3E5D /* bowling.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = bowling.hpp; path = ../../items/bowling.hpp; sourceTree = SOURCE_ROOT; };
+		95C2B0FC0F296545000D3E5D /* bubblegumitem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bubblegumitem.cpp; path = ../../items/bubblegumitem.cpp; sourceTree = SOURCE_ROOT; };
+		95C2B0FD0F296545000D3E5D /* bubblegumitem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = bubblegumitem.hpp; path = ../../items/bubblegumitem.hpp; sourceTree = SOURCE_ROOT; };
 		95C2B0FE0F296545000D3E5D /* cake.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = cake.cpp; path = ../../items/cake.cpp; sourceTree = SOURCE_ROOT; };
 		95C2B0FF0F296545000D3E5D /* cake.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = cake.hpp; path = ../../items/cake.hpp; sourceTree = SOURCE_ROOT; };
 		95C2B1000F296545000D3E5D /* flyable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = flyable.cpp; path = ../../items/flyable.cpp; sourceTree = SOURCE_ROOT; };

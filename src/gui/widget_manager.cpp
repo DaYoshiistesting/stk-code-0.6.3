@@ -1235,7 +1235,13 @@ void WidgetManager::deactivateWgt(const int TOKEN)
 {
     const int ID = findId(TOKEN);
     if( ID != WGT_NONE ) m_widgets[ID].active = false;
+    else
+    {
+        std::cerr << "WARNING: tried to deactivate unnamed widget with " <<
+            TOKEN << '\n';
+    }
 }
+
 //-----------------------------------------------------------------------------
 void WidgetManager::setWgtColor(const int TOKEN, const GLfloat *COLOR)
 {

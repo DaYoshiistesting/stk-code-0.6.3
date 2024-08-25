@@ -6,4 +6,5 @@ startrack2.rgb and startrack3.rgb are original.
 Purplenebula-Skybox for Quake III
 by Amethyst7 (e-mail: amethyst7@gotdoofed.com, http://amethyst7.gotdoofed.com/env.htm)
 ~~
-Adding all planets, the sun and creating the Saturn-rings-Texture done by A.Billing (Needer)
+Adding all planets and the sun and creating the Saturn-rings-Texture done by A.Billing (Needer)
+

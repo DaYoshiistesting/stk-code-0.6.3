@@ -1,9 +1,7 @@
 (music-information
   (title    "Dance Cleopatra"    )
-  (composer "ZamalSka"           )
+  (enable-fast #t               )
+  (composer "ZamalSka"          )
   (music    "dance_cleopatra.ogg")
-  (gain     1.4                  )
-  (loop     10                   )
-  (enable-fast      #t)
-  (max-pitch     0.0812)
+  (loop     10                  )
 )

@@ -1,0 +1,18 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("Skate Park"))
+ (designer    "Rudy85")
+ (music       "Cerclevicieux.music")
+ (screenshot  "Skatepark-screenshot.rgb")
+ (topview     "Top-view-Skatepark-arena.rgb")
+ (arena       #t)
+ (groups      "addon")
+ (version 1)
+ (camera-final-position  5 20 3)
+ (camera-final-hpr       180 -10 0)
+ (sky-color              0.5 0.5 0.5)
+)
+
+;; EOF ;;
+

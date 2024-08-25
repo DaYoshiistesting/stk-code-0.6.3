@@ -2,11 +2,11 @@
 
 (tuxkart-kart
  (name        "Gooey")
- (version     2)
+ (version     1)
  (model-file  "gooey.ac")
  (icon-file   "gooeyicon.rgb")
  (shadow-file "gooeyshadow.rgb")
- (groups      "Standard")
+ (groups      "standard") 
  (engine-sound "small")
  (rgb         0.8 0.0 0.5)
   (wheel-front-right

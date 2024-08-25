@@ -24,7 +24,6 @@
 #include <sstream>
 #define _WINSOCKAPI_
 #include <plib/ssgAux.h>
-#include <GL/glut.h>
 
 #include "file_manager.hpp"
 #include "loader.hpp"
@@ -50,7 +49,6 @@ const int   Track::QUAD_TRI_NONE   = -1;
 const int   Track::QUAD_TRI_FIRST  =  1;
 const int   Track::QUAD_TRI_SECOND =  2;
 const int   Track::UNKNOWN_SECTOR  = -1;
-Track      *Track::m_track        = NULL;
 
 // ----------------------------------------------------------------------------
 Track::Track( std::string filename_, float w, float h, bool stretch )
@@ -67,7 +65,6 @@ Track::Track( std::string filename_, float w, float h, bool stretch )
     m_version          = 0;
     m_has_final_camera = false;
     m_is_arena         = false;
-	m_track            = this;
     loadTrack(m_filename);
     loadDriveline();
 
@@ -578,13 +575,12 @@ void Track::addDebugToScene(int type) const
  *  drawScaled2D is called from gui/TrackSel, draw2Dview from RaceGUI.
  */
 
-/*void Track::drawScaled2D(float x, float y, float w, float h) const
+void Track::drawScaled2D(float x, float y, float w, float h) const
 {
   float width = m_driveline_max.getX() - m_driveline_min.getX();
-  float height = m_driveline_max.getY() - m_driveline_min.getY();
 
     float sx = w / width;
-    float sy = h / height;
+    float sy = h / ( m_driveline_max.getY()-m_driveline_min.getY() );
 
     if( sx > sy )
     {
@@ -635,17 +631,17 @@ void Track::addDebugToScene(int type) const
 
     glBegin ( GL_LINES ) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE - 1 ; ++i )
-    {*/
+    {
         /*Draw left driveline of the map*/
-        /*glVertex2f ( x + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * sx,
+        glVertex2f ( x + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * sx,
             y + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * sy ) ;
 
         glVertex2f ( x + ( m_left_driveline[i+1].getX() - m_driveline_min.getX() ) * sx,
-            y + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * sy ) ;*
+            y + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * sy ) ;
 
 
         /*Draw left driveline of the map*/
-        /*glVertex2f ( x + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * sx,
+        glVertex2f ( x + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * sx,
 	        y + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * sy ) ;
 
         glVertex2f ( x + ( m_right_driveline[i+1].getX() - m_driveline_min.getX() ) * sx,
@@ -719,7 +715,7 @@ void Track::draw2Dview (float x_offset, float y_offset) const
     glDisable (GL_TEXTURE_2D);
 
     //TODO: maybe colors should be configurable, or at least the alpha value
-    glColor4f ( 1.0f, 1.0f, 1.0f, 0.4f) ;*/
+    glColor4f ( 1.0f, 1.0f, 1.0f, 0.4f) ;
 
 
 /*FIXME: Too much calculations here, we should be generating scaled driveline arrays
@@ -727,7 +723,7 @@ void Track::draw2Dview (float x_offset, float y_offset) const
  * vertexes in-game.
  */
     /*Draw white filling of the map*/
-    /*glBegin ( GL_QUAD_STRIP ) ;
+    glBegin ( GL_QUAD_STRIP ) ;
 
     for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i ) {
       glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -756,25 +752,25 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 
     glBegin ( GL_LINES ) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE - 1 ; ++i )
-    {*/
+    {
         /*Draw left driveline of the map*/
-        /*glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+        glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
             y_offset + ( m_left_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
         glVertex2f ( x_offset + ( m_left_driveline[i+1].getX() - m_driveline_min.getX() ) * m_scale_x,
-            y_offset + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;*/
+            y_offset + ( m_left_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
 
         /*Draw left driveline of the map*/
-        /*glVertex2f ( x_offset + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
+        glVertex2f ( x_offset + ( m_right_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
 	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
         glVertex2f ( x_offset + ( m_right_driveline[i+1].getX() - m_driveline_min.getX() ) * m_scale_x,
 	        y_offset + ( m_right_driveline[i+1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
-    }*/
+    }
 
     //Close the left driveline
-    /*glVertex2f ( x_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getX() - m_driveline_min.getX() ) * m_scale_x,
+    glVertex2f ( x_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getX() - m_driveline_min.getX() ) * m_scale_x,
 		 y_offset + ( m_left_driveline[DRIVELINE_SIZE - 1].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
 
     glVertex2f ( x_offset + ( m_left_driveline[0].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -809,13 +805,13 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 	        y_offset + ( m_right_driveline[i].getY() - m_driveline_min.getY() ) * m_scale_y ) ;
     }
     glEnd () ;
-#endif*/
+#endif
 
     /*Because of the way OpenGL draws lines of widths higher than 1,
      *we have to draw the joints too, in order to fill small spaces
      *between lines
      */
-    /*glBegin ( GL_POINTS) ;
+    glBegin ( GL_POINTS) ;
     for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
     {
         glVertex2f ( x_offset + ( m_left_driveline[i].getX() - m_driveline_min.getX() ) * m_scale_x,
@@ -828,7 +824,7 @@ void Track::draw2Dview (float x_offset, float y_offset) const
 
     glPopAttrib();
 
-}   // draw2Dview*/
+}   // draw2Dview
 
 //-----------------------------------------------------------------------------
 void Track::loadTrack(std::string filename_)
@@ -1222,67 +1218,67 @@ void Track::loadTrackModel()
         if ( sscanf ( s, "%cHERRING,%f,%f,%f", &htype,
                       &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 4 )
         {
-            Item::ItemType type=Item::ITEM_BANANA;
-            if ( htype=='Y' || htype=='y' ) { type = Item::ITEM_BIG_NITRO   ;}
-            if ( htype=='G' || htype=='g' ) { type = Item::ITEM_BANANA  ;}
-            if ( htype=='R' || htype=='r' ) { type = Item::ITEM_BONUS_BOX    ;}
-            if ( htype=='S' || htype=='s' ) { type = Item::ITEM_SMALL_NITRO ;}
+            ItemType type=ITEM_BANANA;
+            if ( htype=='Y' || htype=='y' ) { type = ITEM_GOLD_COIN   ;}
+            if ( htype=='G' || htype=='g' ) { type = ITEM_BANANA  ;}
+            if ( htype=='R' || htype=='r' ) { type = ITEM_BONUS_BOX    ;}
+            if ( htype=='S' || htype=='s' ) { type = ITEM_SILVER_COIN ;}
             itemCommand(&loc.xyz, type, false) ;
         }
         else if ( sscanf ( s, "%cHERRING,%f,%f", &htype,
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 3 )
         {
-            Item::ItemType type=Item::ITEM_BANANA;
-            if ( htype=='Y' || htype=='y' ) { type = Item::ITEM_BIG_NITRO   ;}
-            if ( htype=='G' || htype=='g' ) { type = Item::ITEM_BANANA  ;}
-            if ( htype=='R' || htype=='r' ) { type = Item::ITEM_BONUS_BOX    ;}
-            if ( htype=='S' || htype=='s' ) { type = Item::ITEM_SMALL_NITRO ;}
+            ItemType type=ITEM_BANANA;
+            if ( htype=='Y' || htype=='y' ) { type = ITEM_GOLD_COIN   ;}
+            if ( htype=='G' || htype=='g' ) { type = ITEM_BANANA  ;}
+            if ( htype=='R' || htype=='r' ) { type = ITEM_BONUS_BOX    ;}
+            if ( htype=='S' || htype=='s' ) { type = ITEM_SILVER_COIN ;}
             itemCommand (&loc.xyz, type, true) ;
         }
         /* and now the new names */
         else if ( sscanf ( s, "BBOX,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, false);
+            itemCommand(&loc.xyz, ITEM_BONUS_BOX, false);
         }
         else if ( sscanf ( s, "BBOX,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, true);
+            itemCommand(&loc.xyz, ITEM_BONUS_BOX, true);
         }
         
         else if ( sscanf ( s, "BANA,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_BANANA, false);
+            itemCommand(&loc.xyz, ITEM_BANANA, false);
         }
         
         else if ( sscanf ( s, "BANA,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_BANANA, true);
+            itemCommand(&loc.xyz, ITEM_BANANA, true);
         }
         
-        else if ( sscanf ( s, "SMALLTANK,%f,%f,%f",
+        else if ( sscanf ( s, "COIN,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, false);
+            itemCommand(&loc.xyz, ITEM_SILVER_COIN, false);
         }
-        else if ( sscanf ( s, "SMALLTANK,%f,%f",
+        else if ( sscanf ( s, "COIN,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, true);
+            itemCommand(&loc.xyz, ITEM_SILVER_COIN, true);
         }
         
-        else if ( sscanf ( s, "BIGTANK,%f,%f,%f",
+        else if ( sscanf ( s, "GOLD,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, false);
+            itemCommand(&loc.xyz, ITEM_GOLD_COIN, false);
         }
-        else if ( sscanf ( s, "BIGTANK,%f,%f",
+        else if ( sscanf ( s, "GOLD,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
         {
-            itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, true);
+            itemCommand(&loc.xyz, ITEM_GOLD_COIN, true);
         }
         
         else if ( sscanf ( s, "START,%f,%f,%f",
@@ -1433,7 +1429,7 @@ void Track::itemCommand (sgVec3 *xyz, int type, int bNeedHeight )
     (*xyz)[2] = getHeight( m_model, *xyz ) + 0.06f;
 
     // Some modes (e.g. time trial) don't have any bonus boxes
-    if(type==Item::ITEM_BONUS_BOX && !RaceManager::getWorld()->enableBonusBoxes()) 
+    if(type==ITEM_BONUS_BOX && !RaceManager::getWorld()->enableBonusBoxes()) 
         return;
     Vec3 loc((*xyz));
 
@@ -1441,11 +1437,11 @@ void Track::itemCommand (sgVec3 *xyz, int type, int bNeedHeight )
     // i.e. the items will not rotate around the normal, but 'wobble'
     // around.
     Vec3 normal(0, 0, 0.0f);
-    item_manager->newItem((Item::ItemType)type, loc, normal);
+    item_manager->newItem((ItemType)type, loc, normal);
 }   // itemCommand
 
 // ----------------------------------------------------------------------------
-void Track::getTerrainInfo(const Vec3 &pos, float *hot, Vec3 *normal, 
+void  Track::getTerrainInfo(const Vec3 &pos, float *hot, Vec3 *normal, 
                             const Material **material) const
 {
     btVector3 to_pos(pos);

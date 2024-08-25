@@ -31,6 +31,26 @@
 #include "items/plunger.hpp"
 #include "loader.hpp"
 
+
+typedef struct
+{
+    PowerupType powerup;
+    const char*const dataFile;
+}
+initPowerupType;
+
+initPowerupType ict[]=
+{
+    {POWERUP_ZIPPER,    "zipper.collectable"       },
+    {POWERUP_BOWLING,   "bowling.projectile"       },
+    {POWERUP_BUBBLEGUM, "bubblegum.projectile"     },
+    {POWERUP_CAKE,      "cake.projectile"          },
+    {POWERUP_ANVIL,     "anvil.collectable"        },
+    {POWERUP_PARACHUTE, "parachute.collectable"    },
+    {POWERUP_PLUNGER,   "plunger.projectile"       },
+    {POWERUP_MAX,       ""                         },
+};
+
 PowerupManager* powerup_manager=0;
 
 //-----------------------------------------------------------------------------
@@ -42,15 +62,6 @@ PowerupManager::PowerupManager()
         m_all_icons[i]  = (Material*)NULL;
     }
 }   // PowerupManager
-
-//-----------------------------------------------------------------------------
-PowerupManager::~PowerupManager()
-{
-    for(unsigned int i=POWERUP_FIRST; i<=POWERUP_LAST; i++)
-    {
-        m_all_models[(PowerupType)i]->deRef();
-    }
-}   // ~PowerupManager
 
 //-----------------------------------------------------------------------------
 void PowerupManager::removeTextures()
@@ -67,80 +78,74 @@ void PowerupManager::removeTextures()
 //-----------------------------------------------------------------------------
 void PowerupManager::loadPowerups()
 {
+    for(int i=0; ict[i].powerup != POWERUP_MAX; i++)
+    {
+        Load(ict[i].powerup, ict[i].dataFile);
+    }
+}  // loadPowerups
+
+//-----------------------------------------------------------------------------
+void PowerupManager::Load(int collectType, const char* filename)
+{
     const lisp::Lisp* ROOT = 0;
 
     lisp::Parser parser;
-    std::string powerups_file = file_manager->getConfigFile("powerups.data");
-    ROOT = parser.parse(powerups_file);
-
-    const lisp::Lisp* lisp = ROOT->getLisp("tuxkart-collectables");
+    std::string tmp= "data/" + (std::string)filename;
+    ROOT = parser.parse(file_manager->getConfigFile(filename));
+        
+    const lisp::Lisp* lisp = ROOT->getLisp("tuxkart-collectable");
     if(!lisp)
     {
         std::ostringstream msg;
-        msg << "No 'tuxkart-collectables' node found while parsing '" 
-            << powerups_file << "'.";
+        msg << "No 'tuxkart-collectable' node found while parsing '" 
+            << filename << "'.";
         throw std::runtime_error(msg.str());
     }
-    LoadOnePowerup(lisp, "bubblegum", POWERUP_BUBBLEGUM);
-    LoadOnePowerup(lisp, "cake",      POWERUP_CAKE     ); 
-    LoadOnePowerup(lisp, "bowling",   POWERUP_BOWLING  ); 
-    LoadOnePowerup(lisp, "zipper",    POWERUP_ZIPPER   ); 
-    LoadOnePowerup(lisp, "plunger",   POWERUP_PLUNGER  ); 
-    LoadOnePowerup(lisp, "parachute", POWERUP_PARACHUTE); 
-    LoadOnePowerup(lisp, "anvil",     POWERUP_ANVIL    );  
+    LoadNode(lisp, collectType);
+
     delete ROOT;
 
-}   // loadPowerups
+}   // Load
 
 //-----------------------------------------------------------------------------
-void PowerupManager::LoadOnePowerup(const lisp::Lisp* lisp, const char *name,
-                                    PowerupType type)
+void PowerupManager::LoadNode(const lisp::Lisp* lisp, int collectType )
 {
-    const lisp::Lisp* powerup_lisp = lisp->getLisp(name);
-    std::string model;
-    powerup_lisp->get("model", model);
-    std::string iconfile; 
-    powerup_lisp->get("icon", iconfile);
-
+    std::string sName, sModel, sIconFile; 
+    lisp->get("name",            sName                              );
+    lisp->get("model",           sModel                             );
+    lisp->get("icon",            sIconFile                          );
+ 
     // load material
-    m_all_icons[type] = material_manager->getMaterial(iconfile,
-                                  /* full_path */     false,
-                                  /*make_permanent */ true);
-    m_all_icons[type]->getState()->ref();
+    m_all_icons[collectType] = material_manager->getMaterial(sIconFile,
+                                                     /* full_path */    false,
+                                                     /*make_permanent */ true);
+    m_all_icons[collectType]->getState()->ref();
 
-
-    if(model!="")
+    if(sModel!="")
     {
         // FIXME LEAK: not freed (uniportant, since the models have to exist
         // for the whole game anyway).
-        m_all_models[type] = loader->load(model, CB_COLLECTABLE);
-        m_all_models[type]->ref();
-        m_all_models[type]->clrTraversalMaskBits(SSGTRAV_ISECT|SSGTRAV_HOT);
-        if(!m_all_models[type])
-        {
-              std::ostringstream o;
-              o<<"Can't load model '"<<model
-              << "' for powerup type '"<<type<<"'. - aborting.\n";
-              throw std::runtime_error(o.str());
-        }
+        ssgEntity* e = loader->load(sModel, CB_COLLECTABLE);
+        m_all_models[collectType] = e;
+        e->ref();
+        e->clrTraversalMaskBits(SSGTRAV_ISECT|SSGTRAV_HOT);
     }
     else
     {
-        m_all_models[type]  = 0;
-        m_all_extends[type] = btVector3(0.0f,0.0f,0.0f);
+        m_all_models[collectType] = 0;
+        m_all_extends[collectType] = btVector3(0.0f,0.0f,0.0f);
     }
 
-
     // Load special attributes for certain powerups
-    switch (type) {
+    switch (collectType) {
         case POWERUP_BOWLING:          
-             Bowling::init(powerup_lisp, m_all_models[type]); break;
+             Bowling::init  (lisp, m_all_models[collectType]); break;
         case POWERUP_PLUNGER:          
-             Plunger::init(powerup_lisp, m_all_models[type]); break;
+             Plunger::init  (lisp, m_all_models[collectType]); break;
         case POWERUP_CAKE: 
-             Cake::init(powerup_lisp, m_all_models[type]);    break;
+             Cake::init (lisp, m_all_models[collectType]); break;
         default:;
     }   // switch
 
-}   // LoadOnePowerup
+}   // LoadNode
 

@@ -78,9 +78,9 @@ UserConfig::~UserConfig()
 void UserConfig::setFilename()
 {
 #ifdef WIN32
-    m_filename = file_manager->getLogFile("supertuxkart.lispcfg");
+    m_filename = file_manager->getLogFile("supertuxkart.cfg");
 #else
-    m_filename = file_manager->getLogFile("configuration");
+    m_filename = file_manager->getLogFile("config");
 #endif
 }   // setFilename
 
@@ -105,7 +105,7 @@ void UserConfig::setDefaults()
     m_background_music  = "";
     m_profile           = 0;
     m_print_kart_sizes  = false;
-    m_max_fps           = 144;
+    m_max_fps           = 120;
     m_sfx_volume        = 1.0f;
     m_use_kph           = false;
     m_width             = 800;
@@ -120,7 +120,7 @@ void UserConfig::setDefaults()
     m_difficulty        = 0;
     m_background_index  = 0;
     m_log_errors        = false;
-    m_kart_group        = "Standard";
+    m_kart_group        = "standard";
     m_track_group       = "standard";
     m_last_track        = "jungle";
     m_server_address    = "localhost";
@@ -211,7 +211,7 @@ void UserConfig::setDefaults()
     set(GA_P1_BRAKE,     Input(Input::IT_KEYBOARD, SDLK_DOWN));
     set(GA_P1_NITRO,     Input(Input::IT_KEYBOARD, SDLK_l));
     set(GA_P1_DRIFT,     Input(Input::IT_KEYBOARD, SDLK_k));
-    set(GA_P1_RESCUE,    Input(Input::IT_KEYBOARD, SDLK_BACKSPACE));
+    set(GA_P1_RESCUE,    Input(Input::IT_KEYBOARD, SDLK_h));
     set(GA_P1_FIRE,      Input(Input::IT_KEYBOARD, SDLK_SPACE));
     set(GA_P1_LOOK_BACK, Input(Input::IT_KEYBOARD, SDLK_j));
 

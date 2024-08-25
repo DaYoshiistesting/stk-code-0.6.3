@@ -100,8 +100,7 @@ public:
 private:
     struct KartStatus
     {
-        std::string m_ident;            // The .kart filename without the .kart
-		std::string m_name;             // The kart name inside the .kart file
+        std::string m_ident;            // The .tkkf filename without the .tkkf
         std::string m_player_name;      // for networked karts
         int         m_score;            // score for this kart
         int         m_last_score;       // needed for restart race, and for race results GUI.
@@ -113,7 +112,7 @@ private:
         int         m_global_player_id; // global ID of player
         int         m_gp_final_rank;    // In GPs, at the end, will hold the overall rank of this kart.
         
-		KartStatus(const std::string& ident, const int& prev_finish_pos, 
+        KartStatus(const std::string& ident, const int& prev_finish_pos, 
                    int local_player_id, int global_player_id, KartType kt) :
                    m_ident(ident), m_score(0), m_last_score(0), 
                    m_overall_time(0.0f), m_last_time(0.0f),

@@ -1,0 +1,117 @@
+#
+# In this files materials with special properties are listed, along with
+# the values for these properties. Only materials that are in some way
+# special need to be listed here, the others will use the default values.
+#
+# Here is an explanation of what each property do and their default values,
+# the actual properties are at the bottom of the file:
+#
+# UVClamp
+# -----
+# Clamp texture border instead of repeating the texture. This has
+# two values, one for the X-axis and another for the Y-axis, which can be
+# Y or N (yes or no).
+#
+# To understand what clamping is, hre is an example with my poor ASCII art:
+#
+#                                                          ox
+# Suppose you have a 2x2 texture which represented here by xo , where o is a
+# black square and x is a white square. If you place the texture in a 4x4
+# grid, you would think you get this:
+# 
+# ....
+# ....
+# ox..
+# xo..
+#
+# Where the . are empty spaces.
+# 
+# However, what really happens is that by default the texture repeats itself:
+#
+# oxox
+# xoxo
+# oxox
+# xoxo
+#
+# But if you clamp the texture on both the X and the Y axis you get this:
+#
+# oxoo
+# oxoo
+# oxxx
+# xooo
+#
+# So only the borders repeat in the X and Y direction, not the whole texture.
+#
+#
+# Translucency
+# ------------
+# Use the alpha value of the texture to produce translucent areas. Can be
+# Y or N, default is N.
+#
+#
+# Alpha reference
+# ---------------
+# This value is used for the alpha test, which is to compare all the
+# alpha values of the pixels of the texture against the alpha refence, and
+# if the test succeeds, the pixel is not drawn. Values go from 0.0 to 1.0.
+# 1.0 that no pixels are drawn, 0.0 means that only pixels completely
+# translucent are not drawn. Default is 0.1.
+#
+#
+# Lighting
+# --------
+# Let lights affect how dark or light a texture is. Can be Y or N, default is
+# Y.
+#
+# 
+# Sphere map
+# ----------
+# Place the texture as if it is on top of a reflective sphere. This is useful
+# on shiny metal objects, for example the coins. Can be Y or N, default is
+# N.
+#
+#
+# Friction
+# --------
+# How much friction there is between an object with this texture and the
+# wheels of the kart. Obviously, is only useful if a kart will ever be
+# standing on top of an object with this texture. The smaller this value is,
+# the more slippery a surface is. Values should go from 1.0 to 0.1, where
+# 1.0 is the friction of the road. Default is 1.0 .
+#
+# At the moment, friction only limits the speed and acceleration of the karts.
+#
+#
+#
+# Ignore
+# ------
+# Don't crash with a surface that has this texture applied. Values can be Y or
+# N. Default is N.
+#
+#
+# Zipper
+# ------
+# Karts get a speed boost when they touch a surface with this texture. Values
+# can be Y or N. Default is N.
+#
+#
+# Resetter
+# --------
+# When a kart touches this surface, it is rescued, useful for lava and others.
+# Values can be Y or N. Default value is N.
+#
+#
+# Collide
+# -------
+# When you crash against a surface with this texture, the kart will not
+# continue moving, instead it will stop the kart dead. Values can be Y or N,
+# default value is Y.
+
+# TextureName     Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
+
+"ice_transparent.rgb" Y N   Y  0.1    N     N    1.0   N   N   N   N
+"ice_ref.rgb"         N N   N  0.0    N     Y    1.0   N   N   N   N
+"fondu1.rgb"                N N    Y    0.0    Y     N    1.0   N   N   N   N
+
+
+# EOF #

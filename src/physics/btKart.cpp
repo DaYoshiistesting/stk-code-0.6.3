@@ -32,8 +32,6 @@ btKart::btKart(const btVehicleTuning& tuning,btRigidBody* chassis,
 : btRaycastVehicle(tuning, chassis, raycaster)
 {
     m_track_connect_accel = track_connect_accel;
-
-	m_num_wheels_on_ground = 0;
 }
 
 // ----------------------------------------------------------------------------
@@ -159,15 +157,10 @@ void btKart::updateVehicle( btScalar step )
 	//
 	
 	int i=0;
-	m_num_wheels_on_ground = 0;
-
 	for (i=0;i<m_wheelInfo.size();i++)
 	{
 		btScalar depth; 
 		depth = rayCast( m_wheelInfo[i]);
-
-		if (m_wheelInfo[i].m_raycastInfo.m_isInContact)
-		    m_num_wheels_on_ground++;
 	}
 
     // Work around: make sure that either both wheels on one axis
@@ -354,10 +347,16 @@ void	btKart::updateFriction(btScalar	timeStep)
     m_forwardImpulse.resize(numWheel);
     m_sideImpulse.resize(numWheel);
 
+    int numWheelsOnGround = 0;
+
 
     //collapse all those loops into one!
     for (int i=0;i<getNumWheels();i++)
     {
+        btWheelInfo& wheelInfo = m_wheelInfo[i];
+        class btRigidBody* groundObject = (class btRigidBody*) wheelInfo.m_raycastInfo.m_groundObject;
+        if (groundObject)
+            numWheelsOnGround++;
         m_sideImpulse[i] = btScalar(0.);
         m_forwardImpulse[i] = btScalar(0.);
 

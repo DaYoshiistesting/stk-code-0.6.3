@@ -8,11 +8,11 @@
  (screenshot             "sshot-marstrack.rgb")
  (topview                "topview-marstrack.rgb")
  
-;; (use-fog      #f)
-;; (sky-color    0.05 0.0 0.1)
-;; (fog-color    0.75 1.0 1.0)
-;; (fog-start    25000.0)
-;; (fog-end      50000.0)
+ ;;(use-fog      #t)
+ ;;(sky-color    0.05 0.0 0.1)
+ ;;(fog-color    0.75 1.0 1.0)
+ ;;(fog-start    25000.0)
+ ;;(fog-end      50000.0)
  
  (camera-final-position  0 12 3)
  (camera-final-hpr       180 -10 0)

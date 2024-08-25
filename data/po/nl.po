@@ -731,7 +731,7 @@ msgstr "Racecircuit"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:816
-msgid "Ready?"
+msgid "Ready!"
 msgstr "Op uw plaatsen?"
 
 #: src/gui/player_controls.cpp:72
@@ -761,7 +761,7 @@ msgstr "Kies netwerk type"
 
 #. I18N: as in "ready, set, go", shown at the beginning of the race
 #: src/gui/race_gui.cpp:826
-msgid "Set?!"
+msgid "Set!"
 msgstr "Klaar?"
 
 #: src/gui/race_menu.cpp:55
