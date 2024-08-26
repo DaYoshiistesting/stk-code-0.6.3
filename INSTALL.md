@@ -11,7 +11,7 @@ First, make sure that you have the following packages installed/compiled :
   * PLIB v1.8.5.
   * SDL 1.2 or later (not SDL2 and after).
   * OpenAL (SDK).
-  * ENet (don't get a version using an old protocol).
+  * ENet (get a version using the old protocol for this one).
   * Libintl3.
   * LibVorbis.
   * LibOgg.
