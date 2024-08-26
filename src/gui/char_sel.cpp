@@ -410,7 +410,7 @@ void CharSel::update(float dt)
         // applying a big camera FOV.
         int w = user_config->m_width;
         int h = user_config->m_height;
-        glViewport ( -116, h*1/6, (int)(0.85f*w), (int)(0.85f*h));
+        glViewport (-w*1/11, h*1/6, (int)(0.85f*w), (int)(0.85f*h));
 
         m_context -> setFOV ( 77.0f, 77.0f * h/w ) ;
         m_context -> setNearFar ( 0.05f, 1000.0f ) ;
