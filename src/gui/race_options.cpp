@@ -238,7 +238,7 @@ void RaceOptions::select()
         case WTOK_LAPS_UP:
             {
                 m_num_laps++;
-                if(m_num_laps>10) m_num_laps=1;
+                if(m_num_laps>20) m_num_laps=1;
 
                 char label[ MAX_MESSAGE_LENGTH ];
                 snprintf( label, MAX_MESSAGE_LENGTH, "%d", m_num_laps );
@@ -250,7 +250,7 @@ void RaceOptions::select()
         case WTOK_LAPS_DOWN:
             {
                 m_num_laps--;
-                if(m_num_laps<1) m_num_laps=10;
+                if(m_num_laps<1) m_num_laps=20;
 
                 char label[ MAX_MESSAGE_LENGTH ];
                 snprintf( label, MAX_MESSAGE_LENGTH, "%d", m_num_laps );

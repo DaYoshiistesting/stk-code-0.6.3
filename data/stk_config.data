@@ -8,7 +8,7 @@
  (max-kart-version           2   )  ;; by this binary. Older/newer files are ignored.
  (min-track-version          1   )  ;; Minimum and maximum .track files supported
  (max-track-version          2   )  ;; by this binary, older/newer files are ignored.
- (max-karts                  10   )  ;; maximum number of karts
+ (max-karts                  10  )  ;; maximum number of karts
  (scores              12 11 10 8 6 5 4 3 2 1 ) ;; 12 11 10 8 6 5 4 3 2 1
  (grid-order	   	     1   )  ;; order for grand prix, 1 is most 
 				    ;; points 1st, 0 is least points
@@ -19,7 +19,7 @@
  (mainmenu-background      "st_title_screen.rgb" "st_title_screen1.rgb" "st_title_screen2.rgb")
  (menu-background          "menu_background.rgb" "menu_background1.rgb" "menu_background2.rgb")
 
- (max-history              10000)   ;; maximum number of history frames.
+ (max-history             100000)   ;; maximum number of history frames.
  (max-skidmarks             1000)   ;; max. number of skidmarks per kart.
  (skid-fadeout-time           60)   ;; Time till skidmarks fade out
  (slowdown-factor             10)   ;; Engine reduction depending on terrain,
@@ -52,7 +52,8 @@
  (shortcut-length              90)  ;; leaving the road and coming back on it more than
                                     ;; x 'meters" later is considered to be a shortcut
  (offroad-tolerance          0.07)  ;; Widen the road 7% for shortcut detection.
- (enable_networking          #t  )  ;; enable networking
+ (enable_networking          #f  )  ;; enable or disable networking, at the moment 
+                                    ;; it's off because it is not used at that stage
  (explosion-impulse       10000.0)  ;; explosion impulse on not directly hit karts
  (explosion-impulse-objects 500.0)  ;; explosion impulse for physics objects (smaller
                                     ;; else a cone e.g. will be pushed way too far)

@@ -3,6 +3,7 @@ MATERIAL "ac3dmat1" rgb 1 1 1  amb 0.2 0.2 0.2  emis 0 0 0  spec 0.2 0.2 0.2  sh
 MATERIAL "Material.002" rgb 0.249597 0.261829 0.163979  amb 0.5 0.5 0.5  emis 0 0 0  spec 0 0 0  shi 32  trans 0
 MATERIAL "Material.003" rgb 0 0 0  amb 0.5 0.5 0.5  emis 0 0 0  spec 0 0 0  shi 32  trans 0
 MATERIAL "Material.005" rgb 1 1 1  amb 0.5 0.5 0.5  emis 0 0 0  spec 1 1 1  shi 32  trans 0
+MATERIAL "Material.005" rgb 1 1 1  amb 0 0 0  emis 0.405263 0.405263 0.405263  spec 0 0 0  shi 0  trans 0
 OBJECT world
 kids 8
 OBJECT poly
@@ -809,28 +810,28 @@ refs 4
 44 0 0
 70 0 0
 SURF 0x30
-mat 0
+mat 4
 refs 4
 73 0 0
 71 0 0
 67 0 0
 69 0 0
 SURF 0x30
-mat 0
+mat 4
 refs 4
 68 0 0
 72 0 0
 74 0 0
 70 0 0
 SURF 0x30
-mat 0
+mat 4
 refs 4
 76 0 0
 73 0 0
 69 0 0
 75 0 0
 SURF 0x30
-mat 0
+mat 4
 refs 4
 70 0 0
 74 0 0
@@ -3883,13 +3884,13 @@ refs 4
 460 0 0
 454 0 0
 SURF 0x10
-mat 0
+mat 4
 refs 3
 5 0 0
 67 1 0
 71 1 1
 SURF 0x10
-mat 0
+mat 4
 refs 3
 72 1 1
 68 1 0
