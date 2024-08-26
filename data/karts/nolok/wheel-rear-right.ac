@@ -5,7 +5,7 @@ kids 1
 OBJECT poly
 name "WheelRear.L"
 loc -0.107548 0.00462982 -0.000551179
-texture "nolokwheel_.rgb"
+texture "nolokwheel.rgb"
 crease 35.000000
 numvert 303
 0.0066 -0.1339 -5.82077e-10

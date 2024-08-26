@@ -809,28 +809,28 @@ refs 4
 44 0 0
 70 0 0
 SURF 0x30
-mat 1
+mat 0
 refs 4
 73 0 0
 71 0 0
 67 0 0
 69 0 0
 SURF 0x30
-mat 1
+mat 0
 refs 4
 68 0 0
 72 0 0
 74 0 0
 70 0 0
 SURF 0x30
-mat 1
+mat 0
 refs 4
 76 0 0
 73 0 0
 69 0 0
 75 0 0
 SURF 0x30
-mat 1
+mat 0
 refs 4
 70 0 0
 74 0 0
@@ -3883,13 +3883,13 @@ refs 4
 460 0 0
 454 0 0
 SURF 0x10
-mat 1
+mat 0
 refs 3
 5 0 0
 67 1 0
 71 1 1
 SURF 0x10
-mat 1
+mat 0
 refs 3
 72 1 1
 68 1 0

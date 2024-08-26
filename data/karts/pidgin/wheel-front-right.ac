@@ -6,7 +6,7 @@ OBJECT poly
 name "christmas_hat"
 data 13
 christmas_hat
-texture "smallpidginwheel.rgb"
+texture "pidginwheel.rgb"
 crease 40.000000
 kids 0
 OBJECT poly
@@ -14,7 +14,7 @@ name "WheelFront.R"
 loc -0.347999 -0.120482 0.302975
 data 18
 mesh1-geometry.004
-texture "smallpidginwheel.rgb"
+texture "pidginwheel.rgb"
 crease 40.000000
 numvert 59
 0.26256 0.012 -0.303

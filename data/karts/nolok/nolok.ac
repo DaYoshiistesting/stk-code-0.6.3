@@ -8,7 +8,7 @@ kids 2
 OBJECT poly
 name "Sphere"
 loc 0.00907458 -0.0231189 0.00729579
-texture "nolok_character_.rgb"
+texture "nolok_character.rgb"
 crease 35.000000
 numvert 3103
 -0.00370002 0.2595 0.0413001
@@ -9741,7 +9741,7 @@ kids 2
 OBJECT poly
 name "Sphere"
 loc 0.683049 0.0337623 0.142864
-texture "nolok_kart_.rgb"
+texture "nolok_kart.rgb"
 crease 35.000000
 numvert 2373
 0.0658 0.3345 -0.2071
@@ -16868,7 +16868,7 @@ kids 0
 OBJECT poly
 name "Sphere"
 loc -0.683482 0.0336178 -0.142864
-texture "nolok_kart_.rgb"
+texture "nolok_kart.rgb"
 crease 35.000000
 numvert 30
 0.9957 0.4414 0.948385
