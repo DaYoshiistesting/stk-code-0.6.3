@@ -24,7 +24,7 @@ If you want to play SuperTuxKart you can get it right [here](http://supertuxkart
 If you want to discuss with players or the actual SuperTuxKart team, 
 [click here](http://supertuxkart.sourceforge.net/forum).
 
-This is the Alpha-2's source code.
+This is the Alpha-3a's source code.
 
 ## Hardware Requirements 
 
