@@ -55,7 +55,7 @@ public:
     /** Status of a sound effect. */
     enum SFXStatus
     {
-        SFX_UNKNOWN = -1, SFX_STOPED = 0, SFX_PAUSED = 1, SFX_PLAYING = 2,
+        SFX_UNKNOWN = -1, SFX_STOPPED = 0, SFX_PAUSED = 1, SFX_PLAYING = 2,
         SFX_INITIAL = 3
     };
 

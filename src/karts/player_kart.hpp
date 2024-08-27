@@ -58,7 +58,7 @@ public:
     Player      *getPlayer         () {return m_player;        }
     void         update            (float);
     void         action            (KartAction action, int value);
-    void         handleZipper      ();
+    void         handleZipper      (bool play_sfx);
     void         collectedItem     (const Item *item, int add_info=-1);
     virtual void crashed           (Kart *k);
     virtual void setPosition       (int p);

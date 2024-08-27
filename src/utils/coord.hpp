@@ -70,6 +70,7 @@ public:
     Coord(const btTransform& t)
     {
         m_xyz = t.getOrigin();
+      //m_hpr.setHPR(t.getRotation());
         m_hpr.setHPR(t.getBasis());
         setSgCoord();
     }   // Coord

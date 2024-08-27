@@ -53,52 +53,55 @@ protected:
 public:
                   Moveable();
     virtual      ~Moveable();
-    ssgTransform *getModelTransform()          {return m_model_transform;          }
+    ssgTransform *getModelTransform()          {return m_model_transform;             }
     virtual const btVector3 
-                 &getVelocity()   const          {return m_body->getLinearVelocity();}
+                 &getVelocity()   const        {return m_body->getLinearVelocity();   }
     const btVector3
-                 &getVelocityLC() const        {return m_velocityLC;               }
-    virtual void  setVelocity(const btVector3& v) {m_body->setLinearVelocity(v);   }
-    const Vec3&   getXYZ()        const        {return (Vec3&)m_transform.getOrigin();}
-    const Vec3&   getHPR()        const        {return m_hpr;                      }
-	float         getHeading()    const        {return m_hpr.getHeading();         }
-    float         getPitch()      const        {return m_hpr.getPitch();           }
-    float         getRoll()       const        {return m_hpr.getRoll();            }
+                 &getVelocityLC() const        {return m_velocityLC;                  }
+    virtual void  setVelocity    (const btVector3& v) 
+                                               {m_body->setLinearVelocity(v);         }
+    const Vec3&   getXYZ     ()   const        {return (Vec3&)m_transform.getOrigin();}
+    const Vec3&   getHPR     ()   const        {return m_hpr;                         }
+    float         getHeading ()   const        {return m_hpr.getHeading();            }
+    float         getPitch   ()   const        {return m_hpr.getPitch();              }
+    float         getRoll    ()   const        {return m_hpr.getRoll();               }
     const btQuaternion
-                  getRotation()   const          {return m_transform.getRotation();  }
+                  getRotation()   const        {return m_transform.getRotation();     }
 
+    // ------------------------------------------------------------------------
     /** Sets the XYZ coordinates of the moveable. */
-    void setXYZ(const Vec3& a) 
+    void          setXYZ         (const Vec3& a) 
     {
         m_transform.setOrigin(a);
         m_motion_state->setWorldTransform(m_transform);
     }
     // ------------------------------------------------------------------------
     /** Sets the rotation of this moveable. */
-    void setRotation(const btQuaternion&a)
+    void          setRotation    (const btQuaternion&a)
     {
         m_transform.setRotation(a);
         m_motion_state->setWorldTransform(m_transform);
     }
     // ------------------------------------------------------------------------
     /** Sets XYZ position and rotation of this moveable. */
-    void setXYZRotation(const Vec3& xyz, const btQuaternion& a)
+    void          setXYZRotation (const Vec3& xyz, 
+                                  const btQuaternion& a)
     {
         m_transform.setRotation(a);
         m_transform.setOrigin(xyz);
         m_motion_state->setWorldTransform(m_transform);
     }
     // ------------------------------------------------------------------------
-    virtual void  handleZipper ()  {};
-    virtual void  updateGraphics(const Vec3& off_xyz,  const Vec3& off_hpr);
-    virtual void  reset();
-    virtual void  update(float dt) ;
-    btRigidBody  *getBody() const {return m_body; }
-    void          createBody(float mass, btTransform& trans, 
-                             btCollisionShape *shape);
-    const btTransform 
-                 &getTrans() const {return m_transform;}
-    void          setTrans(const btTransform& t);
+    virtual void  handleZipper   (bool play_sfx) {};
+    virtual void  updateGraphics (const Vec3& off_xyz, const Vec3& off_hpr);
+    virtual void  reset          ();
+    virtual void  update         (float dt);
+    btRigidBody  *getBody        () const {return m_body;}
+    void          createBody     (float mass, btTransform& trans,
+                                  btCollisionShape *shape);
+    const btTransform
+                 &getTrans       () const {return m_transform;}
+    void          setTrans       (const btTransform& t);
 }
 ;   // class Moveable
 

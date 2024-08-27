@@ -33,6 +33,7 @@ private:
     int               m_HoT_counter;        // compute HAT only every N timesteps
     Vec3              m_normal;             // normal of the triangle under the object
     const Material   *m_material;           // material of the triangle under the object
+    const Material   *m_last_material;      // the previous material a kart was on
     float             m_HoT;                // height of terrain
 
 public:
@@ -42,9 +43,10 @@ public:
 
     virtual void update(const Vec3 &pos);
 
-    float getHoT()                       const {return m_HoT;     }
-    const Material *getMaterial()        const {return m_material;}
-    const Vec3 &getNormal()              const {return m_normal;  }
+    float getHoT()                       const {return m_HoT;          }
+    const Material *getMaterial()        const {return m_material;     }
+    const Material *getLastMaterial()    const {return m_last_material;}
+    const Vec3 &getNormal()              const {return m_normal;       }
     float getTerrainPitch(float heading) const;
 };  // TerrainInfo
 

@@ -268,7 +268,7 @@ public:
     virtual void   addMessages      () {};
     virtual void   collectedItem    (const Item *item, int random_attachment);
     virtual void   reset            ();
-    virtual void   handleZipper     ();
+    virtual void   handleZipper     (bool play_sfx=false);
     virtual void   crashed          (Kart *k);
     
     virtual void   update           (float dt);

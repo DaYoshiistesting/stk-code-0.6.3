@@ -4,6 +4,6 @@
   (music    "dance_cleopatra.ogg")
   (gain     1.4                  )
   (loop     10                   )
-  (enable-fast      #t)
+  (enable-fast   #t    )
   (max-pitch     0.0810)
 )

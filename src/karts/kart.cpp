@@ -651,8 +651,10 @@ void Kart::update(float dt)
 
 //-----------------------------------------------------------------------------
 /** Sets zipper time, and apply one time additional speed boost.
+ * \param play_sfx This makes the sfx sound play even if the kart is not
+ *                 on a zipper material. It is used by the zipper powerup.
  */
-void Kart::handleZipper()
+void Kart::handleZipper(bool play_sfx)
 {
     // Ignore a zipper that's activated while braking
     if(m_controls.m_brake) return;
@@ -669,6 +671,7 @@ void Kart::handleZipper()
     // Therefore a zipper only adds the speed if the speed is at least 1
     // (experimentally found valud).  It also avoids NAN problems (if v=0).
     if(current_speed>1.0f) m_body->setLinearVelocity(v*(speed/current_speed));
+    Moveable::handleZipper(play_sfx);
 }   // handleZipper
 //-----------------------------------------------------------------------------
 #define sgn(x) ((x<0)?-1.0f:((x>0)?1.0f:0.0f))

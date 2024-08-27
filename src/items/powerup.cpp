@@ -124,7 +124,7 @@ void Powerup::use()
     m_number--;
     switch (m_type)
     {
-    case POWERUP_ZIPPER:   m_owner->handleZipper();
+    case POWERUP_ZIPPER:   m_owner->handleZipper(true);
         break ;
     case POWERUP_CAKE:
     case POWERUP_BOWLING:
@@ -151,7 +151,7 @@ void Powerup::use()
         
         ItemManager::get()->newItem(Item::ITEM_BUBBLEGUM, pos, normal, m_owner);
         }
-        break;
+        break ;
         
     case POWERUP_ANVIL:
         
@@ -181,11 +181,11 @@ void Powerup::use()
                     m_sound_use->position(m_owner->getXYZ());
                 
                 m_sound_use->play();
-                break;
+                break ;
             }
         }
 
-        break;
+        break ;
 
     case POWERUP_PARACHUTE:
         {
@@ -216,10 +216,10 @@ void Powerup::use()
                 m_sound_use->position(player_kart->getXYZ());
             m_sound_use->play();
         }
-        break;
+        break ;
 
     case POWERUP_NOTHING:
-    default :              break ;
+    default :   break ;
     }
 
     if ( m_number <= 0 )
