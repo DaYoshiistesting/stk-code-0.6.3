@@ -264,11 +264,11 @@ void Flyable::getLinearKartItemIntersection (const Vec3 &origin,
 // ----------------------------------------------------------------------------
 bool Flyable::updateAndDel(float dt)
 {
-	m_time_since_thrown += dt;
-	if(m_max_lifespan > -1 && m_time_since_thrown > m_max_lifespan) hit(NULL);
+    m_time_since_thrown += dt;
+    if(m_max_lifespan > -1 && m_time_since_thrown > m_max_lifespan) hit(NULL);
 	
     if(m_exploded) return false;
-	if(m_has_hit_something) return true;
+    if(m_has_hit_something) return true;
 	
     Vec3 pos = getXYZ();
     // Check if the flyable is out of the track  boundary. If so, let it explode.
@@ -295,8 +295,8 @@ bool Flyable::updateAndDel(float dt)
     }
     if(do_terrain_info) 
         TerrainInfo::update(pos);
-    if(m_adjust_z_velocity)
 
+    if(m_adjust_z_velocity)
     {
         float hat = pos.getZ()-getHoT();
         // Use the Height Above Terrain to set the Z velocity.
@@ -338,7 +338,7 @@ void Flyable::updateFromServer(const FlyableInfo &f, float dt)
  */
 bool Flyable::isOwnerImmunity(const Kart* kart_hit) const
 {
-	return m_owner_has_temporary_immunity && 
+    return m_owner_has_temporary_immunity && 
            kart_hit == m_owner            && 
            m_time_since_thrown < 2.0f;
 }   // isOwnerImmunity

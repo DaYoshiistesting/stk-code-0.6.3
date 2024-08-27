@@ -64,19 +64,19 @@ protected:
     static float      m_st_force_updown[POWERUP_MAX];  // force pushing up/down 
     static btVector3  m_st_extend[POWERUP_MAX];        // size of the model
 
-    /** time since thrown. used so a kart can't hit himself when trying something,
-        and also to put some time limit to some collectibles */
+    /** Time since thrown. used so a kart can't hit himself when trying something,
+        and also to put some time limit to some collectibles. */
     float             m_time_since_thrown;
 	
-    /** if this variable is set to true (which is the default) flyable
-        will update the height of terrain */
+    /** If this variable is set to true (which is the default) flyable
+        will update the height of terrain. */
 	bool              do_terrain_info;
 
-    /** set to something > -1 if this flyable should auto-destrcut after a while */
+    /** Set to something > -1 if this flyable should auto-destrcut after a while. */
 	float             m_max_lifespan;
 	
-    /** if set to true, the kart that throwns this flyable can't collide with it
-        for a short time */
+    /** If set to true, the kart that throwns this flyable can't collide with it
+        for a short time. */
 	bool              m_owner_has_temporary_immunity;
 	
     /** Returns information on what is the closest kart and at what
@@ -96,7 +96,7 @@ protected:
                                        float *projectileAngle, float *z_velocity);
 
 
-    /** init bullet for moving objects like projectiles */
+    /** Init bullet for moving objects like projectiles. */
     void              createPhysics   (float y_offset, 
                                        const btVector3 &velocity,
                                        btCollisionShape *shape, const float gravity=0.0f,
@@ -115,13 +115,13 @@ public:
     virtual bool updateAndDel      (float);
     void         updateFromServer  (const FlyableInfo &f, float dt);
 
-    virtual void hitTrack    ()    {};
-    virtual bool hit         (Kart* kart, MovingPhysics* moving_physics=NULL);
-    bool         hasHit      ()    {return m_has_hit_something;}
+    virtual void hitTrack          ()       {};
+    virtual bool hit               (Kart* kart, MovingPhysics* moving_physics=NULL);
+    bool         hasHit            ()       {return m_has_hit_something;}
     /** Indicates that something was hit and that this object must 
      *  be removed. */
-    void         setHasHit   ()    {m_has_hit_something = true;}
-    void         reset       ()    {Moveable::reset();         }
+    void         setHasHit         ()       {m_has_hit_something = true;}
+    void         reset             ()       {Moveable::reset();         }
 	bool         isOwnerImmunity   (const Kart *kart_hit) const;
 	virtual int  getExplosionSound () const {return SFXManager::SOUND_EXPLOSION;}
     /** Indicates if an explosion needs to be added if this flyable 

@@ -43,7 +43,7 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
     float z_velocity = m_speed/7.0f;
     
     // give a speed proportional to kart speed.
-    m_speed = kart->getSpeed() * m_speed / 23.0f;
+    m_speed = kart->getSpeed() * m_speed / 20.0f;
 
     //when going backwards, decrease speed of cake by less.
     if (kart->getSpeed() < 0) m_speed /= 3.6f;
@@ -86,7 +86,7 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
     {
         m_target = NULL;
         // kart is too far to be hit. so throw the projectile in a generic way,
-        // straight ahead, without trying to hit anything in particular
+        // straight ahead, without trying to hit anything in particular.
         trans = kart->getKartHeading(pitch);
 
         m_initial_velocity = btVector3(0.0f, m_speed, z_velocity);
@@ -96,6 +96,7 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
                   true /* rotation */, backwards, &trans);
     }
 
+    // Do not adjust height according to terrain.
     setAdjustZVelocity(false);
 
     m_body->setActivationState(DISABLE_DEACTIVATION);

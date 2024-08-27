@@ -38,10 +38,10 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     float up_velocity = 0.0f;
     float plunger_speed = 2 * m_speed;
     
-    // if the kart is looking backwards, release from the back
+    // If the kart is looking backwards, release from the back.
     m_reverse_mode = kart->getControls().m_look_back;
     
-    // find closest kart in front of the current one
+    // Find closest kart in front of the current one.
     const Kart *closest_kart=0;   btVector3 direction;   float kartDistSquared;
     getClosestKart(&closest_kart, &kartDistSquared, &direction, kart /* search in front of this kart */, m_reverse_mode);
     
@@ -54,7 +54,7 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     float heading = kart->getHeading();
     float pitch   = kart->getTerrainPitch(heading);
 
-    // aim at this kart if it's not too far
+    // Aim at this kart if it's not too far.
     if(closest_kart != NULL && kartDistSquared < 30*30)
     {
         float projectileAngle = 0.0f;
@@ -64,7 +64,7 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
 
         btTransform trans = kart->getTrans();
 
-        // apply transformation to the bullet object (without pitch)
+        // Apply transformation to the bullet object (without pitch).
         trans.setRotation(btQuaternion(btVector3(0,0,1), projectileAngle));
 
         m_initial_velocity = btVector3(0.0f, plunger_speed, up_velocity);
@@ -78,11 +78,11 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
                       new btCylinderShape(0.5f*m_extend), gravity, false /* rotates */, m_reverse_mode, &trans );
     }
     
-	//adjust height according to terrain
-    setAdjustZVelocity(false);
+    // Adjust height according to terrain
+    setAdjustZVelocity(true);
 
-    // pulling back makes no sense in battle mode, since this mode is not a race.
-    // so in battle mode, always hide view
+    // Pulling back makes no sense in battle mode, since this mode is not a race.
+    // So, in battle mode, always hide view.
     if( m_reverse_mode || race_manager->isBattleMode(race_manager->getMinorMode()) )
         m_rubber_band = NULL;
     else
@@ -109,7 +109,7 @@ void Plunger::init(const lisp::Lisp* lisp, ssgEntity *plunger_model)
 // -----------------------------------------------------------------------------
 bool Plunger::updateAndDel(float dt)
 {
-    // In keep-alive mode, just update the rubber band
+    // In keep-alive mode, just update the rubber band.
     if(m_keep_alive >= 0)
     {
         m_keep_alive -= dt;
@@ -126,7 +126,7 @@ bool Plunger::updateAndDel(float dt)
         return false;
     }
 
-    // Else: update the flyable and rubber band
+    // Else: update the flyable and the rubber band.
     bool ret = Flyable::updateAndDel(dt);
     if(m_rubber_band != NULL) m_rubber_band->update(dt);
     return ret;
@@ -144,15 +144,15 @@ bool Plunger::hit(Kart *kart, MovingPhysics *mp)
 {
     if(isOwnerImmunity(kart)) return false;
 
-    // pulling back makes no sense in battle mode, since this mode is not a race.
-    // so in battle mode, always hide view
+    // Pulling back makes no sense in battle mode, since this mode is not a race.
+    // So, in battle mode, always hide view.
     if( m_reverse_mode || race_manager->isBattleMode(race_manager->getMinorMode()) )
     {
         if(kart) kart->blockViewWithPlunger();
 
         m_keep_alive = 0;
         // Make this object invisible by placing it faaar down. Note that if this
-        // objects is simply removed from the scene graph, it might be auto-deleted
+        // object is simply removed from the scene graph, it might be auto-deleted
         // because the ref count reaches zero.
         Vec3 hell(0, 0, -10000);
         getModelTransform()->setTransform(hell.toFloat());
@@ -163,7 +163,7 @@ bool Plunger::hit(Kart *kart, MovingPhysics *mp)
         m_keep_alive = m_owner->getKartProperties()->getRubberBandDuration();
 
         // Make this object invisible by placing it faaar down. Note that if this
-        // objects is simply removed from the scene graph, it might be auto-deleted
+        // object is simply removed from the scene graph, it might be auto-deleted
         // because the ref count reaches zero.
         Vec3 hell(0, 0, -10000);
         getModelTransform()->setTransform(hell.toFloat());
