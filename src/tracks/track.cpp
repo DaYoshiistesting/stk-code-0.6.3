@@ -940,6 +940,14 @@ void Track::getMusicInformation(std::vector<std::string>&       filenames,
         }
         m_music.push_back(mi);
     }   // for i in filenames
+    
+    if (m_music.empty())
+    {
+        m_music.push_back(stk_config->m_default_music);
+        fprintf(stderr, "Music information for track '%s' not found, default music will play.\n",
+        m_ident.c_str());
+    }
+
 }   // getMusicInformation
 
 //-----------------------------------------------------------------------------

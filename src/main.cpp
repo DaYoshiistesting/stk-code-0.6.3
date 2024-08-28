@@ -445,7 +445,6 @@ void InitTuxkart()
     kart_properties_manager = new KartPropertiesManager();
     projectile_manager      = new ProjectileManager    ();
     powerup_manager         = new PowerupManager       ();
-    ItemManager::                 create               ();
     callback_manager        = new CallbackManager      ();
     attachment_manager      = new AttachmentManager    ();
     highscore_manager       = new HighscoreManager     ();
@@ -485,7 +484,7 @@ void CleanTuxKart()
     if(highscore_manager)       delete highscore_manager;
     if(attachment_manager)      delete attachment_manager;
     if(callback_manager)        delete callback_manager;
-       ItemManager                ::   destroy();
+       ItemManager                ::   removeTextures();
     if(powerup_manager)         delete powerup_manager;   
     if(projectile_manager)      delete projectile_manager;
     if(kart_properties_manager) delete kart_properties_manager;

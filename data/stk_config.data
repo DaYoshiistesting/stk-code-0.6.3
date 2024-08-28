@@ -14,6 +14,7 @@
 				    ;; points 1st, 0 is least points
 				    ;; 1st
  (title-music              "MayDayMayhem.music")
+ (default-track-music      "kart_grand_prix.music")
  ;; Two lists which must have the same length, containing the list of all
  ;; possible main menu and background images.
  (mainmenu-background      "st_title_screen.rgb" "st_title_screen1.rgb" "st_title_screen2.rgb")

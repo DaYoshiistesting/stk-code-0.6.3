@@ -143,7 +143,7 @@ void STKConfig::init_defaults()
         m_slowdown_factor      = m_offroad_tolerance         =
         m_final_camera_time    = m_near_ground               =
         UNDEFINED;
-	m_bubble_gum_counter       = -100;
+    m_bubble_gum_counter       = -100;
     m_max_karts                = -100;
     m_grid_order               = -100;
     m_max_history              = -100;
@@ -153,6 +153,7 @@ void STKConfig::init_defaults()
     m_min_track_version        = -100;
     m_max_track_version        = -100;
     m_title_music              = NULL;
+    m_default_music            = NULL;
     m_enable_networking        = true;
     m_scores.clear();
     m_leader_intervals.clear();
@@ -219,10 +220,13 @@ void STKConfig::getAllData(const lisp::Lisp* lisp)
     lisp->get("delay-finish-time",            m_delay_finish_time        );
     lisp->get("music-credit-time",            m_music_credit_time        );
     lisp->getVector("menu-background",        m_menu_background          );
-    lisp->getVector("mainmenu-background",    m_mainmenu_background          );
+    lisp->getVector("mainmenu-background",    m_mainmenu_background      );
     lisp->get("enable_networking",            m_enable_networking        );
     std::string title_music;
     lisp->get("title-music",                  title_music                );
+    std::string default_music;
+    lisp->get("default-track-music",          default_music              );
+    m_default_music = new MusicInformation(file_manager->getMusicFile(default_music));
     m_title_music = new MusicInformation(file_manager->getMusicFile(title_music));
 
     // Get the default KartProperties

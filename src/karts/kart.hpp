@@ -178,17 +178,17 @@ public:
     Powerup       *getPowerup          ()       { return &m_powerup;         }
     int            getNumPowerup       () const { return  m_powerup.getNum();}
     float          getEnergy           () const { return  m_collected_energy;}
-    int            getPosition         () const { return  m_race_position;       }
-    int            getInitialPosition  () const { return  m_initial_position;    }
-    float          getFinishTime       () const { return  m_finish_time;         }
-    bool           hasFinishedRace     () const { return  m_finished_race;       }
+    int            getPosition         () const { return  m_race_position;   }
+    int            getInitialPosition  () const { return  m_initial_position;}
+    float          getFinishTime       () const { return  m_finish_time;     }
+    bool           hasFinishedRace     () const { return  m_finished_race;   }
     void           endRescue           ();
     void           getClosestKart      (float *cdist, int *closest);
     void           updatePhysics       (float dt);
 
     bool           hasViewBlockedByPlunger() const
-                                                { return m_view_blocked_by_plunger > 0; }
-    void           blockViewWithPlunger()       { m_view_blocked_by_plunger = 10; }
+                                                { return  m_view_blocked_by_plunger > 0;}
+    void           blockViewWithPlunger()       { m_view_blocked_by_plunger = 10;}
     
    /**
        returns a bullet transform object located at the kart's position
@@ -207,10 +207,10 @@ public:
         return m_kart_properties->getMass()
                + m_attachment.weightAdjust();
     }
-    float          getMaxPower      () const {return m_kart_properties->getMaxPower();}
+    float          getMaxPower      () const {return m_kart_properties->getMaxPower();     }
     float          getTimeFullSteer () const {return m_kart_properties->getTimeFullSteer();}
-    float          getBrakeFactor   () const {return m_kart_properties->getBrakeFactor();}
-    float          getFrictionSlip  () const {return m_kart_properties->getFrictionSlip();}
+    float          getBrakeFactor   () const {return m_kart_properties->getBrakeFactor();  }
+    float          getFrictionSlip  () const {return m_kart_properties->getFrictionSlip(); }
     float          getMaxSteerAngle () const
                        {return m_kart_properties->getMaxSteerAngle(getSpeed());}
     const Vec3&    getGravityCenterShift   () const
@@ -234,36 +234,37 @@ public:
     float          getKartHeight    () const 
                    {return m_kart_properties->getKartModel()->getHeight();     }
     btKart        *getVehicle       () const {return m_vehicle;                }
-    btUprightConstraint *getUprightConstraint() const {return m_uprightConstraint;}
+    btUprightConstraint 
+       *getUprightConstraint        () const {return m_uprightConstraint;      }
     void           createPhysics    ();
     void           draw             ();
     bool           isInRest         () const;
     //have to use this instead of moveable getVelocity to get velocity for bullet rigid body
-    float          getSpeed         () const {return m_speed;                 }
+    float          getSpeed         () const  {return m_speed;                 }
     /** This is used on the client side only to set the speed of the kart
      *  from the server information.                                       */
-    void           setSpeed         (float s) {m_speed = s;                   }
+    void           setSpeed         (float s) {m_speed = s;                    }
     void           setSuspensionLength();
-	void           applyEngineForce (float force);
+    void           applyEngineForce (float force);
     float          handleNitro      (float dt);
     float          getActualWheelForce();
     bool           isOnGround       () const;
     bool           isNearGround     () const;
-    bool           isEliminated     () const {return m_eliminated;}
+    bool           isEliminated     () const  {return m_eliminated;            }
     void           eliminate        ();
-    bool           isRescue         () const {return m_rescue;}
+    bool           isRescue         () const  {return m_rescue;                }
     void           resetBrakes      ();
     void           adjustSpeed      (float f);
     void           updatedWeight    ();
     void           forceRescue      ();
     void           handleExplosion  (const Vec3& pos, bool direct_hit);
-    const std::string& getName      () const {return m_kart_properties->getName();}
+    const std::string& getName      () const {return m_kart_properties->getName(); }
     const std::string& getIdent     () const {return m_kart_properties->getIdent();}
-    virtual bool    isPlayerKart    () const {return false;                        }
+    virtual bool   isPlayerKart     () const {return false;                        }
     /** Called by world in case of the kart taking a shortcut. The player kart
      *  will display a message in this case, default behaviour is to do nothing.
      */
-    virtual void    doingShortcut() {};
+    virtual void   doingShortcut    () {};
     // addMessages gets called by world to add messages to the gui
     virtual void   addMessages      () {};
     virtual void   collectedItem    (const Item *item, int random_attachment);

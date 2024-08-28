@@ -95,6 +95,8 @@ public:
 
     MusicInformation 
          *m_title_music;             /**<Filename of the title music to play.*/
+    MusicInformation 
+         *m_default_music;           /**<Filename of the default music to play.*/
     std::vector<std::string>
           m_mainmenu_background;     /**<Picture used as menu background.    */
     std::vector<std::string>

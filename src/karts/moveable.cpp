@@ -42,15 +42,16 @@ Moveable::~Moveable()
     // The body is being removed from the world in kart/projectile
     if(m_body)         delete m_body;
     if(m_motion_state) delete m_motion_state;
+	if(m_model_transform)     m_model_transform->deRef();
     // FIXME LEAK: what about model? ssgDeRefDelete(m_model_transform)
 }   // ~Moveable
 
 //-----------------------------------------------------------------------------
 void Moveable::updateGraphics(const Vec3& off_xyz, const Vec3& off_hpr)
 {
-    Vec3 xyz=getXYZ()+off_xyz;
-    Vec3 hpr=getHPR()+off_hpr;
-    sgCoord c=Coord(xyz, hpr).toSgCoord();
+    Vec3 xyz = getXYZ()+off_xyz;
+    Vec3 hpr = getHPR()+off_hpr;
+    sgCoord c = Coord(xyz, hpr).toSgCoord();
 
     m_model_transform->setTransform(&c);
 }   // updateGraphics
@@ -100,7 +101,7 @@ void Moveable::createBody(float mass, btTransform& trans,
     // functions are not called correctly. So only init the pointer to zero.
     m_user_pointer.zero();
     m_body->setUserPointer(&m_user_pointer);
-    const btMatrix3x3& basis=m_body->getWorldTransform().getBasis();
+    const btMatrix3x3& basis = m_body->getWorldTransform().getBasis();
     m_hpr.setHPR(basis);
 }   // createBody
 
@@ -111,6 +112,6 @@ void Moveable::createBody(float mass, btTransform& trans,
  */
 void Moveable::setTrans(const btTransform &t)
 {
-    m_transform=t;
+    m_transform = t;
     m_motion_state->setWorldTransform(t);
 }   // setTrans

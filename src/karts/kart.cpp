@@ -47,6 +47,7 @@
 #include "network/network_manager.hpp"
 #include "physics/btKart.hpp"
 #include "physics/btUprightConstraint.hpp"
+#include "physics/moving_physics.hpp"
 #include "physics/physics.hpp"
 #include "tracks/track.hpp"
 #include "utils/constants.hpp"
@@ -657,7 +658,7 @@ void Kart::update(float dt)
 void Kart::handleZipper(bool play_sfx)
 {
     // Ignore a zipper that's activated while braking
-    if(m_controls.m_brake) return;
+    if(m_controls.m_brake || m_speed<0) return;
     m_zipper_time_left  = stk_config->m_zipper_time;
     btVector3 v         = m_body->getLinearVelocity();
     float current_speed = v.length();
@@ -796,9 +797,11 @@ void Kart::updatePhysics (float dt)
             if(m_speed > 0.0f)
             {   // going forward
                 applyEngineForce(0.f);
+
                 //apply the brakes
                 for(int i=0; i<4; i++) m_vehicle->setBrake(getBrakeFactor(), i);
                 m_skidding*= 1.08f;//skid a little when the brakes are hit (just enough to make the skiding sound)
+
                 if(m_skidding>m_kart_properties->getMaxSkid())
                     m_skidding=m_kart_properties->getMaxSkid();
             }
@@ -837,18 +840,6 @@ void Kart::updatePhysics (float dt)
 #endif;
         }
     }
-#ifdef ENABLE_JUMP
-    if(m_controls.jump && isOnGround())
-    { 
-      //Vector3 impulse(0.0f, 0.0f, 10.0f);
-      //        getVehicle()->getRigidBody()->applyCentralImpulse(impulse);
-        btVector3 velocity         = m_body->getLinearVelocity();
-        velocity.setZ( m_kart_properties->getJumpVelocity() );
-
-        getBody()->setLinearVelocity( velocity );
-
-    }
-#endif
     if (isOnGround()){
         if((fabs(m_controls.m_steer) > 0.001f) && m_controls.m_drift)
         {
@@ -935,7 +926,7 @@ void Kart::updatePhysics (float dt)
     // when going faster, use higher pitch for engine
     if(m_engine_sound && sfx_manager->sfxAllowed())
     {
-        m_engine_sound->speed(0.6f + (float)(m_speed / max_speed)*0.7f);
+        m_engine_sound->speed(0.6f + (m_speed/max_speed)*0.7f);
         m_engine_sound->position(getXYZ());
     }
 #ifdef XX   
