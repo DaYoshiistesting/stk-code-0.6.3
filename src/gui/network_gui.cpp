@@ -205,7 +205,7 @@ void NetworkGUI::update(float dt)
 }   // update
 
 //-----------------------------------------------------------------------------
-void NetworkGUI::inputKeyboard(SDLKey key, int unicode)
+void NetworkGUI::inputKeyboard(SDL_Keycode key, int unicode)
 {
     switch (key)
     {

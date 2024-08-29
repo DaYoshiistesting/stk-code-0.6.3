@@ -42,7 +42,7 @@ public:
     void select();
     void update(float dt);
 	void handle(GameAction, int);
-	void inputKeyboard(SDLKey, int);
+	void inputKeyboard(SDL_Keycode, int);
 
 };
 

@@ -181,7 +181,7 @@ PlayerControls::select()
 }   // select
 //-----------------------------------------------------------------------------
 void
-PlayerControls::inputKeyboard(SDLKey key, int unicode)
+PlayerControls::inputKeyboard(SDL_Keycode key, int unicode)
 {
 	switch (key)
 	{

@@ -35,7 +35,7 @@ public:
     void clearMapping();
 
 	void handle(GameAction, int);
-	void inputKeyboard(SDLKey, int);
+	void inputKeyboard(SDL_Keycode, int);
 	void addKeyLabel(int change_id, KartAction control, bool start);
 	void setKeyInfoString(KartAction control);
 

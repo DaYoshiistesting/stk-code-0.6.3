@@ -291,66 +291,61 @@ void ConfigDisplay::changeResolution(int width, int height/*, bool reverse*/)
     inputDriver->setVideoMode();
     glViewport(0,0,user_config->m_width, user_config->m_height);
 }
-
+// ----------------------------------------------------------------------------
 /**This gets the available screen resolutions available on the hardware and
  * populates a vector with them.
  */
 void ConfigDisplay::getScreenModes()
 {
-    SDL_Rect **modes = SDL_ListModes( NULL, SDL_OPENGL | SDL_FULLSCREEN | SDL_HWSURFACE );
+    static int display_used = 0; // Only use the main screen
+	SDL_DisplayMode mode;
+	int count;
+    count = SDL_GetNumDisplayModes(display_used);
 
-    if (modes == NULL)
+    if (count < 1)
     {
-        std::cerr << "No fullscreen modes available.\n";
-
+        std::cerr << "SDL_GetNumDisplayModes failed: %s", SDL_GetError();
         loadDefaultModes();
-
+		return;
         //FIXME: blacklist all resolutions
-
     }
-    else if (modes == (SDL_Rect **)-1) //Any screen size can be used
+	for (int i = 0; i < count; ++i)
     {
-        loadDefaultModes();
-    }
-    else
-    {
-        //modes[i] is used as the breaking condition because that's how SDL's
-        //docs use it in their examples.
-        for (int i = 0; modes[i]; ++i)
+        if(SDL_GetDisplayMode(display_used, i, &mode) !=0)
+		{
+            std::cerr << "SDL_GetDisplayMode failed: " << SDL_GetError() << "\n";
+            continue;
+		}
+        if (std::find(m_sizes.begin(), m_sizes.end(), 
+            std::make_pair(mode.w, mode.h)) == m_sizes.end())
         {
-            m_sizes.push_back (std::pair <int, int> (modes[i]->w,
-                modes[i]->h));
+            m_sizes.push_back(std::make_pair(mode.w,
+                mode.h));
         }
+	}
+    std::sort (m_sizes.begin(), m_sizes.end());
 
-        std::sort (m_sizes.begin(), m_sizes.end());
+    //Prevent use of very small resolutions
+    const int MIN_WIDTH = 640;
+    const int MIN_HEIGHT = 480;
+    const int NUM_RES = (int)m_sizes.size();
 
-        //Prevent use of very small resolutions
-        const int MIN_WIDTH = 640;
-        const int MIN_HEIGHT = 480;
-        const int NUM_RES = (int)m_sizes.size();
-
-        for (int i = NUM_RES - 1; i >= 0; --i)
+        for (auto it = m_sizes.begin(); it !=m_sizes.end();)
         {
-            if ( m_sizes[i].first < MIN_WIDTH )
+            if (it->first < MIN_WIDTH || (it->first == MIN_WIDTH && it->second < MIN_HEIGHT))
             {
                 //Remove the resolutions with a width smaller than MIN_WIDTH
-                m_sizes.erase( m_sizes.begin(), m_sizes.begin() + i + 1 );
-                break;
+                m_sizes.erase(it);
             }
-            else if ( m_sizes[i].first == MIN_WIDTH &&
-                m_sizes[i].second < MIN_HEIGHT )
+            else
             {
-                m_sizes.erase( m_sizes.begin(), m_sizes.begin() + i + 1 );
-                break;
+                ++it;
             }
         }
-    }
 
     //Set the same resolution as the one in the config file; if it's not
     //found, set it to the lowest resolution available as a sane default.
     m_curr_res = -1;
-    const int NUM_RES = (int)m_sizes.size();
-
     for (int i = 0; i < NUM_RES; ++i)
     {
         if (m_sizes[i].first == user_config->m_width

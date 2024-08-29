@@ -205,7 +205,7 @@ void MainLoop::run()
         sound_manager->update(dt);
 
         glFlush();
-        SDL_GL_SwapBuffers();
+        //SDL_GL_SwapWindow();
     }  // while !m_exit
 }   // run
 

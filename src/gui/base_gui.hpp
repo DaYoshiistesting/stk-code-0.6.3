@@ -36,7 +36,7 @@ public:
 	
 	virtual void handle(GameAction, int);
 	
-	virtual void inputKeyboard(SDLKey, int);
+	virtual void inputKeyboard(SDL_Keycode, int);
 	
 	virtual void countdown();
 

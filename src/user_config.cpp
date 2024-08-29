@@ -925,7 +925,7 @@ std::string UserConfig::getInputAsString(const Input &input)
         snprintf(msg, sizeof(msg), _("not set"));
         break;
     case Input::IT_KEYBOARD:
-        snprintf(msg, sizeof(msg), "%s", SDL_GetKeyName((SDLKey) input.id0));
+        snprintf(msg, sizeof(msg), "%s", SDL_GetKeyName((SDL_Keycode) input.id0));
         break;
     case Input::IT_STICKMOTION:
         snprintf(msg, sizeof(msg), _("joy %d axis %d  %c"),

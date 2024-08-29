@@ -61,7 +61,7 @@ private:
     int              m_max_sensed_input;
     Input::InputType m_max_sensed_type;
 	ActionMap       *m_action_map;
-	SDL_Surface     *m_main_surface;
+	SDL_Window      *m_main_surface;
 	long             m_flags;
 	StickInfo      **m_stick_infos;
 	InputDriverMode  m_mode;

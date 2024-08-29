@@ -65,7 +65,7 @@ SDLDriver::SDLDriver()
         exit(1);
     }
 
-    m_flags = SDL_OPENGL | SDL_HWSURFACE;
+    m_flags = SDL_WINDOW_OPENGL;
         
     //detect if previous resolution crashed STK
     if (user_config->m_crashed)
@@ -98,7 +98,7 @@ SDLDriver::SDLDriver()
     }
     
     if(user_config->m_fullscreen)
-        m_flags |= SDL_FULLSCREEN;
+        m_flags |= SDL_WINDOW_FULLSCREEN;
         
     setVideoMode(false);
 
@@ -106,7 +106,7 @@ SDLDriver::SDLDriver()
 
     initStickInfos();
     
-    SDL_WM_SetCaption("SuperTuxKart", NULL);
+    SDL_SetWindowTitle(NULL, "SuperTuxKart");
 
     // Get into menu mode initially.
     setMode(MENU);
@@ -225,11 +225,11 @@ void SDLDriver::toggleFullscreen(bool resetTextures)
 {
     user_config->m_fullscreen = !user_config->m_fullscreen;
 
-    m_flags = SDL_OPENGL | SDL_HWSURFACE;
+    m_flags = SDL_WINDOW_OPENGL;
 
     if(user_config->m_fullscreen)
     {
-        m_flags |= SDL_FULLSCREEN;
+        m_flags |= SDL_WINDOW_FULLSCREEN;
 
         if(menu_manager->isSomewhereOnStack(MENUID_RACE))
           showPointer();
@@ -256,7 +256,7 @@ void SDLDriver::toggleFullscreen(bool resetTextures)
 void SDLDriver::setVideoMode(bool resetTextures)
 {
     //Is SDL_FreeSurface necessary? SDL wiki says not??
-    SDL_FreeSurface(m_main_surface);
+    //SDL_FreeSurface(m_main_surface);
  
     SDL_GL_SetAttribute(SDL_GL_RED_SIZE,     8);
     SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE,   8);
@@ -266,7 +266,8 @@ void SDLDriver::setVideoMode(bool resetTextures)
     SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE,  24);
     SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 1);
 
-    m_main_surface = SDL_SetVideoMode(user_config->m_width, user_config->m_height, 0, m_flags);
+    m_main_surface = SDL_CreateWindow("SuperTuxKart", 
+    NULL, NULL, user_config->m_width, user_config->m_height, m_flags);
 
     if (!m_main_surface)
     {
@@ -276,7 +277,8 @@ void SDLDriver::setVideoMode(bool resetTextures)
         SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE,   5);
         SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 
-        m_main_surface = SDL_SetVideoMode(user_config->m_width, user_config->m_height, 0, m_flags);
+        m_main_surface = SDL_CreateWindow("SuperTuxKart", 
+        NULL, NULL, user_config->m_width, user_config->m_height, m_flags);
         if (m_main_surface)
         {
             fprintf(stderr, "Using fallback OpenGL settings\n");
@@ -286,14 +288,15 @@ void SDLDriver::setVideoMode(bool resetTextures)
             //one last attempt: get rid of the alpha channel
             SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 0);
 
-            m_main_surface = SDL_SetVideoMode(user_config->m_width, user_config->m_height, 0, m_flags);
+            m_main_surface = SDL_CreateWindow("SuperTuxKart",
+            NULL, NULL, user_config->m_width, user_config->m_height, m_flags);
             if (m_main_surface)
             {
                 fprintf(stderr, "Using fallback OpenGL settings, without alpha channel\n");
             }
             else
             {
-                fprintf(stderr, "SDL_SetVideoMode (%dx%d) failed: %s\n",
+                fprintf(stderr, "SDL_CreateWindow (%dx%d) failed: %s\n",
                         user_config->m_width, user_config->m_height, SDL_GetError());
                 exit(1);
             }
@@ -311,7 +314,7 @@ void SDLDriver::setVideoMode(bool resetTextures)
         // models, then reload the textures from materials.dat, then reload
         // all models, textures etc.
 
-        // startScreen             -> removeTextures();
+     // startScreen             -> removeTextures();
         attachment_manager      -> removeTextures();
         projectile_manager      -> removeTextures();
         ItemManager             :: removeTextures();
@@ -327,7 +330,7 @@ void SDLDriver::setVideoMode(bool resetTextures)
         projectile_manager      -> loadData();
         attachment_manager      -> loadModels();
 
-    //        startScreen             -> installMaterial();
+     // startScreen             -> installMaterial();
 
         //FIXME: the font reinit funcs should be inside the font class
         //Reinit fonts
@@ -353,7 +356,7 @@ SDLDriver::~SDLDriver()
     delete [] m_stick_infos;
 
     // FIXME LEAK: delete m_action_map if defined
-    SDL_FreeSurface(m_main_surface);
+    SDL_DestroyWindow(m_main_surface);
 
     SDL_Quit();
 }   // ~SDLDriver
@@ -431,7 +434,7 @@ void SDLDriver::input(Input::InputType type, int id0, int id1, int id2,
                 // the highlighted widget is selected!)
                 int x, y;
                 SDL_GetMouseState( &x, &y );
-                y = SDL_GetVideoSurface()->h - y;
+                y = SDL_GetWindowSurface(m_main_surface)->h - y;
                 menu->inputPointer( x, y );
             }
 
@@ -486,10 +489,10 @@ void SDLDriver::input()
                 // of whether a key was pressed or released.
                 menu_manager->getCurrentMenu()
                     ->inputKeyboard(ev.key.keysym.sym,
-                                    ev.key.keysym.unicode);
+                                    SDL_TEXTINPUT);
             }
             input(Input::IT_KEYBOARD, ev.key.keysym.sym,
-                  ev.key.keysym.unicode, 0, 32768);
+                  SDL_TEXTINPUT, 0, 32768);
 
             break;
 
@@ -502,7 +505,7 @@ void SDLDriver::input()
             {
                 BaseGUI* menu = menu_manager->getCurrentMenu();
                 if (menu != NULL)
-                    menu->inputPointer(ev.motion.x, m_main_surface->h - ev.motion.y);
+                    menu->inputPointer(ev.motion.x, SDL_GetWindowSurface(m_main_surface)->h - ev.motion.y);
             }
             // If sensing input mouse movements are made less sensitive in order
             // to avoid it being detected unwantedly.
@@ -753,9 +756,6 @@ void SDLDriver::setMode(InputDriverMode new_mode)
             break;
         case LOWLEVEL:
             // Leaving lowlevel mode.
-                
-            SDL_EnableUNICODE(SDL_DISABLE);
-
             showPointer();
 
             m_mode = MENU;
@@ -803,7 +803,7 @@ void SDLDriver::setMode(InputDriverMode new_mode)
         // We must be in menu mode now in order to switch.
         assert (m_mode == MENU);
         
-        SDL_EnableUNICODE(SDL_ENABLE);
+        SDL_TEXTINPUT;
 
         hidePointer();
 
@@ -824,7 +824,7 @@ SDLDriver::StickInfo::StickInfo(int sdlIndex)
 {
     m_sdlJoystick = SDL_JoystickOpen(sdlIndex);
     
-    m_id = SDL_JoystickName(sdlIndex);
+    m_id = SDL_JoystickID(sdlIndex);
     
     const int count = SDL_JoystickNumAxes(m_sdlJoystick);
     m_prevAxisDirections = new Input::AxisDirection[count];

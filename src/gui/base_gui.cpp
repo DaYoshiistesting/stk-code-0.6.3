@@ -135,7 +135,7 @@ BaseGUI::TimeToString(const double TIME, char *s) const
 }   // TimeToString
 //-----------------------------------------------------------------------------
 void
-BaseGUI::inputKeyboard(SDLKey, int)
+BaseGUI::inputKeyboard(SDL_Keycode, int)
 {
 	// This method is not supposed to be called since BaseGUI does not
 	// handle low-level keyboard input.
