@@ -104,7 +104,7 @@ void MovingTexture::update(float dt)
         else
         {
             if ( m_mode == MODE_SINESHUTTLE )
-                timer = sin ( timer * 2.0f * M_PI / m_cycle ) * m_cycle / 2.0f ;
+                timer = sin ( timer * 2.0f * PI / m_cycle ) * m_cycle / 2.0f ;
             else
                 timer = fmod ( timer, m_cycle ) ;
         }

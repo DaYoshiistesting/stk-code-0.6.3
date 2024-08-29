@@ -69,6 +69,6 @@ float TerrainInfo::getTerrainPitch(float heading) const {
 
     // The actual angle computed above is between the normal and the (x,y,0)
     // line, so to compute the actual angles 90 degrees must be subtracted.
-    pitch = acosf(pitch) - NINETY_DEGREE_RAD;
+    pitch = acosf(pitch) - STK_NINETY_DEGREE_RAD;
     return pitch;
 }   // getTerrainPitch

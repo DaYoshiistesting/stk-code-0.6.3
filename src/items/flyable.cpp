@@ -104,7 +104,7 @@ void Flyable::createPhysics(float y_offset, const btVector3 &velocity,
         btTransform turn_around_trans;
      // turn_around_trans.setOrigin(trans.getOrigin());
         turn_around_trans.setIdentity();
-        turn_around_trans.setRotation(btQuaternion(btVector3(0, 0, 1), M_PI));
+        turn_around_trans.setRotation(btQuaternion(btVector3(0, 0, 1), PI));
         trans  *= turn_around_trans;
     }
     
@@ -249,10 +249,10 @@ void Flyable::getLinearKartItemIntersection (const Vec3 &origin,
     else if (b != 0.0f)      
 		time = fabsf(dy / b);
 
-    if (fire_th > M_PI)
-        fire_th -= M_PI;
+    if (fire_th > PI)
+        fire_th -= PI;
     else
-        fire_th += M_PI;
+        fire_th += PI;
 
     //createPhysics offset
     time -= y_offset / sqrt(a*a+b*b);

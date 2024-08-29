@@ -255,7 +255,7 @@ void DefaultRobot::handleBraking()
     if ( m_crashes.m_road && kart_info.m_on_road && getVelocityLC().getY() > MIN_SPEED)
     {
         float kart_ang_diff = m_track->m_angle[m_track_sector] -
-                              RAD_TO_DEGREE(getHPR().getHeading());
+                              STK_RAD_TO_DEGREE(getHPR().getHeading());
         kart_ang_diff = normalizeAngle(kart_ang_diff);
         kart_ang_diff = fabsf(kart_ang_diff);
 
@@ -270,7 +270,7 @@ void DefaultRobot::handleBraking()
             //even if we are in the inside, because the kart would be 'thrown'
             //out of the curve.
             if(!(m_world->getDistanceToCenterForKart(getWorldKartId()) > m_track->getWidth()[m_track_sector] *
-                 -CURVE_INSIDE_PERC || m_curve_angle > RAD_TO_DEGREE(getMaxSteerAngle())))
+                 -CURVE_INSIDE_PERC || m_curve_angle > STK_RAD_TO_DEGREE(getMaxSteerAngle())))
             {
                 m_controls.m_brake = false;
                 return;
@@ -279,7 +279,7 @@ void DefaultRobot::handleBraking()
         else if( m_curve_angle < -MIN_TRACK_ANGLE ) //Next curve is right
         {
             if(!(m_world->getDistanceToCenterForKart( getWorldKartId() ) < m_track->getWidth()[m_track_sector] *
-                 CURVE_INSIDE_PERC || m_curve_angle < -RAD_TO_DEGREE(getMaxSteerAngle())))
+                 CURVE_INSIDE_PERC || m_curve_angle < -STK_RAD_TO_DEGREE(getMaxSteerAngle())))
             {
                 m_controls.m_brake = false;
                 return;
@@ -333,12 +333,12 @@ void DefaultRobot::handleSteering(float dt)
         //-1 = left, 1 = right, 0 = no crash.
         if( m_start_kart_crash_direction == 1 )
         {
-            steer_angle = steerToAngle( NEXT_SECTOR, -M_PI*0.5f );
+            steer_angle = steerToAngle( NEXT_SECTOR, -PI*0.5f );
             m_start_kart_crash_direction = 0;
         }
         else if(m_start_kart_crash_direction == -1)
         {
-            steer_angle = steerToAngle( NEXT_SECTOR, M_PI*0.5f);
+            steer_angle = steerToAngle( NEXT_SECTOR, PI*0.5f);
             m_start_kart_crash_direction = 0;
         }
         else
@@ -346,12 +346,12 @@ void DefaultRobot::handleSteering(float dt)
             if(m_world->getDistanceToCenterForKart( getWorldKartId() ) >
                m_world->getDistanceToCenterForKart( m_crashes.m_kart ))
             {
-                steer_angle = steerToAngle( NEXT_SECTOR, -M_PI*0.5f );
+                steer_angle = steerToAngle( NEXT_SECTOR, -PI*0.5f );
                 m_start_kart_crash_direction = 1;
             }
             else
             {
-                steer_angle = steerToAngle( NEXT_SECTOR, M_PI*0.5f );
+                steer_angle = steerToAngle( NEXT_SECTOR, PI*0.5f );
                 m_start_kart_crash_direction = -1;
             }
         }
@@ -1100,11 +1100,11 @@ void DefaultRobot::reset()
 //-----------------------------------------------------------------------------
 inline float DefaultRobot::normalizeAngle(float angle)
 {
-    while( angle >  2*M_PI ) angle -= 2*M_PI;
-    while( angle < -2*M_PI ) angle += 2*M_PI;
+    while( angle >  2*PI ) angle -= 2*PI;
+    while( angle < -2*PI ) angle += 2*PI;
 
-    if( angle > M_PI ) angle -= 2*M_PI;
-    else if( angle < -M_PI ) angle += 2*M_PI;
+    if( angle > M_PI ) angle -= 2*PI;
+    else if( angle < -PI ) angle += 2*PI;
 
     return angle;
 }

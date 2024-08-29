@@ -218,12 +218,12 @@ void Camera::update (float dt)
     const int num_players = race_manager->getNumLocalPlayers();
     float pitch;
     if(m_mode!=CM_CLOSEUP)
-        pitch = race_manager->getNumLocalPlayers()>1 ? sign * DEGREE_TO_RAD(10.0f)
-                                                     : sign * DEGREE_TO_RAD(15.0f);
+        pitch = race_manager->getNumLocalPlayers()>1 ? sign * STK_DEGREE_TO_RAD(10.0f)
+                                                     : sign * STK_DEGREE_TO_RAD(15.0f);
     else
-        pitch = sign * DEGREE_TO_RAD(25.0f);
+        pitch = sign * STK_DEGREE_TO_RAD(25.0f);
       
-    btQuaternion cam_rot(0.0f, pitch, reverse ? M_PI : 0.0f);
+    btQuaternion cam_rot(0.0f, pitch, reverse ? PI : 0.0f);
     // Camera position relative to the kart
     btTransform relative_to_kart(cam_rot, cam_rel_pos);
 

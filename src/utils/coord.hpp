@@ -47,7 +47,7 @@ private:
         // Convert hpr in radians to degrees, which sg needs.
         for(int i=0; i<3; i++)
         {
-            m_coord.hpr[i] = RAD_TO_DEGREE(m_coord.hpr[i]);
+            m_coord.hpr[i] = STK_RAD_TO_DEGREE(m_coord.hpr[i]);
         }
     }
 

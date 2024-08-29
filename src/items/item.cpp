@@ -157,7 +157,7 @@ void Item::update(float delta)
         
         if(!m_rotate) return;
         // have it rotate
-        Vec3 rotation(delta*M_PI, 0, 0);
+        Vec3 rotation(delta*PI, 0, 0);
 		m_coord.setHPR(m_coord.getHPR()+rotation);
         m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
     }

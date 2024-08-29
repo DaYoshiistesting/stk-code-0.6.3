@@ -81,9 +81,9 @@ void Smoke::particle_create(int, Particle *p)
     Vec3 xyz=m_kart->getVehicle()->getWheelInfo(wheel_number).m_raycastInfo.m_contactPointWS;
 
     sgCopyVec3 (p->m_pos, xyz.toFloat());
-    p->m_vel[0] += cos(DEGREE_TO_RAD(rand()%180));
-    p->m_vel[1] += sin(DEGREE_TO_RAD(rand()%180));
-    p->m_vel[2] += sin(DEGREE_TO_RAD(rand()%100));
+    p->m_vel[0] += cos(STK_DEGREE_TO_RAD(rand()%180));
+    p->m_vel[1] += sin(STK_DEGREE_TO_RAD(rand()%180));
+    p->m_vel[2] += sin(STK_DEGREE_TO_RAD(rand()%100));
 
     bsphere.setCenter ( xyz.getX(), xyz.getY(), xyz.getZ() ) ;
 }   // particle_create

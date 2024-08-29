@@ -93,9 +93,9 @@ void Vec3::setHPR(const btQuaternion& q)
 // ----------------------------------------------------------------------------
 void Vec3::degreeToRad()
 {
-    m_x=DEGREE_TO_RAD(m_x);      
-    m_y=DEGREE_TO_RAD(m_y);      
-    m_z=DEGREE_TO_RAD(m_z);
+    m_x=STK_DEGREE_TO_RAD(m_x);      
+    m_y=STK_DEGREE_TO_RAD(m_y);      
+    m_z=STK_DEGREE_TO_RAD(m_z);
 }   // degreeToRad
 
 // ----------------------------------------------------------------------------
@@ -115,6 +115,6 @@ void Vec3::setPitchRoll(const Vec3 &normal)
 
     // The actual angle computed above is between the normal and the (x,y,0)
     // line, so to compute the actual angles 90 degrees must be subtracted.
-    m_y = acosf(pitch) - NINETY_DEGREE_RAD;
-    m_z = acosf(roll)  - NINETY_DEGREE_RAD;
+    m_y = acosf(pitch) - STK_NINETY_DEGREE_RAD;
+    m_z = acosf(roll)  - STK_NINETY_DEGREE_RAD;
 }   // setPitchRoll

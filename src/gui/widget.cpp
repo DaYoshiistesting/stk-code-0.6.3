@@ -426,7 +426,7 @@ bool Widget::createRect()
                 //on that, we just split the radians in a corner in NUM_QUADS
                 //+ 1 parts, and use the angles at those parts to find the
                 //X and Y position of the points.
-                angle = 0.5f * M_PI * (float)i / (float)NUM_QUADS;
+                angle = 0.5f * PI * (float)i / (float)NUM_QUADS;
                 circle_x = m_radius * cos(angle);
                 circle_y = m_radius * sin(angle);
 
@@ -477,7 +477,7 @@ bool Widget::createRect()
             //Draw the right side of a rectangle
             for (i = NUM_QUADS; i < NUM_QUADS * 2 + 1; ++i)
             {
-                angle = 0.5f * M_PI * (float) (i - NUM_QUADS) / (float) NUM_QUADS;
+                angle = 0.5f * PI * (float) (i - NUM_QUADS) / (float) NUM_QUADS;
 
                 //By inverting the use of sin and cos we get corners that are
                 //drawn from left to right instead of right to left

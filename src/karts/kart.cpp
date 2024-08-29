@@ -509,7 +509,7 @@ void Kart::update(float dt)
 
     // When really on air, free fly, when near ground, try to glide / adjust for landing
     if(!isNearGround())
-        m_uprightConstraint->setLimit(M_PI);
+        m_uprightConstraint->setLimit(PI);
     else
         m_uprightConstraint->setLimit(m_kart_properties->getUprightTolerance());
 
@@ -519,7 +519,7 @@ void Kart::update(float dt)
     //m_wheel_rotation gives the rotation around the X-axis, and since velocity's
     //timeframe is the delta time, we don't have to multiply it with dt.
     m_wheel_rotation += m_speed*dt / m_kart_properties->getWheelRadius();
-    m_wheel_rotation=fmodf(m_wheel_rotation, 2*M_PI);
+    m_wheel_rotation=fmodf(m_wheel_rotation, 2*PI);
 
     if ( m_rescue )
     {
@@ -535,9 +535,9 @@ void Kart::update(float dt)
             race_state->itemCollected(getWorldKartId(), -1, -1);
         }
         btQuaternion q_roll (btVector3(0.f, 1.f, 0.f),
-                             -m_rescue_roll*dt/rescue_time*M_PI/180.0f);
+                             -m_rescue_roll*dt/rescue_time*PI/180.0f);
         btQuaternion q_pitch(btVector3(1.f, 0.f, 0.f),
-                             -m_rescue_pitch*dt/rescue_time*M_PI/180.0f);
+                             -m_rescue_pitch*dt/rescue_time*PI/180.0f);
         setXYZRotation(getXYZ()+Vec3(0, 0, rescue_height*dt/rescue_time),
                        getRotation()*q_roll*q_pitch);
     }   // if m_rescue

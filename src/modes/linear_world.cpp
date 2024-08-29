@@ -643,12 +643,12 @@ void LinearWorld::checkForWrongDirection(unsigned int i)
     // check if the player is going in the wrong direction
     float angle_diff = kart->getHeading() -
                        m_track->m_angle[m_kart_info[i].m_track_sector];
-    if(angle_diff > M_PI) angle_diff -= 2*M_PI;
-    else if (angle_diff < -M_PI) angle_diff += 2*M_PI;
+    if(angle_diff > PI) angle_diff -= 2*PI;
+    else if (angle_diff < -PI) angle_diff += 2*PI;
     // Display a warning message if the kart is going back way (unless
     // the kart has already finished the race).
-    if (( angle_diff > DEGREE_TO_RAD( 120.0f) ||
-          angle_diff < DEGREE_TO_RAD(-120.0f))   &&
+    if (( angle_diff > STK_DEGREE_TO_RAD( 120.0f) ||
+          angle_diff < STK_DEGREE_TO_RAD(-120.0f))   &&
         kart->getVelocityLC().getY() > 0.0f        &&
         !kart->hasFinishedRace() )
     {

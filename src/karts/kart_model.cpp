@@ -242,8 +242,8 @@ void KartModel::adjustWheels(float rotation, float steer,
         clamped_suspension[i] = ratio*suspension_length;
     }   // for i<4
 
-    sgMakeRotMat4( wheel_rot,   0,      RAD_TO_DEGREE(-rotation), 0);
-    sgMakeRotMat4( wheel_steer, steer , 0,                        0);
+    sgMakeRotMat4(wheel_rot, 0, STK_RAD_TO_DEGREE(-rotation), 0);
+    sgMakeRotMat4(wheel_steer, steer, 0, 0);
     sgMultMat4(wheel_front, wheel_steer, wheel_rot);
 
     sgCopyVec3(wheel_front[3], m_wheel_graphics_position[0].toFloat());

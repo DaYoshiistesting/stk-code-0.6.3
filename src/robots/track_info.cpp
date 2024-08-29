@@ -54,14 +54,14 @@ TrackInfo::DirectionType TrackInfo::computeDirection(int i)
     float angle      = m_track->m_angle[i];
 
     float diff       = prev_angle - angle;
-    while( diff>  2*M_PI ) diff -= 2*M_PI;
-    while( diff < -2*M_PI ) diff += 2*M_PI;
+    while( diff>  2*PI ) diff -= 2*PI;
+    while( diff < -2*PI ) diff += 2*PI;
 
-    if( diff > M_PI ) diff -= 2*M_PI;
-    else if( diff < -M_PI ) diff+= 2*M_PI;
+    if( diff > PI ) diff -= 2*PI;
+    else if( diff < -PI ) diff+= 2*PI;
 
     // Consider a difference of up to 5 degrees as 'straight'.
-    const float curve_degree = 5*M_PI/180.0f;  
+    const float curve_degree = 5*PI/180.0f;  
     DirectionType t = DIR_STRAIGHT;
     if (diff <-curve_degree) 
         t = DIR_LEFT;

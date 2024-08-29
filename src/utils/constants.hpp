@@ -49,12 +49,12 @@
 
 /* M$ compilers don't define M_PI... */
 
-#ifndef M_PI
-#  define M_PI 3.14159265358979323846f  /* As in Linux's math.h */
+#ifndef PI
+#define PI 3.14159265358979323846f  /* As in Linux's math.h */
 #endif
 
-#define NINETY_DEGREE_RAD  (M_PI/2.0f)
-#define DEGREE_TO_RAD(x)          ((x)*M_PI/180.0f)
-#define RAD_TO_DEGREE(x)          ((x)*180.0f/M_PI)
+#define STK_NINETY_DEGREE_RAD         (PI/2.0f)
+#define STK_DEGREE_TO_RAD(x)          ((x)*PI/180.0f)
+#define STK_RAD_TO_DEGREE(x)          ((x)*180.0f/PI)
 #endif
 
