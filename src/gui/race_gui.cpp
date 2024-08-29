@@ -279,16 +279,9 @@ void RaceGUI::drawMap ()
 {
     // arenas currently don't have a map.
     if(RaceManager::getTrack()->isArena()) return;
-    
-	//const GLuint *mini_map = RaceManager::getTrack();
     glDisable ( GL_TEXTURE_2D ) ;
     assert(RaceManager::getWorld() != NULL);
-	
-    //int upper_y = user_config->m_height-m_map_bottom-m_map_height;
-    //int lower_y = user_config->m_height-m_map_bottom;
-
-    /*RaceManager::getTrack() -> draw2Dview ( (float)xLeft,   (float)yTop   );*/
-
+  //RaceManager::getTrack() -> draw2Dview ();
     glBegin ( GL_QUADS ) ;
 
     for ( unsigned int i = 0 ; i < race_manager->getNumKarts() ; i++ )
@@ -626,18 +619,19 @@ void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
     glTexCoord2f(0, 1);glVertex2f(offset_x      , offset_y+height);
     glEnd () ;
 
-    //convention taken from btRaycastVehicle::updateVehicle
+    // convention taken from btRaycastVehicle::updateVehicle
     const float speed =  kart->getSpeed();
-    if ( speed < 0 ) return;
+    if (speed<=0) return;
     else
     {
-		// The speedRatio is supposed to be KM/H/110 but on hard difficulty,
-		// the speedo'meter is going too high so we'll make it like this.
-        float speedRatio = NULL;
+        // The speed ratio was speed/KM_per_H/110 but on hard difficulty,
+        // the speedo'meter is going too high so, instead of 110 we will
+        // use 116.7f (cause it stay at 200tf/h).
+        float speedRatio;
         if (race_manager->getDifficulty()==RaceManager::RD_HARD)
              speedRatio = speed/KILOMETERS_PER_HOUR/116.7f;
         else speedRatio = speed/KILOMETERS_PER_HOUR/113.5f;
-        if (speedRatio > 1) speedRatio = 1;
+        if (speedRatio>1) speedRatio = 1;
 
         m_speed_fore_icon->getState()->force();
         glBegin(GL_POLYGON);
@@ -805,6 +799,11 @@ void RaceGUI::drawStatusText(const float dt)
 {
     assert(RaceManager::getWorld() != NULL);
 
+	GLint viewport[4];
+    glGetIntegerv(GL_VIEWPORT, viewport);
+    int window_width = viewport[2];
+    int window_height = viewport[3];
+
     glMatrixMode   ( GL_MODELVIEW ) ;
     glPushMatrix   () ;
     glLoadIdentity () ;
@@ -822,7 +821,7 @@ void RaceGUI::drawStatusText(const float dt)
     glAlphaFunc    ( GL_GREATER, 0.1f);
     glEnable       ( GL_BLEND        );
 
-    glOrtho        ( 0, user_config->m_width, 0, user_config->m_height, 0, 100 ) ;
+    glOrtho        ( 0, window_width, 0, window_height, 0, 100 ) ;
     switch (RaceManager::getWorld()->getPhase())
     {
     case READY_PHASE:
@@ -868,13 +867,16 @@ void RaceGUI::drawStatusText(const float dt)
                              20, 20, 200 -i*20, COLORS );
         }
     }
-
+    float ratio_x = (float)window_width/user_config->m_width;
+    float ratio_y = (float)window_height/user_config->m_height;
+	float ratio_fac = std::min(ratio_x, ratio_y);
     float split_screen_ratio_x, split_screen_ratio_y;
-    split_screen_ratio_x = split_screen_ratio_y = 1.0;
+    split_screen_ratio_x = ratio_fac*1.0f;
+    split_screen_ratio_y = ratio_fac*1.0f;
     if(race_manager->getNumLocalPlayers() >= 2)
-        split_screen_ratio_y = 0.5;
+        split_screen_ratio_y = ratio_fac*0.5f;
     if(race_manager->getNumLocalPlayers() >= 3)
-        split_screen_ratio_x = 0.5;
+        split_screen_ratio_x = ratio_fac*0.5f;
 
     // The penalty message needs to be displayed for up to one second
     // after the start of the race, otherwise it disappears if 
@@ -907,42 +909,42 @@ void RaceGUI::drawStatusText(const float dt)
 
             if(numPlayers == 2)
             {
-              if(pla == 0) offset_y = (float)(user_config->m_height/2);
+              if(pla == 0) offset_y = (float)(window_height/2);
             }
             else if (numPlayers == 3)
             {
               if (pla == 0  || pla == 1)
-                offset_y = (float)(user_config->m_height/2);
+                offset_y = (float)(window_height/2);
               else
               {
                 // Fixes width for player 3
-                split_screen_ratio_x = 1.0;
+                split_screen_ratio_x = ratio_fac*1.0f;
               }
 
               if (pla == 1)
-               offset_x = (float)(user_config->m_width/2);
+               offset_x = (float)(window_width/2);
 
             }
             else if(numPlayers == 4)
             {
               if(pla == 0  || pla == 1)
-              offset_y = (float)(user_config->m_height/2);
+              offset_y = (float)(window_height/2);
 
               if((pla == 1) || pla == 3)
-              offset_x = (float)(user_config->m_width/2);
+              offset_x = (float)(window_width/2);
             }
 
             Kart* player_kart = RaceManager::getWorld()->getLocalPlayerKart((int) pla);
             if(player_kart->hasViewBlockedByPlunger())
             {
-                const int screen_width = (numPlayers > 2) ? user_config->m_width/2 : user_config->m_width;
-                const int plunger_size = (numPlayers > 1) ? user_config->m_height/2 : user_config->m_height;
+                const int screen_width = (numPlayers > 2) ? window_width/2 : window_width;
+                const int plunger_size = (numPlayers > 1) ? window_height/2 : window_height;
                 float plunger_x = offset_x + screen_width/2 - plunger_size/2;
                 
                 if (numPlayers == 3 && pla > 1)
-                    plunger_x = offset_x + user_config->m_width/2 - plunger_size/2;
+                    plunger_x = offset_x + window_width/2 - plunger_size/2;
                         
-				glColor4f(1,1,1,1);
+                glColor4f(1,1,1,1);
                 m_plunger_face->getState()->force();
                 glBegin ( GL_QUADS ) ;
                 glTexCoord2f(1, 0); glVertex2f(plunger_x+plunger_size,    offset_y);
@@ -971,7 +973,7 @@ void RaceGUI::drawStatusText(const float dt)
             drawMusicDescription();
         }
 
-            
+
         drawMap();
         if ( user_config->m_display_fps ) drawFPS();
         

@@ -21,15 +21,16 @@
 #include <string>
 #include <sstream>
 
-#include "user_config.hpp"
 #include "file_manager.hpp"
 #include "loader.hpp"
 #include "material_manager.hpp"
 #include "material.hpp"
+#include "user_config.hpp"
 #include "items/item_manager.hpp"
 #include "karts/kart.hpp"
-#include "tracks/track.hpp"
+#include "modes/linear_world.hpp"
 #include "network/network_manager.hpp"
+#include "tracks/track.hpp"
 #include "utils/string_utils.hpp"
 
 ItemManager* item_manager;
@@ -113,6 +114,12 @@ ItemManager::ItemManager()
     {
         m_items_in_sector = new std::vector<AllItemTypes>;
         m_items_in_sector->resize(Track::get()->m_driveline.size()-1);
+        // FIXME : Need to find a way to get access to the track sector via
+        // Linear World to get the same track sector as AI has. For now, we
+        // stay with the old config (that doesn't work with AI).
+        //for(unsigned int i=0; i<race_manager->getNumKarts(); i++)
+        //m_items_in_sector->resize(m_kart_info
+        //[RaceManager::getKart(i)->getWorldKartId()].m_track_sector+1);
     }
     else
     {
