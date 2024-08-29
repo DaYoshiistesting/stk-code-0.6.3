@@ -147,7 +147,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg_d.lib;ssg_d.lib;ul_d.lib;ssgAux_d.lib;fnt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg_d.lib;ssg_d.lib;ul_d.lib;ssgAux_d.lib;fnt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_d.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -171,7 +171,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -199,7 +199,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;fnt_d.lib;net_d.lib;psl_d.lib;pui_d.lib;sg_d.lib;sl_d.lib;ssgAux_d.lib;ul_d.lib;js_d.lib;puAux_d.lib;pw_d.lib;ssg_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;fnt_d.lib;net_d.lib;psl_d.lib;pui_d.lib;sg_d.lib;sl_d.lib;ssgAux_d.lib;ul_d.lib;js_d.lib;puAux_d.lib;pw_d.lib;ssg_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_plib_sound_d.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -223,7 +223,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;fnt.lib;net.lib;psl.lib;pui.lib;sg.lib;sl.lib;ssgAux.lib;ul.lib;js.lib;puAux.lib;pw.lib;ssg.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;fnt.lib;net.lib;psl.lib;pui.lib;sg.lib;sl.lib;ssgAux.lib;ul.lib;js.lib;puAux.lib;pw.lib;ssg.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_plib_sound.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -251,7 +251,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg_d.lib;ssg_d.lib;ul_d.lib;ssgAux_d.lib;fnt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg_d.lib;ssg_d.lib;ul_d.lib;ssgAux_d.lib;fnt_d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_replay_d.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmtd.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -275,7 +275,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;OpenAL32.lib;alut.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_replay.exe</OutputFile>
       <AdditionalLibraryDirectories>$(SDL_PATH)\lib;$(PLIB_PATH)\plib;$(OPENAL_PATH)\libs\Win32;$(ALUT_PATH)\lib;$(OGG_PATH)\win32\VS2003\libogg\Release;$(VORBIS_PATH)\win32\VS2005\libvorbis\Release;$(VORBIS_PATH)\win32\VS2005\libvorbisfile\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
@@ -306,7 +306,7 @@
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_d.exe</OutputFile>
       <AdditionalLibraryDirectories>$(STK_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
@@ -338,7 +338,7 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL2.lib;SDL2main.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(TargetPath)</OutputFile>
       <AdditionalLibraryDirectories>$(STK_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>

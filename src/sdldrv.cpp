@@ -134,9 +134,9 @@ void SDLDriver::initStickInfos()
     bool match;
     std::vector<StickInfo *>::iterator si_ite = si->begin();
 
-    // FIXME: Visual Studio triggers an exception (in debug mode) when si 
+    // FIXME: Visual Studio triggers an exception (in debug mode) when si
     // becomes empty (incompatible iterators). This is apparently caused
-    // by using erase. For now I added a work around by checking for 
+    // by using erase. For now I added a work around by checking for
     // si->size()>0, which solves the problem for me. But I have only one
     // gamepad, I'd suspect that with more gamepads the problem still exists.
     while (si->size()>0 && si_ite != si->end())
