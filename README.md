@@ -1,5 +1,4 @@
 # SuperTuxKart 0.6.3 
-
 SuperTuxKart 0.6.3 is a SuperTuxKart 0.6.2a fork
 and was made by one man : DaYoshiistesting (me).
 
@@ -27,14 +26,12 @@ If you want to discuss with players or the actual SuperTuxKart team,
 If you want to know a bit more about us, you can join the Discord server by [clicking here](https://discord.gg/gW5sRXSzMe).
 
 ## Hardware Requirements 
-
 * You will need a Geforce 7300LE or better (a Geforce 210 should be enough :)).
 * You should have atleast a single core CPU with a frequence of 2GHz.
 * You'll need at least 1024MB of RAM. 
 * Ideally, if you want a joystick, get one with at least 6 buttons.
 
 ## Playing the game 
-
 SuperTuxKart is a kart racing game. Basically you run around the track,
 and give your best shot at reaching the goal before your opponents. The 
 gift-boxes can help you, and nitros can build up your power-boost, 
@@ -45,23 +42,14 @@ Controls can be configured from the game.
 Note that the escape key pauses the game and shows the race menu.
 
 ## License
-
 This software is released under the GNU General Public License (GPL) which
 can be found in the file [`LICENSE`](/LICENSE) in the same directory as this file.
 Information about the licenses for artwork are contained in [`data/CREDITS`](/data/CREDITS).
 
 ## 3D Coordinates
-
 If you are looking a bit in track or karts folders, know that the SuperTuxKart 0.6.3 coordinates are reversed at some point :
 
+Usual coordinates : X = right, Y = up, Z = forward Y/H = yaw/heading, P = pitch, R = roll.
 
-Usual coordinates : X = right, Y = up, Z = forward.
-
-SuperTuxKart : X = right, Y = forward, Z = up.
-
-
-Note that axis are also reversed in terms of rotations :
-
-Usual coordinates : Y/H = yaw/heading, P = pitch, R = roll.
-
-SuperTuxKart : Y/H = yaw/heading, P = roll, R = pitch.
+SuperTuxKart 0.6.3 : X = right, Y = forward, Z = up Y/H = yaw/heading, P = roll, R = pitch.
+ 
