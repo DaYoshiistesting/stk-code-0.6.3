@@ -47,11 +47,11 @@ can be found in the file [`LICENSE`](/LICENSE) in the same directory as this fil
 Information about the licenses for artwork are contained in [`data/CREDITS`](/data/CREDITS).
 
 ## 3D Coordinates
-If you are looking a bit in track or karts folders, know that the SuperTuxKart 0.6.3 coordinates are reversed at some point :
+If you are looking a bit in track or karts folders, know that the SuperTuxKart 0.6.3 coordinates are reversed at some point:
 
-Usual coordinates : X = right, Y = up, Z = forward, 
-* Y/H = yaw/heading, P = pitch, R = roll.
+Usual coordinates: X = right, Y = up, Z = forward, 
+Y/H = yaw/heading, P = pitch, R = roll.
 
-SuperTuxKart 0.6.3 : X = right, Y = forward, Z = up, 
-* Y/H = yaw/heading, P = roll, R = pitch.
+SuperTuxKart 0.6.3: X = right, Y = forward, Z = up, 
+Y/H = yaw/heading, P = roll, R = pitch.
  
