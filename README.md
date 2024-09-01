@@ -49,3 +49,19 @@ Note that the escape key pauses the game and shows the race menu.
 This software is released under the GNU General Public License (GPL) which
 can be found in the file [`LICENSE`](/LICENSE) in the same directory as this file.
 Information about the licenses for artwork are contained in [`data/CREDITS`](/data/CREDITS).
+
+## 3D Coordinates
+
+If you are looking a bit in track or karts folders, know that the SuperTuxKart 0.6.3 coordinates are reversed at some point :
+
+
+Usual coordinates : X = right, Y = up, Z = forward.
+
+SuperTuxKart : X = right, Y = forward, Z = up.
+
+
+Note that axis are also reversed in terms of rotations :
+
+Usual coordinates : Y/H = yaw/heading, P = pitch, R = roll.
+
+SuperTuxKart : Y/H = yaw/heading, P = roll, R = pitch.
