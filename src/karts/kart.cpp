@@ -208,7 +208,7 @@ void Kart::createPhysics()
     // Obviously these allocs have to be properly managed/freed
     btTransform t;
     t.setIdentity();
-    m_uprightConstraint=new btUprightConstraint(*m_body, t);
+    m_uprightConstraint=new btUprightConstraint(this, t);
     m_uprightConstraint->setLimit(m_kart_properties->getUprightTolerance());
     m_uprightConstraint->setBounce(0.0f);
     m_uprightConstraint->setMaxLimitForce(m_kart_properties->getUprightMaxForce());
@@ -263,8 +263,10 @@ Kart::~Kart()
 void Kart::eliminate()
 {
     m_eliminated = true;
-    RaceManager::getWorld()->getPhysics()->removeKart(this);
-
+    if (!m_rescue)
+    {
+         RaceManager::getWorld()->getPhysics()->removeKart(this);
+    }
     // make the kart invisible by placing it way under the track
     sgVec3 hell; hell[0]=0.0f; hell[1]=0.0f; hell[2] = -10000.0f;
     getModelTransform()->setTransform(hell);
@@ -338,13 +340,16 @@ void Kart::reset()
     m_controls.m_nitro     = false;
     m_controls.m_drift     = false;
     m_controls.m_fire      = false;
+    m_controls.m_look_back = false;
+
+    m_vehicle->deactivateZipper();
 
     // Set the brakes so that karts don't slide downhill
     for(int i=0; i<4; i++) m_vehicle->setBrake(5.0f, i);
 
     setTrans(m_reset_transform);
 
-    applyEngineForce (0.0f);
+    applyEngineForce(0.0f);
 
     Moveable::reset();
     if(m_skidmarks) m_skidmarks->reset();
@@ -392,7 +397,7 @@ void Kart::collectedItem(const Item *item, int add_info)
     }   // switch TYPE
 
     // Attachments and powerups are stored in the corresponding
-    // functions (hit{Red,Green}Item), so only coins need to be
+    // functions (hit {Box, Banana} Item), so only nitros need to be
     // stored here.
     if(network_manager->getMode()==NetworkManager::NW_SERVER &&
        (type==Item::ITEM_SMALL_NITRO || type==Item::ITEM_BIG_NITRO))
@@ -424,11 +429,13 @@ float Kart::getActualWheelForce()
 }   // getActualWheelForce
 
 //-----------------------------------------------------------------------------
-/** The kart is on ground if all 4 wheels touch the ground
+/** The kart is on ground if all 4 wheels touch the ground, and if the kart is
+*   not getting rescued.
 */
 bool Kart::isOnGround() const
 {
-    return (m_vehicle->getNumWheelsOnGround() == m_vehicle->getNumWheels());
+    return (m_vehicle->getNumWheelsOnGround() == m_vehicle->getNumWheels()
+		&& !isRescue());
            
 }   // isOnGround
 //-----------------------------------------------------------------------------
@@ -498,8 +505,8 @@ void Kart::update(float dt)
     }
 
     // On a client fiering is done upon receiving the command from the server.
-    if ( m_controls.m_fire && network_manager->getMode()!=NetworkManager::NW_CLIENT 
-         && !isRescue())
+    if (m_controls.m_fire && network_manager->getMode()!=NetworkManager::NW_CLIENT 
+        && !isRescue())
     {
         // use() needs to be called even if there currently is no collecteable
         // since use() can test if something needs to be switched on/off.
@@ -521,7 +528,7 @@ void Kart::update(float dt)
     m_wheel_rotation += m_speed*dt / m_kart_properties->getWheelRadius();
     m_wheel_rotation=fmodf(m_wheel_rotation, 2*M_PI);
 
-    if ( m_rescue )
+    if(m_rescue)
     {
         // Let the kart raise 2m in the 2 seconds of the rescue
         const float rescue_time   = 2.0f;
@@ -530,10 +537,10 @@ void Kart::update(float dt)
         {
             m_attachment.set( ATTACH_TINYTUX, rescue_time ) ;
             m_rescue_pitch = getPitch();
-            m_rescue_roll  = getRoll();
-            RaceManager::getWorld()->getPhysics()->removeKart(this);
+            m_rescue_roll  = getRoll();  
             race_state->itemCollected(getWorldKartId(), -1, -1);
         }
+        RaceManager::getWorld()->getPhysics()->removeKart(this);
         btQuaternion q_roll (btVector3(0.f, 1.f, 0.f),
                              -m_rescue_roll*dt/rescue_time*M_PI/180.0f);
         btQuaternion q_pitch(btVector3(1.f, 0.f, 0.f),
@@ -544,7 +551,7 @@ void Kart::update(float dt)
     m_attachment.update(dt);
 
     //smoke drawing control point
-    if ( user_config->m_graphical_effects )
+    if (user_config->m_graphical_effects)
     {
         m_smoke_system->update(dt);
         m_nitro->update(dt);
@@ -560,7 +567,7 @@ void Kart::update(float dt)
     m_skid_sound->position         (getXYZ());
 
     // Check if a kart is (nearly) upside down and not moving much --> automatic rescue
-    if((fabs(getRoll())>60 && fabs(getSpeed())<3.0f) )
+    if((fabs(getRoll())>60 && fabs(getSpeed())<3.0f))
     {
         forceRescue();
     }
@@ -638,12 +645,12 @@ void Kart::update(float dt)
     // is rescued isOnGround might still be true, since the kart rigid
     // body was removed from the physics, but still retain the old
     // values for the raycasts).
-    if( (!isOnGround() || m_rescue) && m_shadow_enabled)
+    if(!isOnGround() && m_shadow_enabled)
     {
         m_shadow_enabled = false;
         m_model_transform->removeKid(m_shadow);
     }
-    if(!m_shadow_enabled && isOnGround() && !m_rescue)
+    if(!m_shadow_enabled && isOnGround())
     {
         m_shadow_enabled = true;
         m_model_transform->addKid(m_shadow);
@@ -664,20 +671,11 @@ void Kart::handleZipper(bool play_sfx)
     float current_speed = v.length();
     float speed         = std::min(current_speed+stk_config->m_zipper_speed_gain, 
                                    getMaxSpeedOnTerrain());
-    // If the speed is too low, very minor components of the velocity vector
-    // can become too big. E.g. each kart has a z component (to offset gravity
-    // I assume, around 0.16) --> if the karts are (nearly) at standstill,
-    // the z component is exaggerated, resulting in a jump. Even if Z
-    // is set to 0, minor left/right movements are then too strong.
-    // Therefore a zipper only adds the speed if the speed is at least 1
-    // (experimentally found valud).  It also avoids NAN problems (if v=0).
-    if(current_speed>1.0f) m_body->setLinearVelocity(v*(speed/current_speed));
+
+    m_vehicle->activateZipper(speed);
     Moveable::handleZipper(play_sfx);
 }   // handleZipper
 //-----------------------------------------------------------------------------
-#define sgn(x) ((x<0)?-1.0f:((x>0)?1.0f:0.0f))
-
-// -----------------------------------------------------------------------------
 void Kart::draw()
 {
     float m[16];
@@ -972,7 +970,7 @@ void Kart::endRescue()
 
 void Kart::loadData()
 {
-    float r [ 2 ] = { -10.0f, 100.0f } ;
+    float r [ 2 ] = { -100.0f, 100.0f } ;
 
 
     ssgEntity *obj = m_kart_properties->getKartModel()->getRoot();

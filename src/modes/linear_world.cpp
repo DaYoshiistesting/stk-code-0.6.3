@@ -555,22 +555,36 @@ void LinearWorld::moveKartAfterRescue(Kart* kart, btRigidBody* body)
                          m_track->m_angle[info.m_track_sector] );
     kart->setRotation(heading);
     
-    // A certain epsilon is added here to the Z coordinate (0.1), in case
+    // A certain epsilon is added here to the Z coordinate, in case
     // that the drivelines are somewhat under the track. Otherwise, the
     // kart will be placed a little bit under the track, triggering
     // a rescue, ...
+    float epsilon = 0.54f * kart->getKartHeight();
     btTransform pos;
-    pos.setOrigin(kart->getXYZ()+btVector3(0, 0, 0.5f*kart->getKartHeight()+0.1f));
+    pos.setOrigin(kart->getXYZ()+btVector3(0, 0, kart->getKartHeight() + epsilon));
     pos.setRotation(btQuaternion(btVector3(0.0f, 0.0f, 1.0f),
                     m_track->m_angle[info.m_track_sector]));
 
-    body->setCenterOfMassTransform(pos);
+    kart->getBody()->setCenterOfMassTransform(pos);
+
+    //project kart to surface of track
+    bool kart_over_ground = m_physics->projectKartDownwards(kart);
+
+    if (kart_over_ground)
+    {
+
+    }
+    else
+    {
+        fprintf(stderr, "WARNING: invalid position after rescue for kart %s on track %s.\n",
+                (kart->getIdent().c_str()), m_track->getIdent().c_str());
+    }
     
 }   // moveKartAfterRescue
 
 //-----------------------------------------------------------------------------
 /** Find the position (rank) of 'kart' and update it accordingly
-  */
+ */
 void LinearWorld::updateRacePosition ( Kart* kart, KartInfo& kart_info )
 {
     int p = 1 ;

@@ -94,38 +94,38 @@ ssgEntity *Loader::load(const std::string& filename, CallbackType t,
 }   // load
 
 //-----------------------------------------------------------------------------
-void Loader::preProcessObj ( ssgEntity *n, bool mirror )
+void Loader::preProcessObj ( ssgEntity *entity, bool mirror )
 {
-    if ( n == NULL ) return ;
+    if (entity == NULL) return;
 
-    n -> dirtyBSphere () ;
+    entity->dirtyBSphere ();
 
-    if ( n -> isAKindOf ( ssgTypeLeaf() ) )
+    if (entity->isAKindOf (ssgTypeLeaf()))
     {
-        if ( mirror )
-            for ( int i = 0 ; i < ((ssgLeaf *)n) -> getNumVertices () ; i++ )
-                ((ssgLeaf *)n) -> getVertex ( i ) [ 0 ] *= -1.0f ;
+        if (mirror)
+            for ( int i = 0 ; i < ((ssgLeaf *) entity)->getNumVertices(); i++)
+                ((ssgLeaf *) entity)->getVertex(i)[0] *= -1.0f;
 
-        material_manager->getMaterial((ssgLeaf *) n ) -> applyToLeaf ( (ssgLeaf *) n ) ;
+        material_manager->getMaterial((ssgLeaf *) entity)->applyToLeaf((ssgLeaf *) entity);
         return ;
     }
 
-    if ( mirror && n -> isAKindOf ( ssgTypeTransform () ) )
+    if (mirror && entity->isAKindOf(ssgTypeTransform()))
     {
         sgMat4 xform ;
 
-        ((ssgTransform *)n) -> getTransform ( xform ) ;
+        ((ssgTransform *) entity)->getTransform(xform);
         xform [ 0 ][ 0 ] *= -1.0f ;
         xform [ 1 ][ 0 ] *= -1.0f ;
         xform [ 2 ][ 0 ] *= -1.0f ;
         xform [ 3 ][ 0 ] *= -1.0f ;
-        ((ssgTransform *)n) -> setTransform ( xform ) ;
+        ((ssgTransform *) entity)->setTransform(xform);
     }
 
-    ssgBranch *b = (ssgBranch *) n ;
+    ssgBranch *branch = (ssgBranch *) entity;
 
-    for ( int i = 0 ; i < b -> getNumKids () ; i++ )
-        preProcessObj ( b -> getKid ( i ), mirror ) ;
+    for (int i=0; i<branch->getNumKids(); i++)
+            preProcessObj(branch->getKid(i), mirror) ;
 }
 
 //-----------------------------------------------------------------------------

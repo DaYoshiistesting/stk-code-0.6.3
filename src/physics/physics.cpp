@@ -154,6 +154,17 @@ void Physics::update(float dt)
 }   // update
 
 //-----------------------------------------------------------------------------
+/** Project all karts downwards onto the surface below.
+ *  Used in setting the starting positions of all the karts.
+ */
+
+bool Physics::projectKartDownwards(const Kart *k)
+{
+    btVector3 downhill(0, 0, -10000);
+    return k->getVehicle()->projectVehicleToSurface(downhill, true /*allow translation*/);
+} //projectKartsDownwards
+
+//-----------------------------------------------------------------------------
 /** Handles the special case of two karts colliding with each other, which means
  *  that bombs must be passed on. If both karts have a bomb, they'll explode
  *  immediately. This function is called from physics::update on the server
@@ -251,7 +262,7 @@ btScalar Physics::solveGroup(btCollisionObject** bodies, int numBodies,
                 kart->crashed(NULL);
             }
         }
-        // 2) object a is a kart
+        // 2) object A is a kart
         // =====================
         else if(upA->is(UserPointer::UP_KART))
         {
@@ -266,7 +277,7 @@ btScalar Physics::solveGroup(btCollisionObject** bodies, int numBodies,
             else if(upB->is(UserPointer::UP_KART))
                 m_all_collisions.push_back(upA, upB);   // 2.2 kart hits kart
         }
-        // 3) object is a projectile
+        // 3) object A is a projectile
         // =========================
         else if(upA->is(UserPointer::UP_FLYABLE))
         {
@@ -318,7 +329,7 @@ void Physics::draw()
 /** Helper function for Physics::draw(). It calls the shape drawer from
  *  bullet to render the actual object.
  *  \param m OpenGL matrix to apply.
- *  \param s Collision shape to drwa.
+ *  \param s Collision shape to draw.
  *  \param color Colour to use.
  */
 void Physics::debugDraw(float m[16], btCollisionShape *s, const btVector3 color)

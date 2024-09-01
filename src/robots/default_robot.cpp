@@ -255,7 +255,7 @@ void DefaultRobot::handleBraking()
     if ( m_crashes.m_road && kart_info.m_on_road && getVelocityLC().getY() > MIN_SPEED)
     {
         float kart_ang_diff = m_track->m_angle[m_track_sector] -
-                              RAD_TO_DEGREE(getHPR().getHeading());
+                              RAD_TO_DEGREE(getHeading());
         kart_ang_diff = normalizeAngle(kart_ang_diff);
         kart_ang_diff = fabsf(kart_ang_diff);
 
@@ -393,10 +393,10 @@ void DefaultRobot::handleSteering(float dt)
 #ifdef AI_DEBUG
         std::cout << "- Fallback."  << std::endl;
 #endif
-		// Potentially adjust the point to aim for in order to either
+        // Potentially adjust the point to aim for in order to either
         // aim to collect item, or steer to avoid a bad item.
         //if(m_item_behaviour!=ITEM_COLLECT_NONE)
-            //handleItemCollectionAndAvoidance(straight_point, last_node);
+        //handleItemCollectionAndAvoidance(straight_point, last_node);
 
     }
     // avoid steer vibrations

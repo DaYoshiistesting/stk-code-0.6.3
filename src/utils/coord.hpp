@@ -86,7 +86,7 @@ public:
     const sgCoord& toSgCoord()  const     { return m_coord;            }
     /** Returns the translation. */
     const Vec3&    getXYZ()     const     { return m_xyz;              }
-    /** Returns heading, pitch, rolll. */
+    /** Returns heading, pitch, roll. */
     const Vec3&    getHPR()     const     { return m_hpr;              }
     /** Returns X. */
     float          getX()       const     { return m_xyz.getX();       }
@@ -94,12 +94,6 @@ public:
     float          getY()       const     { return m_xyz.getY();       }
     /** Returns Z. */
     float          getZ()       const     { return m_xyz.getZ();       }
-    /** Returns the heading. */
-    float          getHeading() const     { return m_hpr.getHeading(); }
-    /** Returns the pitch. */
-    float          getPitch()   const     { return m_hpr.getPitch();   }
-    /** Returns the roll. */
-    float          getRoll()    const     { return m_hpr.getRoll();    }
 
     /** Sets hpr. \param a Heading, pitch and roll. */
     void           setHPR(const Vec3& a)  { m_hpr = a; setSgCoord();   }

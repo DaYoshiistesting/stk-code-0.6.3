@@ -329,12 +329,13 @@ void PlayerKart::raceFinished(float time)
  */
 void PlayerKart::handleZipper(bool play_sfx)
 {
-    Kart::handleZipper();
     if (play_sfx || m_wee_sound->getStatus() != SFXManager::SFX_PLAYING && 
         getMaterial()!=getLastMaterial())
     {
         m_wee_sound->play();
     }
+	if (m_wee_sound->getStatus()==SFXManager::SFX_PLAYING)
+        Kart::handleZipper();
 }   // handleZipper
 
 //-----------------------------------------------------------------------------

@@ -41,7 +41,7 @@ class Nitro;
 class SFXBase;
 class btUprightConstraint;
 class btKart;
-class btRaycastVehicle::btVehicleTuning;
+class btVehicleTuning;
 
 class Kart : public TerrainInfo, public Moveable
 {

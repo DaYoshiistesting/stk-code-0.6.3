@@ -369,7 +369,6 @@ bool Flyable::hit(Kart *kart_hit, MovingPhysics *mp)
     // The explosion is a bit higher in the air
     Vec3 pos_explosion=getXYZ();
     pos_explosion.setZ(pos_explosion.getZ()+1.2f);
-    pos_explosion.setY(pos_explosion.getY()+3.2f);
     RaceManager::getWorld()->getPhysics()->removeBody(getBody());
     m_exploded=true;
 

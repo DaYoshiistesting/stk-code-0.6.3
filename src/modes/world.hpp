@@ -111,6 +111,10 @@ protected:
                              const btTransform& init_pos);
     void  printProfileResultAndExit();
     void  estimateFinishTimes();
+
+    virtual Kart *createKart(const std::string &kart_ident, int index, 
+                             int local_player_id, int global_player_id,
+                             const btTransform &init_pos);
     
     Track* m_track;
     

@@ -74,11 +74,16 @@ void Moveable::reset()
 void Moveable::update(float dt)
 {
     m_motion_state->getWorldTransform(m_transform);
-    m_velocityLC = getVelocity()*getTrans().getBasis();
+    m_velocityLC  = getVelocity()*getTrans().getBasis();
     m_hpr.setHPR(m_transform.getBasis());
+    Vec3 forw_vec = m_transform.getBasis().getColumn(0);
+    m_heading     = atan2f(forw_vec.getY(), forw_vec.getX());
 
+    Vec3 up = getTrans().getBasis().getColumn(2);
+    m_pitch =  atan2(up.getX(), up.getZ());
+    m_roll  = -atan2(up.getY(), (fabsf(up.getZ())));
     updateGraphics(Vec3(0,0,0), Vec3(0,0,0));
-    m_first_time = false ;
+    m_first_time  = false ;
 }   // update
 
 

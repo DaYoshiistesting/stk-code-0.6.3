@@ -3,15 +3,13 @@
 (tuxkart-track
  (name     _("Crescent Crossing"))
  (version  1)
- (designer "Ingo Ruhnke & Marianne Gagnon")
- 
-  (sky-color    0.45 0.0 0.0 0.0)
-
+ (designer   "Ingo Ruhnke & Marianne Gagnon")
+ (sky-color    0.45 0.0 0.0 0.0)
  (sun-ambient  0.2 0.1 0.1)
  (sun-diffuse  0.2 0.1 0.1)
  (sun-specular 0.2 0.1 0.1)
 
- (groups      "standard")
+ (groups     "standard")
  (music      "ChillCarrier-Druckverlust.music")
  (screenshot "sshot-crescent.rgb")
  (topview    "topview-crescent.rgb")

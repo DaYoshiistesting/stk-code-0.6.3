@@ -79,7 +79,7 @@ Plunger::Plunger(Kart *kart) : Flyable(kart, POWERUP_PLUNGER)
     }
     
     // Adjust height according to terrain
-    setAdjustZVelocity(true);
+    setAdjustZVelocity(false);
 
     // Pulling back makes no sense in battle mode, since this mode is not a race.
     // So, in battle mode, always hide view.

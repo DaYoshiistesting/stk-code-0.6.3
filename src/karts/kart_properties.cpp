@@ -194,7 +194,7 @@ void KartProperties::getAllData(const lisp::Lisp* lisp)
     lisp->get("mass",                       m_mass);
 
     std::string sfx_type_string;
-    lisp->get("engine-sound",                 sfx_type_string);
+    lisp->get("engine-sound",               sfx_type_string);
     if(sfx_type_string == "large")
     {
         m_engine_sfx_type = SFXManager::SOUND_ENGINE_LARGE;
