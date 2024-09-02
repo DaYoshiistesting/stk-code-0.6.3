@@ -42,7 +42,8 @@ Moveable::~Moveable()
     // The body is being removed from the world in kart/projectile
     if(m_body)         delete m_body;
     if(m_motion_state) delete m_motion_state;
-	if(m_model_transform)     m_model_transform->deRef();
+    if(m_model_transform) 
+                       delete m_model_transform;
     // FIXME LEAK: what about model? ssgDeRefDelete(m_model_transform)
 }   // ~Moveable
 

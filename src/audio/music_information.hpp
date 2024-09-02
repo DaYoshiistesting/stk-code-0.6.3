@@ -43,7 +43,7 @@ private:
     float                    m_faster_time;    // Either time for fading faster
                                                // music in, or time to change pitch
     float                    m_max_pitch;      // maximum pitch for faster music
-    static const int         LOOP_FOREVER=-1;
+    static const int         LOOP_FOREVER = -1;
     Music                   *m_normal_music,
                             *m_fast_music;
     enum {SOUND_NORMAL,                        // normal music is played
@@ -54,21 +54,22 @@ private:
     float                    m_time_since_faster;
 
 public:
-                       MusicInformation (const std::string& filename);
-    const std::string& getComposer      () const {return m_composer;        }
-    const std::string& getTitle         () const {return m_title;           }
-    const std::string& getNormalFilename() const {return m_normal_filename; }
-    const std::string& getFastFilename  () const {return m_fast_filename;   }
-    int                getNumLoops      () const {return m_numLoops;        }
-    float              getFasterTime    () const {return m_faster_time;     }
-    float              getMaxPitch      () const {return m_max_pitch;       }
-    void               addMusicToTracks ();
-    void               update           (float dt);
-    void               startMusic       ();
-    void               stopMusic        ();
-    void               pauseMusic       ();
-    void               resumeMusic      ();
-    void               volumeMusic      (float gain);
-    void               switchToFastMusic();
+                             MusicInformation (const std::string& filename);
+                            ~MusicInformation ();
+    const std::string&       getComposer      () const {return m_composer;        }
+    const std::string&       getTitle         () const {return m_title;           }
+    const std::string&       getNormalFilename() const {return m_normal_filename; }
+    const std::string&       getFastFilename  () const {return m_fast_filename;   }
+    int                      getNumLoops      () const {return m_numLoops;        }
+    float                    getFasterTime    () const {return m_faster_time;     }
+    float                    getMaxPitch      () const {return m_max_pitch;       }
+    void                     addMusicToTracks ();
+    void                     update           (float dt);
+    void                     startMusic       ();
+    void                     stopMusic        ();
+    void                     pauseMusic       ();
+    void                     resumeMusic      ();
+    void                     volumeMusic      (float gain);
+    void                     switchToFastMusic();
 };   // MusicInformation
 #endif

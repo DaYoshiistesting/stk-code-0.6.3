@@ -970,19 +970,16 @@ void Kart::endRescue()
 
 void Kart::loadData()
 {
-    float r [ 2 ] = { -100.0f, 100.0f } ;
-
-
+    float r[2] = { -100.0f, 1000.0f } ;
     ssgEntity *obj = m_kart_properties->getKartModel()->getRoot();
     createPhysics();
 
     SSGHelp::createDisplayLists(obj);  // create all display lists
     ssgRangeSelector *lod = new ssgRangeSelector ;
 
-    lod -> addKid ( obj ) ;
-    lod -> setRanges ( r, 2 ) ;
-
-    getModelTransform() -> addKid ( lod ) ;
+    lod->addKid (obj) ;
+    lod->setRanges (r, 2);
+    getModelTransform()->addKid(lod);
 
     // Attach Particle System
     m_smoke_system = new Smoke(this);
@@ -995,7 +992,7 @@ void Kart::loadData()
 
     m_shadow = createShadow(m_kart_properties->getShadowFile(), -1, 1, -1, 1);
     m_shadow->ref();
-    m_model_transform->addKid ( m_shadow );
+    m_model_transform->addKid(m_shadow);
     m_shadow_enabled = true;
 }   // loadData
 

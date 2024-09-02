@@ -42,17 +42,18 @@ private:
     btVector3        m_velocityLC;      /**<Velocity in kart coordinates            */
     btTransform      m_transform;
     Vec3             m_hpr;
-	/** The heading in m_hpr is between -90 and 90 degrees only. The 'real'
+   /** The heading in m_hpr is between -90 and 90 degrees only. The 'real'
     *  heading between -180 to 180 degrees is stored in this variable. */
     float                  m_heading;
-    /** The pitch between -90 and 90 degrees. */
+    /** The pitch between -180 and 180 degrees. */
     float                  m_pitch;
-    /** The roll between -180 and 180 degrees. */
+    /** The roll between -90 and 90 degrees. */
     float                  m_roll;
 
 protected:
     UserPointer      m_user_pointer;
-    ssgTransform    *m_model_transform; /**<The transform the model is attached to. */
+   /** The transform the model is attached to. */
+    ssgTransform    *m_model_transform; 
     int              m_first_time ;
     btRigidBody     *m_body;
     KartMotionState *m_motion_state;
@@ -71,14 +72,14 @@ public:
     /** Return the rotation, but heading is restricted to -90 and 90 degrees. */
     const Vec3&   getHPR     ()   const        {return m_hpr;                         }
     /** Returns the heading between -180 and 180 degrees. Note that using 
-     *  getHPR().getHeading() can result a different heading  (e.g. a heading
+     *  getHPR().getHeading() can result a different value (e.g. a heading
      *  of 180 degrees is the same as a roll and pitch around 180).*/
     float         getHeading ()   const        {return m_heading;                     }
-    /** Returns the pitch of the kart, restricted to between -90 and 90 degrees.
-     *  Note that using getHPR().getPitch can result in a different value! */
+    /** Returns the pitch of the kart, restricted to between -180 and 180 degrees.
+     *  Note that using getHPR().getPitch() can result in a different value. */
     float         getPitch   ()   const        {return m_pitch;                       }
-    /** Returns the roll of the kart between -180 and 180 degrees. Note that
-     *  using getHPR.getRoll can result in a different value!  */
+    /** Returns the roll of the kart between -90 and 90 degrees. Note that
+     *  using getHPR.getRoll() can result in a different value.  */
     float         getRoll    ()   const        {return m_roll;                        }
     const btQuaternion
                   getRotation()   const        {return m_transform.getRotation();     }

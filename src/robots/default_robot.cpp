@@ -722,15 +722,11 @@ void DefaultRobot::handleNitroAndZipper()
     // Don't use nitro when the AI has a plunger in the face!
     if(hasViewBlockedByPlunger()) return;
     
-    // Don't use nitro if the kart doesn't have any wheels or is not on ground.
-	// Also don't use nitro when the race is finished.
-    if(!isOnGround() || hasFinishedRace()) return;
+	// Don't use nitro when the race is finished.
+    if(hasFinishedRace()) return;
 
-    // Don't use nitro if the kart is rescued.
-    if(isRescue()) return;
-
-    // Don't use nitro if the kart is not near ground.
-    if(!isNearGround()) return;
+    // Don't use nitro if the kart is not on ground.
+    if(!isOnGround()) return;
     
     // Don't compute nitro usage if we don't have nitro or are not supposed
     // to use it, and we don't have a zipper or are not supposed to use
@@ -842,7 +838,7 @@ float DefaultRobot::steerToPoint(const sgVec2 point, float dt)
     // angular velocity into account, too. The value is multiplied by two
     // to avoid 'oversteering' - experimentally found.
     float angle_2_point   = theta - getHeading() 
-                                  - dt*m_body->getAngularVelocity().getZ()*2.0f;
+                                  - dt*m_body->getAngularVelocity().getZ();
     angle_2_point         = normalizeAngle(angle_2_point);
     if(fabsf(angle_2_point)<0.1) return 0.0f;
 
@@ -869,7 +865,7 @@ float DefaultRobot::steerToPoint(const sgVec2 point, float dt)
     // not using drifting.
     if(sin_steer_angle <= -1.0f) return -getMaxSteerAngle()*m_skidding_threshold-0.1f;
     if(sin_steer_angle >=  1.0f) return  getMaxSteerAngle()*m_skidding_threshold+0.1f;
-    float steer_angle     = asin(sin_steer_angle);    
+    float steer_angle     = asin(sin_steer_angle);
     return steer_angle;
 }   // steerToPoint
 

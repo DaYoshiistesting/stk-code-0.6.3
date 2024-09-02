@@ -63,7 +63,7 @@ namespace SSGHelp
      * \param indent Indentation to use
      * \param maxLevel maximum number of levels to print
      */
-    void print_model(ssgEntity* entity, const int indent, const int maxLevel)
+    /*void print_model(ssgEntity* entity, const int indent, const int maxLevel)
     {
         if(maxLevel <0) return;
         if (entity)
