@@ -1,4 +1,3 @@
-
 The SuperTuxKart code is released under GNU GPL (see full text below).
 SuperTuxKart data files (textures, models, sounds, music, etc.) are released under various licenses, see 'license.txt' files through the various data subdirectories. Data files are released under a mixture of the following licenses :
 
