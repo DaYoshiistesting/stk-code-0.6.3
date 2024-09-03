@@ -15,8 +15,8 @@ In January 2024, I've decided to delete SuperTuxKart 0.6.3.
 The development of SuperTuxKart 0.6.3 continued while I was out
 of the project. In July 2024, I've decided to re-launch the project.
 Then, I came back in the SuperTuxKart 0.6.3 Team and learned that we have
-more members : DaYoshiistesting (me), P1ngvin, PeppermintPatty (leader of the
-"alternative" SuperTuxKart 0.6.3 Project).
+more members : DaYoshiistesting (me, now I state myself as a secondary developper), 
+P1ngvin, PeppermintPatty (leader of the SuperTuxKart 0.6.3 Project).
 
 If you want to play SuperTuxKart you can get it right [here](http://supertuxkart.sourceforge.net).
 
@@ -26,9 +26,9 @@ If you want to discuss with players or the actual SuperTuxKart team,
 If you want to know a bit more about us, you can join the Discord server by [clicking here](https://discord.gg/gW5sRXSzMe).
 
 ## Hardware Requirements 
-* You will need a Geforce 7300LE or better (a Geforce 210 should be enough :)).
+* You will need a Geforce 7300LE or better (a Geforce 210 should be enough).
 * You should have atleast a single core CPU with a frequence of 2GHz.
-* You'll need at least 1024MB of RAM. 
+* You'll need at least 1024MB of RAM.
 * Ideally, if you want a joystick, get one with at least 6 buttons.
 
 ## Playing the game 
