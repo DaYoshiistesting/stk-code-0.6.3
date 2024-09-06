@@ -1,14 +1,15 @@
-The SuperTuxKart code is released under GNU GPL (see full text below).
-SuperTuxKart data files (textures, models, sounds, music, etc.) are released under various licenses, see 'license.txt' files through the various data subdirectories. Data files are released under a mixture of the following licenses :
+The SuperTuxKart 0.6.3 code is released under GNU GPL (see full text below).
 
-GPL
+SuperTuxKart 0.6.3 data files (textures, models, sounds, music, etc.) are released under various licenses, see 'license.txt' files through the various data subdirectories. Data files are released under a mixture of the following licenses :
+
+GNU General Public License
 Creative-Commons-Attribution
-Creative-Commons-BY-SA
+Creative Commons Attribution-ShareAlike
 Creative-Commons-Sampling+
 FreeArt License
 SoundSnap license
-Public Domain
 Image*After terms
+Public Domain
 
 ________________________________________________________________________________
 
@@ -222,4 +223,4 @@ IN NO EVENT UNLESS REQUIRED BY APPLICABLE LAW OR AGREED TO IN WRITING WILL ANY C
 
 If the disclaimer of warranty and limitation of liability provided above cannot be given local legal effect according to their terms, reviewing courts shall apply local law that most closely approximates an absolute waiver of all civil liability in connection with the Program, unless a warranty or assumption of liability accompanies a copy of the Program in return for a fee.
 
-# END OF TERMS AND CONDITIONS
+END OF TERMS AND CONDITIONS
