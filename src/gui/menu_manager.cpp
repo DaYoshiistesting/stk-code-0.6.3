@@ -91,7 +91,7 @@ void MenuManager::pushMenu(MenuManagerIDs id)
     // If we store the selected widget when we have send the order to change
     // the menu but haven't done it, we would change the previous menu, not
     // the current menu.
-	if ( m_menu_stack.size() && m_change_menu != true )
+	if (m_menu_stack.size() && m_change_menu != true)
     {
 		m_menu_stack.back().second = widget_manager->getSelectedWgt();
     }
@@ -99,12 +99,12 @@ void MenuManager::pushMenu(MenuManagerIDs id)
 	// used to suppress select-sound on startup
     static bool is_startup = true;
 
-    if( MENUID_EXITGAME == id )
+	if (id == MENUID_EXITGAME)
     {
-        m_back_sound->play();
-    }
-    else
-    {
+		m_back_sound->play();
+	}
+	else
+	{
         if(!is_startup) m_select_sound->play();
         else is_startup = false;
     }
@@ -116,7 +116,7 @@ void MenuManager::pushMenu(MenuManagerIDs id)
 
     m_menu_stack.push_back(element);
 
-    if( m_current_menu) m_current_menu->lockInput();
+    if(m_current_menu) m_current_menu->lockInput();
     m_change_menu = true;
 }
 
@@ -215,8 +215,14 @@ void MenuManager::update()
                 m_current_menu= new RaceMenu();
                 break;
             case MENUID_EXITGAME:
-                m_menu_stack.clear();
-                main_loop->abort();
+				{
+                    while(m_back_sound->getStatus()==SFXManager::SFX_PLAYING)
+                    {
+                        m_back_sound->getStatus();
+                    }
+                    m_menu_stack.clear();
+                    main_loop->abort();
+				}
                 break;
 
             case MENUID_CONFIG_CONTROLS:

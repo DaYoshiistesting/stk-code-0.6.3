@@ -685,7 +685,7 @@ void Kart::draw()
     btVector3 wire_color(0.5f, 0.5f, 0.5f);
     //RaceManager::getWorld()->getPhysics()->debugDraw(m, m_body->getCollisionShape(), 
     //                               wire_color);
-    btCylinderShapeX wheelShape( btVector3(0.1f,
+    btCylinderShapeX wheelShape(btVector3(0.1f,
                                         m_kart_properties->getWheelRadius(),
                                         m_kart_properties->getWheelRadius()));
     btVector3 wheelColor(1,0,0);
@@ -970,7 +970,7 @@ void Kart::endRescue()
 
 void Kart::loadData()
 {
-    float r[2] = { -100.0f, 1000.0f } ;
+    float r[2] = { -30.0f, 200.0f } ;
     ssgEntity *obj = m_kart_properties->getKartModel()->getRoot();
     createPhysics();
 

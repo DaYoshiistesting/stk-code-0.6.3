@@ -169,8 +169,6 @@ void Powerup::use()
                 kart->attach(ATTACH_ANVIL, stk_config->m_anvil_time);
                 kart->updatedWeight();
                 kart->adjustSpeed(stk_config->m_anvil_speed_factor*0.5f);
-                
-				
                 // should we position the sound at the kart that is hit,
                 // or the kart "throwing" the anvil? Ideally it should be both.
                 // Meanwhile, don't play it near AI karts since they obviously

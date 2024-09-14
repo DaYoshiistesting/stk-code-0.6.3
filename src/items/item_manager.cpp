@@ -113,13 +113,7 @@ ItemManager::ItemManager()
     if(Track::get())
     {
         m_items_in_sector = new std::vector<AllItemTypes>;
-        // m_items_in_sector->resize(Track::get()->m_driveline.size()-1);
-        // FIXME : Need to find a way to get access to the track sector via
-        // Linear World to get the same track sector as AI has. For now, we
-        // stay with the old config (that doesn't work with AI).
-        LinearWorld* world = race_manager->getWorld();
-        for(unsigned int i=0; i<race_manager->getNumKarts(); i++)
-        m_items_in_sector->resize(world->getSectorForKart(i)+1);
+        m_items_in_sector->resize(Track::get()->m_driveline.size()+1);
     }
     else
     {
@@ -141,6 +135,7 @@ ItemManager::~ItemManager()
             delete *i;
     }
     m_all_items.clear();
+	callback_manager->clear(CB_ITEM);
 
 }   // ~ItemManager
 //-----------------------------------------------------------------------------

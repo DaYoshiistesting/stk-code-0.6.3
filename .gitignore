@@ -23,3 +23,5 @@
 *.sdf
 *.ipch
 *.rsp
+*.json
+*.db

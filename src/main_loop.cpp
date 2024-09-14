@@ -181,9 +181,6 @@ void MainLoop::run()
         #if !defined(WIN32) && !defined(__CYGWIN__)
 //                usleep(2000);
         #endif
-
-            
-            
             
             //Draw the splash screen
             
