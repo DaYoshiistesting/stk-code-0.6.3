@@ -73,16 +73,16 @@ void ItemManager::loadDefaultItems()
     for(unsigned int i=Item::ITEM_FIRST; i<=Item::ITEM_LAST; i++)
     {
         const std::string &name = item_names[(Item::ItemType)i];
-        const lisp::Lisp *root_lisp = ROOT->getLisp("tuxkart-items");
-        const lisp::Lisp *lisp = root_lisp->getLisp(name);
-        if(!lisp) continue;
+        const lisp::Lisp *lisp = ROOT->getLisp("tuxkart-items");
+        const lisp::Lisp *node = lisp->getLisp(name);
+        if(!node) continue;
 
         std::string model_file;
-        lisp->get("model", model_file);
+        node->get("model", model_file);
 
         ssgEntity* model = loader->load(model_file, CB_ITEM);
 
-        if(!lisp || !model)
+        if(!node || !model)
         {
             fprintf(stderr, "Item model '%s' in items.items could not be loaded - aborting",
                     name.c_str());
@@ -135,9 +135,9 @@ ItemManager::~ItemManager()
             delete *i;
     }
     m_all_items.clear();
-	callback_manager->clear(CB_ITEM);
-
+    callback_manager->clear(CB_ITEM);
 }   // ~ItemManager
+
 //-----------------------------------------------------------------------------
 /** Inserts the new item into the items management data structures, if possible
  *  reusing an existing, unused entry (e.g. due to a removed bubble gum). Then 
@@ -168,7 +168,6 @@ void ItemManager::insertItem(Item *h)
         else
             (*m_items_in_sector)[sector].push_back(h);
     }
-
 }   // insertItem
 
 //-----------------------------------------------------------------------------

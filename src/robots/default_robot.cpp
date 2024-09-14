@@ -841,7 +841,7 @@ float DefaultRobot::steerToPoint(const sgVec2 point, float dt)
                                   - dt*m_body->getAngularVelocity().getZ();
     angle_2_point         = normalizeAngle(angle_2_point);
     if(fabsf(angle_2_point)<0.1) return 0.0f;
-	float max_angle       = 0.5f;
+
     /** To understand this code, consider how a given steering angle determines
      *  the angle the kart is facing after one timestep:
      *  sin(steer_angle) = wheel_base / radius;  --> compute radius of turn
@@ -865,7 +865,7 @@ float DefaultRobot::steerToPoint(const sgVec2 point, float dt)
     // not using drifting.
     if(sin_steer_angle <= -1.0f) return -getMaxSteerAngle()*m_skidding_threshold-0.1f;
     if(sin_steer_angle >=  1.0f) return  getMaxSteerAngle()*m_skidding_threshold+0.1f;
-    float steer_angle = asin(sin_steer_angle);
+    float  steer_angle  =  asin(sin_steer_angle);
     return steer_angle;
 }   // steerToPoint
 
