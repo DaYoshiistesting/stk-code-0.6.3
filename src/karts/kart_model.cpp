@@ -34,13 +34,15 @@ KartModel::KartModel()
 {
     for(unsigned int i=0; i<4; i++)
     {
-        m_wheel_graphics_position[i] = Vec3(UNDEFINED);
-        m_wheel_physics_position[i]  = Vec3(UNDEFINED);
-        m_wheel_graphics_radius[i]   = 0.0f;   // for kart without separate wheels
-        m_wheel_model[i]             = NULL;
-        // default value for kart suspensions. move to config file later if we find each kart needs custom values
-        m_min_suspension[i] = -1.3f;
-        m_max_suspension[i] = 1.3f;
+        m_wheel_graphics_position[i]     = Vec3(UNDEFINED);
+        m_wheel_physics_position[i]      = Vec3(UNDEFINED);
+        // For kart without separate wheels.
+        m_wheel_graphics_radius[i]       = 0.0f;   
+        m_wheel_model[i]                 = NULL;
+        // Default value for kart suspensions. 
+        // Move to config file later if we find each kart needs custom values.
+        m_min_suspension[i]              = -1.3f;
+        m_max_suspension[i]              =  1.3f;
         m_dampen_suspension_amplitude[i] = 2.5f;
     }
     m_wheel_filename[0] = "wheel-front-right.ac";
@@ -108,11 +110,12 @@ void KartModel::loadModels()
     {
         if(m_wheel_graphics_position[i].getX()==UNDEFINED)
         {
-            m_wheel_graphics_position[i].setX( ( i==1||i==3) 
+            m_wheel_graphics_position[i].setX((i==1||i==3) 
                                                ? -0.5f*m_kart_width
-                                               :  0.5f*m_kart_width  );
-            m_wheel_graphics_position[i].setY( (i<2) ?  0.5f*m_kart_length
-                                                     : -0.5f*m_kart_length);
+                                               :  0.5f*m_kart_width);
+            m_wheel_graphics_position[i].setY((i<2) 
+                                               ?  0.5f*m_kart_length
+                                               : -0.5f*m_kart_length);
             m_wheel_graphics_position[i].setZ(0);
         }
     }
@@ -123,7 +126,7 @@ void KartModel::loadModels()
     for(unsigned int i=0; i<4; i++)
     {
         m_wheel_model[i] = loader->load(m_wheel_filename[i], CB_KART);
-        m_wheel_transform[i]= new ssgTransform();
+        m_wheel_transform[i] = new ssgTransform();
 #ifdef DEBUG
         m_wheel_transform[i]->setName("wheeltransform");
 #endif
@@ -147,9 +150,8 @@ void KartModel::loadModels()
     {
         m_z_offset = m_kart_height*0.5f;
     }
-
-
 }   // load
+
 // ----------------------------------------------------------------------------
 /** Loads a single wheel node. Currently this is the name of the wheel model
  *  and the position of the wheel relative to the kart.
@@ -195,20 +197,19 @@ void  KartModel::setDefaultPhysicsPosition(const Vec3 &center_shift,
     {
         if(m_wheel_physics_position[i].getX()==UNDEFINED)
         {
-            m_wheel_physics_position[i].setX( ( i==1||i==3) 
+            m_wheel_physics_position[i].setX((i==1||i==3) 
                                                ? -0.5f*m_kart_width
                                                :  0.5f*m_kart_width
-                                               +center_shift.getX(  ));
-            m_wheel_physics_position[i].setY( (0.5f*m_kart_length-wheel_radius)
-                                              * ( (i<2) ? 1 : -1)
-                                               +center_shift.getY());
+                                               +  center_shift.getX());
+            m_wheel_physics_position[i].setY((0.5f*m_kart_length-wheel_radius)
+                                               * ((i<2)? 1 : -1)
+                                               +  center_shift.getY());
             // Set the connection point so that a maximum compressed wheel
             // (susp. length=0) will still poke a little bit out under the 
             // kart
             m_wheel_physics_position[i].setZ(wheel_radius-0.05f);
         }   // if physics position is not defined
-    }
-
+    }   // for i<4
 }   // setDefaultPhysicsPosition
 
 // ----------------------------------------------------------------------------
@@ -222,7 +223,7 @@ void KartModel::adjustWheels(float rotation, float steer,
 {
     sgMat4 wheel_front;
     sgMat4 wheel_steer;
-    sgMat4 wheel_rot;
+    sgMat4 wheel_rota;
 
     float clamped_suspension[4];
     // Clamp suspension to minimum and maximum suspension length, so that
@@ -230,7 +231,7 @@ void KartModel::adjustWheels(float rotation, float steer,
     for(unsigned int i=0; i<4; i++)
     {
         const float suspension_length = (m_max_suspension[i]-m_min_suspension[i])/2;
-        
+
         // limit amplitude between set limits, first dividing it by a
         // somewhat arbitrary constant to reduce visible wheel movement
         clamped_suspension[i] = std::min(std::max(suspension[i]/m_dampen_suspension_amplitude[i],
@@ -242,9 +243,9 @@ void KartModel::adjustWheels(float rotation, float steer,
         clamped_suspension[i] = ratio*suspension_length;
     }   // for i<4
 
-    sgMakeRotMat4( wheel_rot,   0,      RAD_TO_DEGREE(-rotation), 0);
-    sgMakeRotMat4( wheel_steer, steer , 0,                        0);
-    sgMultMat4(wheel_front, wheel_steer, wheel_rot);
+    sgMakeRotMat4(wheel_rota, 0, RAD_TO_DEGREE(-rotation), 0);
+    sgMakeRotMat4(wheel_steer, steer, 0, 0);
+    sgMultMat4(wheel_front, wheel_steer, wheel_rota);
 
     sgCopyVec3(wheel_front[3], m_wheel_graphics_position[0].toFloat());
     wheel_front[3][2] += clamped_suspension[0];
@@ -254,14 +255,13 @@ void KartModel::adjustWheels(float rotation, float steer,
     wheel_front[3][2] += clamped_suspension[1];
     m_wheel_transform[1]->setTransform(wheel_front);
 
-    sgCopyVec3(wheel_rot[3], m_wheel_graphics_position[2].toFloat());
-    wheel_rot[3][2] += clamped_suspension[2];
-    m_wheel_transform[2]->setTransform(wheel_rot);
+    sgCopyVec3(wheel_rota[3],  m_wheel_graphics_position[2].toFloat());
+    wheel_rota[3][2] +=  clamped_suspension[2];
+    m_wheel_transform[2]->setTransform(wheel_rota);
 
-    sgCopyVec3(wheel_rot[3], m_wheel_graphics_position[3].toFloat());
-    wheel_rot[3][2] += clamped_suspension[3];
-    m_wheel_transform[3]->setTransform(wheel_rot);
-
+    sgCopyVec3(wheel_rota[3],  m_wheel_graphics_position[3].toFloat());
+    wheel_rota[3][2] +=  clamped_suspension[3];
+    m_wheel_transform[3]->setTransform(wheel_rota);
 }   // adjustWheels
 
 // ----------------------------------------------------------------------------

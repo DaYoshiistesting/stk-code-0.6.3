@@ -4,7 +4,7 @@ OBJECT world
 kids 3
 OBJECT poly
 name "Plane.002_1"
-loc 0 9.21488e-05 0
+loc 0 0.0144558 0
 data 5
 Plane
 texture "gnu2.rgb"
@@ -246,6 +246,7 @@ refs 3
 kids 0
 OBJECT poly
 name "Plane.002_1"
+loc 0 0.0143637 0
 data 5
 Plane
 texture "gnu.rgb"
@@ -4233,6 +4234,7 @@ refs 3
 kids 0
 OBJECT group
 name "Plane.002"
+loc 0 0.0143637 0
 kids 2
 OBJECT poly
 name "Plane.002_0"

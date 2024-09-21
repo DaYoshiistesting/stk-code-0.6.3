@@ -66,7 +66,7 @@ Track::Track( std::string filename_, float w, float h, bool stretch )
     m_version          = 0;
     m_has_final_camera = false;
     m_is_arena         = false;
-	m_track            = this;
+    m_track            = this;
     loadTrack(m_filename);
     loadDriveline();
 
@@ -269,31 +269,31 @@ void Track::findRoadSector(const Vec3& XYZ, int *sector,
 }   // findRoadSector
 //-----------------------------------------------------------------------------
 /** findOutOfRoadSector finds the sector where XYZ is, but as it name
-    implies, it is more accurate for the outside of the track than the
-    inside, and for STK's needs the accuracy on top of the track is
-    unacceptable; but if this was a 2D function, the accuracy for out
-    of road sectors would be perfect.
-
-    To find the sector we look for the closest line segment from the
-    right and left drivelines, and the number of that segment will be
-    the sector.
-
-    The SIDE argument is used to speed up the function only; if we know
-    that XYZ is on the left or right side of the track, we know that
-    the closest driveline must be the one that matches that condition.
-    In reality, the side used in STK is the one from the previous frame,
-    but in order to move from one side to another a point would go
-    through the middle, that is handled by findRoadSector() which doesn't
-    has speed ups based on the side.
-
-    NOTE: This method of finding the sector outside of the road is *not*
-    perfect: if two line segments have a similar altitude (but enough to
-    let a kart get through) and they are very close on a 2D system,
-    if a kart is on the air it could be closer to the top line segment
-    even if it is supposed to be on the sector of the lower line segment.
-    Probably the best solution would be to construct a quad that reaches
-    until the next higher overlapping line segment, and find the closest
-    one to XYZ.
+ *  implies, it is more accurate for the outside of the track than the
+ *  inside, and for STK's needs the accuracy on top of the track is
+ *  unacceptable; but if this was a 2D function, the accuracy for out
+ *  of road sectors would be perfect.
+ *
+ *  To find the sector we look for the closest line segment from the
+ *  right and left drivelines, and the number of that segment will be
+ *  the sector.
+ *
+ *  The SIDE argument is used to speed up the function only; if we know
+ *  that XYZ is on the left or right side of the track, we know that
+ *  the closest driveline must be the one that matches that condition.
+ *  In reality, the side used in STK is the one from the previous frame,
+ *  but in order to move from one side to another a point would go
+ *  through the middle, that is handled by findRoadSector() which doesn't
+ *  has speed ups based on the side.
+ *
+ *  NOTE: This method of finding the sector outside of the road is *not*
+ *  perfect: if two line segments have a similar altitude (but enough to
+ *  let a kart get through) and they are very close on a 2D system,
+ *  if a kart is on the air it could be closer to the top line segment
+ *  even if it is supposed to be on the sector of the lower line segment.
+ *  Probably the best solution would be to construct a quad that reaches
+ *  until the next higher overlapping line segment, and find the closest
+ *  one to XYZ.
  */
 int Track::findOutOfRoadSector
 (
@@ -438,19 +438,19 @@ const Vec3& Track::trackToSpatial(const int SECTOR ) const
 
 //-----------------------------------------------------------------------------
 /** Returns the start coordinates for a kart on a given position pos
-    (with pos ranging from 0 to kart_num-1).
-*/
+ *  (with pos ranging from 0 to kart_num-1).
+ */
 btTransform Track::getStartTransform(unsigned int pos) const
 {
-
     Vec3 orig;
-    
+	float angle;
     if(isArena())
     {
         assert(pos < m_start_positions.size());
-        orig.setX( m_start_positions[pos][0] );
-        orig.setY( m_start_positions[pos][1] );
-        orig.setZ( m_start_positions[pos][2] );
+        orig.setX(m_start_positions[pos][0]);
+        orig.setY(m_start_positions[pos][1]);
+        orig.setZ(m_start_positions[pos][2]);
+		angle = 0;
     }
     else
     {
@@ -462,20 +462,28 @@ btTransform Track::getStartTransform(unsigned int pos) const
         float offset = 1.5f;
         if(m_left_driveline[0].getY() > 0 || m_right_driveline[0].getY() > 0)
             offset += std::max(m_left_driveline[0].getY(), m_left_driveline[0].getY());
+		float center = (m_left_driveline[0].getX()+m_right_driveline[0].getX())*0.5f;
+		orig  = Vec3(pos<m_start_x.size() ? m_start_x[pos] : 1.5f*(pos%2==0)? center+1.5f:center-1.5f,
+                     pos<m_start_y.size() ? m_start_y[pos] : -1.5f*pos-offset, 
+                     pos<m_start_z.size() ? m_start_z[pos] : 1.0f);
+        btTransform global_start;
+        Vec3 start = (m_left_driveline.front()+m_right_driveline.front())*0.5f;
+        Vec3 end   = (m_left_driveline.back()+m_right_driveline.back())*0.5f;
         
-        // FIXME : Replace these old start settings and instead,
-        // replace it with an automatic system that makes the karts pop
-        // between left and right drivelines.
-        orig.setX( pos<m_start_x.size() ? m_start_x[pos] : ((pos%2==0)?1.5f:-1.5f) );
-        orig.setY( pos<m_start_y.size() ? m_start_y[pos] : -1.5f*pos-offset        );
-        orig.setZ( pos<m_start_z.size() ? m_start_z[pos] : 1.0f                    );
+        angle = -atan2(end.getZ() - start.getZ(),
+                      -end.getX() + start.getX());
+        Vec3 mid   = (start+end)*0.5f;
+        btQuaternion q(Vec3(0, 0, 1), angle);
+        global_start.setRotation(q);
+        global_start.setOrigin(Vec3(mid.getZ(), mid.getX(), 0));
+        orig = global_start(orig);
     }
     btTransform start;
     start.setOrigin(orig);
-    start.setRotation(btQuaternion(btVector3(0, 0, 1), 
+    start.setRotation(btQuaternion(btVector3(0,0,1), 
                                    pos<m_start_heading.size() 
                                    ? DEGREE_TO_RAD(m_start_heading[pos]) 
-                                   : 0.0f ));
+                                   : angle));
     return start;
 }   // getStartTransform
 
@@ -871,7 +879,7 @@ void Track::loadTrack(std::string filename_)
     {
         delete ROOT;
         std::ostringstream msg;
-        msg <<"Couldn't load map '"<<m_filename<<"': no tuxkart-track node.";
+        msg <<"Couldn't load map '"<<m_filename<<"': no tuxkart-track node found.";
         throw std::runtime_error(msg.str());
     }
 
@@ -905,7 +913,7 @@ void Track::loadTrack(std::string filename_)
         m_groups.push_back("standard");
     // if both camera position and rotation are defined,
     // set the flag that the track has final camera position
-    m_has_final_camera  = LISP->get("camera-final-position", m_camera_final_position);
+    m_has_final_camera  = LISP->get("camera-final-position", m_camera_final_pos);
     m_has_final_camera &= LISP->get("camera-final-hpr",      m_camera_final_hpr);
     m_camera_final_hpr.degreeToRad();
 
@@ -1025,12 +1033,6 @@ void Track::loadDriveline()
     }
     m_total_distance = d;
     Vec3 sc = m_driveline_max - m_driveline_min;
-
-    GLfloat viewport[4];
-    glGetFloatv(GL_VIEWPORT, viewport);
-    float window_width  = viewport[2];
-    float window_height = viewport[3];
-
     m_scale_x = m_track_2d_width  / sc.getX();
     m_scale_y = m_track_2d_height / sc.getY();
 
@@ -1039,13 +1041,12 @@ void Track::loadDriveline()
 }   // loadDriveline
 
 //-----------------------------------------------------------------------------
-void
-Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& file_ext)
+void Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& file_ext)
 {
     std::string path = file_manager->getTrackFile(m_ident+file_ext);
     FILE *fd = fopen ( path.c_str(), "r" ) ;
 
-    if ( fd == NULL )
+    if(fd == NULL)
     {
         std::ostringstream msg;
         msg<<"Can't open '"<<path<<"' for reading.\n";
@@ -1056,19 +1057,19 @@ Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& file_ex
     SGfloat prev_distance = 1.51f;
     while(!feof(fd))
     {
-        char s [ 1024 ] ;
+        char s[1024];
 
-        if ( fgets ( s, 1023, fd ) == NULL )
+        if (fgets(s, 1023, fd) == NULL)
             break ;
 
-        if ( *s == '#' || *s < ' ' )
-            continue ;
+        if (*s == '#' || *s < ' ')
+            continue;
 
         float x = 0.0f;
         float y = 0.0f;
         float z = 0.0f;
 
-        if (sscanf ( s, "%f,%f,%f", &x, &y, &z ) != 3 )
+        if(sscanf(s, "%f,%f,%f", &x, &y, &z) != 3)
         {
             std::ostringstream msg;
             msg<<"Syntax error in '"<<path<<"'\n";
@@ -1103,12 +1104,12 @@ Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& file_ex
         ++prev_sector;
         prev_distance -= 1.5f;
     }
-
-    fclose ( fd ) ;
+    fclose(fd);
 }   // readDrivelineFromFile
 
 // -----------------------------------------------------------------------------
-//* Convert the ssg track tree into its physics equivalents.
+/** Convert the ssg track tree into its physics equivalents.
+ */
 void Track::createPhysicsModel()
 {
     if(!m_model) return;
@@ -1126,23 +1127,24 @@ void Track::createPhysicsModel()
 }   // createPhysicsModel
 
 // -----------------------------------------------------------------------------
-//* Convert the ssg track tree into its physics equivalents.
+/** Convert the ssg track tree into its physics equivalents.
+ */
 void Track::convertTrackToBullet(ssgEntity *track, sgMat4 m)
 {
     if(!track) return;
     MovingPhysics *mp = dynamic_cast<MovingPhysics*>(track);
     if(mp)
     {
-        // If the track contains obect of type MovingPhysics,
-        // these objects will be real rigid body and are already
-        // part of the world. So these objects must not be converted
+        // If the track contains objects of type MovingPhysics,
+        // these objects will be real rigid bodies and are already
+        // part of the world. So these objects mustn't be converted
         // to triangle meshes.
-    } 
+    }
     else if(track->isAKindOf(ssgTypeLeaf()))
     {
         ssgLeaf  *leaf     = (ssgLeaf*)(track);
         Material *material = material_manager->getMaterial(leaf);
-        // Don't convert triangles with material that is ignored (e.g. fuzzy_sand)
+        // Don't convert triangles with material that's ignored (e.g. fuzzy_sand)
         if(!material || material->isIgnore()) return;
 
         for(int i=0; i<leaf->getNumTriangles(); i++) 
@@ -1180,16 +1182,17 @@ void Track::convertTrackToBullet(ssgEntity *track, sgMat4 m)
             convertTrackToBullet(e, tmpM);
         }   // for i
     }
-    else if (track->isAKindOf(ssgTypeBranch())) 
+    else if(track->isAKindOf(ssgTypeBranch())) 
     {
-        ssgBranch *b =(ssgBranch*)track;
-        for(ssgEntity* e=b->getKid(0); e!=NULL; e=b->getNextKid()) {
+        ssgBranch *b = (ssgBranch*)track;
+        for(ssgEntity* e=b->getKid(0); e!=NULL; e=b->getNextKid()) 
+        {
             convertTrackToBullet(e, m);
         }   // for i<getNumKids
     }
     else
     {
-        assert(!"Unkown ssg type in convertTrackToBullet");
+        assert(!"Unknown ssg type in convertTrackToBullet");
     }
 }   // convertTrackToBullet
 
@@ -1205,15 +1208,15 @@ void Track::loadTrackModel()
         std::string materials_file = file_manager->getTrackFile("materials.dat",getIdent());
         material_manager->pushTempMaterial(materials_file);
     }
-    catch (std::exception& e)
+    catch(std::exception& e)
     {
         // no temporary materials.dat file, ignore
         (void)e;
     }
     std::string path = file_manager->getTrackFile(getIdent()+".loc");
 
-    FILE *fd = fopen (path.c_str(), "r" );
-    if ( fd == NULL )
+    FILE *fd = fopen(path.c_str(), "r");
+    if(fd == NULL)
     {
         std::ostringstream msg;
         msg<<"Can't open track location file '"<<path<<"'.";
@@ -1221,155 +1224,155 @@ void Track::loadTrackModel()
     }
 
     // Start building the scene graph
-    m_model = new ssgBranch ;
+    m_model = new ssgBranch;
     scene->add(m_model);
 
-    char s [ 1024 ] ;
+    char s[1024];
 
-    while ( fgets ( s, 1023, fd ) != NULL )
+    while (fgets ( s, 1023, fd) != NULL)
     {
-        if ( *s == '#' || *s < ' ' )
+        if (*s == '#' || *s < ' ')
             continue ;
 
-        int need_hat = false ;
-        int fit_skin = false ;
-        char fname [ 1024 ] ;
+        int need_hat = false;
+        int fit_skin = false;
+        char fname[1024];
         sgCoord loc;
-        sgZeroVec3 ( loc.xyz ) ;
-        sgZeroVec3 ( loc.hpr ) ;
+        sgZeroVec3(loc.xyz);
+        sgZeroVec3(loc.hpr);
 
         char htype = '\0' ;
 
         /* the first 2 are for backwards compatibility. Don't use 'herring' names in any new track */
-        if ( sscanf ( s, "%cHERRING,%f,%f,%f", &htype,
-                      &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 4 )
+        if(sscanf(s, "%cHERRING,%f,%f,%f", &htype,
+                      &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 4)
         {
             Item::ItemType type=Item::ITEM_BANANA;
-            if ( htype=='Y' || htype=='y' ) { type = Item::ITEM_BIG_NITRO   ;}
-            if ( htype=='G' || htype=='g' ) { type = Item::ITEM_BANANA  ;}
-            if ( htype=='R' || htype=='r' ) { type = Item::ITEM_BONUS_BOX    ;}
-            if ( htype=='S' || htype=='s' ) { type = Item::ITEM_SMALL_NITRO ;}
-            itemCommand(&loc.xyz, type, false) ;
+            if(htype=='Y' || htype=='y') {type = Item::ITEM_BIG_NITRO   ;}
+            if(htype=='G' || htype=='g') {type = Item::ITEM_BANANA      ;}
+            if(htype=='R' || htype=='r') {type = Item::ITEM_BONUS_BOX   ;}
+            if(htype=='S' || htype=='s') {type = Item::ITEM_SMALL_NITRO ;}
+            itemCommand(&loc.xyz, type, false);
         }
-        else if ( sscanf ( s, "%cHERRING,%f,%f", &htype,
-                           &(loc.xyz[0]), &(loc.xyz[1]) ) == 3 )
+        else if(sscanf(s, "%cHERRING,%f,%f", &htype,
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 3)
         {
             Item::ItemType type=Item::ITEM_BANANA;
-            if ( htype=='Y' || htype=='y' ) { type = Item::ITEM_BIG_NITRO   ;}
-            if ( htype=='G' || htype=='g' ) { type = Item::ITEM_BANANA  ;}
-            if ( htype=='R' || htype=='r' ) { type = Item::ITEM_BONUS_BOX    ;}
-            if ( htype=='S' || htype=='s' ) { type = Item::ITEM_SMALL_NITRO ;}
-            itemCommand (&loc.xyz, type, true) ;
+            if(htype=='Y' || htype=='y') {type = Item::ITEM_BIG_NITRO   ;}
+            if(htype=='G' || htype=='g') {type = Item::ITEM_BANANA      ;}
+            if(htype=='R' || htype=='r') {type = Item::ITEM_BONUS_BOX   ;}
+            if(htype=='S' || htype=='s') {type = Item::ITEM_SMALL_NITRO ;}
+            itemCommand (&loc.xyz, type, true);
         }
         /* and now the new names */
-        else if ( sscanf ( s, "BBOX,%f,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
+        else if(sscanf(s, "BBOX,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
             itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, false);
         }
-        else if ( sscanf ( s, "BBOX,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
+        else if(sscanf(s, "BBOX,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 2)
         {
             itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, true);
         }
         
-        else if ( sscanf ( s, "BANA,%f,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
+        else if(sscanf(s, "BANA,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
             itemCommand(&loc.xyz, Item::ITEM_BANANA, false);
         }
         
-        else if ( sscanf ( s, "BANA,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
+        else if(sscanf(s, "BANA,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 2)
         {
             itemCommand(&loc.xyz, Item::ITEM_BANANA, true);
         }
         
-        else if ( sscanf ( s, "SMALLTANK,%f,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
+        else if(sscanf(s, "SMALLTANK,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
             itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, false);
         }
-        else if ( sscanf ( s, "SMALLTANK,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
+        else if(sscanf(s, "SMALLTANK,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 2)
         {
             itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, true);
         }
         
-        else if ( sscanf ( s, "BIGTANK,%f,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
+        else if(sscanf(s, "BIGTANK,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
             itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, false);
         }
-        else if ( sscanf ( s, "BIGTANK,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]) ) == 2 )
+        else if(sscanf(s, "BIGTANK,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 2)
         {
             itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, true);
         }
         
-        else if ( sscanf ( s, "START,%f,%f,%f",
-                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]) ) == 3 )
+        else if(sscanf(s, "START,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
             m_start_positions.push_back(Vec3(loc.xyz[0], loc.xyz[1], loc.xyz[2]));
         }
-        else if ( s[0] == '\"' )
+        else if(s[0] == '\"')
         {
-            if ( sscanf ( s, "\"%[^\"]\",%f,%f,%f,%f,%f,%f",
+            if(sscanf(s, "\"%[^\"]\",%f,%f,%f,%f,%f,%f",
                           fname, &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]),
-                          &(loc.hpr[0]), &(loc.hpr[1]), &(loc.hpr[2]) ) == 7 )
+                          &(loc.hpr[0]), &(loc.hpr[1]), &(loc.hpr[2]) ) == 7)
             {
                 /* All 6 DOF specified */
                 need_hat = false;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f,{},%f,%f,%f",
+            else if(sscanf(s, "\"%[^\"]\",%f,%f,{},%f,%f,%f",
                                fname, &(loc.xyz[0]), &(loc.xyz[1]),
-                               &(loc.hpr[0]), &(loc.hpr[1]), &(loc.hpr[2])) == 6 )
+                               &(loc.hpr[0]), &(loc.hpr[1]), &(loc.hpr[2])) == 6)
             {
                 /* All 6 DOF specified - but need height */
                 need_hat = true ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f,%f,%f",
+            else if(sscanf(s, "\"%[^\"]\",%f,%f,%f,%f",
                                fname, &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2]),
-                               &(loc.hpr[0]) ) == 5 )
+                               &(loc.hpr[0])) == 5)
             {
                 /* No Roll/Pitch specified - assumed zero */
                 need_hat = false ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f,{},%f,{},{}",
+            else if(sscanf(s, "\"%[^\"]\",%f,%f,{},%f,{},{}",
                                fname, &(loc.xyz[0]), &(loc.xyz[1]),
-                               &(loc.hpr[0]) ) == 4 )
+                               &(loc.hpr[0])) == 4)
             {
                 /* All 6 DOF specified - but need height, roll, pitch */
                 need_hat = true ;
                 fit_skin = true ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f,{},%f",
+            else if(sscanf(s, "\"%[^\"]\",%f,%f,{},%f",
                                fname, &(loc.xyz[0]), &(loc.xyz[1]),
-                               &(loc.hpr[0]) ) == 4 )
+                               &(loc.hpr[0])) == 4)
             {
                 /* No Roll/Pitch specified - but need height */
                 need_hat = true ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f,%f",
+            else if(sscanf(s, "\"%[^\"]\",%f,%f,%f",
                                fname, &(loc.xyz[0]), &(loc.xyz[1]),
-                               &(loc.xyz[2]) ) == 4 )
+                               &(loc.xyz[2])) == 4)
             {
                 /* No Heading/Roll/Pitch specified - but need height */
                 need_hat = false ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f,{}",
-                               fname, &(loc.xyz[0]), &(loc.xyz[1]) ) == 3 )
+            else if(sscanf(s, "\"%[^\"]\",%f,%f,{}",
+                               fname, &(loc.xyz[0]), &(loc.xyz[1])) == 3)
             {
                 /* No Roll/Pitch specified - but need height */
                 need_hat = true ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\",%f,%f",
-                               fname, &(loc.xyz[0]), &(loc.xyz[1]) ) == 3 )
+            else if(sscanf(s, "\"%[^\"]\",%f,%f",
+                               fname, &(loc.xyz[0]), &(loc.xyz[1])) == 3)
             {
                 /* No Z/Heading/Roll/Pitch specified */
                 need_hat = false ;
             }
-            else if ( sscanf ( s, "\"%[^\"]\"", fname ) == 1 )
+            else if(sscanf(s, "\"%[^\"]\"", fname) == 1)
             {
                 /* Nothing specified */
                 need_hat = false ;
@@ -1382,29 +1385,28 @@ void Track::loadTrackModel()
                 throw std::runtime_error(msg.str());
             }
 
-            if ( need_hat )
+            if(need_hat)
             {
                 sgVec3 nrm ;
 
                 loc.xyz[2] = 1000.0f ;
-                loc.xyz[2] = getHeightAndNormal ( m_model, loc.xyz, nrm ) ;
+                loc.xyz[2] = getHeightAndNormal(m_model, loc.xyz, nrm);
 
                 if ( fit_skin )
                 {
-                    float sy = sin ( -loc.hpr [ 0 ] * SG_DEGREES_TO_RADIANS ) ;
-                    float cy = cos ( -loc.hpr [ 0 ] * SG_DEGREES_TO_RADIANS ) ;
+                    float sy = sin(-loc.hpr [ 0 ] * SG_DEGREES_TO_RADIANS);
+                    float cy = cos(-loc.hpr [ 0 ] * SG_DEGREES_TO_RADIANS);
 
-                    loc.hpr[2] =  SG_RADIANS_TO_DEGREES * atan2 ( nrm[0] * cy -
-                                  nrm[1] * sy, nrm[2] ) ;
-                    loc.hpr[1] = -SG_RADIANS_TO_DEGREES * atan2 ( nrm[1] * cy +
-                                 nrm[0] * sy, nrm[2] ) ;
+                    loc.hpr[2] =  SG_RADIANS_TO_DEGREES * atan2(nrm[0]*cy -
+                                  nrm[1]*sy, nrm[2]);
+                    loc.hpr[1] = -SG_RADIANS_TO_DEGREES * atan2(nrm[1]*cy +
+                                  nrm[0]*sy, nrm[2]);
                 }
             }   // if need_hat
 
-            ssgEntity        *obj   = loader->load(file_manager->getModelFile(fname),
-                                                   CB_TRACK,
-                                                   /* optimise   */  true,
-                                                   /*is_full_path*/  true);
+            ssgEntity *obj = loader->load(file_manager->getModelFile(fname),
+                                          CB_TRACK, /*optimise*/ true,
+                                          /*is_full_path*/ true);
             if(!obj)
             {
                 fclose(fd);
@@ -1415,15 +1417,15 @@ void Track::loadTrackModel()
                 throw std::runtime_error(msg.str());
             }
             SSGHelp::createDisplayLists(obj);
-            ssgRangeSelector *lod   = new ssgRangeSelector ;
-            ssgTransform     *trans = new ssgTransform ( & loc ) ;
+            ssgRangeSelector *lod   = new ssgRangeSelector;
+            ssgTransform     *trans = new ssgTransform(&loc);
 
-            float r [ 2 ] = { -10.0f, 2000.0f } ;
+            float r[2] = {-10.0f, 2200.0f};
 
-            lod    -> addKid(obj   );
-            trans  -> addKid(lod   );
-            m_model-> addKid(trans );
-            lod    -> setRanges(r, 2);
+            lod->addKid(obj);
+            trans->addKid(lod);
+            m_model->addKid(trans);
+            lod->setRanges(r, 2);
             if(user_config->m_track_debug)
                 addDebugToScene(user_config->m_track_debug);
 
@@ -1435,7 +1437,7 @@ void Track::loadTrackModel()
         }
     }   // while fgets
 
-    fclose ( fd ) ;
+    fclose(fd) ;
     file_manager->popTextureSearchPath();
     file_manager->popModelSearchPath  ();
 
@@ -1445,7 +1447,7 @@ void Track::loadTrackModel()
 }   // loadTrack
 
 //-----------------------------------------------------------------------------
-void Track::itemCommand (sgVec3 *xyz, int type, int bNeedHeight )
+void Track::itemCommand(sgVec3 *xyz, int type, int bNeedHeight )
 {
 
     // if only 2d coordinates are given, let the item fall from very high

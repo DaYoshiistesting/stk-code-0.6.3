@@ -970,15 +970,15 @@ void Kart::endRescue()
 
 void Kart::loadData()
 {
-    float r[2] = { -30.0f, 200.0f } ;
+    float r[2] = {-10.0f, 200.0f};
     ssgEntity *obj = m_kart_properties->getKartModel()->getRoot();
     createPhysics();
 
     SSGHelp::createDisplayLists(obj);  // create all display lists
     ssgRangeSelector *lod = new ssgRangeSelector ;
 
-    lod->addKid (obj) ;
-    lod->setRanges (r, 2);
+    lod->addKid(obj) ;
+    lod->setRanges(r, 2);
     getModelTransform()->addKid(lod);
 
     // Attach Particle System
@@ -1058,12 +1058,12 @@ void Kart::updateGraphics(const Vec3& off_xyz, const Vec3& off_hpr)
     kart_model->adjustWheels(m_wheel_rotation, auto_skid,
                              wheel_z_axis);
 
-    Vec3        center_shift  = getGravityCenterShift();
+    Vec3 center_shift = getGravityCenterShift();
     float X = m_vehicle->getWheelInfo(0).m_chassisConnectionPointCS.getZ()
             - m_default_suspension_length[0]
             - m_vehicle->getWheelInfo(0).m_wheelsRadius
             - (kart_model->getWheelGraphicsRadius(0)
-               -kart_model->getWheelGraphicsPosition(0).getZ() );
+            -  kart_model->getWheelGraphicsPosition(0).getZ());
     center_shift.setZ(X);
 
     if(m_smoke_system)

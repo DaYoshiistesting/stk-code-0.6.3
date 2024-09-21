@@ -54,44 +54,6 @@ namespace SSGHelp
     }  // createDisplayLists
 
     // ------------------------------------------------------------------------
-    /** Recursively prints a model.
-     *
-     * Recursively prints a model. That function can most likely be removed, the
-     * print method of the ssg objects do the same.
-     * \param entity The entity ro print (can't be constant because of ssg 
-     *               functions which are not const correct)
-     * \param indent Indentation to use
-     * \param maxLevel maximum number of levels to print
-     */
-    /*void print_model(ssgEntity* entity, const int indent, const int maxLevel)
-    {
-        if(maxLevel <0) return;
-        if (entity)
-        {
-            for(int i = 0; i < indent; ++i)
-                std::cout << "  ";
-
-            std::cout << entity->getTypeName() << " " << entity->getType() 
-                << " '"
-                << entity->getPrintableName()
-                << "' '"
-                << (entity->getName() ? entity->getName() : "null")
-                << "' " << entity << std::endl;
-
-            ssgBranch* branch = dynamic_cast<ssgBranch*>(entity);
-
-            if (branch)
-            {
-                for(ssgEntity* i = branch->getKid(0); i != NULL;
-                    i = branch->getNextKid())
-                {
-                    print_model(i, indent + 1, maxLevel-1);
-                }
-            }   // if branch
-        }   // if entity
-    }   // print_model
-
-    // ------------------------------------------------------------------------
     /** MinMax helper function which uses a transform and then computes the
      *  minimum/maximum for this subtree.
      *  \param p Subtree.
@@ -158,7 +120,7 @@ namespace SSGHelp
     /** Computes the minimum and maximum x/y coordinates for a ssgEntity.
      *
      *  Recursively computes the minimum x and y coordinates of a ssgEntity.
-     *  \param p ssgEntity for which t compute the extend.
+     *  \param p ssgEntity for which to compute the extend.
      *  \param min Minimum values in all three dimensions.
      *  \param max Maximum values in all three dimensions.
      */

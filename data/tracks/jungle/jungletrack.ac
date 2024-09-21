@@ -85058,20 +85058,25 @@ refs 4
 169 -0.49056 1.29557
 kids 0
 OBJECT poly
+name "moving_texture"
+data 15
+@autotex y=0.07
+kids 1
+OBJECT poly
 name "Plane"
 data 5
 Plane
 texture "water_light.rgb"
 crease 30.000000
 numvert 6
--296.061 -23.2194 36.4848
--282.329 -10.3021 191.886
+-296.061 -23.3389 36.4848
+-282.329 -12.2262 191.886
 639.57 21.9474 83.366
 603.95 21.9474 -56.4208
 153.353 -0.635974 -6.7291
 -71.354 -13.8291 15.1607
 numsurf 1
-SURF 0x20
+SURF 0x0
 mat 0
 refs 6
 3 -0.23705 2.47122

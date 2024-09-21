@@ -109,7 +109,7 @@ void STKConfig::load(const std::string &filename)
     CHECK_NEG(m_offroad_tolerance,         "offroad-tolerance"          );
     CHECK_NEG(m_final_camera_time,         "final-camera-time"          );
     CHECK_NEG(m_explosion_impulse,         "explosion-impulse"          );
-    CHECK_NEG(m_explosion_impulse_objects, "explosion-impulse-objects"  );
+    CHECK_NEG(m_explosion_impulse_obj,     "explosion-impulse-obj"      );
     CHECK_NEG(m_max_history,               "max-history"                );
     CHECK_NEG(m_max_skidmarks,             "max-skidmarks"              );
     CHECK_NEG(m_min_kart_version,          "min-kart-version"           );
@@ -131,17 +131,17 @@ void STKConfig::load(const std::string &filename)
  */
 void STKConfig::init_defaults()
 {
-    m_anvil_weight             = m_parachute_friction        = 
-        m_parachute_time       = m_parachute_done_fraction   = 
-        m_parachute_time_other = m_anvil_speed_factor        =
-        m_bomb_time            = m_bomb_time_increase        =
-        m_anvil_time           = m_zipper_time               =
-        m_zipper_force         = m_zipper_speed_gain         =
-        m_explosion_impulse    = m_explosion_impulse_objects = 
-        m_shortcut_length      = m_music_credit_time         =
-        m_delay_finish_time    = m_skid_fadeout_time         =
-        m_slowdown_factor      = m_offroad_tolerance         =
-        m_final_camera_time    = m_near_ground               =
+    m_anvil_weight         = m_parachute_friction        = 
+    m_parachute_time       = m_parachute_done_fraction   = 
+    m_parachute_time_other = m_anvil_speed_factor        =
+    m_bomb_time            = m_bomb_time_increase        =
+    m_anvil_time           = m_zipper_time               =
+    m_zipper_force         = m_zipper_speed_gain         =
+    m_explosion_impulse    = m_explosion_impulse_obj     = 
+    m_shortcut_length      = m_music_credit_time         =
+    m_delay_finish_time    = m_skid_fadeout_time         =
+    m_slowdown_factor      = m_offroad_tolerance         =
+    m_final_camera_time    = m_near_ground               =
         UNDEFINED;
     m_bubble_gum_counter       = -100;
     m_max_karts                = -100;
@@ -186,46 +186,46 @@ void STKConfig::getAllData(const lisp::Lisp* lisp)
 
     // Get the values which are not part of the default KartProperties
     // ---------------------------------------------------------------
-    lisp->get("anvil-weight",                 m_anvil_weight             );
-    lisp->get("shortcut-length",              m_shortcut_length          );
-    lisp->get("offroad-tolerance",            m_offroad_tolerance        );
-    lisp->get("final-camera-time",            m_final_camera_time        );
-    lisp->get("anvil-speed-factor",           m_anvil_speed_factor       );
-    lisp->get("parachute-friction",           m_parachute_friction       );
-    lisp->get("parachute-time",               m_parachute_time           );
-    lisp->get("parachute-time-other",         m_parachute_time_other     );
-    lisp->get("parachute-done-fraction",      m_parachute_done_fraction  );
-    lisp->get("bomb-time",                    m_bomb_time                );
-    lisp->get("bomb-time-increase",           m_bomb_time_increase       );
-    lisp->getVector("leader-intervals",       m_leader_intervals         );
-    lisp->get("anvil-time",                   m_anvil_time               );
-    lisp->get("zipper-time",                  m_zipper_time              );
-    lisp->get("zipper-force",                 m_zipper_force             );
-	lisp->get("bubblegum-disappear-counter",  m_bubble_gum_counter       );
-    lisp->get("zipper-speed-gain",            m_zipper_speed_gain        );
-    lisp->get("explosion-impulse",            m_explosion_impulse        );
-    lisp->get("explosion-impulse-objects",    m_explosion_impulse_objects);
-    lisp->get("max-karts",                    m_max_karts                );
-    lisp->get("grid-order",                   m_grid_order               );
-    lisp->getVector("scores",                 m_scores                   );
-    lisp->get("max-history",                  m_max_history              );
-    lisp->get("max-skidmarks",                m_max_skidmarks            );
-    lisp->get("min-kart-version",             m_min_kart_version         );
-    lisp->get("max-kart-version",             m_max_kart_version         );
-    lisp->get("min-track-version",            m_min_track_version        );
-    lisp->get("max-track-version",            m_max_track_version        );
-    lisp->get("skid-fadeout-time",            m_skid_fadeout_time        );
-    lisp->get("slowdown-factor",              m_slowdown_factor          );
-    lisp->get("near-ground",                  m_near_ground              );
-    lisp->get("delay-finish-time",            m_delay_finish_time        );
-    lisp->get("music-credit-time",            m_music_credit_time        );
-    lisp->getVector("menu-background",        m_menu_background          );
-    lisp->getVector("mainmenu-background",    m_mainmenu_background      );
-    lisp->get("enable_networking",            m_enable_networking        );
+    lisp->get("anvil-weight",                 m_anvil_weight            );
+    lisp->get("shortcut-length",              m_shortcut_length         );
+    lisp->get("offroad-tolerance",            m_offroad_tolerance       );
+    lisp->get("final-camera-time",            m_final_camera_time       );
+    lisp->get("anvil-speed-factor",           m_anvil_speed_factor      );
+    lisp->get("parachute-friction",           m_parachute_friction      );
+    lisp->get("parachute-time",               m_parachute_time          );
+    lisp->get("parachute-time-other",         m_parachute_time_other    );
+    lisp->get("parachute-done-fraction",      m_parachute_done_fraction );
+    lisp->get("bomb-time",                    m_bomb_time               );
+    lisp->get("bomb-time-increase",           m_bomb_time_increase      );
+    lisp->getVector("leader-intervals",       m_leader_intervals        );
+    lisp->get("anvil-time",                   m_anvil_time              );
+    lisp->get("zipper-time",                  m_zipper_time             );
+    lisp->get("zipper-force",                 m_zipper_force            );
+	lisp->get("bubblegum-disappear-counter",  m_bubble_gum_counter      );
+    lisp->get("zipper-speed-gain",            m_zipper_speed_gain       );
+    lisp->get("explosion-impulse",            m_explosion_impulse       );
+    lisp->get("explosion-impulse-obj",        m_explosion_impulse_obj   );
+    lisp->get("max-karts",                    m_max_karts               );
+    lisp->get("grid-order",                   m_grid_order              );
+    lisp->getVector("scores",                 m_scores                  );
+    lisp->get("max-history",                  m_max_history             );
+    lisp->get("max-skidmarks",                m_max_skidmarks           );
+    lisp->get("min-kart-version",             m_min_kart_version        );
+    lisp->get("max-kart-version",             m_max_kart_version        );
+    lisp->get("min-track-version",            m_min_track_version       );
+    lisp->get("max-track-version",            m_max_track_version       );
+    lisp->get("skid-fadeout-time",            m_skid_fadeout_time       );
+    lisp->get("slowdown-factor",              m_slowdown_factor         );
+    lisp->get("near-ground",                  m_near_ground             );
+    lisp->get("delay-finish-time",            m_delay_finish_time       );
+    lisp->get("music-credit-time",            m_music_credit_time       );
+    lisp->getVector("menu-background",        m_menu_background         );
+    lisp->getVector("mainmenu-background",    m_mainmenu_background     );
+    lisp->get("enable_networking",            m_enable_networking       );
     std::string title_music;
-    lisp->get("title-music",                  title_music                );
+    lisp->get("title-music",                  title_music               );
     std::string default_music;
-    lisp->get("default-track-music",          default_music              );
+    lisp->get("default-track-music",          default_music             );
     m_default_music = new MusicInformation(file_manager->getMusicFile(default_music));
     m_title_music = new MusicInformation(file_manager->getMusicFile(title_music));
 

@@ -92,7 +92,7 @@ public:
         ~KartModel();
     void loadInfo(const lisp::Lisp* lisp);
     void loadModels();
-    ssgTransform *getRoot() { return m_root; }
+    ssgTransform *getRoot() {return m_root;}
 
     /** Returns the position of a wheel relative to the kart. 
      *  \param i Index of the wheel: 0=front right, 1 = front left, 2 = rear 

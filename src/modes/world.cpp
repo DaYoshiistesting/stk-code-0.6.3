@@ -91,7 +91,7 @@ void World::init()
     assert(race_manager->getNumKarts() > 0);
 
     // Load the track models - this must be done before the karts so that the
-    // karts can be positioned properly on (and not in) the tracks.
+    // karts can be positioned properly on (and not in) tracks.
     ItemManager::create();
     m_track->loadTrackModel();
 
@@ -213,6 +213,7 @@ World::~World()
         m_track->cleanup();
     // Clear all callbacks
     callback_manager->clear(CB_TRACK);
+	callback_manager->clear(CB_ITEM);
 
     for ( unsigned int i = 0 ; i < m_kart.size() ; i++ )
         delete m_kart[i];

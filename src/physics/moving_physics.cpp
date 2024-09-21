@@ -224,9 +224,11 @@ void MovingPhysics::reset()
 }   // reset 
 
 // -----------------------------------------------------------------------------
-void MovingPhysics::handleExplosion(const Vec3& pos, bool direct_hit) {
-    if(direct_hit) {
-        btVector3 impulse(0.0f, 0.0f, stk_config->m_explosion_impulse_objects);
+void MovingPhysics::handleExplosion(const Vec3& pos, bool direct_hit)
+{
+    if(direct_hit) 
+    {
+        btVector3 impulse(0.0f, 0.0f, stk_config->m_explosion_impulse_obj);
         m_body->applyCentralImpulse(impulse);
     }
     else  // only affected by a distant explosion
@@ -244,7 +246,7 @@ void MovingPhysics::handleExplosion(const Vec3& pos, bool direct_hit) {
         // = diff*impulseSize/len(diff)^3
         // We use diff*impulseSize/len(diff)^2 here, this makes the impulse
         // somewhat larger, which is actually more fun :)
-        btVector3 impulse=diff*stk_config->m_explosion_impulse_objects/len2;
+        btVector3 impulse=diff*stk_config->m_explosion_impulse_obj/len2;
         m_body->applyCentralImpulse(impulse);
     }
     m_body->activate();

@@ -48,9 +48,6 @@ private:
     std::string              m_screenshot;
     std::string              m_top_view;
     std::vector<MusicInformation*> m_music;
-    // FIXME : Replace these old start settings and instead,
-    // replace it with an automatic system that makes the karts pop
-    // between left and right drivelines.
     std::vector<float>       m_start_x, m_start_y, m_start_z, m_start_heading;
     std::string              m_description;
     std::string              m_designer;
@@ -60,7 +57,7 @@ private:
     TriangleMesh*            m_track_mesh;
     TriangleMesh*            m_non_collision_mesh;
     bool                     m_has_final_camera;
-    Vec3                     m_camera_final_position;
+    Vec3                     m_camera_final_pos;
     Vec3                     m_camera_final_hpr;
     bool                     m_is_arena;
     int                      m_version;
@@ -160,47 +157,45 @@ public:
     void               loadTrackModel    ();
     bool               isShortcut        (const int OLDSEC, const int NEWSEC) const;
     void               addMusic          (MusicInformation* mi)
-                                                  {m_music.push_back(mi);       }
-    ssgBranch*         getModel          () const {return m_model;              }
-    float              getGravity        () const {return m_gravity;            }
+                                                  {m_music.push_back(mi);         }
+    ssgBranch*         getModel          () const {return m_model;                }
+    float              getGravity        () const {return m_gravity;              }
     /** Returns the version of the .track file. */
-    int                getVersion        () const {return m_version;            }
-    float              getTrackLength    () const {return m_total_distance;     }
-    const std::string& getIdent          () const {return m_ident;              }
-    const char*        getName           () const {return m_name.c_str();       }
+    int                getVersion        () const {return m_version;         }
+    float              getTrackLength    () const {return m_total_distance;  }
+    const std::string& getIdent          () const {return m_ident;           }
+    const char*        getName           () const {return m_name.c_str();    }
     const std::vector<std::string>
-                       getGroups         () const {return m_groups;             }
+                       getGroups         () const {return m_groups;          }
     void               startMusic        () const;
-    const std::string& getFilename       () const {return m_filename;           }
-    const sgVec3& getSunPos              () const {return m_sun_position;       }
-    const sgVec4& getAmbientCol          () const {return m_ambient_col;        }
-    const sgVec4& getDiffuseCol          () const {return m_diffuse_col;        }
-    const sgVec4& getSpecularCol         () const {return m_specular_col;       }
-    const bool&   useFog                 () const {return m_use_fog;            }
-    const sgVec4& getFogColor            () const {return m_fog_color;          }
-    const float&  getFogDensity          () const {return m_fog_density;        }
-    const float&  getFogStart            () const {return m_fog_start;          }
-    const float&  getFogEnd              () const {return m_fog_end;            }
-    const sgVec4& getSkyColor            () const {return m_sky_color;          }
-    const std::string& getDescription    () const {return m_description;        }
-    const std::string& getDesigner       () const {return m_designer;           }
-    const std::string& getTopviewFile    () const {return m_top_view;           }
-    const std::string& getScreenshotFile () const {return m_screenshot;         }
-    const std::vector<SGfloat>& getWidth () const {return m_path_width;         }
-    bool               hasFinalCamera    () const {return m_has_final_camera;   }
-    const Vec3&        getCameraPosition () const {return m_camera_final_position;}
-    const Vec3&        getCameraHPR      () const {return m_camera_final_hpr;   }
+    const std::string& getFilename       () const {return m_filename;        }
+    const sgVec3& getSunPos              () const {return m_sun_position;    }
+    const sgVec4& getAmbientCol          () const {return m_ambient_col;     }
+    const sgVec4& getDiffuseCol          () const {return m_diffuse_col;     }
+    const sgVec4& getSpecularCol         () const {return m_specular_col;    }
+    const bool&   useFog                 () const {return m_use_fog;         }
+    const sgVec4& getFogColor            () const {return m_fog_color;       }
+    const float&  getFogDensity          () const {return m_fog_density;     }
+    const float&  getFogStart            () const {return m_fog_start;       }
+    const float&  getFogEnd              () const {return m_fog_end;         }
+    const sgVec4& getSkyColor            () const {return m_sky_color;       }
+    const std::string& getDescription    () const {return m_description;     }
+    const std::string& getDesigner       () const {return m_designer;        }
+    const std::string& getTopviewFile    () const {return m_top_view;        }
+    const std::string& getScreenshotFile () const {return m_screenshot;      }
+    const std::vector<SGfloat>& getWidth () const {return m_path_width;      }
+    bool               hasFinalCamera    () const {return m_has_final_camera;}
+    const Vec3&        getCameraPosition () const {return m_camera_final_pos;}
+    const Vec3&        getCameraHPR      () const {return m_camera_final_hpr;}
     btTransform        getStartTransform (unsigned int pos) const;
-    void  getTerrainInfo(const Vec3 &pos, float *hot, Vec3* normal, 
-                         const Material **material) const;
-    void createPhysicsModel              ();
-    void               glVtx             (sgVec2 v, float x_offset, float y_offset) const
+    void getTerrainInfo(const Vec3 &pos, float *hot, Vec3* normal, 
+                        const Material **material) const;
+    void createPhysicsModel();
+    void glVtx(sgVec2 v, float x_offset, float y_offset) const
     {
-        glVertex2f(
-            x_offset+(v[0]-m_driveline_min[0])*m_scale_x,
-            y_offset+(v[1]-m_driveline_min[1])*m_scale_y);
+        glVertex2f(x_offset+(v[0]-m_driveline_min[0])*m_scale_x,
+                   y_offset+(v[1]-m_driveline_min[1])*m_scale_y);
     }
-
     void  getAABB(Vec3 *min, Vec3 *max) const {*min=m_aabb_min; *max=m_aabb_max; }
 private:
     void  loadTrack                      (std::string filename);
@@ -211,11 +206,11 @@ private:
     void  convertTrackToBullet           (ssgEntity *track, sgMat4 m);
 
     float pointSideToLine(const Vec3& L1, const Vec3& L2,
-                          const Vec3& P ) const;
-    int   pointInQuad(const Vec3& A, const Vec3& B,
-                      const Vec3& C, const Vec3& D, const Vec3& POINT ) const;
-    void  getMusicInformation(std::vector<std::string>&             filenames, 
-                              std::vector<MusicInformation*>& m_music   );
+                          const Vec3& P) const;
+    int   pointInQuad    (const Vec3& A, const Vec3& B,
+                          const Vec3& C, const Vec3& D, const Vec3& POINT) const;
+    void  getMusicInformation(std::vector<std::string>& filenames,
+                              std::vector<MusicInformation*>& m_music);
 }
 ;   // class Track
 

@@ -80,7 +80,7 @@ MenuManager::~MenuManager()
     delete m_current_menu;
     sfx_manager->deleteSFX(m_back_sound);
     sfx_manager->deleteSFX(m_select_sound);
-}
+}   // ~MenuManager
 
 //-----------------------------------------------------------------------------
 /** Puts the given menu into the menu stack and saves the widgetToken of
@@ -99,7 +99,7 @@ void MenuManager::pushMenu(MenuManagerIDs id)
     // used to suppress select-sound on startup
     static bool is_startup = true;
 
-    if(id == MENUID_EXITGAME)
+    if(MENUID_EXITGAME == id)
     {
 		m_back_sound->play();
 	}
@@ -118,13 +118,13 @@ void MenuManager::pushMenu(MenuManagerIDs id)
 
     if(m_current_menu) m_current_menu->lockInput();
     m_change_menu = true;
-}
+}   // pushMenu
 
 //-----------------------------------------------------------------------------
 const bool MenuManager::isMainMenuActive() const
 {
     return m_menu_stack[ m_menu_stack.size()-1 ].first == MENUID_MAINMENU;
-}
+}   // isMainMenuActive
 
 //-----------------------------------------------------------------------------
 void MenuManager::popMenu()
@@ -134,18 +134,16 @@ void MenuManager::popMenu()
     m_menu_stack.pop_back();
     if( m_current_menu ) m_current_menu->lockInput();
     m_change_menu = true;
-}
+}   // popMenu
 
 //-----------------------------------------------------------------------------
 void MenuManager::update()
 {
-
-    if ( m_change_menu )
+    if(m_change_menu)
     {
         m_change_menu = false;
 
-        if (m_RaceGUI
-            && m_current_menu == m_RaceGUI)
+        if(m_RaceGUI && m_current_menu == m_RaceGUI)
         {
             m_RaceGUI = 0;
             inputDriver->setMode(SDLDriver::MENU);
@@ -154,13 +152,13 @@ void MenuManager::update()
         delete m_current_menu;
         m_current_menu= NULL;
 
-        if (!m_menu_stack.empty())
+        if(!m_menu_stack.empty())
         {
 			pair<MenuManagerIDs, int> saved = m_menu_stack.back();
             MenuManagerIDs id = saved.first;
 			int saved_widget = saved.second;
 
-            switch (id)
+            switch(id)
             {
             case MENUID_MAINMENU:
                 m_current_menu= new MainMenu();
@@ -275,36 +273,36 @@ void MenuManager::update()
             }   // switch
 
 
-            if( id != MENUID_EXITGAME )
+            if(id != MENUID_EXITGAME)
             {
-                // Restores the previously selected widget if there was one.
-                if (saved_widget != WidgetManager::WGT_NONE)
+                // Restore the previously selected widget if there was one.
+                if(saved_widget != WidgetManager::WGT_NONE)
                 {
-                    widget_manager->lightenWgtColor( saved_widget );
-                    widget_manager->pulseWgt( saved_widget );
+                    widget_manager->lightenWgtColor(saved_widget);
+                    widget_manager->pulseWgt(saved_widget);
                     widget_manager->setSelectedWgt(saved_widget);
-                } else if( widget_manager->getSelectedWgt() != WidgetManager::WGT_NONE )
+                } 
+                else if(widget_manager->getSelectedWgt() != WidgetManager::WGT_NONE)
                 {
-                    widget_manager->lightenWgtColor (
-                        widget_manager->getSelectedWgt() );
+                    widget_manager->lightenWgtColor(widget_manager->getSelectedWgt());
                 }
             }
         }
     }
 
-    static ulClock now  = ulClock();
+    static ulClock now = ulClock();
     now.update();
 
-    if (m_current_menu != NULL)
+    if(m_current_menu != NULL)
     {
         m_current_menu->update((float)now.getDeltaTime());
     }
 }   // update
 
-//----------k-------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 void MenuManager::switchToGrandPrixEnding()
 {
-    if (m_current_menu != NULL)
+    if(m_current_menu != NULL)
     {
         if(m_current_menu==m_RaceGUI) m_RaceGUI=0;
         delete m_current_menu;
@@ -313,18 +311,19 @@ void MenuManager::switchToGrandPrixEnding()
 
     m_menu_stack.clear();
     pushMenu(MENUID_GRANDPRIXEND);
-}
+}   // switchToGrandPrixEnding
 
 //-----------------------------------------------------------------------------
 void MenuManager::switchToRace()
 {
     m_menu_stack.clear();
     pushMenu(MENUID_RACE);
-}
+}   // switchToRace
 
 //-----------------------------------------------------------------------------
-// Returns true if the id is somewhere on the stack. This can be used to detect
-// if the config_display menu was called from the race_gui, or main_menu
+/** Returns true if the id is somewhere on the stack. This can be used to detect
+ *  if the config_display menu was called from the race_gui, or main_menu.
+ */
 bool MenuManager::isSomewhereOnStack(MenuManagerIDs id)
 {
 	for(vector<pair<MenuManagerIDs,int> >::iterator i = m_menu_stack.begin(); i != m_menu_stack.end(); i++)
@@ -332,14 +331,13 @@ bool MenuManager::isSomewhereOnStack(MenuManagerIDs id)
 		if ((*i).first == id)
 			return true;
 	}
-	
 	return false;
 }   // isSomewhereOnStack
 
 // -----------------------------------------------------------------------------
 void MenuManager::switchToMainMenu()
 {
-    if (m_current_menu != NULL)
+    if(m_current_menu != NULL)
     {
         if(m_current_menu == m_RaceGUI) m_RaceGUI = 0;
         delete m_current_menu;
@@ -348,4 +346,4 @@ void MenuManager::switchToMainMenu()
 
     m_menu_stack.clear();
     pushMenu(MENUID_MAINMENU);
-}
+}   // switchToMainMenu

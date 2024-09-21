@@ -27,8 +27,6 @@
 namespace SSGHelp {
     //* Several useful functions which don't fit anywhere else
     void          createDisplayLists(ssgEntity *entity);
-    void          print_model       (ssgEntity *entity, const int indent,
-                                     const int maxLevel);
     void          MinMax            (const ssgEntity *p,
                                      Vec3 *min, Vec3 *max);
 };   // namespace SSGHelp

@@ -146,16 +146,16 @@ void SkidMarks::update(float dt)
     delta.normalize();
     delta *= m_width;
 
-    m_avoid_z_fighting += 0.001f;
-    if(m_avoid_z_fighting>0.01f) m_avoid_z_fighting = 0.0f;
+    m_avoid_z_fighting += 0.002f;
+    if(m_avoid_z_fighting>0.02f) m_avoid_z_fighting = 0.0f;
 
     SkidMarkQuads *smq_left = new SkidMarkQuads(raycast_left.m_contactPointWS,
                                          raycast_left.m_contactPointWS + delta,
                                          m_skid_state, m_avoid_z_fighting);
     scene->add(smq_left);
 
-    m_avoid_z_fighting += 0.001f;
-    if(m_avoid_z_fighting>0.01f) m_avoid_z_fighting = 0.0f;
+    m_avoid_z_fighting += 0.002f;
+    if(m_avoid_z_fighting>0.02f) m_avoid_z_fighting = 0.0f;
     SkidMarkQuads *smq_right = new SkidMarkQuads(raycast_right.m_contactPointWS
                                                   - delta,
                                                   raycast_right.m_contactPointWS,
@@ -177,7 +177,6 @@ void SkidMarks::update(float dt)
         m_left [m_current] = smq_left;
         m_right[m_current] = smq_right;
     }
-
 
     m_skid_marking = true;
 

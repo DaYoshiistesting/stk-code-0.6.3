@@ -624,14 +624,15 @@ void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
     if (speed<=0) return;
     else
     {
-        // The speed ratio was speed/KM_per_H/110 but on hard difficulty,
-        // the speedo'meter is going too high so, instead of 110 we will
-        // use 116.7f (cause it stay at 200tf/h).
+        // The speed ratio was supposed to be speed/KM_per_H/110.0f,
+        // but it was not accurate in different difficulties, so, we
+        // use 118.0f on hard (cause it stay at 200tf/h) and 113.5f,
+		// to make lower than hard.
         float speedRatio;
-        if (race_manager->getDifficulty()==RaceManager::RD_HARD)
-             speedRatio = speed/KILOMETERS_PER_HOUR/116.7f;
+        if(race_manager->getDifficulty()==RaceManager::RD_HARD)
+             speedRatio = speed/KILOMETERS_PER_HOUR/118.0f;
         else speedRatio = speed/KILOMETERS_PER_HOUR/113.5f;
-        if (speedRatio>1) speedRatio = 1;
+        if(speedRatio>1) speedRatio = 1;
 
         m_speed_fore_icon->getState()->force();
         glBegin(GL_POLYGON);
@@ -639,13 +640,13 @@ void RaceGUI::drawSpeed(Kart* kart, float offset_x, float offset_y,
         glVertex2f(offset_x+width/2, offset_y);
         glTexCoord2f(0, 0.0f);
         glVertex2f(offset_x, offset_y);
-        if (speedRatio < 0.4f)
+        if(speedRatio < 0.4f)
         {
             float f = speedRatio/0.4f;
             glTexCoord2f(0, f);
             glVertex2f(offset_x, offset_y+f*height);
         }
-        else if (speedRatio < 0.8f)
+        else if(speedRatio < 0.8f)
         {
             float f = (speedRatio-0.4f)/(0.8f-0.4f);
             glTexCoord2f(0, 1.0f);
