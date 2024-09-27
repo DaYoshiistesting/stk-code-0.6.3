@@ -85,7 +85,7 @@ void Vec3::setHPR(const btQuaternion& q)
     float YSquared = Y * Y;
     float ZSquared = Z * Z;
 
-    //setX(atan2f(2.0f * (X * Z + Y * W), -YSquared - XSquared + ZSquared + WSquared));
+    //setX(atan2f(-2.0f * (X * Z + Y * W), -XSquared + ZSquared - YSquared + WSquared));
     //setY(asinf(2.0f * (X * Z + Y * W)));
     //setZ(atan2f(2.0f * (X * Z - Y * W), XSquared - YSquared - ZSquared + WSquared));
 }   // setHPR(btQuaternion)

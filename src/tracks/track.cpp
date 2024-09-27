@@ -36,6 +36,7 @@
 #include "graphics/scene.hpp"
 #include "items/item.hpp"
 #include "items/item_manager.hpp"
+#include "karts/kart.hpp"
 #include "lisp/lisp.hpp"
 #include "lisp/parser.hpp"
 #include "modes/world.hpp"
@@ -50,7 +51,8 @@ const int   Track::QUAD_TRI_NONE   = -1;
 const int   Track::QUAD_TRI_FIRST  =  1;
 const int   Track::QUAD_TRI_SECOND =  2;
 const int   Track::UNKNOWN_SECTOR  = -1;
-Track      *Track::m_track        = NULL;
+Track      *Track::m_track         = NULL;
+btTransform global_start;
 
 // ----------------------------------------------------------------------------
 Track::Track( std::string filename_, float w, float h, bool stretch )
@@ -443,17 +445,17 @@ const Vec3& Track::trackToSpatial(const int SECTOR ) const
 btTransform Track::getStartTransform(unsigned int pos) const
 {
     Vec3 orig;
-	float angle;
+    float angle;
     if(isArena())
     {
-        assert(pos < m_start_positions.size());
+        assert(pos<m_start_positions.size());
         orig.setX(m_start_positions[pos][0]);
         orig.setY(m_start_positions[pos][1]);
         orig.setZ(m_start_positions[pos][2]);
-		angle = 0;
+        angle = 0;
     }
     else
-    {
+    {	
         // sometimes the first kart would be too close
         // to the first driveline point and not to the last one -->
         // This kart would not get any lap counting done in the first
@@ -462,28 +464,31 @@ btTransform Track::getStartTransform(unsigned int pos) const
         float offset = 1.5f;
         if(m_left_driveline[0].getY() > 0 || m_right_driveline[0].getY() > 0)
             offset += std::max(m_left_driveline[0].getY(), m_left_driveline[0].getY());
-		float center = (m_left_driveline[0].getX()+m_right_driveline[0].getX())*0.5f;
-		orig  = Vec3(pos<m_start_x.size() ? m_start_x[pos] : 1.5f*(pos%2==0)? center+1.5f:center-1.5f,
+        float center = (m_left_driveline[0].getX()+m_right_driveline[0].getX())*0.5f;
+        // FIXME: These start coordinates are not much better, 
+        // because it just makes the karts align with a single point
+        // when it should be one kart that aligns with one point.
+        orig  = Vec3(pos<m_start_x.size() ? m_start_x[pos] : (pos%2==0)? center+1.5f:center-1.5f,
                      pos<m_start_y.size() ? m_start_y[pos] : -1.5f*pos-offset, 
                      pos<m_start_z.size() ? m_start_z[pos] : 1.0f);
         btTransform global_start;
-        Vec3 start = (m_left_driveline.front()+m_right_driveline.front())*0.5f;
-        Vec3 end   = (m_left_driveline.back()+m_right_driveline.back())*0.5f;
-        
-        angle = -atan2(end.getZ() - start.getZ(),
-                      -end.getX() + start.getX());
+        Vec3 start = (m_left_driveline[0]+m_right_driveline[0])*0.5f;
+        Vec3 end   = (m_left_driveline.front()+m_right_driveline.front())*0.5f;
+        angle = atan2(end.getZ() - start.getZ(),
+                      end.getY() - start.getY());
         Vec3 mid   = (start+end)*0.5f;
-        btQuaternion q(Vec3(0, 0, 1), angle);
+        btQuaternion q(Vec3(0,0,1), angle);
         global_start.setRotation(q);
-        global_start.setOrigin(Vec3(mid.getZ(), mid.getX(), 0));
-        orig = global_start(orig);
+        global_start.setOrigin(Vec3(mid.getZ(), mid.getY(), 0));
+        if(!(pos < m_start_x.size() || pos < m_start_y.size() || pos < m_start_z.size()))
+            orig = global_start(orig);
     }
     btTransform start;
     start.setOrigin(orig);
     start.setRotation(btQuaternion(btVector3(0,0,1), 
                                    pos<m_start_heading.size() 
                                    ? DEGREE_TO_RAD(m_start_heading[pos]) 
-                                   : angle));
+                                   : 0.0f));
     return start;
 }   // getStartTransform
 
@@ -859,17 +864,17 @@ void Track::loadTrack(std::string filename_)
 
     // Default values
     m_use_fog = false;
-    sgSetVec4 ( m_fog_color  , 0.3f, 0.7f, 0.9f, 1.0f ) ;
-    m_fog_density               = 1.0f/100.0f;
-    m_fog_start                 = 0.0f;
-    m_fog_end                   = 1000.0f;
-    m_gravity                   = 9.80665f;
+    sgSetVec4 (m_fog_color, 0.3f, 0.7f, 0.9f, 1.0f);
+    m_fog_density   = 1.0f/100.0f;
+    m_fog_start     = 0.0f;
+    m_fog_end       = 1000.0f;
+    m_gravity       = 9.80665f;
 
-    sgSetVec3 ( m_sun_position,  0.4f, 0.4f, 0.4f      );
-    sgSetVec4 ( m_sky_color,     0.3f, 0.7f, 0.9f, 1.0f );
-    sgSetVec4 ( m_ambient_col,   0.5f, 0.5f, 0.5f, 1.0f );
-    sgSetVec4 ( m_specular_col,  1.0f, 1.0f, 1.0f, 1.0f );
-    sgSetVec4 ( m_diffuse_col,   1.0f, 1.0f, 1.0f, 1.0f );
+    sgSetVec3(m_sun_position, 0.4f, 0.4f, 0.4f      );
+    sgSetVec4(m_sky_color,    0.3f, 0.7f, 0.9f, 1.0f);
+    sgSetVec4(m_ambient_col,  0.5f, 0.5f, 0.5f, 1.0f);
+    sgSetVec4(m_specular_col, 1.0f, 1.0f, 1.0f, 1.0f);
+    sgSetVec4(m_diffuse_col,  1.0f, 1.0f, 1.0f, 1.0f);
 
     lisp::Parser parser;
     const lisp::Lisp* const ROOT = parser.parse(m_filename);
@@ -979,7 +984,7 @@ void Track::loadDriveline()
         std::cout << "Error: driveline's sizes do not match, right " <<
         "driveline is " << m_right_driveline.size() << " vertex long " <<
         "and the left driveline is " << m_left_driveline.size()
-        << " vertex long. The targered track is " << m_name << " ." << std::endl;
+        << " vertex long. The targeted track is " << m_name << " ." << std::endl;
 
     m_dl_with_tolerance_left.reserve(DRIVELINE_SIZE);
     m_dl_with_tolerance_right.reserve(DRIVELINE_SIZE);
@@ -1024,12 +1029,12 @@ void Track::loadDriveline()
         //the drivelines, and using the center driveline is not
         //good enough.
         m_driveline_min.min(m_right_driveline[i]);
-        m_driveline_min.min(m_left_driveline[i] );
+        m_driveline_min.min(m_left_driveline [i]);
         m_driveline_max.max(m_right_driveline[i]);
-        m_driveline_max.max(m_left_driveline[i] );
+        m_driveline_max.max(m_left_driveline [i]);
 
         m_distance_from_start.push_back(d);  // dfs[i] is not valid in windows here!
-        d += (m_driveline[i]-m_driveline[ i==DRIVELINE_SIZE-1 ? 0 : i+1 ]).length();
+        d += (m_driveline[i]-m_driveline[i==DRIVELINE_SIZE-1 ? 0 : i+1]).length();
     }
     m_total_distance = d;
     Vec3 sc = m_driveline_max - m_driveline_min;

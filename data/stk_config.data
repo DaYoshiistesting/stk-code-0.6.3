@@ -1,14 +1,14 @@
 ;; -*- mode: lisp -*-
 
 (config
-  ;; STK parameters
-  ;; --------------
+  ;; STK parameters:
+  ;; ---------------
   (min-kart-version              1)  ;; Minimum and maximum .kart files supported
   (max-kart-version              2)  ;; by this binary. Older/newer files are ignored.
   (min-track-version             1)  ;; Minimum and maximum .track files supported
   (max-track-version             2)  ;; by this binary, older/newer files are ignored.
-  (max-karts                    10)  ;; Maximum number of karts.
-  (scores   12 11 10 8 6 5 4 3 2 1)  ;; 1st, 2nd, 3rd... 'till 10th. 
+  (max-karts                    11)  ;; Maximum number of karts.
+  (scores 13 12 11 10 8 6 5 4 3 2 1)  ;; 1st, 2nd, 3rd... 'till 10th. 
   (grid-order	   	             1)  ;; Order for grand prix, 1 is most 
                                      ;; points first, 0 is least points first.
   (title-music              "MayDayMayhem.music")
@@ -32,8 +32,8 @@
   (final-camera-time           1.5)   ;; Time for the final camera to reach 
                                       ;; it's destination.
   
-  ;; Attachment related parameters
-  ;; -----------------------------
+  ;; Attachment related parameters:
+  ;; ------------------------------
   (anvil-weight              150.0)  ;; Additional weight an anvil adds to a kart when attached.
   (anvil-speed-factor          0.2)  ;; Additional slowdown speed caused by anvil.
   (parachute-friction          2.0)  ;; Friction increase when a parachute is attached.
@@ -57,8 +57,8 @@
   (explosion-impulse-obj     500.0)  ;; Explosion impulse for physics objects (smaller
                                      ;; else a cone e.g. will be pushed way too far).
   
-  ;; The following parameters are the defaults for karts
-  ;; ---------------------------------------------------
+  ;; The following parameters are the defaults for karts:
+  ;; ----------------------------------------------------
   (kart-defaults
      (wheel-base               1.20)
      (heightCOG                0.20)
@@ -97,8 +97,8 @@
      (time-till-max-skid        0.40)   ;; Time till maximum skidding is reached.
      (skid-visual               0.16)   ;; Additional graphical rotation of kart.
 	 
-     ;; Bullet physics attributes
-	 ;; -------------------------
+     ;; Bullet physics attributes:
+	 ;; --------------------------
      (brake-factor              11.0)
      ;; Defines the smallest turn radius at lowest speed (4.64 m at
      ;; speed 0) and at high speed (13.5 m at speed 12 m/s). Maximum
@@ -126,7 +126,7 @@
      (wheel-width                0.3)
      (chassis-linear-damping     0.2)
      (chassis-angular-damping   30.2)
-     (max-speed-reverse-ratio    0.3) ;; percentage of max speed for reverse gear
+     (max-speed-reverse-ratio    0.3) ;; Percentage of max speed for reverse gear.
      (suspension-rest            0.2)
      (suspension-travel-cm      19.0)
 	 
@@ -155,12 +155,12 @@
      (upright-tolerance         0.2)
      (upright-max-force        30.0)
      (track-connection-accel    2.0)
-     (rubber-band-max-length   50.0)  ;; Maximum length of rubber band
+     (rubber-band-max-length   50.0)  ;; Maximum length of rubber band.
      (rubber-band-force        1500)  ;; Force a plunger/rubber band applies to the kart(s).
      (rubber-band-duration      1.0)  ;; Duration a rubber band acts.
      (camera-max-accel         10.0)
      (camera-max-brake          5.0)
      (camera-distance           3.5) 
-   )   ;; end kart-defaults
+   )   ;; end of kart-defaults
 )
 ;; EOF ;;

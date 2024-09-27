@@ -119,7 +119,6 @@ ItemManager::ItemManager()
     {
         m_items_in_sector = NULL;
     }
-
 }   // ItemManager
 
 //-----------------------------------------------------------------------------

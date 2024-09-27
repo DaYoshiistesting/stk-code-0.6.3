@@ -83,8 +83,8 @@
 #
 #
 #
-# Ignore
-# ------
+# Ignore physics
+# --------------
 # Don't crash with a surface that has this texture applied. Values can be Y or
 # N. Default is N.
 #
@@ -95,8 +95,8 @@
 # can be Y or N. Default is N.
 #
 #
-# Resetter
-# --------
+# Reset
+# -----
 # When a kart touches this surface, it is rescued, useful for lava and others.
 # Values can be Y or N. Default value is N.
 #
@@ -114,18 +114,18 @@
 # is like driving on road - no change to maximum speed). The slowdown
 # These two variables are optional, their default is 1.0 an
 
-# TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col mxSpd SldT
+# TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col mxSpd SlodT
 "clouds.rgb"                N N    N    0.0    N     N    0.5   N   N   Y   N
 "canyon_water.rgb"          N N    N    0.0    N     N    0.7   N   N   Y   N
 "sand.rgb"                  N N    N    0.0    Y     N    0.0000001 N N N   N   0.4   4.0
-"sandgrass.rgb"             N N    N    0.0    Y     N    0.00000015 N N N  N   0.4   4.0
+"sandgrass.rgb"             N N    N    0.0    Y     N    0.0000002 N N N   N   0.4   4.0
 "grass.rgb"                 N N    N    0.0    Y     N    0.0000002 N N N   N   0.6   4.0
 "yellow_dirt.rgb"           N N    N    0.0    N     N    0.0000001 N N N   N   0.5   4.0
 "chrome.rgb"                N N    N    0.0    N     Y    0.5   N   N   N   N
 "chrome2.rgb"               N N    N    0.0    N     Y    0.5   N   N   N   N
 "railing.rgb"               N Y    Y    0.5    Y     N    1.0   N   N   N   N
-"wood.rgb"                  N N    N    0.0    Y     N    0.0000003 N   N   N   N
-"concrete.rgb"              N N    N    0.0    Y     N    0.0000003 N   N   N   Y
+"wood.rgb"                  N N    N    0.0    Y     N    0.0000003 N N N   N
+"concrete.rgb"              N N    N    0.0    Y     N    0.0000003 N N N   Y
 "brick.rgb"                 N N    N    0.0    Y     N    1.0   N   N   N   Y
 "stonewall.rgb"             N N    N    0.0    Y     N    1.0   N   N   N   N
 "stones.rgb"                N N    N    0.0    Y     N    0.0000002 N   N   N   N
@@ -135,18 +135,17 @@
 "pyramidwall.rgb"           N N    N    0.0    Y     N    1.0   N   N   N   N
 "lava.rgb"                  N N    N    0.0    N     N    1.0   N   N   Y   Y
 "lava2.rgb"                 N N    N    0.0    N     N    1.0   N   N   Y   Y
-"metalgrid.rgb"             N N    Y    0.3    Y     N    0.0000003 N   N   N   N
+"metalgrid.rgb"             N N    Y    0.3    Y     N    0.0000003 N N N   N
 "fuzzy_sand.rgb"            N N    Y    0.0    N     N    1.0   Y   N   N   N
 "roadway.rgb"               Y N    N    0.0    Y     N    0.0000003 N   N   N   N
 "track.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N   N
 "trackborder.rgb"           N N    N    0.0    N     N    0.0000003 N   N   N   N
-"chess.rgb"		            N N    N    0.0    Y     N    0.0000003 N   N   N   N
+"chess.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N   N
 "tinytux.rgb"               Y Y    Y    0.8    N     N    1.0   Y   N   N   N
 "butterfly.rgb"             Y Y    Y    0.8    N     N    1.0   Y   N   N   N
-"track2.rgb"                N N    N    0.0    Y     N    0.0000003 N   N   N   N
+"track2.rgb"                N N    N    0.0    Y     N    0.0000003 N N N   N
 "zipper_collect.rgb"        N N    N    0.0    N     N    1.0   N   Y   N   N
 "zipper.rgb"                N N    N    0.0    N     N    1.0   N   Y   N   N
-# TextureName              Clamp Trans Alpha Light SphMp Frict Ign Zip Rst Col
 "banana.rgb"                N N    N    0.5    Y     N    1.0   N   N   N   N
 "bananawrap.rgb"            Y Y    Y    0.5    N     N    1.0   N   Y   N   N
 "fuzzy.rgb"                 Y Y    Y    0.2    N     N    0.5   Y   N   N   N
@@ -161,8 +160,6 @@
 "parachute.rgb"             Y Y    Y    0.1    N     N    1.0   Y   N   N   N
 "speedback.rgb"             Y Y    Y    0.0    N     N    1.0   Y   N   N   N
 "speedfore.rgb"             Y Y    Y    0.0    N     N    1.0   Y   N   N   N
-
-
 "water_light.rgb"           N N    N    0.1    N     N    1.0   N   N   Y   N
 "palm_b.rgb"                N N    Y    0.0    N     N    0.5   N   N   N   N
 "sea.rgb"                   N N    N    0.0    N     N    0.5   N   N   Y   Y
@@ -171,30 +168,30 @@
 "window.rgb"                N N    Y    0.0    Y     N    1.0   N   N   N   N
 "signs.rgb"                 N N    Y    0.5    N     N    0.5   N   N   N   N
 "greenice.rgb"              N N    N    0.0    N     N    0.5   N   N   Y   N
-"snow.rgb"		            N N    N	0.0    Y     N    0.00000018  N   N   N   N 0.4 4
-"ice.rgb"                   N N    N    0.0    Y     N    0.000000095 N   N   N   N 
-"snowyrock.rgb"             N N    N    0.0    Y     N    0.0000002   N   N   N   N
-"sand2.rgb"		            N N    N    0.0    Y     N    0.0000001   N   N   N   N
-"road_dirt.rgb"		        N N    N    0.0    Y     N    0.00000025  N   N   N   N
-"grass2.rgb"		        N N    N    0.0    Y     N    0.00000015  N   N   N   N 0.6 4
-"dirt2sand.rgb"		        N N    N    0.0    Y     N    0.0000002   N   N   N   N
-"grass2dirt.rgb"	        N N    N    0.0    Y     N    0.0000002   N   N   N   N 0.4 4
-"logs.rgb"		            N N    N    0.0    Y     N    0.0000002   N   N   N   N
-"stonetex.rgb"		        N N    N    0.0    Y     N    0.0000002   N   N   N   N
-"redwhite.rgb"		        N N    N    0.0    Y     N    0.0000002   N   N   N   N
-"dirt.rgb"		            N N    N    0.0    Y     N    0.00000025  N   N   N   N
-"city_asphalt_1.rgb"	    N N    N    0.0    Y     N    0.0000003   N   N   N   N
-"city_checker.rgb"	        N N    N    0.0    Y     N    0.0000003   N   N   N   N
-"canyon_sky_1.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
-"canyon_sky_2.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
-"canyon_sky_3.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
-"canyon_sky_4.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
-"canyon_sky_5.rgb"        N N    N    0.0    N     N    0.7   N   N   N   N
-"tank-blue.rgb"		        N N    N    0.0    Y     Y    0.5   N   N   N   N
-"tank-green.rgb"	        N N    N    0.0    Y     Y    0.5   N   N   N   N
-"tank-cyan.rgb"		        N N    N    0.0    Y     Y    0.5   N   N   N   N
-"starparticle.rgb"			N N    Y    0.0    Y     N    1.0   N   N   N   N   N
-"gift-loop.rgb"		        N N    N    0.0    Y     Y    0.5   N   N   N   N
+"snow.rgb"                  N N    N    0.0    Y     N    0.0000002 N N N   N   0.4   4.0
+"ice.rgb"                   N N    N    0.0    Y     N    0.0000001 N N N   N 
+"snowyrock.rgb"             N N    N    0.0    Y     N    0.0000002 N N N   N
+"sand2.rgb"                 N N    N    0.0    Y     N    0.0000001 N N N   N
+"road_dirt.rgb"             N N    N    0.0    Y     N    0.0000003 N N N   N
+"grass2.rgb"                N N    N    0.0    Y     N    0.0000002 N N N   N   0.6   4.0
+"dirt2sand.rgb"	            N N    N    0.0    Y     N    0.0000002 N N N   N
+"grass2dirt.rgb"            N N    N    0.0    Y     N    0.0000002 N N N   N   0.4   4.0
+"logs.rgb"                  N N    N    0.0    Y     N    0.0000002 N N N   N
+"stonetex.rgb"              N N    N    0.0    Y     N    0.0000002 N N N   N
+"redwhite.rgb"              N N    N    0.0    Y     N    0.0000002 N N N   N
+"dirt.rgb"                  N N    N    0.0    Y     N    0.0000003 N N N   N
+"city_asphalt_1.rgb"	    N N    N    0.0    Y     N    0.0000003 N N N   N
+"city_checker.rgb"          N N    N    0.0    Y     N    0.0000003 N N N   N
+"canyon_sky_1.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_2.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_3.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_4.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
+"canyon_sky_5.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
+"tank-blue.rgb"             N N    N    0.0    Y     Y    0.5   N   N   N   N
+"tank-green.rgb"            N N    N    0.0    Y     Y    0.5   N   N   N   N
+"tank-cyan.rgb"             N N    N    0.0    Y     Y    0.5   N   N   N   N
+"starparticle.rgb"          N N    Y    0.0    Y     N    1.0   N   N   N   N
+"gift-loop.rgb"	            N N    N    0.0    Y     Y    0.5   N   N   N   N
 "bowling-icon.rgb"          N N    Y    0.0    N     N    1.0   N   N   N   N
 "bubblegum-icon.rgb"        N N    Y    0.0    N     N    1.0   N   N   N   N
 "cake-icon.rgb"             N N    Y    0.0    N     N    1.0   N   N   N   N

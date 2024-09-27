@@ -1,57 +1,56 @@
 ;; -*- mode: lisp -*-
 
 (tuxkart-collectables
-    (bubblegum
-        (icon  "bubblegum-icon.rgb"   )
-        (model "../items/bubblegum.ac")
+  (bubblegum
+    (icon  "bubblegum-icon.rgb")
+    (model "../items/bubblegum.ac")
+  )
+
+  (cake
+    (icon  "cake-icon.rgb")
+    (model "cake.ac")
+    (speed        50.0)
+    (min-height    0.2)
+    (max-height    1.0)
+    (force-updown 25.0)
+    (max-distance 90.0)
+  )
+
+  (bowling
+    (icon  "bowling-icon.rgb")
+    (model "bowling.ac")
+    (speed            4.0)
+    (min-height       0.2)
+    (max-height       1.0)
+    (force-updown     1.0)
+    (force-to-target 40.0)
+    (max-distance    25.0)
     )
 
-    (cake
-        (icon  "cake-icon.rgb")
-        (model "cake.ac"      )
-        (speed        50.0)
-        (min-height    0.2)
-        (max-height    1.0)
-        (force-updown 25.0)
-        (max-distance 90.0)
-    )
+  (zipper
+    (icon  "zipper_collect.rgb")
+    (model "zipper.ac"         )
+  )
 
-    (bowling
-        (icon  "bowling-icon.rgb")
-        (model "bowling.ac"      )
-        (speed            4.0)
-        (min-height       0.2)
-        (max-height       1.0)
-        (force-updown     1.0)
-        (force-to-target 40.0)
-        (max-distance    25.0)
-    )
+  (plunger
+    (icon  "plunger-icon.rgb")
+    (model "plunger.ac"      )
+    (speed        35.0)
+    (min-height    0.2)
+    (max-height    1.0)
+    (force-updown 25.0)
+    (max-distance 90.0)
+  )
 
-    (zipper
-        (icon  "zipper_collect.rgb")
-        (model "zipper.ac"         )
-    )
+  (parachute
+    (icon        "parachute.rgb"       )
+    (model       "parachute.ac"        )
+    (set-texture "parachutetexture.rgb")
+  )
 
-    (plunger
-        (icon  "plunger-icon.rgb")
-        (model "plunger.ac"      )
-        (speed        35.0)
-        (min-height    0.2)
-        (max-height    1.0)
-        (force-updown 25.0)
-        (max-distance 90.0)
-    )
-
-    (parachute
-        (icon        "parachute.rgb"       )
-        (model       "parachute.ac"        )
-        (set-texture "parachutetexture.rgb")
-    )
-
-    (anvil
-       (icon  "anchor-icon.rgb")
-       (model "anvil.ac"       )
-    )
+  (anvil
+    (icon  "anchor-icon.rgb")
+    (model "anvil.ac"       )
+  )
 ) 
-
 ;; EOF ;;
