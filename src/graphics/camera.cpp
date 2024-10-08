@@ -64,40 +64,40 @@ void Camera::setScreenPosition(int camera_index)
     const int num_players = race_manager->getNumLocalPlayers();
     assert(camera_index >= 0 && camera_index <= 3);
 
-    if (num_players == 1)
+    if(num_players == 1)
     {
-        m_context -> setFOV ( 75.0f, 0.0f ) ;
-        m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 1.0f ;
+        m_context->setFOV(75.0f, 0.0f);
+        m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 1.0f;
     }
-    else if (num_players == 2)
+    else if(num_players == 2)
     {
-        m_context -> setFOV ( 85.0f, 85.0f*3.0f/8.0f ) ;
-        switch ( camera_index )
+        m_context->setFOV(45.0f, 45.0f);
+        switch(camera_index)
         {
-        case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 1.0f; m_h = 0.5f; break;
-        case 1 : m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 0.5f; break;
+            case 0 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 1.0f; break;
+            case 1 : m_x = 0.5f; m_y = 0.0f; m_w = 0.5f; m_h = 1.0f; break;
         }
     }
-    else if (num_players == 3)
+    else if(num_players == 3)
     {
-        m_context -> setFOV ( 50.0f, 0.0f );
-        switch ( camera_index )
+        m_context->setFOV(50.0f, 0.0f);
+        switch(camera_index)
         {
-        case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
-        case 1 : m_x = 0.5f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
-        case 2 : m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 0.5f;
-                 m_context -> setFOV ( 85.0f, 85.0f*3.0f/8.0f ); break;
+            case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
+            case 1 : m_x = 0.5f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
+            case 2 : m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 0.5f;
+            m_context->setFOV(85.0f, 85.0f*3.0f/8.0f); break;
         }
     }
-    else if (num_players == 4)
+    else if(num_players == 4)
     {
-        m_context -> setFOV ( 50.0f, 0.0f );
-        switch ( camera_index )
+        m_context->setFOV(50.0f, 0.0f);
+        switch(camera_index)
         {
-        case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
-        case 1 : m_x = 0.5f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
-        case 2 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 0.5f; break;
-        case 3 : m_x = 0.5f; m_y = 0.0f; m_w = 0.5f; m_h = 0.5f; break;
+            case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
+            case 1 : m_x = 0.5f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
+            case 2 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 0.5f; break;
+            case 3 : m_x = 0.5f; m_y = 0.0f; m_w = 0.5f; m_h = 0.5f; break;
         }
     }
     m_last_pitch = 0.0f;

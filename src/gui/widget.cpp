@@ -175,9 +175,9 @@ void Widget::layout()
 }   // layout
 
 //-----------------------------------------------------------------------------
-void Widget::update( const float DELTA )
+void Widget::update(const float DELTA)
 {
-    updateVariables( DELTA );
+    updateVariables(DELTA);
     draw();
 }
 
@@ -187,7 +187,7 @@ void Widget::resizeToText()
     if( !m_text.empty() )
     {
         float left, right, bottom, top;
-        m_font->getBBoxMultiLine(m_text, m_text_size, false, &left, &right, &bottom, &top);
+        m_font->getBBoxMultiLine(m_text, (float)m_text_size, false, &left, &right, &bottom, &top);
 
         const int TEXT_WIDTH = (int)(right - left);
         const int TEXT_HEIGHT = (int)(top - bottom);
@@ -306,9 +306,9 @@ void Widget::darkenColor()
 }
 
 //-----------------------------------------------------------------------------
-void Widget::setFont( const WidgetFont FONT )
+void Widget::setFont(const WidgetFont FONT)
 {
-    switch( FONT )
+    switch(FONT)
     {
         case WGT_FONT_GUI:
             m_font = font_gui;
@@ -325,7 +325,7 @@ void Widget::setFont( const WidgetFont FONT )
 }
 
 //-----------------------------------------------------------------------------
-void Widget::setTexture( const std::string& FILENAME, bool is_full_path )
+void Widget::setTexture(const std::string& FILENAME, bool is_full_path)
 {
     Material *m = material_manager->getMaterial( FILENAME, is_full_path );
     m_texture = m->getState()->getTextureHandle();
@@ -589,7 +589,7 @@ void Widget::updateVariables( const float DELTA )
     {
         line_end = m_text.find_first_of('\n', line_end + 1);
         ++lines;
-    } while( line_end != std::string::npos );
+    } while(line_end != std::string::npos);
 
 
     /* Handle preset scrolling positions */
@@ -600,15 +600,14 @@ void Widget::updateVariables( const float DELTA )
     // values to the left.
 
     float left, right;
-    m_font->getBBoxMultiLine(m_text, m_text_size, false, &left, &right, NULL, NULL);
+    m_font->getBBoxMultiLine(m_text, (float)m_text_size, false, &left, &right, NULL, NULL);
     int text_width = (int)(right - left + 0.99);
-
 
     const int Y_LIMIT = lines * m_text_size + m_height;
 
     //A work around for yet another bug with multilines: we get the wrong
     //width when using multilines.
-    if( text_width > m_width )
+    if(text_width > m_width)
     {
         text_width = m_width;
     }
@@ -831,8 +830,8 @@ void Widget::draw()
         } while( line_end != std::string::npos );
 
 
-        int x_pos = (int)(m_scroll_pos_x - m_width * 0.5f);
-        int y_pos = - (int)m_scroll_pos_y + (lines - 1 )* m_text_size / 2;
+        float x_pos = (float)(m_scroll_pos_x - m_width * 0.5f);
+        float y_pos = - (float)m_scroll_pos_y + (lines - 1 )* m_text_size / 2;
 
         size_t line_start = 0;
         bool draw;
@@ -853,12 +852,12 @@ void Widget::draw()
 
             line_end = m_text.find_first_of('\n', line_start);
 
-            if( draw )
+            if(draw)
             {
                 glScalef(m_text_scale, m_text_scale, 1.0f);
                 m_font->PrintBold(m_text.substr(line_start, line_end - line_start).c_str(), 
-                    m_text_size,
-                    x_pos, y_pos - m_text_size / 2,
+                    (float)m_text_size,
+                    x_pos, y_pos - ((float)m_text_size / 2),
                     m_text_color, 1.0f, 1.0f);
                 glScalef(1.0f/m_text_scale, 1.0f/m_text_scale, 1.0f);
             }

@@ -29,16 +29,21 @@ Font* font_race;
 
 int init_fonts()
 {
-    font_gui = new Font("DomesticMannersLatin1.txf");
-    font_race = new Font("DomesticMannersLatin1.txf");
-    return ( font_gui && font_race );
+	// As we don't have any cyrillic fonts, we'll get it from 0.7.
+    font_gui = new Font("DomesticManners.txf");
+	//font_gui_cyrillic = new Font("LayneHansomCyrillic.txf");
+    font_race = new Font("DomesticManners.txf");
+    //font_race_cyrillic = new Font("LayneHansomCyrillic.txf");
+    return(font_gui && font_race);
 }   // init_fonts
 
 // =============================================================================
 int delete_fonts()
 {
     delete font_gui;
+	//delete font_gui_cyrillic;
     delete font_race;
+	//delete font_race_cyrillic;
     return 0;
 }   // delete_fonts
 
@@ -59,30 +64,25 @@ Font::~Font()
 }   // ~Font
 
 // -----------------------------------------------------------------------------
-
-void Font::Print(const char *text, int size, 
-                 int x, int y,
-                 const GLfloat* color,
-                 float scale_x, float scale_y,
+void Font::Print(const char *text, float size, float x, float y, 
+                 const GLfloat* color, float scale_x, float scale_y,
                  int left, int right, int top, int bottom, bool doShadow)
 {
-    
-    // Only scale for lower resolution
-    float fontScaling = user_config->m_width<800 ? ((float)user_config->m_width/800.0f) 
+    float fontScaling = user_config->m_width<800 ? ((float)user_config->m_width/800.0f)
                                                  : 1.0f;
-    int   sz          = (int)(size*std::max(scale_x,scale_y)*fontScaling);
+    float sz = size*std::min(scale_x,scale_y)*fontScaling;
 
     float l,r,t,b;
-    m_fnt->getBBox(text, (float)sz, 0, &l, &r, &b, &t);
-    const int W = (int)((r-l+0.99));
-    const int H = (int)((t-b+0.99));
+    m_fnt->getBBox(text, sz, 0, &l, &r, &b, &t);
+    const float W = r-l+0.99f;
+    const float H = t-b+0.99f;
 
     if(x==CENTER_OF_SCREEN)
     {
         if(left ==-1) left  = 0;
         if(right==-1) right = user_config->m_width-1;
         int width = right-left+1;
-        x         = (width - W)/2 + left;
+        x = (float)((width - W)/2 + left);
     }
 
     if(y==CENTER_OF_SCREEN)
@@ -90,20 +90,20 @@ void Font::Print(const char *text, int size,
         if(top    == -1) top    = user_config->m_height-1;
         if(bottom == -1) bottom = 0;
         int height = top-bottom+1;
-        y = (height - H)/2 + bottom;
+        y = (float)((height - H)/2 + bottom);
     }
 
     m_text_out->begin();
     m_text_out->setPointSize((float)sz);
     if(doShadow)
     {
-        m_text_out->start2f((GLfloat)x-2, (GLfloat)y-2);
+        m_text_out->start2f(x-2, y-2);
         glColor4ub(0, 0, 0, 100);
         m_text_out->puts(text);
     }
-    m_text_out->start2f((GLfloat)x, (GLfloat)y);
+    m_text_out->start2f(x, y);
 
-    if( color == NULL )
+    if(color == NULL)
     {
         glColor4f(1.0f,1.0f,1.0f,1.0f);
     }
@@ -116,27 +116,25 @@ void Font::Print(const char *text, int size,
 
 }   // Print
 // -----------------------------------------------------------------------------
-
-void Font::PrintBold(const std::string &text, int size, int x, int y,
+void Font::PrintBold(const std::string &text, float size, float x, float y,
                      const GLfloat* color, float scale_x, float scale_y,
-                     int left, int right, int top, int bottom            )
+                     int left, int right, int top, int bottom)
 {
-    // Only scale for lower resolution
-    float fontScaling = user_config->m_width<800 ? ((float)user_config->m_width/800.0f) 
+    float fontScaling = user_config->m_width<800 ? ((float)user_config->m_width/800.0f)
                                                  : 1.0f;
-    int   sz          = (int)(size*std::max(scale_x,scale_y)*fontScaling);
+    float sz = size*std::max(scale_x,scale_y)*fontScaling;
 
     float l,r,t,b;
     getBBoxMultiLine(text, sz, 0, &l, &r, &b, &t);
-    const int W = (int)((r-l+0.99));
-    const int H = (int)((t-b+0.99));
+    const float W = r-l+0.99f;
+    const float H = t-b+0.99f;
 
     if(x==CENTER_OF_SCREEN)
     {
         if(left ==-1) left  = 0;
         if(right==-1) right = user_config->m_width-1;
         int width = right-left+1;
-        x         = (width - W)/2 + left;
+        x = (float)((width - W)/2 + left);
     }
 
     if(y==CENTER_OF_SCREEN)
@@ -144,9 +142,8 @@ void Font::PrintBold(const std::string &text, int size, int x, int y,
         if(top    == -1) top    = user_config->m_height-1;
         if(bottom == -1) bottom = 0;
         int height = top-bottom+1;
-        y = (height - H)/2 + bottom;
+        y = (float)((height - H)/2 + bottom);
     }
-
 
     m_text_out->begin();
     m_text_out->setPointSize((float)sz);
@@ -162,7 +159,7 @@ void Font::PrintBold(const std::string &text, int size, int x, int y,
         m_text_out->puts(text.c_str());
     }
 
-    if( color == NULL )
+    if(color == NULL)
     {
         glColor4f(1.0f,1.0f,1.0f,1.0f);
     }
@@ -170,8 +167,8 @@ void Font::PrintBold(const std::string &text, int size, int x, int y,
     {
         glColor4fv(color);
     }
-    xf=(GLfloat)x;
-    yf=(GLfloat)y;
+    xf=x;
+    yf=y;
     for(float r=-1.0f; r<=0.0f; r+=0.5f)
     {
         // This kind of simulates an outline, but it's not too good
@@ -180,7 +177,7 @@ void Font::PrintBold(const std::string &text, int size, int x, int y,
         //else
         //    glColor4f(1.0f,1.0f,1.0f,1.0f);
 
-        m_text_out->start2f((GLfloat)x+r, (GLfloat)y+r);
+        m_text_out->start2f(x+r, y+r);
         m_text_out->puts(text.c_str());
     }
     m_text_out->end();
@@ -188,11 +185,12 @@ void Font::PrintBold(const std::string &text, int size, int x, int y,
 }   // PrintBold
 
 // ----------------------------------------------------------------------------
-void Font::getBBox(const std::string &text, int size, bool italic,
+void Font::getBBox(const std::string &text, float size, bool italic,
                   float *left, float *right, float *bot, float *top)
 {
-    m_fnt->getBBox(text.c_str(), (float)size, italic, left, right, bot, top);
-    if(user_config->m_width<800) {
+    m_fnt->getBBox(text.c_str(), size, italic, left, right, bot, top);
+    if(user_config->m_width<800)
+    {
         float fract=(float)user_config->m_width/800.0f;
         *left  *= fract;
         *right *= fract;
@@ -202,19 +200,18 @@ void Font::getBBox(const std::string &text, int size, bool italic,
 
 }
 // ----------------------------------------------------------------------------
-
-void Font::getBBoxMultiLine(const std::string &text, int size, bool italic,
+void Font::getBBoxMultiLine(const std::string &text, float size, bool italic,
                             float *left, float *right, float *bot, float *top)
 {
     // Plib does not handle multi-lines strings as expected. So as a work
     // around we split strings into lines, and compute the size for each
     // line, and take the maximum size at the end.
     std::vector<std::string> s=StringUtils::split(text,'\n');
-    m_fnt->getBBox(s[0].c_str(), (float)size, italic, left, right, bot, top);
+    m_fnt->getBBox(s[0].c_str(), size, italic, left, right, bot, top);
     for(unsigned int i=1; i<s.size(); i++)
     {
         float l,r,b,t;
-        m_fnt->getBBox(s[i].c_str(), (float)size, italic, &l, &r, &b, &t);
+        m_fnt->getBBox(s[i].c_str(), size, italic, &l, &r, &b, &t);
         if(left) *left  = std::min(*left,  l);
         if(bot ) *bot   = std::min(*bot,   b);
         if(right)*right = std::max(*right, r); 

@@ -480,7 +480,9 @@ btTransform Track::getStartTransform(unsigned int pos) const
         btQuaternion q(Vec3(0,0,1), angle);
         global_start.setRotation(q);
         global_start.setOrigin(Vec3(mid.getZ(), mid.getY(), 0));
-        if(!(pos < m_start_x.size() || pos < m_start_y.size() || pos < m_start_z.size()))
+        if(!(pos < m_start_x.size() || 
+             pos < m_start_y.size() || 
+             pos < m_start_z.size()))
             orig = global_start(orig);
     }
     btTransform start;
@@ -1392,15 +1394,15 @@ void Track::loadTrackModel()
 
             if(need_hat)
             {
-                sgVec3 nrm ;
+                sgVec3 nrm;
 
-                loc.xyz[2] = 1000.0f ;
+                loc.xyz[2] = 1000.0f;
                 loc.xyz[2] = getHeightAndNormal(m_model, loc.xyz, nrm);
 
                 if ( fit_skin )
                 {
-                    float sy = sin(-loc.hpr [ 0 ] * SG_DEGREES_TO_RADIANS);
-                    float cy = cos(-loc.hpr [ 0 ] * SG_DEGREES_TO_RADIANS);
+                    float sy = sin(-loc.hpr[0] * SG_DEGREES_TO_RADIANS);
+                    float cy = cos(-loc.hpr[0] * SG_DEGREES_TO_RADIANS);
 
                     loc.hpr[2] =  SG_RADIANS_TO_DEGREES * atan2(nrm[0]*cy -
                                   nrm[1]*sy, nrm[2]);
@@ -1425,7 +1427,7 @@ void Track::loadTrackModel()
             ssgRangeSelector *lod   = new ssgRangeSelector;
             ssgTransform     *trans = new ssgTransform(&loc);
 
-            float r[2] = {-10.0f, 2200.0f};
+            float r[2] = {-10.0f, 2345.0f};
 
             lod->addKid(obj);
             trans->addKid(lod);
@@ -1459,7 +1461,7 @@ void Track::itemCommand(sgVec3 *xyz, int type, int bNeedHeight )
     if(bNeedHeight) (*xyz)[2] = 1000000.0f;
 
     // Even if 3d data are given, make sure that the item is on the ground
-    (*xyz)[2] = getHeight( m_model, *xyz ) + 0.06f;
+    (*xyz)[2] = getHeight(m_model, *xyz) + 0.06f;
 
     // Some modes (e.g. time trial) don't have any bonus boxes
     if(type==Item::ITEM_BONUS_BOX && !RaceManager::getWorld()->enableBonusBoxes()) 
@@ -1469,7 +1471,7 @@ void Track::itemCommand(sgVec3 *xyz, int type, int bNeedHeight )
     // Don't tilt the items, since otherwise the rotation will look odd,
     // i.e. the items will not rotate around the normal, but 'wobble'
     // around.
-    Vec3 normal(0, 0, 0.0f);
+    Vec3 normal(0.0f, 0.0f, 0.0f);
     ItemManager::get()->newItem((Item::ItemType)type, loc, normal);
 }   // itemCommand
 

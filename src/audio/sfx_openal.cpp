@@ -85,7 +85,7 @@ void SFXOpenAL::speed(float factor)
     {
         factor = 0.5f;
     }
-    alSourcef(m_soundSource,AL_PITCH,factor);
+    alSourcef(m_soundSource, AL_PITCH, factor);
     SFXManager::checkError("changing the speed");
 }   // speed
 

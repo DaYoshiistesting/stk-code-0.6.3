@@ -54,7 +54,7 @@ int DefaultRobot::m_num_of_track_info_instances = 0;
 DefaultRobot::DefaultRobot(const std::string& kart_name,
                            int position, const btTransform& init_pos, 
                            const Track *track ) :
-    AutoKart( kart_name, position, init_pos )
+    AutoKart(kart_name, position, init_pos)
 {
     if(m_num_of_track_info_instances==0)
     {

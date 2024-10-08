@@ -100,7 +100,8 @@ private:
     ulClock        m_fps_timer;
     int            m_fps_counter;
     char           m_fps_string[10];
-    const char    *m_pos_string [11];
+    std::vector<std::string>
+                   m_pos_string;
     Material      *m_speed_back_icon;
     Material      *m_speed_fore_icon;
     Material      *m_plunger_face;
@@ -120,28 +121,27 @@ private:
     int              m_map_bottom;
 
 
-    /* Display informat on screen */
+    /* Display information on screen */
     void drawStatusText        (const float dt);
     void drawEnergyMeter       (Kart *player_kart,
                                 float offset_x, float offset_y,
-                                float ratio_x,  float ratio_y );
+                                float ratio_x,  float ratio_y);
     void drawPowerupIcons      (Kart* player_kart,
                                 float offset_x, float offset_y,
-                                float ratio_x,  float ratio_y );
+                                float ratio_x,  float ratio_y);
     void drawAllMessages       (Kart* player_kart,
                                 float offset_x, float offset_y,
                                 float ratio_x,  float ratio_y );
     void drawPlayerIcons       (const KartIconDisplayInfo* info);
-    void oldDrawPlayerIcons    ();
-    void drawMap               ();
-    void drawTimer             ();
-    void drawFPS               ();
-    void drawMusicDescription  ();
+    void drawMap               (float ratio_x, float ratio_y);
+    void drawTimer             (float ratio_x, float ratio_y);
+    void drawFPS               (float ratio_x, float ratio_y);
+    void drawMusicDescription  (float ratio_x, float ratio_y);
     void cleanupMessages       (const float dt);
     void drawSpeed             (Kart* kart, float offset_x, float offset_y,
                                 float ratio_x, float ratio_y);
-    void drawLap               (const KartIconDisplayInfo* info, Kart* kart, int offset_x,
-                                int offset_y, float ratio_x, float ratio_y);
+    void drawLap               (const KartIconDisplayInfo* info, Kart* kart, float offset_x,
+                                float offset_y, float ratio_x, float ratio_y);
 };
 
 #endif

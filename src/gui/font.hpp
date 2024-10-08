@@ -37,21 +37,21 @@ public:
     Font(const char* fontname);
     Font(const std::string &fontname) { Font(fontname.c_str()); }
     ~Font();
-    void getBBox(const std::string &text, int size, bool italic,
+    void getBBox(const std::string &text, float size, bool italic,
                  float *left, float *right, float *bot, float *top);
-    void getBBoxMultiLine(const std::string &text, int size, bool italic,
+    void getBBoxMultiLine(const std::string &text, float size, bool italic,
                           float *left, float *right, float *bot, float *top);
 
     // The actual main function which does everything
     // ----------------------------------------------
-    void Print(      const char *text, int size,
-                     int x, int y,
+    void Print      (const char *text, float size,
+                     float x, float y,
                      const GLfloat* color = NULL,
                      float scale_x=1.0f, float scale_y=1.0f,
                      int left=-1, int right=-1, int top=-1, int bottom=-1,
                      bool doShadow=false);
-    void Print(      std::string const &text, int size,
-                     int x, int y,
+    void Print      (std::string const &text, float size,
+                     float x, float y,
                      const GLfloat* color = NULL,
                      float scale_x=1.0f, float scale_y=1.0f,
                      int left=-1, int right=-1, int top=-1, int bottom=-1,
@@ -62,8 +62,8 @@ public:
               doShadow);
     }
 
-    void PrintShadow(const char *text, int size,
-                     int x, int y,
+    void PrintShadow(const char *text, float size,
+                     float x, float y,
                      const GLfloat* color = NULL,
                      float scale_x=1.0f, float scale_y=1.0f,
                      int left=-1, int right=-1, int top=-1, int bottom=-1)
@@ -72,8 +72,8 @@ public:
                            color, scale_x, scale_y,
                            left, right, top, bottom, true);
     }
-    void PrintBold(  std::string const &text, int size,
-                     int x, int y,
+    void PrintBold  (std::string const &text, float size,
+                     float x, float y,
                      const GLfloat* color = NULL,
                      float scale_x=1.0f, float scale_y=1.0f,
                      int left=-1, int right=-1, int top=-1, int bottom=-1);
@@ -83,6 +83,8 @@ int init_fonts();
 int delete_fonts();
 
 extern Font* font_gui;
+//extern Font* font_gui_cyrillic;
 extern Font* font_race;
+//extern Font* font_race_cyrillic;
 
 #endif

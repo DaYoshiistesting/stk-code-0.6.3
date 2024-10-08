@@ -49,12 +49,12 @@
 #include "user_config.hpp"
 
 // For widgets with fixed position
-enum WidgetDirection{ WGT_DIR_FROM_LEFT, WGT_DIR_FROM_RIGHT, 
-                      WGT_DIR_LEFT_WIDGET, WGT_DIR_RIGHT_WIDGET, WGT_DIR_CENTER,
-                      WGT_DIR_FROM_TOP, WGT_DIR_FROM_BOTTOM,
-                      WGT_DIR_ABOVE_WIDGET, WGT_DIR_UNDER_WIDGET};
+enum WidgetDirection{WGT_DIR_FROM_LEFT, WGT_DIR_FROM_RIGHT, 
+                     WGT_DIR_LEFT_WIDGET, WGT_DIR_RIGHT_WIDGET, WGT_DIR_CENTER,
+                     WGT_DIR_FROM_TOP, WGT_DIR_FROM_BOTTOM,
+                     WGT_DIR_ABOVE_WIDGET, WGT_DIR_UNDER_WIDGET};
 
-enum WidgetFontSize { WGT_FNT_SML = 18, WGT_FNT_MED = 24, WGT_FNT_LRG = 30};
+enum WidgetFontSize {WGT_FNT_SML = 18, WGT_FNT_MED = 24, WGT_FNT_LRG = 30};
 
 enum WidgetArea //One of the uses of this, is for rounded corners
 {
@@ -150,8 +150,8 @@ class Widget
     bool m_enable_rect;
     GLuint m_rect_list; //A display list number that draws the rectangle with
                          //possibly rounded corners.
-    const GLfloat *m_rect_color; //This const cannot change the value it points to, but it
-                                 //can change where it points to.
+    const GLfloat *m_rect_color; //This const cannot change the value it points to,
+                                 //but it can change where it points to.
     WidgetArea m_round_corners;
 
     bool m_enable_border;

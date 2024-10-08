@@ -122,15 +122,14 @@ bool Bowling::updateAndDel(float dt)
             return true;
         }
     }
-    btVector3 v       = m_body->getLinearVelocity();
-    float vlen        = v.length2();
+    btVector3 v   = m_body->getLinearVelocity();
+    float vlen    = v.length2();
     if (hat<= m_max_height)
     {
         if(vlen<0.8*m_speed*m_speed)
         {   // bowling lost energy (less than 80%), i.e. it's too slow - speed it up:
-            if(vlen==0.0f) {
-                v    = btVector3(.5f, .5f, 0.0f);  // avoid 0 div.
-            }
+            if(vlen==0.0f) 
+                v = btVector3(.5f, .5f, 0.0f);  // avoid 0 div.
             m_body->setLinearVelocity(v*m_speed/sqrt(vlen));
         }   // vlen < 0.8*m_speed*m_speed
     }   // hat< m_max_height  
