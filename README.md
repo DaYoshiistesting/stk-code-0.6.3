@@ -18,7 +18,9 @@ Then, I came back in the SuperTuxKart 0.6.3 Team and learned that we have
 more members : DaYoshiistesting (me, now I state myself as a secondary developper), 
 P1ngvin, PeppermintPatty (leader of the SuperTuxKart 0.6.3 Project).
 
-If you want to play SuperTuxKart you can get it right [here](http://supertuxkart.sourceforge.net).
+Now, I've decided to take a step away from SuperTuxKart 0.6.3 to focus on myself.
+
+If you want to play SuperTuxKart you can get it [right here](http://supertuxkart.sourceforge.net).
 
 If you want to discuss with players or the actual SuperTuxKart team, 
 [click here](http://supertuxkart.sourceforge.net/forum).
