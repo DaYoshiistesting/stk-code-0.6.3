@@ -61,10 +61,10 @@ Information about the licenses for artwork are contained in [`data/CREDITS`](/da
 If you want to make a kart/track or are interested in coding, here are the coordinates pattern compared to 0.7's pattern:
 
 **SuperTuxKart 0.7.0: X = right, Y = up, Z = forward,  
-Heading = Y, Pitch = X, Roll = Z.**
+                      Heading = Y, Pitch = X, Roll = Z.**
 
 **SuperTuxKart 0.6.3: X = right, Y = forward, Z = up,  
-Heading = X, Pitch = Y, Roll = Z.**
+                      Heading = X, Pitch = Y, Roll = Z.**
 
 (Will do some changes on this internally).  
   
