@@ -6,7 +6,7 @@ and it is supposed to be a mix between 0.6.x and 0.7.0.
 It has some tracks/karts from 0.7.0, while still keeping its  
 outdated engine, original tracks, karts, items, weapons…
 
-# History
+## History
 In 2017, a 0.6.3 project was launched but never finished nor launched.
 
 In May 2023, the project is re-launched which causes the release of  
@@ -43,7 +43,7 @@ Back at the time, I've decided to take a step away from SuperTuxKart 0.6.3 to fo
 In October 2024, I another time leave the project, to get some rest, until May 2025,  
 when I come back.
 
-# Links
+## Links
 If you want to play SuperTuxKart you can get it [right here](http://supertuxkart.sourceforge.net).  
 
 If you want to discuss with players or the actual SuperTuxKart team,  
