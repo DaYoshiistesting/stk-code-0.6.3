@@ -37,7 +37,7 @@ If you want to discuss with players or the actual SuperTuxKart team, [click here
 
 If you want to know a bit more about us, you can join our Discord server by [clicking here](https://discord.gg/pq66Emhbgn).
 
-Our previous repositories are found right [here](https://www.mediafire.com/folder/y58ywbk2f3waw/SuperTuxKart_0.6.3_Releases) 
+Our previous repositories are found [right here](https://www.mediafire.com/folder/y58ywbk2f3waw/SuperTuxKart_0.6.3_Releases) 
 and [there](https://www.mediafire.com/folder/v9116m58i3h87/For_0.6.3).
 
 ## Hardware Requirements 
