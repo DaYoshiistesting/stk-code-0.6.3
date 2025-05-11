@@ -7,8 +7,7 @@ It has some tracks/karts from 0.7.0, while still keeping its outdated engine, or
 ## History
 In 2017, a 0.6.3 project was launched but never finished nor launched.
 
-In May 2023, the project is re-launched which causes the release of Alpha-1. Alpha-1 has new/updated karts : Pidgin, Nolok, Wilber  
-and many others.
+In May 2023, the project is re-launched which causes the release of Alpha-1. Alpha-1 has new/updated karts : Pidgin, Nolok, Wilber and many others.
 
 In June 2023, 0.6.3 Alpha-2 and Alpha-2.2 are released.  
 Alpha-2/2.2 updates karts and tracks without any optimization.
