@@ -45,9 +45,9 @@ private:
    /** The heading in m_hpr is between -90 and 90 degrees only. The 'real'
     *  heading between -180 to 180 degrees is stored in this variable. */
     float                  m_heading;
-    /** The pitch between -180 and 180 degrees. */
+    /** The pitch between -90 and 90 degrees. */
     float                  m_pitch;
-    /** The roll between -90 and 90 degrees. */
+    /** The roll between -180 and 180 degrees. */
     float                  m_roll;
 
 protected:
@@ -75,10 +75,10 @@ public:
      *  getHPR().getHeading() can result a different value (e.g. a heading
      *  of 180 degrees is the same as a roll and pitch around 180).*/
     float         getHeading ()   const        {return m_heading;                     }
-    /** Returns the pitch of the kart, restricted to between -180 and 180 degrees.
+    /** Returns the pitch of the kart, restricted to between -90 and 90 degrees.
      *  Note that using getHPR().getPitch() can result in a different value. */
     float         getPitch   ()   const        {return m_pitch;                       }
-    /** Returns the roll of the kart between -90 and 90 degrees. Note that
+    /** Returns the roll of the kart between -180 and 180 degrees. Note that
      *  using getHPR.getRoll() can result in a different value.  */
     float         getRoll    ()   const        {return m_roll;                        }
     const btQuaternion

@@ -70,7 +70,7 @@ void World::init()
     m_eliminated_karts    = 0;
     m_eliminated_players  = 0;
 
-    TimedRace::setClockMode( CHRONO );
+    TimedRace::setClockMode(CHRONO);
     m_use_highscores = true;
     
     // Grab the track file
@@ -206,7 +206,7 @@ Kart* World::loadRobot(const std::string& kart_name, int position,
 //-----------------------------------------------------------------------------
 World::~World()
 {
-    ItemManager::destroy();
+    // Items are deleted in track cleanup.
     delete race_state;
     // In case that a race is aborted (e.g. track not found) m_track is 0.
     if(m_track)
@@ -215,7 +215,7 @@ World::~World()
     callback_manager->clear(CB_TRACK);
 	callback_manager->clear(CB_ITEM);
 
-    for ( unsigned int i = 0 ; i < m_kart.size() ; i++ )
+    for(unsigned int i = 0 ; i < m_kart.size() ; i++)
         delete m_kart[i];
 
     m_kart.clear();
@@ -224,19 +224,19 @@ World::~World()
     if(m_physics)
         delete m_physics;
 
-    sound_manager -> stopMusic();
+    sound_manager->stopMusic();
 
     sgVec3 sun_pos;
     sgVec4 ambient_col, specular_col, diffuse_col;
-    sgSetVec3 ( sun_pos, 0.0f, 0.0f, 1.0f );
-    sgSetVec4 ( ambient_col , 0.2f, 0.2f, 0.2f, 1.0f );
-    sgSetVec4 ( specular_col, 1.0f, 1.0f, 1.0f, 1.0f );
-    sgSetVec4 ( diffuse_col , 1.0f, 1.0f, 1.0f, 1.0f );
+    sgSetVec3(sun_pos,      0.0f, 0.0f, 1.0f);
+    sgSetVec4(ambient_col,  0.2f, 0.2f, 0.2f, 1.0f);
+    sgSetVec4(specular_col, 1.0f, 1.0f, 1.0f, 1.0f);
+    sgSetVec4(diffuse_col,  1.0f, 1.0f, 1.0f, 1.0f);
 
-    ssgGetLight ( 0 ) -> setPosition ( sun_pos ) ;
-    ssgGetLight ( 0 ) -> setColour ( GL_AMBIENT , ambient_col  ) ;
-    ssgGetLight ( 0 ) -> setColour ( GL_DIFFUSE , diffuse_col ) ;
-    ssgGetLight ( 0 ) -> setColour ( GL_SPECULAR, specular_col ) ;
+    ssgGetLight(0)->setPosition(sun_pos);
+    ssgGetLight(0)->setColour(GL_AMBIENT,  ambient_col);
+    ssgGetLight(0)->setColour(GL_DIFFUSE,  diffuse_col);
+    ssgGetLight(0)->setColour(GL_SPECULAR, specular_col);
 }   // ~World
 //-----------------------------------------------------------------------------
 void World::terminateRace()

@@ -40,7 +40,7 @@ KartPropertiesManager::KartPropertiesManager()
 //-----------------------------------------------------------------------------
 KartPropertiesManager::~KartPropertiesManager()
 {
-    for(KartPropertiesVector::iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
        delete *i;
@@ -53,7 +53,7 @@ KartPropertiesManager::~KartPropertiesManager()
 //-----------------------------------------------------------------------------
 void KartPropertiesManager::removeTextures()
 {
-    for(KartPropertiesVector::iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
         delete *i;
@@ -117,7 +117,7 @@ void KartPropertiesManager::loadKartData(bool dont_load_models)
 //-----------------------------------------------------------------------------
 const int KartPropertiesManager::getKartId(const std::string &ident) const
 {
-    for(KartPropertiesVector::const_iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::const_iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
         if ((*i)->getIdent() == ident)
@@ -132,7 +132,7 @@ const int KartPropertiesManager::getKartId(const std::string &ident) const
 //-----------------------------------------------------------------------------
 const KartProperties* KartPropertiesManager::getKart(const std::string &ident) const
 {
-    for(KartPropertiesVector::const_iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::const_iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
         if ((*i)->getIdent() == ident)
@@ -156,7 +156,7 @@ const KartProperties* KartPropertiesManager::getKartById(int i) const
 std::vector<std::string> KartPropertiesManager::getAllAvailableKarts() const
 {
     std::vector<std::string> all;
-    for(KartPropertiesVector::const_iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::const_iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
         if(m_kart_available[i-m_karts_properties.begin()])
@@ -173,7 +173,7 @@ std::vector<std::string> KartPropertiesManager::getAllAvailableKarts() const
  */
 void KartPropertiesManager::setUnavailableKarts(std::vector<std::string> karts)
 {
-    for(KartPropertiesVector::const_iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::const_iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
         if(!m_kart_available[i-m_karts_properties.begin()]) continue;
@@ -196,7 +196,7 @@ void KartPropertiesManager::setUnavailableKarts(std::vector<std::string> karts)
 int KartPropertiesManager::getKartByGroup(const std::string& group, int n) const
 {
     int count=0;
-    for(KartPropertiesVector::const_iterator i  = m_karts_properties.begin();
+    for(KartPropertiesVector::const_iterator i = m_karts_properties.begin();
         i != m_karts_properties.end(); ++i)
     {
 		std::vector<std::string> groups=(*i)->getGroups();

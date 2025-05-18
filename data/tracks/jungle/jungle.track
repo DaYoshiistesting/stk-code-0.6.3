@@ -7,6 +7,7 @@
  (music                  "amazon_jungle.music")
  (screenshot             "sshot-jungle.rgb")
  (topview                "topview-jungle.rgb")
+ (groups                 "Standard")
  
  (use-fog      #t)
  (sky-color    0.75 1.0 1.0)
@@ -15,7 +16,6 @@
  (fog-end      50000.0)
  (fog-density    0.001)
  
- (groups      "standard")
  (camera-final-position  0 20 3)
  (camera-final-hpr       180 -7 0)
  

@@ -7,7 +7,7 @@
  (music       "TheDeadRocks-GreenSecretFromAmazonia.music")
  (screenshot  "sshot-sandtrack.rgb")
  (topview     "topview-sandtrack.rgb")
- (groups      "standard")
+ (groups      "Standard")
  (camera-final-position  5 100 10)
  (camera-final-hpr       180 -10 0)
 ;; Start coordinates just in front of the ramp

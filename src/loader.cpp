@@ -94,13 +94,13 @@ ssgEntity *Loader::load(const std::string& filename, CallbackType t,
 }   // load
 
 //-----------------------------------------------------------------------------
-void Loader::preProcessObj ( ssgEntity *entity, bool mirror )
+void Loader::preProcessObj (ssgEntity *entity, bool mirror)
 {
-    if (entity == NULL) return;
+    if(entity == NULL) return;
 
-    entity->dirtyBSphere ();
+    entity->dirtyBSphere();
 
-    if (entity->isAKindOf (ssgTypeLeaf()))
+    if (entity->isAKindOf(ssgTypeLeaf()))
     {
         if (mirror)
             for ( int i = 0 ; i < ((ssgLeaf *) entity)->getNumVertices(); i++)
@@ -115,10 +115,10 @@ void Loader::preProcessObj ( ssgEntity *entity, bool mirror )
         sgMat4 xform ;
 
         ((ssgTransform *) entity)->getTransform(xform);
-        xform [ 0 ][ 0 ] *= -1.0f ;
-        xform [ 1 ][ 0 ] *= -1.0f ;
-        xform [ 2 ][ 0 ] *= -1.0f ;
-        xform [ 3 ][ 0 ] *= -1.0f ;
+        xform [0][0] *= -1.0f ;
+        xform [1][0] *= -1.0f ;
+        xform [2][0] *= -1.0f ;
+        xform [3][0] *= -1.0f ;
         ((ssgTransform *) entity)->setTransform(xform);
     }
 
@@ -131,26 +131,26 @@ void Loader::preProcessObj ( ssgEntity *entity, bool mirror )
 //-----------------------------------------------------------------------------
 ssgBranch *Loader::animInit (char *data ) const
 {
-    while ( ! isdigit ( *data ) && *data != '\0' )
+    while (!isdigit (*data) && *data != '\0')
         data++ ;
 
-    const int   START_LIM =        strtol(data, &data, 0 );
-    const int   END_LIM   =        strtol(data, &data, 0 );
-    const float TIME_LIM  = (float)strtod(data, &data    );
+    const int   START_LIM =        strtol(data, &data, 0);
+    const int   END_LIM   =        strtol(data, &data, 0);
+    const float TIME_LIM  = (float)strtod(data, &data);
 
-    while ( *data <= ' ' && *data != '\0' )
+    while (*data <= ' ' && *data != '\0')
         data++ ;
 
-    char mode = toupper ( *data ) ;
+    char mode = toupper (*data ) ;
 
     ssgTimedSelector *br = new ssgTimedSelector;
 
-    br->setLimits  (START_LIM+1, END_LIM+1 ) ;
-    br->setDuration(TIME_LIM ) ;
+    br->setLimits  (START_LIM+1, END_LIM+1);
+    br->setDuration(TIME_LIM);
     br->setMode    ((mode=='O') ?  SSG_ANIM_ONESHOT
                     :  (mode=='S') ?  SSG_ANIM_SWING
-                    : SSG_ANIM_SHUTTLE ) ;
-    br->control    (SSG_ANIM_START ) ;
+                    : SSG_ANIM_SHUTTLE);
+    br->control    (SSG_ANIM_START);
 
     return br;
 }   // animInit
@@ -166,14 +166,14 @@ ssgBranch *Loader::animInit (char *data ) const
 ssgBranch *Loader::createBranch(char *data) const
 {
 
-    if ( data == NULL || data[0] != '@' ) return NULL;
+    if(data == NULL || data[0] != '@') return NULL;
 
-    data++ ;   /* Skip the '@' */
+    data++;   /* Skip the '@' */
 
-    if ( strncmp("billboard", data, strlen("billboard") ) == 0 )
+    if(strncmp("billboard", data, strlen("billboard")) == 0)
         return  new ssgCutout();
 
-    if ( strncmp("DONT_DELETE", data, strlen("DONT_DELETE") ) == 0 )
+    if(strncmp("DONT_DELETE", data, strlen("DONT_DELETE")) == 0)
     {
         printf("DONT\n");
         ssgBranch *br = new ssgTransform();
@@ -181,21 +181,21 @@ ssgBranch *Loader::createBranch(char *data) const
         return br;
     }
 
-    if ( strncmp("invisible", data, strlen("invisible") ) == 0 )
+    if(strncmp("invisible", data, strlen("invisible")) == 0)
         return new ssgInvisible();
 
-    if ( strncmp ( "switch", data, strlen ( "switch" ) ) == 0 )
+    if(strncmp("switch", data, strlen("switch")) == 0)
     {
         ssgSelector *sel = new ssgSelector();
         sel->select(0);
         return sel;
     }
 
-    if ( strncmp ( "animate", data, strlen ( "animate" ) ) == 0 )
+    if(strncmp("animate", data, strlen("animate")) == 0)
         return animInit(data);
 
 
-    if ( strncmp ( "autodcs", data, strlen ( "autodcs" ) ) == 0 )
+    if(strncmp("autodcs", data, strlen("autodcs")) == 0)
     {
         ssgTransform *br = new ssgTransform();
         Callback     *c  = new MovingTexture(data, br);
@@ -204,7 +204,7 @@ ssgBranch *Loader::createBranch(char *data) const
         return br;
     }
 
-    if ( strncmp ( "autotex", data, strlen ( "autotex" ) ) == 0 )
+    if(strncmp("autotex", data, strlen("autotex")) == 0)
     {
         ssgTexTrans *br = new ssgTexTrans();
         Callback    *c  = new MovingTexture(data, br);

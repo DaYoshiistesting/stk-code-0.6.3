@@ -58,7 +58,7 @@ void PowerupManager::removeTextures()
     for(int i=0; i<POWERUP_MAX; i++)
     {
         if(m_all_icons [i]) ssgDeRefDelete(m_all_icons [i]->getState());
-        if(m_all_models[i]) ssgDeRefDelete(m_all_models[i]            );
+        if(m_all_models[i]) ssgDeRefDelete(m_all_models[i]);
     }   // for
     callback_manager->clear(CB_COLLECTABLE);
 

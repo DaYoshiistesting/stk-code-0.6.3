@@ -7,6 +7,7 @@
  (music                  "SkyVibe-HighFrequency.music")
  (screenshot             "sshot-marstrack.rgb")
  (topview                "topview-marstrack.rgb")
+ (groups                 "Standard")
  (sky-color              0.0 0.0 0.0 0.0)
  
  (camera-final-position  0 12 3)

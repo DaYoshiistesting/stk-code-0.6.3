@@ -33,20 +33,20 @@
 
 Camera::Camera(int camera_index, const Kart* kart)
 {
-    m_mode     = CM_NORMAL;
-    m_index    = camera_index;
-    m_context  = new ssgContext ;
-    m_distance = kart->getKartProperties()->getCameraDistance();
-    m_kart     = kart;
-    m_xyz      = kart->getXYZ();
-    m_hpr      = Vec3(0,0,0);
+    m_mode        = CM_NORMAL;
+    m_index       = camera_index;
+    m_context     = new ssgContext;
+    m_distance    = kart->getKartProperties()->getCameraDistance();
+    m_kart        = kart;
+    m_xyz         = kart->getXYZ();
+    m_hpr         = Vec3(0,0,0);
 
     // FIXME: clipping should be configurable for slower machines
     const Track* track  = RaceManager::getTrack();
     if (track->useFog())
-        m_context -> setNearFar ( 0.05f, track->getFogEnd() ) ;
+        m_context->setNearFar(0.05f, track->getFogEnd());
     else
-        m_context -> setNearFar ( 0.05f, 1000.0f ) ;
+        m_context->setNearFar(0.05f, 1000.0f);
 
     setScreenPosition(camera_index);
 }   // Camera
@@ -71,7 +71,7 @@ void Camera::setScreenPosition(int camera_index)
     }
     else if(num_players == 2)
     {
-        m_context->setFOV(45.0f, 45.0f);
+        m_context->setFOV(50.0f, 50.0f);
         switch(camera_index)
         {
             case 0 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 1.0f; break;
@@ -140,7 +140,7 @@ void Camera::setMode(Mode mode)
 Camera::Mode Camera::getMode()
 {
     return m_mode;
-}
+}   // getMode
 
 //-----------------------------------------------------------------------------
 /** Reset is called when a new race starts. Make sure that the camera
@@ -148,10 +148,9 @@ Camera::Mode Camera::getMode()
 */
 void Camera::reset()
 {
-    setMode(CM_NORMAL);
     // m_xyz etc are set when the worlds has computed the right starting
     // position of all karts and calls setInitialTransform for each camera.
-
+    setMode(CM_NORMAL);
 }   // reset
 
 //-----------------------------------------------------------------------------
@@ -169,11 +168,11 @@ void Camera::setInitialTransform()
 }   // updateKartPosition
 
 //-----------------------------------------------------------------------------
-void Camera::update (float dt)
+void Camera::update(float dt)
 {
     if(m_mode==CM_FINAL) return finalCamera(dt);
 
-    Vec3        kart_xyz, kart_hpr;
+    Vec3 kart_xyz, kart_hpr;
     const Kart *kart;
     
     // First define the position of the kart
@@ -187,7 +186,7 @@ void Camera::update (float dt)
         kart     = m_kart;
         kart_hpr = kart->getHPR();
         // Use the terrain pitch to avoid the camera following a wheelie the kart is doing
-        kart_hpr.setPitch( m_kart->getTerrainPitch(kart_hpr.getHeading()) );
+        kart_hpr.setPitch(m_kart->getTerrainPitch(kart_hpr.getHeading()));
         kart_hpr.setRoll(0.0f);
         // Only adjust the pitch if it's not the race start, otherwise 
         // the camera will change pitch during ready-set-go.
@@ -211,15 +210,14 @@ void Camera::update (float dt)
     // kart has been eliminated) are facing backwards:
     bool reverse = m_kart->getControls().m_look_back || m_mode==CM_LEADER_MODE;
     Vec3 cam_rel_pos(0.f, reverse ? m_distance : -m_distance, 1.5f);
-
     // Set the camera rotation
     // -----------------------
     float sign = reverse ? 1.0f : -1.0f;
     const int num_players = race_manager->getNumLocalPlayers();
     float pitch;
     if(m_mode!=CM_CLOSEUP)
-        pitch = race_manager->getNumLocalPlayers()>1 ? sign * DEGREE_TO_RAD(10.0f)
-                                                     : sign * DEGREE_TO_RAD(15.0f);
+        pitch = num_players>1 ? sign * DEGREE_TO_RAD(10.0f)
+                              : sign * DEGREE_TO_RAD(15.0f);
     else
         pitch = sign * DEGREE_TO_RAD(25.0f);
       
@@ -228,15 +226,18 @@ void Camera::update (float dt)
     btTransform relative_to_kart(cam_rot, cam_rel_pos);
 
     btMatrix3x3 rotation;
-    rotation.setEulerZYX(kart_hpr.getPitch(), kart_hpr.getRoll(), kart_hpr.getHeading());
+    if(kart->getKartProperties()->useNextGenCamera())
+        rotation.setEulerZYX(kart->getPitch(), kart_hpr.getRoll(), kart->getHeading());
+    else
+        rotation.setEulerZYX(kart_hpr.getPitch(), kart_hpr.getRoll(), kart_hpr.getHeading());
     btTransform result = btTransform(rotation, kart_xyz) * relative_to_kart;
     
     // Convert transform to coordinate and pass on to plib
     Coord c(result);
     m_xyz = c.getXYZ();
     m_hpr = c.getHPR();
-    m_context -> setCamera(&c.toSgCoord());
-    if(race_manager->getNumLocalPlayers() < 2)
+    m_context->setCamera(&c.toSgCoord());
+    if(num_players<2)
         sound_manager->positionListener(m_xyz, kart_xyz - m_xyz);
 }   // update
 
@@ -245,7 +246,7 @@ void Camera::finalCamera(float dt)
 {
     // Turn/move the camera for 1 second only
     m_final_time += dt;    
-    if( m_final_time<stk_config->m_final_camera_time )
+    if(m_final_time<stk_config->m_final_camera_time)
     {
         m_xyz += m_velocity*dt;
         m_hpr += m_angular_velocity*dt;
@@ -268,21 +269,17 @@ void Camera::finalCamera(float dt)
         m_context->setCamera(&coord.toSgCoord());
     }
 #endif
-
 }   // finalCamera
 
 //-----------------------------------------------------------------------------
-
-void Camera::apply ()
+void Camera::apply()
 {
-    int width  = user_config->m_width ;
+    int width  = user_config->m_width;
     int height = user_config->m_height;
-
-    glViewport ( (int)((float)width  * m_x),
-                 (int)((float)height * m_y),
-                 (int)((float)width  * m_w),
-                 (int)((float)height * m_h) ) ;
-
-    m_context -> makeCurrent () ;
+    glViewport((int)((float)width  * m_x),
+               (int)((float)height * m_y),
+               (int)((float)width  * m_w),
+               (int)((float)height * m_h));
+    m_context->makeCurrent();
 }   // apply
 

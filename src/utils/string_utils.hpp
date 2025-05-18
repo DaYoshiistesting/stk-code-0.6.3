@@ -69,6 +69,14 @@ namespace StringUtils
         }
     }
 
+    template<typename T>
+    T clamp(T val, T min_val, T max_val)
+    {
+        if(val < min_val) return min_val;
+        if(val > max_val) return max_val;
+        return val;
+    }
+
     std::string upcase (const std::string&);
     std::string downcase (const std::string&);
     std::vector<std::string> split(const std::string& s, char c);

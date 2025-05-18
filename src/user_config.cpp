@@ -78,9 +78,9 @@ UserConfig::~UserConfig()
 void UserConfig::setFilename()
 {
 #ifdef WIN32
-    m_filename = file_manager->getLogFile("supertuxkart.lispcfg");
+    m_filename = file_manager->getLogFile("supertuxkart_0.6.3.cfg");
 #else
-    m_filename = file_manager->getLogFile("configuration");
+    m_filename = file_manager->getLogFile("0.6.3_configuration");
 #endif
 }   // setFilename
 
@@ -120,7 +120,7 @@ void UserConfig::setDefaults()
     m_background_index  = 0;
     m_log_errors        = false;
     m_kart_group        = "Standard";
-    m_track_group       = "standard";
+    m_track_group       = "Standard";
     m_last_track        = "jungle";
     m_server_address    = "localhost";
     m_server_port       = 2305;
@@ -323,7 +323,6 @@ void UserConfig::loadConfig(const std::string& filename)
     // Check if the config directory exists. If not, exit without an error
     // message, an appropriate message was printed by CheckAndCreateDir
     if (dirExist != 1) return;
-
     try
     {
         lisp::Parser parser;
@@ -338,7 +337,6 @@ void UserConfig::loadConfig(const std::string& filename)
         // default values from the current (=default) player input
         // device configuration.
         readLastInputConfigurations(NULL);
-
         delete root;
         return;
     }

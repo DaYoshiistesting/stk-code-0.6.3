@@ -52,13 +52,13 @@ public:
    ~PowerupManager           ();
     void         loadPowerups();
     void         removeTextures  ();
-    void         LoadOnePowerup  (const lisp::Lisp *lisp, const char *name, PowerupType type );
-    Material*    getIcon         (int type) const {return m_all_icons [type];      }
-    ssgEntity*   getModel        (int type) const {return m_all_models[type];      }
-    float        getForceToTarget(int type) const {return m_all_force_to_target[type]; }
+    void         LoadOnePowerup  (const lisp::Lisp *lisp, const char *name, PowerupType type);
+    Material*    getIcon         (int type) const {return m_all_icons [type];}
+    ssgEntity*   getModel        (int type) const {return m_all_models[type];}
+    float        getForceToTarget(int type) const {return m_all_force_to_target[type];}
     float        getMaxDistance  (int type) const {return m_all_max_distance[type];}
     float        getMaxTurnAngle (int type) const {return m_all_max_turn_angle[type];}
-    const btVector3& getExtend   (int type) const {return m_all_extends[type];     }
+    const btVector3& getExtend   (int type) const {return m_all_extends[type];}
 };
 
 extern PowerupManager* powerup_manager;

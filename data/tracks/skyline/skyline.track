@@ -20,6 +20,7 @@
 
  (screenshot             "sshot-skyline.rgb")
  (topview                "topview-skyline.rgb")
+ (groups                 "Standard")
 
  (camera-final-position  15 10 5)
  (camera-final-hpr       140 -10 0)

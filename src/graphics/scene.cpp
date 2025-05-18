@@ -76,13 +76,13 @@ Camera *Scene::createCamera(int playerId, const Kart* kart)
 //-----------------------------------------------------------------------------
 void Scene::add(ssgEntity *kid)
 {
-    m_scenegraph->addKid( kid );
+    m_scenegraph->addKid(kid);
 }
 
 //-----------------------------------------------------------------------------
 void Scene::remove(ssgEntity *kid)
 {
-    m_scenegraph->removeKid( kid );
+    m_scenegraph->removeKid(kid);
 }
 
 //-----------------------------------------------------------------------------
@@ -96,64 +96,64 @@ void Scene::reset()
 //-----------------------------------------------------------------------------
 void Scene::draw(float dt)
 {
-    glEnable ( GL_DEPTH_TEST ) ;
+    glEnable(GL_DEPTH_TEST);
 
     const Track* TRACK = RaceManager::getTrack();
 
-    ssgGetLight ( 0 ) -> setPosition ( TRACK->getSunPos() ) ;
-    ssgGetLight ( 0 ) -> setColour ( GL_AMBIENT , TRACK->getAmbientCol()  ) ;
-    ssgGetLight ( 0 ) -> setColour ( GL_DIFFUSE , TRACK->getDiffuseCol() ) ;
-    ssgGetLight ( 0 ) -> setColour ( GL_SPECULAR, TRACK->getSpecularCol() ) ;
+    ssgGetLight(0)->setPosition(TRACK->getSunPos());
+    ssgGetLight(0)->setColour(GL_AMBIENT , TRACK->getAmbientCol());
+    ssgGetLight(0)->setColour(GL_DIFFUSE , TRACK->getDiffuseCol());
+    ssgGetLight(0)->setColour(GL_SPECULAR, TRACK->getSpecularCol());
 
-    if (TRACK->useFog())
+    if(TRACK->useFog())
     {
-        glEnable ( GL_FOG ) ;
+        glEnable(GL_FOG);
 
-        glFogf ( GL_FOG_DENSITY, TRACK->getFogDensity() ) ;
-        glFogfv( GL_FOG_COLOR  , TRACK->getFogColor() ) ;
-        glFogf ( GL_FOG_START  , TRACK->getFogStart() ) ;
-        glFogf ( GL_FOG_END    , TRACK->getFogEnd() ) ;
-        glFogi ( GL_FOG_MODE   , GL_EXP2   ) ;
-        glHint ( GL_FOG_HINT   , GL_NICEST ) ;
+        glFogf (GL_FOG_DENSITY, TRACK->getFogDensity());
+        glFogfv(GL_FOG_COLOR, TRACK->getFogColor());
+        glFogf (GL_FOG_START, TRACK->getFogStart());
+        glFogf (GL_FOG_END, TRACK->getFogEnd());
+        glFogi (GL_FOG_MODE, GL_EXP2);
+        glHint (GL_FOG_HINT, GL_NICEST);
 
         /* Clear the screen */
-        glClearColor (TRACK->getFogColor()[0],
-                      TRACK->getFogColor()[1],
-                      TRACK->getFogColor()[2],
-                      TRACK->getFogColor()[3]);
+        glClearColor(TRACK->getFogColor()[0],
+                     TRACK->getFogColor()[1],
+                     TRACK->getFogColor()[2],
+                     TRACK->getFogColor()[3]);
     }
     else
     {
         /* Clear the screen */
-        glClearColor (TRACK->getSkyColor()[0],
-                      TRACK->getSkyColor()[1],
-                      TRACK->getSkyColor()[2],
-                      TRACK->getSkyColor()[3]);
+        glClearColor(TRACK->getSkyColor()[0],
+                     TRACK->getSkyColor()[1],
+                     TRACK->getSkyColor()[2],
+                     TRACK->getSkyColor()[3]);
     }
 
-    glClear      ( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT ) ;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     for (Cameras::iterator i = m_cameras.begin(); i != m_cameras.end(); ++i)
     {
         (*i)->update(dt);
-        (*i)->apply ();
+        (*i)->apply();
 
         if(!user_config->m_bullet_debug)
         {
             // Use this for faster profiling by disabling drawing the scene graph
             //if(!user_config->m_profile)ssgCullAndDraw ( m_scenegraph );
-            ssgCullAndDraw ( m_scenegraph );
+            ssgCullAndDraw(m_scenegraph);
         }
 #ifdef HAVE_GLUT
         else
         {
             // Use bullets debug drawer
-            GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
-            GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
-            GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+            GLfloat light_ambient[]   = {0.0, 0.0, 0.0, 1.0};
+            GLfloat light_diffuse[]   = {1.0, 1.0, 1.0, 1.0};
+            GLfloat light_specular[]  = {1.0, 1.0, 1.0, 1.0};
             /*	light_position is NOT default value	*/
-            GLfloat light_position0[] = { 1.0, 1.0, 1.0, 0.0 };
-            GLfloat light_position1[] = { -1.0, -1.0, -1.0, 0.0 };
+            GLfloat light_position0[] = { 1.0,  1.0,  1.0, 0.0};
+            GLfloat light_position1[] = {-1.0, -1.0, -1.0, 0.0};
             
             glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
             glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
@@ -186,7 +186,7 @@ void Scene::draw(float dt)
                       0.0f, 0.0f, 1.0f);
             glMatrixMode(GL_MODELVIEW);
             
-            for (unsigned int i = 0 ; i < race_manager->getNumKarts(); ++i)
+            for(unsigned int i=0 ; i<race_manager->getNumKarts(); ++i)
             {
                 Kart *kart=RaceManager::getKart((int)i);
                 if(!kart->isEliminated()) kart->draw();
@@ -196,11 +196,10 @@ void Scene::draw(float dt)
 #endif
     }   // for cameras
 
-    if (TRACK->useFog())
+    if(TRACK->useFog())
     {
-        glDisable ( GL_FOG ) ;
+        glDisable(GL_FOG);
     }
-
-    glViewport ( 0, 0, user_config->m_width, user_config->m_height ) ;
+    glViewport(0, 0, user_config->m_width, user_config->m_height);
 }
 

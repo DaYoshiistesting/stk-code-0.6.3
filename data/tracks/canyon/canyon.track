@@ -7,7 +7,7 @@
  (music                  "TheDeadRocks-EasyJob.music")
  (screenshot             "canyon_screenshot.rgb")
  (topview                "canyon_topview.rgb")
- (groups                 "standard")
+ (groups                 "Standard")
  (camera-final-position  5 20 3)
  (camera-final-hpr       180 -10 0)
 )

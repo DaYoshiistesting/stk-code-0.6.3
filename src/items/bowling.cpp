@@ -31,7 +31,7 @@ Bowling::Bowling(Kart *kart) : Flyable(kart, POWERUP_BOWLING, 50.0f /* mass */)
     float y_offset = 0.5f*kart->getKartLength() + m_extend.getY()/2.0f;
     
     // if the kart is looking backwards, release from the back
-    if( kart->getControls().m_look_back ) 
+    if(kart->getControls().m_look_back) 
     {
         y_offset   = -y_offset;
         m_speed    = -m_speed*2;
@@ -47,10 +47,10 @@ Bowling::Bowling(Kart *kart) : Flyable(kart, POWERUP_BOWLING, 50.0f /* mass */)
             = min_speed;
     }
 
-    createPhysics(y_offset, btVector3(0.0f, m_speed*2, 0.0f),
+    createPhysics(y_offset, btVector3(0.0f, m_speed*2.0f, 0.0f),
                   new btSphereShape(0.5f*m_extend.getY()), 
-                  -70.0f /*gravity*/, 
-                  true /*rotates*/);
+                  -70.0f /*gravity*/, true /*rotates*/);
+
     // Even if the ball is fired backwards, m_speed must be positive,
     // otherwise the ball can start to vibrate when enery is added.
     m_speed = fabsf(m_speed);
@@ -65,7 +65,7 @@ Bowling::Bowling(Kart *kart) : Flyable(kart, POWERUP_BOWLING, 50.0f /* mass */)
     getBody()->setCollisionFlags(flag);
 	
 	// should not live forever, auto-destruct after 20 seconds
-	m_max_lifespan = 20;
+	m_max_lifespan = 20.0f;
 	
 }   // Bowling
 
@@ -73,12 +73,12 @@ Bowling::Bowling(Kart *kart) : Flyable(kart, POWERUP_BOWLING, 50.0f /* mass */)
 void Bowling::init(const lisp::Lisp* lisp, ssgEntity *bowling)
 {
     Flyable::init(lisp, bowling, POWERUP_BOWLING);
-    m_st_max_distance    = 20.0f;
+    m_st_max_distance         = 20.0f;
     m_st_max_distance_squared = 20.0f * 20.0f;
-    m_st_force_to_target = 10.0f;
+    m_st_force_to_target      = 10.0f;
  
-    lisp->get("max-distance",    m_st_max_distance   );
-    m_st_max_distance_squared = m_st_max_distance*m_st_max_distance;
+    lisp->get("max-distance",    m_st_max_distance);
+    m_st_max_distance_squared =  m_st_max_distance*m_st_max_distance;
     
     lisp->get("force-to-target", m_st_force_to_target);
 }   // init
@@ -86,7 +86,7 @@ void Bowling::init(const lisp::Lisp* lisp, ssgEntity *bowling)
 // -----------------------------------------------------------------------------
 bool Bowling::updateAndDel(float dt)
 {
-    bool can_be_delete = Flyable::updateAndDel(dt);   
+    bool can_be_delete = Flyable::updateAndDel(dt);
     if(can_be_delete)
         return true;
 

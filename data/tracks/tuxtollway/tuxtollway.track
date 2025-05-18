@@ -7,7 +7,7 @@
  (music       "kart_grand_prix.music")
  (screenshot  "sshot-tuxtrack.rgb")
  (topview     "topview-tuxtrack.rgb")
- (groups      "standard")
+ (groups      "Standard")
  (camera-final-position  -1 15 1)
  (camera-final-hpr       180 0 0)
 

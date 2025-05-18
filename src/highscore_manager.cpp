@@ -55,14 +55,14 @@ HighscoreManager::~HighscoreManager()
  */
 void HighscoreManager::SetFilename()
 {
-    if ( getenv("SUPERTUXKART_HIGHSCOREDIR") != NULL )
+    if (getenv("SUPERTUXKART_HIGHSCOREDIR") != NULL )
     {
         m_filename = getenv("SUPERTUXKART_HIGHSCOREDIR")
-                 + std::string("/highscore.lispdat");
+                 + std::string("/highscore.data");
     }
     else 
     {
-        m_filename=file_manager->getHighscoreFile("highscore.lispdat");
+        m_filename=file_manager->getHighscoreFile("highscore.data");
     }
 
     return;

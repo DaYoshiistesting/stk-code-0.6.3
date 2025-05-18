@@ -171,7 +171,7 @@ void TrackSel::switchGroup()
          ? track_manager->getArenasInGroup(user_config->m_track_group).size()>0 
          : track_manager->getTracksInGroup(user_config->m_track_group).size()>0;
     if(!group_available)
-        user_config->m_track_group = "standard";
+        user_config->m_track_group = "Standard";
 
     const std::vector<int> &tracks = is_battle_mode
         ? track_manager->getArenasInGroup(user_config->m_track_group) 

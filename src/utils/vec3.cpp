@@ -27,7 +27,7 @@ void Vec3::setHPR(const btMatrix3x3& m)
 
     float s = m.getColumn(0).length();
 
-    if ( s <= 0.00001 )
+    if(s<=0.00001)
     {
         fprintf(stderr,"setHPR: bad matrix\n");
         setValue(0,0,0);
@@ -42,25 +42,23 @@ void Vec3::setHPR(const btMatrix3x3& m)
     SGfloat cp = cos(getY());
 
     /* If pointing nearly vertically up - then heading is ill-defined */
-
-
-    if ( cp > -0.00001 && cp < 0.00001 )
+    if(cp > -0.00001 && cp < 0.00001)
     {
         float cr = CLAMPTO1( m.getRow(1).getX()*s); 
         float sr = CLAMPTO1(-m.getRow(1).getZ()*s);
 
         setX(0.0f);
-        setZ(atan2(sr, cr ));
+        setZ(atan2(sr, cr));
     }
     else
     {
         cp = s / cp ; // includes the scaling factor
-        float sr = CLAMPTO1( -m.getRow(2).getX() * cp );
-        float cr = CLAMPTO1(  m.getRow(2).getZ() * cp );
-        float sh = CLAMPTO1( -m.getRow(0).getY() * cp );
-        float ch = CLAMPTO1(  m.getRow(1).getY() * cp );
+        float sr = CLAMPTO1(-m.getRow(2).getX() * cp);
+        float cr = CLAMPTO1( m.getRow(2).getZ() * cp);
+        float sh = CLAMPTO1(-m.getRow(0).getY() * cp);
+        float ch = CLAMPTO1( m.getRow(1).getY() * cp);
 
-        if ( (sh == 0.0f && ch == 0.0f) || (sr == 0.0f && cr == 0.0f) )
+        if((sh == 0.0f && ch == 0.0f) || (sr == 0.0f && cr == 0.0f))
         {
             cr = CLAMPTO1( m.getRow(1).getX()*s);
             sr = CLAMPTO1(-m.getRow(1).getZ()*s) ;
@@ -68,28 +66,11 @@ void Vec3::setHPR(const btMatrix3x3& m)
             setX(0.0f);
         }
         else
-            setX(atan2(sh, ch ));
+            setX(atan2(sh, ch));
 
-        setZ(atan2(sr, cr ));
+        setZ(atan2(sr, cr));
     }
 }   // setHPR
-// ----------------------------------------------------------------------------
-void Vec3::setHPR(const btQuaternion& q)
-{
-    float W = q.getW();
-    float X = q.getX();
-    float Y = q.getY();
-    float Z = q.getZ();
-    float WSquared = W * W;
-    float XSquared = X * X;
-    float YSquared = Y * Y;
-    float ZSquared = Z * Z;
-
-    //setX(atan2f(-2.0f * (X * Z + Y * W), -XSquared + ZSquared - YSquared + WSquared));
-    //setY(asinf(2.0f * (X * Z + Y * W)));
-    //setZ(atan2f(2.0f * (X * Z - Y * W), XSquared - YSquared - ZSquared + WSquared));
-}   // setHPR(btQuaternion)
-
 // ----------------------------------------------------------------------------
 void Vec3::degreeToRad()
 {

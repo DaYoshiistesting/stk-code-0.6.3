@@ -95,10 +95,13 @@ void Track::cleanup()
 //-----------------------------------------------------------------------------
 /** Finds on which side of the line segment a given point is.
  */
-inline float Track::pointSideToLine( const Vec3& L1, const Vec3& L2,
-    const Vec3& P ) const
+inline float Track::pointSideToLine(const Vec3& L1, const Vec3& L2,
+    const Vec3& P) const
 {
-    return ( L2.getX()-L1.getX() )*( P.getY()-L1.getY() )-( L2.getY()-L1.getY() )*( P.getX()-L1.getX() );
+    return (L2.getX()-L1.getX())*
+           ( P.getY()-L1.getY())-
+           (L2.getY()-L1.getY())*
+           ( P.getX()-L1.getX());
 }   // pointSideToLine
 
 //-----------------------------------------------------------------------------
@@ -932,8 +935,8 @@ void Track::loadTrack(std::string filename_)
 }   // loadTrack
 
 //-----------------------------------------------------------------------------
-void Track::getMusicInformation(std::vector<std::string>&       filenames, 
-                                std::vector<MusicInformation*>& music    )
+void Track::getMusicInformation(std::vector<std::string>& filenames, 
+                                std::vector<MusicInformation*>& music)
 {
     for(int i=0; i<(int)filenames.size(); i++)
     {
@@ -976,8 +979,10 @@ void Track::startMusic() const
 //-----------------------------------------------------------------------------
 void Track::loadDriveline()
 {
+    // FIXME: Make the game able to read multiple drivelines
+    // to have multiple paths, still with multiple drivelines 
+    // files, to have backwards compatibility.
     readDrivelineFromFile(m_left_driveline, ".drvl");
-
     const unsigned int DRIVELINE_SIZE = (unsigned int)m_left_driveline.size();
     m_right_driveline.reserve(DRIVELINE_SIZE);
     readDrivelineFromFile(m_right_driveline, ".drvr");
@@ -993,25 +998,25 @@ void Track::loadDriveline()
     m_driveline.reserve(DRIVELINE_SIZE);
     m_path_width.reserve(DRIVELINE_SIZE);
     m_angle.reserve(DRIVELINE_SIZE);
-    for(unsigned int i = 0; i < DRIVELINE_SIZE; ++i)
+    for(unsigned int i=0; i<DRIVELINE_SIZE; ++i)
     {
         Vec3 center_point = (m_left_driveline[i]+m_right_driveline[i])*0.5;
         m_driveline.push_back(center_point);
 
-        float width = ( m_right_driveline[i] - center_point ).length();
+        float width = (m_right_driveline[i] - center_point).length();
         m_path_width.push_back(width);
 
         // Compute the drivelines with tolerance
         Vec3 diff = (m_left_driveline[i] - m_right_driveline[i]) 
-                  * stk_config->m_offroad_tolerance;
+                  *  stk_config->m_offroad_tolerance;
         m_dl_with_tolerance_left.push_back(m_left_driveline[i]+diff);
         m_dl_with_tolerance_right.push_back(m_right_driveline[i]-diff);
 
     }
 
-    for(unsigned int i = 0; i < DRIVELINE_SIZE; ++i)
+    for(unsigned int i=0; i<DRIVELINE_SIZE; ++i)
     {
-        unsigned int next = i + 1 >= DRIVELINE_SIZE ? 0 : i + 1;
+        unsigned int next = i+1 >= DRIVELINE_SIZE ? 0 : i+1;
         float dx = m_driveline[next].getX() - m_driveline[i].getX();
         float dy = m_driveline[next].getY() - m_driveline[i].getY();
 
@@ -1024,8 +1029,8 @@ void Track::loadDriveline()
 
 
     m_distance_from_start.reserve(DRIVELINE_SIZE);
-    float d = 0.0f ;
-    for ( size_t i = 0 ; i < DRIVELINE_SIZE ; ++i )
+    float d = 0.0f;
+    for(size_t i=0; i<DRIVELINE_SIZE; ++i)
     {
         //Both drivelines must be checked to get the true size of
         //the drivelines, and using the center driveline is not
@@ -1051,7 +1056,7 @@ void Track::loadDriveline()
 void Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& file_ext)
 {
     std::string path = file_manager->getTrackFile(m_ident+file_ext);
-    FILE *fd = fopen ( path.c_str(), "r" ) ;
+    FILE *fd = fopen(path.c_str(), "r");
 
     if(fd == NULL)
     {
@@ -1082,9 +1087,7 @@ void Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& fi
             msg<<"Syntax error in '"<<path<<"'\n";
             throw std::runtime_error(msg.str());
         }
-
         Vec3 point(x,y,z);
-
         if(prev_sector != UNKNOWN_SECTOR) 
             prev_distance = (point-line[prev_sector]).length2_2d();
 
@@ -1106,7 +1109,6 @@ void Track::readDrivelineFromFile(std::vector<Vec3>& line, const std::string& fi
                     path, prev_sector, prev_distance);
         }
 #endif
-
         line.push_back(point);
         ++prev_sector;
         prev_distance -= 1.5f;
@@ -1160,9 +1162,9 @@ void Track::convertTrackToBullet(ssgEntity *track, sgMat4 m)
             sgVec3 vv1, vv2, vv3;
             
             leaf->getTriangle(i, &v1, &v2, &v3);
-            sgXformPnt3 ( vv1, leaf->getVertex(v1), m );
-            sgXformPnt3 ( vv2, leaf->getVertex(v2), m );
-            sgXformPnt3 ( vv3, leaf->getVertex(v3), m );
+            sgXformPnt3(vv1, leaf->getVertex(v1), m);
+            sgXformPnt3(vv2, leaf->getVertex(v2), m);
+            sgXformPnt3(vv3, leaf->getVertex(v3), m);
             btVector3 vb1(vv1[0],vv1[1],vv1[2]);
             btVector3 vb2(vv2[0],vv2[1],vv2[2]);
             btVector3 vb3(vv3[0],vv3[1],vv3[2]);
@@ -1236,7 +1238,7 @@ void Track::loadTrackModel()
 
     char s[1024];
 
-    while (fgets ( s, 1023, fd) != NULL)
+    while (fgets(s, 1023, fd) != NULL)
     {
         if (*s == '#' || *s < ' ')
             continue ;
@@ -1247,10 +1249,9 @@ void Track::loadTrackModel()
         sgCoord loc;
         sgZeroVec3(loc.xyz);
         sgZeroVec3(loc.hpr);
-
         char htype = '\0' ;
 
-        /* the first 2 are for backwards compatibility. Don't use 'herring' names in any new track */
+        // The old names are only here for backwards compatibility. Don't use 'herring' names in any new track.
         if(sscanf(s, "%cHERRING,%f,%f,%f", &htype,
                       &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 4)
         {
@@ -1271,7 +1272,28 @@ void Track::loadTrackModel()
             if(htype=='S' || htype=='s') {type = Item::ITEM_SMALL_NITRO ;}
             itemCommand (&loc.xyz, type, true);
         }
-        /* and now the new names */
+        else if(sscanf(s, "COIN,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
+        {
+            itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, false);
+        }
+        else if(sscanf(s, "COIN,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 2)
+        {
+            itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, true);
+        }
+        else if(sscanf(s, "GOLD,%f,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
+        {
+            itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, false);
+        }
+        else if(sscanf(s, "GOLD,%f,%f",
+                           &(loc.xyz[0]), &(loc.xyz[1])) == 2)
+        {
+            itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, true);
+        }
+
+        // Here are listed the names you should use now.
         else if(sscanf(s, "BBOX,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
@@ -1282,19 +1304,16 @@ void Track::loadTrackModel()
         {
             itemCommand(&loc.xyz, Item::ITEM_BONUS_BOX, true);
         }
-        
         else if(sscanf(s, "BANA,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
             itemCommand(&loc.xyz, Item::ITEM_BANANA, false);
         }
-        
         else if(sscanf(s, "BANA,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1])) == 2)
         {
             itemCommand(&loc.xyz, Item::ITEM_BANANA, true);
         }
-        
         else if(sscanf(s, "SMALLTANK,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
@@ -1305,7 +1324,6 @@ void Track::loadTrackModel()
         {
             itemCommand(&loc.xyz, Item::ITEM_SMALL_NITRO, true);
         }
-        
         else if(sscanf(s, "BIGTANK,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
@@ -1316,7 +1334,8 @@ void Track::loadTrackModel()
         {
             itemCommand(&loc.xyz, Item::ITEM_BIG_NITRO, true);
         }
-        
+
+        // Arena start positions in .loc file.
         else if(sscanf(s, "START,%f,%f,%f",
                            &(loc.xyz[0]), &(loc.xyz[1]), &(loc.xyz[2])) == 3)
         {
@@ -1395,11 +1414,10 @@ void Track::loadTrackModel()
             if(need_hat)
             {
                 sgVec3 nrm;
-
                 loc.xyz[2] = 1000.0f;
                 loc.xyz[2] = getHeightAndNormal(m_model, loc.xyz, nrm);
 
-                if ( fit_skin )
+                if(fit_skin)
                 {
                     float sy = sin(-loc.hpr[0] * SG_DEGREES_TO_RADIANS);
                     float cy = cos(-loc.hpr[0] * SG_DEGREES_TO_RADIANS);
@@ -1427,7 +1445,7 @@ void Track::loadTrackModel()
             ssgRangeSelector *lod   = new ssgRangeSelector;
             ssgTransform     *trans = new ssgTransform(&loc);
 
-            float r[2] = {-10.0f, 2345.0f};
+            float r[2] = {-10.0f, 5800.0f};
 
             lod->addKid(obj);
             trans->addKid(lod);
@@ -1435,7 +1453,6 @@ void Track::loadTrackModel()
             lod->setRanges(r, 2);
             if(user_config->m_track_debug)
                 addDebugToScene(user_config->m_track_debug);
-
         }
         else
         {
@@ -1446,7 +1463,7 @@ void Track::loadTrackModel()
 
     fclose(fd) ;
     file_manager->popTextureSearchPath();
-    file_manager->popModelSearchPath  ();
+    file_manager->popModelSearchPath();
 
     SSGHelp::MinMax(m_model, &m_aabb_min, &m_aabb_max);
     RaceManager::getWorld()->getPhysics()->init(m_aabb_min, m_aabb_max);
@@ -1492,7 +1509,8 @@ void Track::getTerrainInfo(const Vec3 &pos, float *hot, Vec3 *normal,
                                          bool normalInWorldSpace) {
              if(rayResult.m_localShapeInfo && rayResult.m_localShapeInfo->m_shapePart>=0 )
              {
-                 m_material = ((TriangleMesh*)rayResult.m_collisionObject->getUserPointer())->getMaterial(rayResult.m_localShapeInfo->m_triangleIndex);
+                 m_material = ((TriangleMesh*)rayResult.m_collisionObject->getUserPointer())
+                              ->getMaterial(rayResult.m_localShapeInfo->m_triangleIndex);
              }
              else
              {

@@ -26,7 +26,7 @@
 #include "material.hpp"
 #include "utils/string_utils.hpp"
 
-ssgState *fuzzy_gst;
+//ssgState *fuzzy_gst;
 
 MaterialManager *material_manager=0;
 
@@ -74,7 +74,7 @@ void MaterialManager::loadMaterial()
     addSharedMaterial(full_name);
 
     ssgSetAppStateCallback(getAppState);
-    fuzzy_gst        = getMaterial("fuzzy.rgb")->getState();
+    //fuzzy_gst        = getMaterial("fuzzy.rgb")->getState();
     // Save index of shared textures
     m_shared_material_index = (int)m_materials.size();
 }   // MaterialManager
@@ -102,14 +102,14 @@ void MaterialManager::addSharedMaterial(const std::string& filename)
 //-----------------------------------------------------------------------------
 bool MaterialManager::pushTempMaterial(const std::string& filename)
 {
-    FILE *fd = fopen(filename.c_str(), "r" );
+    FILE *fd = fopen(filename.c_str(), "r");
 
-    if ( fd == NULL ) return false;
+    if(fd == NULL) return false;
 
-    while ( parseMaterial ( fd ) )
-        /* Read file */ ;
+    while (parseMaterial(fd))
+        /* Read file */;
 
-    fclose ( fd ) ;
+    fclose(fd);
     return true;
 }   // pushTempMaterial
 
@@ -129,13 +129,13 @@ char* MaterialManager::parseFileName(char **str)
     char *p = *str ;
 
     /* Skip leading spaces */
-    while ( *p <= ' ' && *p != '\0' ) p++ ;
+    while(*p <= ' ' && *p != '\0') p++;
 
     /* Skip blank lines and comments */
-    if ( *p == '#' || *p == '\0' )
+    if(*p == '#' || *p == '\0')
         return NULL ;
 
-    if ( *p != '"' )
+    if(*p != '"')
     {
         fprintf(stderr, "ERROR: Material file entries must start with '\"'\n"
                 "ERROR: Offending line is '%s'\n", *str);
@@ -144,51 +144,48 @@ char* MaterialManager::parseFileName(char **str)
 
     /* Filename? */
     char *f = ++p ;
-    while ( *p != '"' && *p != '\0' ) p++ ;
-
-    if ( *p != '"' )
+    while (*p != '"' && *p != '\0' ) p++;
+    if(*p != '"')
     {
         fprintf(stderr,
-                "ERROR: Unterminated string constant '%s' in materials file.\n", *str ) ;
-        return NULL ;
+                "ERROR: Unterminated string constant '%s' in materials file.\n", *str);
+        return NULL;
     }
+    *p = '\0';
+    *str = ++p;
 
-    *p = '\0' ;
-    *str = ++p ;
-
-    return f ;
+    return f;
 }   // parseFilename
 
 //-----------------------------------------------------------------------------
-int MaterialManager::parseMaterial ( FILE *fd )
+int MaterialManager::parseMaterial(FILE *fd)
 {
-    char str [ 1024 ] ;
+    char str[1024];
 
-    while ( ! feof ( fd ) )
+    while(!feof(fd))
     {
-        char *s = str ;
+        char *s = str;
 
-        if ( fgets ( s, 1024, fd ) == NULL )
-            return false ;
+        if (fgets(s,1024,fd) == NULL)
+            return false;
 
-        s [ strlen(s) - 1 ] = '\0' ;
+        s[strlen(s) - 1] = '\0';
 
-        char *f = parseFileName ( & s ) ;
+        char *f = parseFileName(& s);
 
-        if ( f != NULL )
+        if(f != NULL)
         {
-            m_materials.push_back(new Material (f, s, (int)m_materials.size() ));
-            return true ;
+            m_materials.push_back(new Material (f, s, (int)m_materials.size()));
+            return true;
         }
     }
-
-    return false ;
+    return false;
 }   // parseMaterial
 
 //-----------------------------------------------------------------------------
-Material *MaterialManager::getMaterial ( ssgLeaf *l )
+Material *MaterialManager::getMaterial(ssgLeaf *l)
 {
-    return m_materials[l -> getExternalPropertyIndex ()] ;
+    return m_materials[l->getExternalPropertyIndex()];
 }   // getMaterial
 
 //-----------------------------------------------------------------------------
@@ -223,7 +220,7 @@ Material *MaterialManager::getMaterial(const std::string& fname,
     std::string basename=StringUtils::basename(fname);
 
     // Search backward so that temporary (track) textures are found first
-    for(int i = (int)m_materials.size()-1; i>=0; i-- )
+    for(int i=(int)m_materials.size()-1; i>=0; i--)
     {
         if(m_materials[i]->getTexFname()==basename) return m_materials[i];
     }
@@ -236,9 +233,9 @@ Material *MaterialManager::getMaterial(const std::string& fname,
 }   // getMaterial
 
 //=============================================================================
-ssgState *getAppState ( char *fname )
+ssgState *getAppState(char *fname)
 {
-    Material *m = material_manager->getMaterial ( fname ) ;
-    return ( m == NULL ) ? NULL : m -> getState () ;
+    Material *m = material_manager->getMaterial(fname);
+    return (m == NULL) ? NULL : m -> getState();
 }   // getAppState
 

@@ -50,7 +50,7 @@ KartProperties::KartProperties() : m_icon_material(0)
 
     // Set all other values to undefined, so that it can later be tested
     // if everything is defined properly.
-    m_mass = m_min_speed_turn = m_angle_at_min = 
+        m_mass = m_min_speed_turn = m_angle_at_min = 
         m_max_speed_turn = m_angle_at_max = m_brake_factor =
         m_engine_power[0] = m_engine_power[1] = m_engine_power[2] = 
         m_max_speed[0] = m_max_speed[1] = m_max_speed[2] = 
@@ -70,6 +70,7 @@ KartProperties::KartProperties() : m_icon_material(0)
         m_camera_distance    = UNDEFINED;
     m_gravity_center_shift   = Vec3(UNDEFINED);
     m_has_skidmarks          = true;
+    m_next_gen_camera        = false;
     m_version                = 0;
     m_color.setValue(1.0f, 0.0f, 0.0f);
     m_engine_sfx_type = SFXManager::SOUND_ENGINE_SMALL;
@@ -274,6 +275,7 @@ void KartProperties::getAllData(const lisp::Lisp* lisp)
     lisp->get("camera-max-accel",             m_camera_max_accel);
     lisp->get("camera-max-brake",             m_camera_max_brake);
     lisp->get("camera-distance",              m_camera_distance );
+    lisp->get("0.7-camera-mode",              m_next_gen_camera );
 
 }   // getAllData
 
@@ -302,9 +304,9 @@ void KartProperties::checkAllSet(const std::string &filename)
         fprintf(stderr,"in '%s' must be equal.\n", filename.c_str());
         exit(-1);
     }
-#define CHECK_NEG(  a,strA) if(a<=UNDEFINED) {                         \
-        fprintf(stderr,"Missing default value for '%s' in '%s'.\n",    \
-                strA,filename.c_str());exit(-1);                       \
+#define CHECK_NEG(a,strA) if(a<=UNDEFINED) {                            \
+        fprintf(stderr,"Missing default value for '%s' in '%s'.\n",     \
+                strA,filename.c_str()); exit(-1);                       \
     }
 
     CHECK_NEG(m_mass,                    "mass"                         );

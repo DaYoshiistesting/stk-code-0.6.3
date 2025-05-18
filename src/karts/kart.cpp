@@ -535,9 +535,9 @@ void Kart::update(float dt)
         const float rescue_height = 2.0f;
         if(m_attachment.getType() != ATTACH_TINYTUX)
         {
-            m_attachment.set( ATTACH_TINYTUX, rescue_time ) ;
-            m_rescue_pitch = getPitch();
-            m_rescue_roll  = getRoll();  
+            m_attachment.set(ATTACH_TINYTUX, rescue_time);
+            m_rescue_pitch = getHPR().getPitch();
+            m_rescue_roll  = getHPR().getRoll();  
             race_state->itemCollected(getWorldKartId(), -1, -1);
         }
         RaceManager::getWorld()->getPhysics()->removeKart(this);
@@ -560,14 +560,14 @@ void Kart::update(float dt)
 
     //kart_info.m_last_track_coords = kart_info.m_curr_track_coords;
 
-    m_engine_sound->position       (getXYZ());
-    m_beep_sound->position         (getXYZ());
-    m_player_beep_sound->position  (getXYZ());
-    m_crash_sound->position        (getXYZ());
-    m_skid_sound->position         (getXYZ());
+    m_engine_sound->position      (getXYZ());
+    m_beep_sound->position        (getXYZ());
+    m_player_beep_sound->position (getXYZ());
+    m_crash_sound->position       (getXYZ());
+    m_skid_sound->position        (getXYZ());
 
     // Check if a kart is (nearly) upside down and not moving much --> automatic rescue
-    if((fabs(getRoll())>60 && fabs(getSpeed())<3.0f))
+    if((fabs(getHPR().getRoll())>60 && fabs(getSpeed())<3.0f))
     {
         forceRescue();
     }
@@ -671,7 +671,6 @@ void Kart::handleZipper(bool play_sfx)
     float current_speed = v.length();
     float speed         = std::min(current_speed+stk_config->m_zipper_speed_gain, 
                                    getMaxSpeedOnTerrain());
-
     m_vehicle->activateZipper(speed);
     Moveable::handleZipper(play_sfx);
 }   // handleZipper
@@ -807,7 +806,7 @@ void Kart::updatePhysics (float dt)
             {
                 resetBrakes();
                 // going backward, apply reverse gear ratio (unless he goes too fast backwards)
-                if ( -m_speed <  getMaxSpeedOnTerrain()*m_max_speed_reverse_ratio )
+                if (-m_speed <  getMaxSpeedOnTerrain()*m_max_speed_reverse_ratio)
                 {
                     // The backwards acceleration is artificially increased to
                     // allow players to get "unstuck" quicker if they hit e.g.
@@ -818,7 +817,6 @@ void Kart::updatePhysics (float dt)
                 {
                     applyEngineForce(0.0f);
                 }    
-                
             }
         }
         else
@@ -883,19 +881,19 @@ void Kart::updatePhysics (float dt)
                chassisTrans.getBasis()[1][1],
                chassisTrans.getBasis()[2][1]);
 
-    if (forwardW.dot(getVehicle()->getRigidBody()->getLinearVelocity()) < btScalar(0.))
+    if(forwardW.dot(getVehicle()->getRigidBody()->getLinearVelocity()) < btScalar(0.))
         m_speed *= -1.f;
 
     //cap at maximum velocity
     const float max_speed = getMaxSpeedOnTerrain();
-    if ( m_speed >  max_speed )
+    if(m_speed >  max_speed)
     {
         const float velocity_ratio = max_speed/m_speed;
         m_speed                    = max_speed;
         btVector3 velocity         = m_body->getLinearVelocity();
 
-        velocity.setY( velocity.getY() * velocity_ratio );
-        velocity.setX( velocity.getX() * velocity_ratio );
+        velocity.setY(velocity.getY() * velocity_ratio);
+        velocity.setX(velocity.getX() * velocity_ratio);
 
         getVehicle()->getRigidBody()->setLinearVelocity( velocity );
 

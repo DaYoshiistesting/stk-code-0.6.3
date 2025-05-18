@@ -606,7 +606,6 @@ void btKart::updateFriction(btScalar timeStep)
     m_forwardImpulse.resize(numWheel);
     m_sideImpulse.resize(numWheel);
 
-
     //collapse all those loops into one!
     for (int i=0;i<getNumWheels();i++)
     {
@@ -616,7 +615,6 @@ void btKart::updateFriction(btScalar timeStep)
     }
 
     {
-
         for (int i=0;i<getNumWheels();i++)
         {
 
@@ -651,10 +649,8 @@ void btKart::updateFriction(btScalar timeStep)
             }
         }
     }
-
     btScalar sideFactor = btScalar(1.);
     btScalar fwdFactor = 0.5;
-
     {
         for (int wheel =0;wheel <getNumWheels();wheel++)
         {
@@ -693,7 +689,6 @@ void btKart::updateFriction(btScalar timeStep)
                 }
                 else
                 {
-
                     if (wheelInfo.m_engineForce != 0.f)
                     {
                         rollingFriction = wheelInfo.m_engineForce* timeStep;
@@ -720,8 +715,6 @@ void btKart::updateFriction(btScalar timeStep)
         }
         m_zipper_active = false;
     }
-
-
     // apply the impulses
     {
         for (int wheel = 0;wheel<getNumWheels() ; wheel++)
@@ -741,12 +734,11 @@ void btKart::updateFriction(btScalar timeStep)
                 class btRigidBody* groundObject = (class btRigidBody*) m_wheelInfo[wheel].m_raycastInfo.m_groundObject;
 
                 btVector3 rel_pos2 = wheelInfo.m_raycastInfo.m_contactPointWS - 
-                    groundObject->getCenterOfMassPosition();
-
+                                     groundObject->getCenterOfMassPosition();
 
                 btVector3 sideImp = m_axle[wheel] * m_sideImpulse[wheel];
 
-                rel_pos[2] *= wheelInfo.m_rollInfluence;
+                rel_pos[m_indexUpAxis] *= wheelInfo.m_rollInfluence;
                 m_chassisBody->applyImpulse(sideImp,rel_pos);
 
                 //apply friction impulse on the ground
@@ -754,6 +746,4 @@ void btKart::updateFriction(btScalar timeStep)
             }
         }
     }
-
-
 }

@@ -86,7 +86,7 @@ void MainLoop::run()
                                                
             // Throttle fps if more than maximum, which can reduce 
             // the noise the fan on a graphics card makes
-            if( dt*user_config->m_max_fps < 1000.0f)
+            if(dt*user_config->m_max_fps < 1000.0f)
             {
                 //SDL_Delay has a granularity of 10ms on most platforms, so
                 //most likely when frames go faster than 125 frames, at times
@@ -156,16 +156,16 @@ void MainLoop::run()
         }   // if race is active
         else
         {
-            glMatrixMode   ( GL_PROJECTION ) ;
-            glLoadIdentity () ;
-            glMatrixMode   ( GL_MODELVIEW ) ;
-            glLoadIdentity () ;
-            glDisable      ( GL_DEPTH_TEST ) ;
-            glDisable      ( GL_LIGHTING   ) ;
-            glDisable      ( GL_FOG        ) ;
-            glDisable      ( GL_CULL_FACE  ) ;
-            glDisable      ( GL_ALPHA_TEST ) ;
-            glEnable       ( GL_TEXTURE_2D ) ;
+            glMatrixMode(GL_PROJECTION);
+            glLoadIdentity();
+            glMatrixMode(GL_MODELVIEW);
+            glLoadIdentity() ;
+            glDisable(GL_DEPTH_TEST);
+            glDisable(GL_LIGHTING);
+            glDisable(GL_FOG);
+            glDisable(GL_CULL_FACE);
+            glDisable(GL_ALPHA_TEST);
+            glEnable(GL_TEXTURE_2D);
 
             // On at least one platform the X server apparently gets overloaded
             // by the large texture, resulting in buffering of key events. This
@@ -189,12 +189,12 @@ void MainLoop::run()
             else 
                 glBindTexture(GL_TEXTURE_2D, m_bg_texture);
             
-            glBegin ( GL_QUADS ) ;
-            glColor3f   (1, 1, 1 ) ;
-            glTexCoord2f(0, 0); glVertex2i(-1, -1);
-            glTexCoord2f(1, 0); glVertex2i( 1, -1);
-            glTexCoord2f(1, 1); glVertex2i( 1,  1);
-            glTexCoord2f(0, 1); glVertex2i(-1,  1);
+            glBegin(GL_QUADS);
+            glColor3f(1,1,1);
+            glTexCoord2f(0,0); glVertex2i(-1,-1);
+            glTexCoord2f(1,0); glVertex2i( 1,-1);
+            glTexCoord2f(1,1); glVertex2i( 1, 1);
+            glTexCoord2f(0,1); glVertex2i(-1, 1);
             glEnd () ;
         }
 

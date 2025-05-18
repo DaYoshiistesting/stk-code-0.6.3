@@ -7,6 +7,7 @@
  (music       "Snowy.music")
  (screenshot  "sshot-snowmountain.rgb")
  (topview     "topview-snowmountain.rgb")
+ (groups      "Standard")
  (camera-final-position  -5 15 5)
  (camera-final-hpr       200 -10 0)
 )

@@ -8,7 +8,7 @@
  (screenshot  "sshot-prehistoric.rgb")
  (topview     "topview-prehistoric.rgb")
  (arena       #t)
- (groups      "standard")
+ (groups      "Standard")
  (camera-final-position  5 20 3)
  (camera-final-hpr       180 -10 0)
 )

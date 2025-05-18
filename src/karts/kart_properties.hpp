@@ -90,21 +90,21 @@ private:
                                            kart length. */
           m_max_radius;               /**< Largest turn radius. */
 
-    ssgEntity  *m_wheel_model[4];      /**< The four wheel models.           */
-    std::string m_wheel_filename[4];   /**< Filename of the wheel models.    */
-                                       /**  Radius of the graphical wheels.  */
+    ssgEntity  *m_wheel_model[4];     /**< The four wheel models.           */
+    std::string m_wheel_filename[4];  /**< Filename of the wheel models.    */
+                                      /**  Radius of the graphical wheels.  */
     float       m_wheel_graphics_radius[4];  
     ssgTransform 
-               *m_wheel_transform[4];  /**< The transform for the wheels, used
-                                        *   to rotate the wheels and display
-                                        *   the suspension in the race.      */
-    float       m_rubber_band_max_length;/**< Max. length of plunger rubber band.*/
-    float       m_rubber_band_force;   /**< Force of an attached rubber band.*/
-    float       m_rubber_band_duration;/**< Duration a rubber band works.    */
-    float       m_wheel_base;          /**< Wheel base of the kart.          */
-    float       m_nitro_power_boost;   /**< Nitro power boost.               */
+               *m_wheel_transform[4]; /**< The transform for the wheels, used
+                                       *   to rotate the wheels and display
+                                       *   the suspension in the race.             */
+    float       m_rubber_band_max_length; /**< Max. length of plunger rubber band. */
+    float       m_rubber_band_force;      /**< Force of an attached rubber band.   */
+    float       m_rubber_band_duration;   /**< Duration a rubber band works.       */
+    float       m_wheel_base;             /**< Wheel base of the kart.             */
+    float       m_nitro_power_boost;      /**< Nitro power boost.                  */
     SFXManager::SFXType 
-                m_engine_sfx_type;     /**< Engine sound effect.         */
+                m_engine_sfx_type;        /**< Engine sound effect.                */
 
     // bullet physics data 
     // -------------------
@@ -118,7 +118,7 @@ private:
     float m_chassis_angular_damping;
     float m_max_speed[3];
     float m_max_speed_reverse_ratio;
-    Vec3  m_gravity_center_shift;    /**< Shift of center of gravity. */
+    Vec3  m_gravity_center_shift;    /**< Shift of center of gravity.   */
     float m_track_connection_accel;  /**< Artifical acceleration that pulls a 
                                       *   kart down onto the track if one axis
                                       *   loses contact with the track. */
@@ -143,6 +143,7 @@ private:
 
     // Camera related setting
     // ----------------------
+    bool  m_next_gen_camera;          // enable or disable 0.7.0 camera
     float m_camera_max_accel;         // maximum acceleration of camera
     float m_camera_max_brake;         // maximum braking of camera
     float m_camera_distance;          // distance of normal camera from kart
@@ -179,7 +180,8 @@ public:
     const std::vector<std::string>&
                   getGroups         () const {return m_groups;                   }
     float getMass                   () const {return m_mass;                     }
-    float getMaxPower               () const {return m_engine_power[race_manager->getDifficulty()];}
+    float getMaxPower               () const {return 
+                                   m_engine_power[race_manager->getDifficulty()];}
     float getTimeFullSteer          () const {return m_time_full_steer;          }
     float getTimeFullSteerAI        () const {return m_time_full_steer_ai;       }
     float getBrakeFactor            () const {return m_brake_factor;             }
@@ -237,6 +239,7 @@ public:
     float getCameraMaxAccel         () const {return m_camera_max_accel;         }
     float getCameraMaxBrake         () const {return m_camera_max_brake;         }
     float getCameraDistance         () const {return m_camera_distance;          }
+    bool  useNextGenCamera          () const {return m_next_gen_camera;          }
 };
 
 #endif

@@ -23,67 +23,65 @@
 #include "stk_config.hpp"
 #include "utils/string_utils.hpp"
 
-#define UCLAMP   1
-#define VCLAMP   2
+#define UCLAMP 1
+#define VCLAMP 2
 
-int clearSpheremap ( ssgEntity * )
+int clearSpheremap(ssgEntity *)
 {
-    glDisable   ( GL_TEXTURE_GEN_S ) ;
-    glDisable   ( GL_TEXTURE_GEN_T ) ;
-    return true ;
+    glDisable(GL_TEXTURE_GEN_S);
+    glDisable(GL_TEXTURE_GEN_T);
+    return true;
 }   // clearSpheremap
 
 //=============================================================================
-int setSpheremap ( ssgEntity * )
+int setSpheremap(ssgEntity *)
 {
-    glTexGeni   ( GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP ) ;
-    glTexGeni   ( GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP ) ;
-    glEnable    ( GL_TEXTURE_GEN_S ) ;
-    glEnable    ( GL_TEXTURE_GEN_T ) ;
-    return true ;
+    glTexGeni(GL_S, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+    glTexGeni(GL_T, GL_TEXTURE_GEN_MODE, GL_SPHERE_MAP);
+    glEnable(GL_TEXTURE_GEN_S);
+    glEnable(GL_TEXTURE_GEN_T);
+    return true;
 }   // setSpheremap
 
 //=============================================================================
-bool Material::parseBool ( char **p )
+bool Material::parseBool(char **p)
 {
     /* Skip leading spaces */
 
-    while ( **p <= ' ' && **p != '\0' ) (*p)++ ;
+    while(**p <= ' ' && **p != '\0') (*p)++ ;
 
-    const bool RES = ( ( **p == 'Y' ) || ( **p == 'y' ) ) ;
+    const bool RES = ((**p == 'Y') || (**p == 'y'));
 
-    while ( **p > ' ' && **p != '\0' ) (*p)++ ;
+    while(**p > ' ' && **p != '\0') (*p)++;
 
-    return RES ;
+    return RES;
 }   // parseBool
 
 //-----------------------------------------------------------------------------
-int Material::parseInt ( char **p )
+int Material::parseInt (char **p)
 {
     /* Skip leading spaces */
+    while(**p <= ' ' && **p != '\0') (*p)++;
 
-    while ( **p <= ' ' && **p != '\0' ) (*p)++ ;
-
-    return strtol ( *p, p, 0 ) ;
+    return strtol(*p, p, 0);
 }   // parseInt 
 
 //-----------------------------------------------------------------------------
-float Material::parseFloat ( char **p )
+float Material::parseFloat(char **p)
 {
     /* Skip leading spaces */
+    while(**p <=' ' && **p != '\0') (*p)++ ;
 
-    while ( **p <= ' ' && **p != '\0' ) (*p)++ ;
-
-    return (float)strtod ( *p, p ) ;
+    return (float)strtod(*p, p);
 }   // parseFloat 
 
 //-----------------------------------------------------------------------------
 Material::Material(int index)
 {
     m_texname = "";
-    m_predraw  = m_postdraw = NULL ;
+    m_predraw  = m_postdraw = NULL;
 
-    init   (index);
+    init(index);
     install();
 }   // Material
 
@@ -92,14 +90,14 @@ Material::Material(const std::string& fname, char *description,
                    int index, bool is_full_path)
 {
     m_texname = fname;
-    m_predraw  = m_postdraw = NULL ;
+    m_predraw = m_postdraw = NULL;
 
     init (index);
 
     if(strlen(description)>0)
     {
-        m_clamp_tex    = parseBool (&description) ? UCLAMP : 0 ;
-        m_clamp_tex   += parseBool (&description) ? VCLAMP : 0 ;
+        m_clamp_tex    = parseBool (&description) ? UCLAMP : 0;
+        m_clamp_tex   += parseBool (&description) ? VCLAMP : 0;
         
         m_transparency       = parseBool (&description);
         m_alpha_ref          = parseFloat(&description);
@@ -130,17 +128,17 @@ Material::~Material()
 //-----------------------------------------------------------------------------
 void Material::init(int index)
 {
-    m_index              = index ;
-    m_clamp_tex          = 0     ;
-    m_transparency       = false ;
-    m_alpha_ref          = 0.1f  ;
-    m_lighting           = true  ;
-    m_sphere_map         = false ;
-    m_friction           = 1.0f  ;
-    m_ignore             = false ;
-    m_zipper             = false ;
-    m_resetter           = false ;
-    m_collideable        = true  ;
+    m_index              = index;
+    m_clamp_tex          = 0;
+    m_transparency       = false;
+    m_alpha_ref          = 0.1f;
+    m_lighting           = true;
+    m_sphere_map         = false;
+    m_friction           = 1.0f;
+    m_ignore             = false;
+    m_zipper             = false;
+    m_resetter           = false;
+    m_collideable        = true;
     m_max_speed_fraction = 1.0f;
     m_slowdown           = stk_config->m_slowdown_factor;
 }
@@ -148,24 +146,24 @@ void Material::init(int index)
 //-----------------------------------------------------------------------------
 void Material::applyToLeaf(ssgLeaf *l)
 {
-    if ( m_predraw  ) l -> setCallback ( SSG_CALLBACK_PREDRAW , m_predraw  ) ;
-    if ( m_postdraw ) l -> setCallback ( SSG_CALLBACK_POSTDRAW, m_postdraw ) ;
+    if(m_predraw)  l->setCallback(SSG_CALLBACK_PREDRAW,  m_predraw);
+    if(m_postdraw) l->setCallback(SSG_CALLBACK_POSTDRAW, m_postdraw);
 }   // applyToLeaf
 
 //-----------------------------------------------------------------------------
 void Material::install(bool is_full_path)
 {
-    if ( isSphereMap () )
+    if(isSphereMap())
     {
-        m_predraw  =   setSpheremap ;
-        m_postdraw = clearSpheremap ;
+        m_predraw  = setSpheremap;
+        m_postdraw = clearSpheremap;
     }
 
-    m_state = new ssgSimpleState ;
+    m_state = new ssgSimpleState;
 
-    m_state -> ref () ;
-    m_state -> setExternalPropertyIndex ( m_index ) ;
-    if ( m_texname.size()>0 )
+    m_state->ref();
+    m_state->setExternalPropertyIndex(m_index);
+    if(m_texname.size()>0)
     {
         std::string fn=is_full_path ? m_texname 
                                     : file_manager->getTextureFile(m_texname);
@@ -174,37 +172,37 @@ void Material::install(bool is_full_path)
             fprintf(stderr, "WARNING: texture '%s' not found.\n", 
                     m_texname.c_str());
         }
-        m_state -> setTexture ( fn.c_str(), !(m_clamp_tex & UCLAMP),
-                              !(m_clamp_tex & VCLAMP) );
-        m_state -> enable  ( GL_TEXTURE_2D ) ;
+        m_state->setTexture(fn.c_str(), !(m_clamp_tex & UCLAMP),
+                                        !(m_clamp_tex & VCLAMP));
+        m_state->enable(GL_TEXTURE_2D);
     }
     else
-        m_state -> disable ( GL_TEXTURE_2D ) ;
+        m_state->disable(GL_TEXTURE_2D);
 
-    if ( m_lighting )
-        m_state -> enable  ( GL_LIGHTING ) ;
+    if (m_lighting)
+        m_state->enable(GL_LIGHTING);
     else
-        m_state -> disable ( GL_LIGHTING ) ;
+        m_state->disable(GL_LIGHTING);
 
-    m_state -> setShadeModel ( GL_SMOOTH ) ;
-    m_state -> enable        ( GL_COLOR_MATERIAL ) ;
-    m_state -> enable        ( GL_CULL_FACE      ) ;
-    m_state -> setColourMaterial ( GL_AMBIENT_AND_DIFFUSE ) ;
-    m_state -> setMaterial   ( GL_EMISSION, 0, 0, 0, 1 ) ;
-    m_state -> setMaterial   ( GL_SPECULAR, 0, 0, 0, 1 ) ;
-    m_state -> setShininess  ( 0 ) ;
+    m_state->setShadeModel(GL_SMOOTH);
+    m_state->enable(GL_COLOR_MATERIAL);
+    m_state->enable(GL_CULL_FACE);
+    m_state->setColourMaterial(GL_AMBIENT_AND_DIFFUSE);
+    m_state->setMaterial(GL_EMISSION, 0, 0, 0, 1);
+    m_state->setMaterial(GL_SPECULAR, 0, 0, 0, 1);
+    m_state->setShininess(0);
 
-    if (m_transparency )
+    if(m_transparency)
     {
-        m_state -> setTranslucent () ;
-        m_state -> enable         ( GL_ALPHA_TEST ) ;
-        m_state -> setAlphaClamp  ( m_alpha_ref ) ;
-        m_state -> enable         ( GL_BLEND ) ;
+        m_state->setTranslucent();
+        m_state->enable(GL_ALPHA_TEST);
+        m_state->setAlphaClamp(m_alpha_ref);
+        m_state->enable(GL_BLEND);
     }
     else
     {
-        m_state -> setOpaque () ;
-        m_state -> disable   ( GL_BLEND ) ;
+        m_state->setOpaque();
+        m_state->disable(GL_BLEND);
     }
 
     // now set the name to the basename, so that all tests work as expected

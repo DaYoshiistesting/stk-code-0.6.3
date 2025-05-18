@@ -42,8 +42,7 @@ Moveable::~Moveable()
     // The body is being removed from the world in kart/projectile
     if(m_body)         delete m_body;
     if(m_motion_state) delete m_motion_state;
-    if(m_model_transform) 
-                       delete m_model_transform;
+    if(m_model_transform)     m_model_transform->deRef();
     // FIXME LEAK: what about model? ssgDeRefDelete(m_model_transform)
 }   // ~Moveable
 
@@ -67,6 +66,12 @@ void Moveable::reset()
         m_body->setAngularVelocity(btVector3(0, 0, 0));
         m_body->setCenterOfMassTransform(m_transform);
     }
+    Vec3 forw_vec = m_transform.getBasis().getColumn(1);
+    m_heading     = atan2f(forw_vec.getY(), forw_vec.getX());
+    Vec3 up       = getTrans().getBasis().getColumn(2);
+    m_pitch       = -atan2(up.getY(), fabsf(up.getZ()));
+    m_roll        = -atan2(up.getX(), up.getZ());
+    m_velocityLC  = Vec3(0,0,0);
     Coord c(m_transform);
     m_hpr = c.getHPR();
 }   // reset
@@ -77,12 +82,21 @@ void Moveable::update(float dt)
     m_motion_state->getWorldTransform(m_transform);
     m_velocityLC  = getVelocity()*getTrans().getBasis();
     m_hpr.setHPR(m_transform.getBasis());
-    Vec3 forw_vec = m_transform.getBasis().getColumn(0);
-    m_heading     = atan2f(forw_vec.getY(), forw_vec.getX());
+    Vec3 forw_vec = m_transform.getBasis().getColumn(1);
+    m_heading     = -atan2f(forw_vec.getX(), forw_vec.getY());
 
+    // The pitch in hpr is in between -pi and pi. But for up-right constraint,
+    // it must be restricted to -pi/2 and pi/2 - so recompute it by restricting
+    // y to positive values, i.e. no pitch of more than pi/2.
     Vec3 up = getTrans().getBasis().getColumn(2);
-    m_pitch =  atan2(up.getX(), up.getZ());
-    m_roll  = -atan2(up.getY(), (fabsf(up.getZ())));
+    m_pitch = -atan2(up.getY(), (fabsf(up.getZ())));
+    m_roll  = -atan2(up.getX(), up.getZ());
+
+#ifdef DEBUG_
+    printf("hpr. H = '%f' P = '%f' R = '%f'\nnew: H = '%f' P = '%f' R = '%f'\n",
+            getHPR().getHeading(), getHPR().getPitch(), getHPR().getRoll(),
+            m_heading, m_pitch, m_roll);
+#endif
     updateGraphics(Vec3(0,0,0), Vec3(0,0,0));
     m_first_time  = false ;
 }   // update

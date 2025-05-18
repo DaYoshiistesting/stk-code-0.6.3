@@ -29,22 +29,21 @@
 #include "items/powerup_manager.hpp"
 #include "items/powerup.hpp"
 
-static ssgSelector *find_selector ( ssgBranch *b );
+static ssgSelector *find_selector(ssgBranch *b);
 
 ProjectileManager *projectile_manager=0;
 
 void ProjectileManager::loadData()
 {
-
     // Load the explosion model and find the actual selector branch in it.
     // Only the explosion model is loaded here, see powerup_manager.
     m_explosion_model = find_selector((ssgBranch*)loader->load("explode.ac",
-                                   CB_EXPLOSION) );
+                                                               CB_EXPLOSION));
     m_explosion_model->ref();
-    if ( m_explosion_model == NULL )
+    if(m_explosion_model == NULL)
     {
-        fprintf ( stderr, "explode.ac doesn't have an 'explosion' object.\n" ) ;
-        exit ( 1 ) ;
+        fprintf(stderr, "explode.ac doesn't have an 'explosion' object.\n");
+        exit(1);
     }
 
 }   // loadData
@@ -111,6 +110,7 @@ void ProjectileManager::update(float dt)
     }
 
     m_explosion_ended=false;
+
     for(Explosions::iterator i  = m_active_explosions.begin();
         i != m_active_explosions.end(); ++i)
     {
@@ -122,7 +122,7 @@ void ProjectileManager::update(float dt)
         e = m_active_explosions.begin();
         while(e!=m_active_explosions.end())
         {
-            if(!(*e)->hasEnded()) { e++; continue;}
+            if(!(*e)->hasEnded()) {e++; continue;}
             Explosion *exp=*e;
             Explosions::iterator eNext=m_active_explosions.erase(e);
             ssgDeRefDelete(exp);  // reduce refcount and free object
@@ -212,24 +212,23 @@ Explosion* ProjectileManager::newExplosion(const Vec3& coord, const int explosio
 /** A general function which is only needed here, but
  *  it's not really a method, so I'll leave it here.
  */
-static ssgSelector *find_selector ( ssgBranch *b )
+static ssgSelector *find_selector(ssgBranch *b)
 {
-    if ( b == NULL )
-        return NULL ;
+    if(b == NULL)
+       return NULL;
 
-    if ( ! b -> isAKindOf ( ssgTypeBranch () ) )
-        return NULL ;
+    if(!b->isAKindOf(ssgTypeBranch()))
+       return NULL;
 
-    if ( b -> isAKindOf ( ssgTypeSelector () ) )
-        return (ssgSelector *) b ;
+    if(b->isAKindOf(ssgTypeSelector()))
+       return (ssgSelector *) b;
 
-    for ( int i = 0 ; i < b -> getNumKids() ; i++ )
+    for(int i=0; i<b->getNumKids(); i++)
     {
-        ssgSelector *res = find_selector ( (ssgBranch *)(b ->getKid(i)) ) ;
+        ssgSelector *res = find_selector((ssgBranch *)(b ->getKid(i)));
 
-        if ( res != NULL )
-            return res ;
+        if(res != NULL)
+           return res;
     }
-
-    return NULL ;
+    return NULL;
 }   // find_selector

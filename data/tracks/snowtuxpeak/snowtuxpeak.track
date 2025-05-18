@@ -7,7 +7,7 @@
   (music       "BradSucks-OutOfIt.music")
   (screenshot  "sshot-snowtuxpeak.rgb")
   (topview     "topview-snowtuxpeak.rgb")
-  (groups      "standard")
+  (groups      "Standard")
   (camera-final-position  -5 15 5)
   (camera-final-hpr       200 -10 0)
  

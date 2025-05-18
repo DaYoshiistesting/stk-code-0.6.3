@@ -7,7 +7,7 @@
  (music       "Boom_boom_boom.music")
  (screenshot  "sshot-olivermath.rgb")
  (topview     "topview-olivermath.rgb")
- (groups      "standard")
+ (groups      "Standard")
  (camera-final-position   2 30 3.2)
  (camera-final-hpr       180 -10 0)
 )

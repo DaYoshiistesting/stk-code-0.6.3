@@ -7,7 +7,7 @@
  (music                  "Penguin_Party.music")
  (screenshot             "city_screenshot.rgb")
  (topview                "city_topview.rgb")
- (groups                 "standard")
+ (groups                 "Standard")
  (camera-final-position  0 20 3)
  (camera-final-hpr       180 -10 0)
 ;; For testing purposes: these are good start coordinates

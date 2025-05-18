@@ -8,7 +8,7 @@
  (screenshot  "sshot-cave.rgb")
  (topview     "topview-cave.rgb")
  (arena       #t)
- (groups      "standard")
+ (groups      "Standard")
  (camera-final-position  2 24 26)
  (camera-final-hpr       180 -30 0)
 )

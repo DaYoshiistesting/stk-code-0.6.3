@@ -84,9 +84,9 @@ public:
     int   m_min_kart_version,        /**<The minimum and maximum .kart file  */
           m_max_kart_version;        /** version supported by this binary.   */
     int   m_min_track_version,       /**<The minimum and maximum .track file */
-          m_max_track_version;       /** version supported by this binary.  */
-    bool  m_enable_networking;
-    
+          m_max_track_version;       /** version supported by this binary.   */
+    bool  m_enable_networking;       /**<Enable or disable networking.       */
+
     std::vector<float> 
           m_leader_intervals;        /**<Interval in follow the leader till 
                                       *  last kart is reomved.               */
@@ -96,11 +96,13 @@ public:
     MusicInformation 
          *m_title_music;             /**<Filename of the title music to play.*/
     MusicInformation 
-         *m_default_music;           /**<Filename of the default music to play.*/
+         *m_default_music;           /**<Filename of the default track music 
+                                      *  to play.                            */
     std::vector<std::string>
           m_mainmenu_background;     /**<Picture used as menu background.    */
     std::vector<std::string>
-          m_menu_background;         /**<Picture used as background for other menus.    */
+          m_menu_background;         /**<Picture used as background for 
+                                      *  other menus.                        */
     
     /** Empty constructor. The actual work is done in load. */
          STKConfig() {};

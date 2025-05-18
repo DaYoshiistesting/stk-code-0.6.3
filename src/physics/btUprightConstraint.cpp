@@ -42,38 +42,38 @@ void btUprightConstraint::solveAngularLimit(
                                ? limit->m_angle - m_loLimit
                                : limit->m_angle - m_hiLimit;
 
-	btScalar targetVelocity       = -m_ERP*limit->m_currentLimitError/(3.1415f/8.0f*timeStep);
-	btScalar maxMotorForce        = m_maxLimitForce;
+	btScalar targetVelocity        = -m_ERP*limit->m_currentLimitError/(3.1415f/8.0f*timeStep);
+	btScalar maxMotorForce         = m_maxLimitForce;
 
     maxMotorForce *= timeStep;
 
     // current velocity difference
-    btVector3 angularVelocity       = body0->getAngularVelocity();
-    btScalar  axisAngularVelocity   = limit->m_axis.dot( angularVelocity );
+    btVector3 angularVelocity      = body0->getAngularVelocity();
+    btScalar  axisAngularVelocity  = limit->m_axis.dot( angularVelocity );
  
      // correction velocity
-    btScalar motorVelocity          = m_limitSoftness*(targetVelocity  - m_damping*axisAngularVelocity);
+    btScalar motorVelocity         = m_limitSoftness*(targetVelocity  - m_damping*axisAngularVelocity);
 
     // correction impulse
     btScalar unclippedMotorImpulse = (1+m_bounce)*motorVelocity*jacDiagABInv;
 
 	// clip correction impulse
-    btScalar clippedMotorImpulse = unclippedMotorImpulse;
+    btScalar clippedMotorImpulse   = unclippedMotorImpulse;
 
     //todo: should clip against accumulated impulse
 
-    if (unclippedMotorImpulse>0.0f)
+    if(unclippedMotorImpulse>0.0f)
     {
-        clippedMotorImpulse =  unclippedMotorImpulse > maxMotorForce? maxMotorForce: unclippedMotorImpulse;
+        clippedMotorImpulse = unclippedMotorImpulse > maxMotorForce? maxMotorForce: unclippedMotorImpulse;
     }
     else
     {
-        clippedMotorImpulse =  unclippedMotorImpulse < -maxMotorForce ? -maxMotorForce: unclippedMotorImpulse;
+        clippedMotorImpulse = unclippedMotorImpulse < -maxMotorForce ? -maxMotorForce: unclippedMotorImpulse;
     }
 
 	// sort with accumulated impulses
-    btScalar      lo = btScalar(-1e30);
-    btScalar      hi = btScalar(1e30);
+    btScalar lo = btScalar(-1e30);
+    btScalar hi = btScalar( 1e30);
 
     btScalar oldaccumImpulse = limit->m_accumulatedImpulse;
 
@@ -105,9 +105,9 @@ btUprightConstraint::btUprightConstraint(const Kart *kart, const btTransform& fr
       m_disable_time                  = 0.0f;
       m_limit[0].m_accumulatedImpulse = 0.0f;
       m_limit[1].m_accumulatedImpulse = 0.0f;
-      m_limit[0].m_axis               = btVector3( 1, 0, 0 );
-      m_limit[1].m_axis               = btVector3( 0, 1, 0 );
-	  setLimit( SIMD_PI * 0.4f );
+      m_limit[0].m_axis               = btVector3(1,0,0);
+      m_limit[1].m_axis               = btVector3(0,1,0);
+	  setLimit(SIMD_PI * 0.4f);
 }
  
 //!
@@ -116,12 +116,12 @@ btUprightConstraint::btUprightConstraint(const Kart *kart, const btTransform& fr
 
 void btUprightConstraint::buildJacobian()
 {
-      m_limit[0].m_angle =  m_kart->getRoll();
-      m_limit[1].m_angle = -m_kart->getPitch();
+      m_limit[0].m_angle =  m_kart->getPitch();
+      m_limit[1].m_angle = -m_kart->getRoll();
 
-      for ( int i = 0; i < 2; i++ )
+      for(int i=0; i<2; i++)
       {
-          new (&m_jacAng[i])      
+          new (&m_jacAng[i])
           btJacobianEntry(m_limit[i].m_axis,
                           m_rbA.getCenterOfMassTransform().getBasis().transpose(),
                           m_rbB.getCenterOfMassTransform().getBasis().transpose(),
@@ -145,9 +145,9 @@ void btUprightConstraint::solveConstraint(btScalar timeStep)
         if(m_disable_time>0.0f) return;
     }
 
-    solveAngularLimit( &m_limit[0], m_timeStep, 
-                       btScalar(1.) / m_jacAng[0].getDiagonal(), &m_rbA );
-    solveAngularLimit( &m_limit[1], 
-                       m_timeStep, btScalar(1.) / m_jacAng[1].getDiagonal(), &m_rbB );
+    solveAngularLimit(&m_limit[0], m_timeStep, 
+                      btScalar(1.) / m_jacAng[0].getDiagonal(), &m_rbA);
+    solveAngularLimit(&m_limit[1], 
+                      m_timeStep, btScalar(1.) / m_jacAng[1].getDiagonal(), &m_rbB);
 }
 

@@ -7,8 +7,8 @@
   (max-kart-version              2)  ;; by this binary. Older/newer files are ignored.
   (min-track-version             1)  ;; Minimum and maximum .track files supported
   (max-track-version             2)  ;; by this binary, older/newer files are ignored.
-  (max-karts                    11)  ;; Maximum number of karts.
-  (scores 13 12 11 10 8 6 5 4 3 2 1)  ;; 1st, 2nd, 3rd... 'till 10th. 
+  (max-karts                    10)  ;; Maximum number of karts.
+  (scores   14 12 10 8 6 5 4 3 2 1)  ;; 1st, 2nd, 3rd... 'till 10th. 
   (grid-order	   	             1)  ;; Order for grand prix, 1 is most 
                                      ;; points first, 0 is least points first.
   (title-music              "MayDayMayhem.music")
@@ -31,6 +31,8 @@
                                       ;; are displayed.
   (final-camera-time           1.5)   ;; Time for the final camera to reach 
                                       ;; it's destination.
+  (enable_networking           #f )   ;; Enable or disable networking. Actually,
+                                      ;; it is off because it's not used at that stage.
   
   ;; Attachment related parameters:
   ;; ------------------------------
@@ -51,8 +53,6 @@
   (shortcut-length              90)  ;; Leaving the road and coming back on it more than
                                      ;; x 'meters" later is considered to be a shortcut.
   (offroad-tolerance          0.07)  ;; Widen the road 7% for shortcut detection.
-  (enable_networking          #f  )  ;; Enable or disable networking. Actually,
-                                     ;; it is off because it's not used at that stage.
   (explosion-impulse       10000.0)  ;; Explosion impulse on non-directly hit karts.
   (explosion-impulse-obj     500.0)  ;; Explosion impulse for physics objects (smaller
                                      ;; else a cone e.g. will be pushed way too far).
@@ -60,107 +60,108 @@
   ;; The following parameters are the defaults for karts:
   ;; ----------------------------------------------------
   (kart-defaults
-     (wheel-base               1.20)
-     (heightCOG                0.20)
-     (time-full-steer          0.25)
-     ;; Time for the AI to go from neutral steering to extreme
-     ;; left (or right). This can be used to reduce 'shaking' of
-     ;; AI karts caused by changing steering direction too often.
-     ;; It also helps with making it easier to push the AI karts
-     ;; (otherwise micro-corrections make this nearly impossible).
-     ;; A value of 1/maxFPS / 2 will guarantee that the wheel can
-     ;; go from -1 to +1 steering in one frame, basically 
-     ;; disabling this mechanism.
-     (time-full-steer-ai        0.1) 
-     (corn-f                    4.0)
-     (corn-r                    4.0)
-	 
-     ;; Shift of the chassis with regards to the center of mass. E.g. with the
-     ;; the value commented out below the chassis will be 30 cm higher than the
-     ;; center of mass - or the center of mass will be 30 cm lower than the
-     ;; middle of the chassis. So this effectively lowers the center of mass,
-     ;; making the kart more stable and less likely to topple over.
-     ;; Default (if nothing is defined here) is that the center of the mass is
-     ;; at the very bottom of the chassis!
-     ;;(gravity-center-shift    0.0 0.0 0.3)
-	 
-     (nitro-power-boost            3)   ;; increase in engine power, i.e. 1=plus 100%
-	 
-     ;; Skidding related parameters:
-	 ;; ----------------------------
-     (skid-increase             1.05)   ;; Multiplicative increase of skidding factor
-                                        ;; in each frame.
-     (skid-decrease             0.95)   ;; Multiplicative decrease of skidding factor
-                                        ;; in each frame.
-     (skid-max                  2.50)   ;; Maximum skidding factor = maximum increase
-                                        ;; of steering angle.
-     (time-till-max-skid        0.40)   ;; Time till maximum skidding is reached.
-     (skid-visual               0.16)   ;; Additional graphical rotation of kart.
-	 
-     ;; Bullet physics attributes:
-	 ;; --------------------------
-     (brake-factor              11.0)
-     ;; Defines the smallest turn radius at lowest speed (4.64 m at
-     ;; speed 0) and at high speed (13.5 m at speed 12 m/s). Maximum
-     ;; steering angles for speeds in between will be interpolated. This 
-     ;; allows for tighter turns at lower speeds. The actual steering
-     ;; angle is dependent on the wheel base of the kart:
-     ;; radius = wheel_base/sin(steering_angle)
-     ;; By specifying the radius the steering behaviour can be defined
-     ;; independent of the kart size.
-     (min-speed-radius   0.00   6.64)
-     (max-speed-radius   15.0   21.5)
-     ;; Different engine powers for different difficulties:
-     ;; hard, medium, low level order!
-     (engine-power       418 400 300)
-     ;; Different maximum speed for different difficulties:
-     ;; hard, medium, low level order!
-     (max-speed          33.90 28 25) ;; = 123 101 90 km/h 
-     (mass                     225.0)
-     (suspension-stiffness      54.0)
-     (wheel-damping-relaxation  20.0)
-     (wheel-damping-compression 4.40)
-     (friction-slip         10000000)
-     (roll-influence            0.03)
-     (wheel-radius              0.25)
-     (wheel-width                0.3)
-     (chassis-linear-damping     0.2)
-     (chassis-angular-damping   30.2)
-     (max-speed-reverse-ratio    0.3) ;; Percentage of max speed for reverse gear.
-     (suspension-rest            0.2)
-     (suspension-travel-cm      19.0)
-	 
-     ;; The z-axis velocity set when a jump is initiated. This will cause the
-     ;; kart to start rising, till it is pulled back by gravity. A higher value
-     ;; means higher Z velocity, meaning the kart will rise faster and higher,
-     ;; and will be in the air longer
-     (jump-velocity              3.0)
-	 
-     ;; The following two vectors define at what ratio of the maximum speed what
-     ;; gear is selected, e.g. 0.25 means: if speed <=0.25*maxSpeed --> gear 1,
-     ;;                        0.5  means: if speed <=0.5 *maxSpeed --> gear 2
-     ;; The next vector contains the increase in max power (to simulate different
-     ;; gears), e.g. 2.5 as first entry means: 2.5*maxPower in gear 1
-     ;;                     | first  | second |  third |
-     ;; The position of the physics raycast wheels relative to the center of 
-     ;; gravity. Default is to use the corners of the chassis to attach the
-     ;; wheels to.
-     (wheel-front-right (physics-position  0.38  0.6 0))
-     (wheel-front-left  (physics-position -0.38  0.6 0))
-     (wheel-rear-right  (physics-position  0.38 -0.6 0))
-     (wheel-rear-left   (physics-position -0.38 -0.6 0))
-	 
-     (gear-switch-ratio    0.25 0.7 1.0)
-     (gear-power-increase  2.20 1.7 1.3)
-     (upright-tolerance         0.2)
-     (upright-max-force        30.0)
-     (track-connection-accel    2.0)
-     (rubber-band-max-length   50.0)  ;; Maximum length of rubber band.
-     (rubber-band-force        1500)  ;; Force a plunger/rubber band applies to the kart(s).
-     (rubber-band-duration      1.0)  ;; Duration a rubber band acts.
-     (camera-max-accel         10.0)
-     (camera-max-brake          5.0)
-     (camera-distance           3.5) 
-   )   ;; end of kart-defaults
+    (wheel-base               1.20)
+    (heightCOG                0.20)
+    (time-full-steer          0.25)
+    ;; Time for the AI to go from neutral steering to extreme
+    ;; left (or right). This can be used to reduce 'shaking' of
+    ;; AI karts caused by changing steering direction too often.
+    ;; It also helps with making it easier to push the AI karts
+    ;; (otherwise micro-corrections make this nearly impossible).
+    ;; A value of 1/maxFPS / 2 will guarantee that the wheel can
+    ;; go from -1 to +1 steering in one frame, basically 
+    ;; disabling this mechanism.
+    (time-full-steer-ai        0.1) 
+    (corn-f                    4.0)
+    (corn-r                    4.0)
+	
+    ;; Shift of the chassis with regards to the center of mass. E.g. with the
+    ;; the value commented out below the chassis will be 30 cm higher than the
+    ;; center of mass - or the center of mass will be 30 cm lower than the
+    ;; middle of the chassis. So this effectively lowers the center of mass,
+    ;; making the kart more stable and less likely to topple over.
+    ;; Default (if nothing is defined here) is that the center of the mass is
+    ;; at the very bottom of the chassis!
+    ;;(gravity-center-shift    0.0 0.0 0.3)
+	
+    (nitro-power-boost            3)   ;; increase in engine power, i.e. 1=plus 100%
+	
+    ;; Skidding related parameters:
+	;; ----------------------------
+    (skid-increase             1.05)   ;; Multiplicative increase of skidding factor
+                                       ;; in each frame.
+    (skid-decrease             0.95)   ;; Multiplicative decrease of skidding factor
+                                       ;; in each frame.
+    (skid-max                  2.50)   ;; Maximum skidding factor = maximum increase
+                                       ;; of steering angle.
+    (time-till-max-skid        0.40)   ;; Time till maximum skidding is reached.
+    (skid-visual               0.16)   ;; Additional graphical rotation of kart.
+	
+    ;; Bullet physics attributes:
+	;; --------------------------
+    (brake-factor              11.0)
+    ;; Defines the smallest turn radius at lowest speed (4.64 m at
+    ;; speed 0) and at high speed (13.5 m at speed 12 m/s). Maximum
+    ;; steering angles for speeds in between will be interpolated. This 
+    ;; allows for tighter turns at lower speeds. The actual steering
+    ;; angle is dependent on the wheel base of the kart:
+    ;; radius = wheel_base/sin(steering_angle)
+    ;; By specifying the radius the steering behaviour can be defined
+    ;; independent of the kart size.
+    (min-speed-radius   0.00   6.64)
+    (max-speed-radius   15.0   21.5)
+    ;; Different engine powers for different difficulties:
+    ;; hard, medium, low level order!
+    (engine-power       418 400 300)
+    ;; Different maximum speed for different difficulties:
+    ;; hard, medium, low level order!
+    (max-speed          33.90 28 25) ;; = 123 101 90 km/h 
+    (mass                     225.0)
+    (suspension-stiffness      54.0)
+    (wheel-damping-relaxation  20.0)
+    (wheel-damping-compression 4.40)
+    (friction-slip         10000000)
+    (roll-influence            0.03)
+    (wheel-radius              0.25)
+    (wheel-width                0.3)
+    (chassis-linear-damping     0.2)
+    (chassis-angular-damping   30.2)
+    (max-speed-reverse-ratio    0.3) ;; Percentage of max speed for reverse gear.
+    (suspension-rest            0.2)
+    (suspension-travel-cm      19.0)
+	
+    ;; The z-axis velocity set when a jump is initiated. This will cause the
+    ;; kart to start rising, till it is pulled back by gravity. A higher value
+    ;; means higher Z velocity, meaning the kart will rise faster and higher,
+    ;; and will be in the air longer
+    (jump-velocity              3.0)
+	
+    ;; The following two vectors define at what ratio of the maximum speed what
+    ;; gear is selected, e.g. 0.25 means: if speed <=0.25*maxSpeed --> gear 1,
+    ;;                        0.5  means: if speed <=0.5 *maxSpeed --> gear 2
+    ;; The next vector contains the increase in max power (to simulate different
+    ;; gears), e.g. 2.5 as first entry means: 2.5*maxPower in gear 1
+    ;;                     | first  | second |  third |
+    ;; The position of the physics raycast wheels relative to the center of 
+    ;; gravity. Default is to use the corners of the chassis to attach the
+    ;; wheels to.
+    (wheel-front-right (physics-position  0.38  0.6 0))
+    (wheel-front-left  (physics-position -0.38  0.6 0))
+    (wheel-rear-right  (physics-position  0.38 -0.6 0))
+    (wheel-rear-left   (physics-position -0.38 -0.6 0))
+	
+    (gear-switch-ratio    0.25 0.7 1.0)
+    (gear-power-increase  2.20 1.7 1.3)
+    (upright-tolerance         0.2)
+    (upright-max-force        30.0)
+    (track-connection-accel    2.0)
+    (rubber-band-max-length   50.0)  ;; Maximum length of rubber band.
+    (rubber-band-force        1500)  ;; Force a plunger/rubber band applies to the kart(s).
+    (rubber-band-duration      1.0)  ;; Duration a rubber band acts.
+	(0.7-camera-mode            #t)  ;; Enable or disable 0.7.0's camera.
+    (camera-max-accel         10.0)
+    (camera-max-brake          5.0)
+    (camera-distance           3.5) 
+  ) ;; end of kart-defaults
 )
 ;; EOF ;;
