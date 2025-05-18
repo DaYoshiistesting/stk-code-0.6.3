@@ -131,12 +131,12 @@ private:
                                 float ratio_x,  float ratio_y);
     void drawAllMessages       (Kart* player_kart,
                                 float offset_x, float offset_y,
-                                float ratio_x,  float ratio_y );
+                                float ratio_x,  float ratio_y);
     void drawPlayerIcons       (const KartIconDisplayInfo* info);
-    void drawMap               (float ratio_x, float ratio_y);
-    void drawTimer             (float ratio_x, float ratio_y);
-    void drawFPS               (float ratio_x, float ratio_y);
-    void drawMusicDescription  (float ratio_x, float ratio_y);
+    void drawMap               ();
+    void drawTimer             ();
+    void drawFPS               ();
+    void drawMusicDescription  ();
     void cleanupMessages       (const float dt);
     void drawSpeed             (Kart* kart, float offset_x, float offset_y,
                                 float ratio_x, float ratio_y);
