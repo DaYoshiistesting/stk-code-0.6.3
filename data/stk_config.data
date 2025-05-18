@@ -158,7 +158,7 @@
     (rubber-band-max-length   50.0)  ;; Maximum length of rubber band.
     (rubber-band-force        1500)  ;; Force a plunger/rubber band applies to the kart(s).
     (rubber-band-duration      1.0)  ;; Duration a rubber band acts.
-	(0.7-camera-mode            #t)  ;; Enable or disable 0.7.0's camera.
+	(0.7-camera-mode            #f)  ;; Enable or disable 0.7.0's camera. Disabled by default.
     (camera-max-accel         10.0)
     (camera-max-brake          5.0)
     (camera-distance           3.5) 

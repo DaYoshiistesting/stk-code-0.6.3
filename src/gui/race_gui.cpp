@@ -936,13 +936,13 @@ void RaceGUI::drawStatusText(const float dt)
             drawPowerupIcons    (player_kart, offset_x, offset_y,
                                  split_screen_ratio_x, split_screen_ratio_y);
             drawEnergyMeter     (player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x*scaling, split_screen_ratio_y*scaling);
+                                 split_screen_ratio_x, split_screen_ratio_y);
             drawSpeed           (player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x*scaling, split_screen_ratio_y*scaling);
+                                 split_screen_ratio_x, split_screen_ratio_y);
             drawLap             (info, player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x*scaling, split_screen_ratio_y*scaling);
+                                 split_screen_ratio_x, split_screen_ratio_y);
             drawAllMessages     (player_kart, offset_x, offset_y,
-                                 split_screen_ratio_x*scaling, split_screen_ratio_y*scaling);
+                                 split_screen_ratio_x, split_screen_ratio_y);
         }   // next player
         
         drawTimer(ratio_x, ratio_y);
