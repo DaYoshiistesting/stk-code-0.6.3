@@ -124,7 +124,7 @@ void Powerup::use()
     m_number--;
     switch (m_type)
     {
-    case POWERUP_ZIPPER:   m_owner->handleZipper();
+    case POWERUP_ZIPPER:   m_owner->handleZipper(true);
         break ;
     case POWERUP_CAKE:
     case POWERUP_BOWLING:

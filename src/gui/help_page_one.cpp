@@ -208,7 +208,7 @@ void HelpPageOne::update(float dt)
         sgSetCoord(&trans, 5, 15, 3, m_clock, 0, 0);
         m_banana->setTransform (&trans);
 
-        //glShadeModel(GL_SMOOTH);
+        glShadeModel(GL_SMOOTH);
         ssgCullAndDraw ( m_box ) ;
         ssgCullAndDraw ( m_small_nitro ) ;
         ssgCullAndDraw ( m_big_nitro ) ;

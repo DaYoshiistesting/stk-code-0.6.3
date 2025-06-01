@@ -423,7 +423,7 @@ void CharSel::update(float dt)
         sgCoord trans;
         sgSetCoord(&trans, 0, 3, -.4f, m_clock, 0, 0);
         m_kart->setTransform (&trans) ;
-        //glShadeModel(GL_SMOOTH);
+        glShadeModel(GL_SMOOTH);
         ssgCullAndDraw ( m_kart ) ;
         glViewport ( 0, 0, user_config->m_width, user_config->m_height ) ;
 
