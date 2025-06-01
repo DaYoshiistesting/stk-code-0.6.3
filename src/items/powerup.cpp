@@ -164,8 +164,7 @@ void Powerup::use()
             if(kart == m_owner) continue;
             // FIXME : In follow the leader,
             // the leader shouldn't get the anvil when the owner uses it.
-            if(race_manager->getMinorMode() == RaceManager::MINOR_MODE_FOLLOW_LEADER
-            && kart->getPosition() == 1)
+            if(kart->getPosition() == 1)
             {
                 kart->attach(ATTACH_ANVIL, stk_config->m_anvil_time);
                 kart->updatedWeight();

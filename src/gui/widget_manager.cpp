@@ -226,7 +226,7 @@ void WidgetManager::update(const float DELTA)
     glMatrixMode(GL_MODELVIEW);
 
 }
-
+//-----------------------------------------------------------------------------
 /** This argument-less layout() function serves as a recall to the other
  *  layout function in case you want to change the way widgets are put on
  *  the screen. It calls layout(POSITION) with the last given position,

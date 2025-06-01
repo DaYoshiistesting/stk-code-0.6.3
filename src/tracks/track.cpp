@@ -566,7 +566,7 @@ void Track::addDebugToScene(int type) const
  *  drawScaled2D was called from gui/TrackSel, draw2Dview from RaceGUI.
  *  Now, the MiniMap is entirely drawn from RaceGUI, including karts points.
  */
-void Track::draw2DMiniMap(float x, float y, float w, float h, float sx, float sy) const
+void Track::draw2DMiniMap(float x, float y, float sx, float sy) const
 {
     const unsigned int DRIVELINE_SIZE = (unsigned int)m_driveline.size();
 
@@ -577,7 +577,7 @@ void Track::draw2DMiniMap(float x, float y, float w, float h, float sx, float sy
 
     // This only draw the white space of the map (which 0.7 does).
     glBegin(GL_QUAD_STRIP);
-     for (size_t i=0; i<DRIVELINE_SIZE; ++i)
+    for(size_t i=0; i<DRIVELINE_SIZE; ++i)
     {
         glVertex2f(x + (m_left_driveline[i].getX() - m_driveline_min.getX()) * sx,
                    y + (m_left_driveline[i].getY() - m_driveline_min.getY()) * sy);

@@ -133,7 +133,7 @@ public:
     void               cleanup            ();
     void               addDebugToScene    (int type) const;
     void               draw2DMiniMap      (float offset_x, float offset_y, 
-                                           float w, float h, float sx, float sy) const;
+                                           float sx, float sy) const;
     void               findRoadSector     (const Vec3& XYZ, int *sector,
                                            bool with_tolerance=false) const;
     int                findOutOfRoadSector(const Vec3& XYZ,
@@ -181,10 +181,10 @@ public:
     void getTerrainInfo(const Vec3 &pos, float *hot, Vec3* normal, 
                         const Material **material) const;
     void createPhysicsModel();
-    void glVtx(sgVec2 v, float x_offset, float y_offset, float sx, float sy) const
+    void glVtx(Vec3 v, float x_offset, float y_offset, float sx, float sy) const
     {
-        glVertex2f(x_offset+(v[0]-m_driveline_min[0])*sx,
-                   y_offset+(v[1]-m_driveline_min[1])*sy);
+        return glVertex2f(x_offset + (v.getX()-m_driveline_min.getX()) * sx,
+                          y_offset + (v.getY()-m_driveline_min.getY()) * sy);
     }
     void  getAABB(Vec3 *min, Vec3 *max) const {*min=m_aabb_min; *max=m_aabb_max; }
 private:
