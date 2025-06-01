@@ -25,19 +25,19 @@
 // ----------------------------------------------------------------------------
 void ActionMap::putEntry(Input input, GameAction ga)
 {
-	inputMap[key(input)] = ga;
+    inputMap[key(input)] = ga;
 }   // putEntry
 
 // ----------------------------------------------------------------------------
 GameAction ActionMap::getEntry(Input input)
 {
-	return inputMap[key(input)];
+    return inputMap[key(input)];
 }   // getEntry
 
 // ----------------------------------------------------------------------------
 GameAction ActionMap::getEntry(Input::InputType type, int id0, int id1, int id2)
 {
-	return inputMap[key(type, id0, id1, id2)];
+    return inputMap[key(type, id0, id1, id2)];
 }   // getEntry
 
 // ----------------------------------------------------------------------------
@@ -49,7 +49,7 @@ void ActionMap::clear()
 // ----------------------------------------------------------------------------
 ActionMap::Key ActionMap::key(Input input)
 {
-	return key(input.type, input.id0, input.id1, input.id2);
+    return key(input.type, input.id0, input.id1, input.id2);
 }   // key
 
 // ----------------------------------------------------------------------------

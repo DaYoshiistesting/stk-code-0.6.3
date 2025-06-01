@@ -26,21 +26,21 @@ struct btCollisionAlgorithmConstructionInfo;
 ///Used by the btCollisionDispatcher to register and create instances for btCollisionAlgorithm
 struct btCollisionAlgorithmCreateFunc
 {
-	bool m_swapped;
-	
-	btCollisionAlgorithmCreateFunc()
-		:m_swapped(false)
-	{
-	}
-	virtual ~btCollisionAlgorithmCreateFunc(){};
+    bool m_swapped;
+    
+    btCollisionAlgorithmCreateFunc()
+        :m_swapped(false)
+    {
+    }
+    virtual ~btCollisionAlgorithmCreateFunc(){};
 
-	virtual	btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& , btCollisionObject* body0,btCollisionObject* body1)
-	{
-		
-		(void)body0;
-		(void)body1;
-		return 0;
-	}
+    virtual    btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& , btCollisionObject* body0,btCollisionObject* body1)
+    {
+        
+        (void)body0;
+        (void)body1;
+        return 0;
+    }
 };
 #endif //COLLISION_CREATE_FUNC
 

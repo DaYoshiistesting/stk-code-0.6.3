@@ -193,8 +193,8 @@ int handleCmdLine(int argc, char **argv)
             }
             else
             {
-	            fprintf(stdout, "Kart '%s' not found, ignored.\n",
-		                argv[i+1]);
+                fprintf(stdout, "Kart '%s' not found, ignored.\n",
+                        argv[i+1]);
             }
         }
         else if( (!strcmp(argv[i], "--mode") && i+1<argc ))
@@ -326,13 +326,13 @@ int handleCmdLine(int argc, char **argv)
         {
             // Check that current res is not blacklisted
             std::ostringstream o;
-    		o << user_config->m_width << "x" << user_config->m_height;
-    		std::string res = o.str();
+            o << user_config->m_width << "x" << user_config->m_height;
+            std::string res = o.str();
             if (std::find(user_config->m_blacklist_res.begin(), 
               user_config->m_blacklist_res.end(),res) == user_config->m_blacklist_res.end())         
-            	user_config->m_fullscreen = true;
-          	else 
-          		fprintf ( stdout, "Resolution %s has been blacklisted, so it is not available!\n", res.c_str());
+                user_config->m_fullscreen = true;
+              else 
+                  fprintf ( stdout, "Resolution %s has been blacklisted, so it is not available!\n", res.c_str());
         }
         else if ( !strcmp(argv[i], "--windowed") || !strcmp(argv[i], "-w"))
         {
@@ -345,19 +345,19 @@ int handleCmdLine(int argc, char **argv)
             int width, height;
             if (sscanf(argv[i+1], "%dx%d", &width, &height) == 2)
             {
-            	std::ostringstream o;
-    			o << width << "x" << height;
-    			std::string res = o.str();
+                std::ostringstream o;
+                o << width << "x" << height;
+                std::string res = o.str();
                 if (!user_config->m_fullscreen || std::find(user_config->m_blacklist_res.begin(), 
-              	  user_config->m_blacklist_res.end(),res) == user_config->m_blacklist_res.end())
+                    user_config->m_blacklist_res.end(),res) == user_config->m_blacklist_res.end())
                 {
-                	user_config->m_prev_width = user_config->m_width = width;
-               		user_config->m_prev_height = user_config->m_height = height;
-                	fprintf ( stdout, "You choose to be in %dx%d.\n", user_config->m_width,
-                    	 user_config->m_height );
-               	}
-               	else
-               		fprintf ( stdout, "Resolution %s has been blacklisted, so it is not available!\n", res.c_str());
+                    user_config->m_prev_width = user_config->m_width = width;
+                       user_config->m_prev_height = user_config->m_height = height;
+                    fprintf ( stdout, "You choose to be in %dx%d.\n", user_config->m_width,
+                         user_config->m_height );
+                   }
+                   else
+                       fprintf ( stdout, "Resolution %s has been blacklisted, so it is not available!\n", res.c_str());
             }
             else
             {
@@ -385,14 +385,14 @@ int handleCmdLine(int argc, char **argv)
         } else if( sscanf(argv[i], "--profile=%d",  &n)==1)
         {
             user_config->m_profile=n;
-	    if(n<0) 
-	    {
+        if(n<0) 
+        {
                 fprintf(stdout,"Profiling %d laps\n",-n);
                 race_manager->setNumLaps(-n);
-	    }
-	    else
+        }
+        else
             {
-	        printf("Profiling: %d seconds.\n",user_config->m_profile);
+            printf("Profiling: %d seconds.\n",user_config->m_profile);
                 race_manager->setNumLaps(999999); // profile end depends on time
             }
         }

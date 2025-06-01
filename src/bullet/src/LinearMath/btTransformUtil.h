@@ -23,11 +23,11 @@ subject to the following restrictions:
 
 #define SIMDSQRT12 btScalar(0.7071067811865475244008443621048490)
 
-#define btRecipSqrt(x) ((btScalar)(btScalar(1.0)/btSqrt(btScalar(x))))		/* reciprocal square root */
+#define btRecipSqrt(x) ((btScalar)(btScalar(1.0)/btSqrt(btScalar(x))))        /* reciprocal square root */
 
 SIMD_FORCE_INLINE btVector3 btAabbSupport(const btVector3& halfExtents,const btVector3& supportDir)
 {
-	return btVector3(supportDir.x() < btScalar(0.0) ? -halfExtents.x() : halfExtents.x(),
+    return btVector3(supportDir.x() < btScalar(0.0) ? -halfExtents.x() : halfExtents.x(),
       supportDir.y() < btScalar(0.0) ? -halfExtents.y() : halfExtents.y(),
       supportDir.z() < btScalar(0.0) ? -halfExtents.z() : halfExtents.z()); 
 }
@@ -61,82 +61,82 @@ class btTransformUtil
 
 public:
 
-	static void integrateTransform(const btTransform& curTrans,const btVector3& linvel,const btVector3& angvel,btScalar timeStep,btTransform& predictedTransform)
-	{
-		predictedTransform.setOrigin(curTrans.getOrigin() + linvel * timeStep);
-//	#define QUATERNION_DERIVATIVE
-	#ifdef QUATERNION_DERIVATIVE
-		btQuaternion predictedOrn = curTrans.getRotation();
-		predictedOrn += (angvel * predictedOrn) * (timeStep * btScalar(0.5));
-		predictedOrn.normalize();
-	#else
-		//Exponential map
-		//google for "Practical Parameterization of Rotations Using the Exponential Map", F. Sebastian Grassia
+    static void integrateTransform(const btTransform& curTrans,const btVector3& linvel,const btVector3& angvel,btScalar timeStep,btTransform& predictedTransform)
+    {
+        predictedTransform.setOrigin(curTrans.getOrigin() + linvel * timeStep);
+//    #define QUATERNION_DERIVATIVE
+    #ifdef QUATERNION_DERIVATIVE
+        btQuaternion predictedOrn = curTrans.getRotation();
+        predictedOrn += (angvel * predictedOrn) * (timeStep * btScalar(0.5));
+        predictedOrn.normalize();
+    #else
+        //Exponential map
+        //google for "Practical Parameterization of Rotations Using the Exponential Map", F. Sebastian Grassia
 
-		btVector3 axis;
-		btScalar	fAngle = angvel.length(); 
-		//limit the angular motion
-		if (fAngle*timeStep > ANGULAR_MOTION_THRESHOLD)
-		{
-			fAngle = ANGULAR_MOTION_THRESHOLD / timeStep;
-		}
+        btVector3 axis;
+        btScalar    fAngle = angvel.length(); 
+        //limit the angular motion
+        if (fAngle*timeStep > ANGULAR_MOTION_THRESHOLD)
+        {
+            fAngle = ANGULAR_MOTION_THRESHOLD / timeStep;
+        }
 
-		if ( fAngle < btScalar(0.001) )
-		{
-			// use Taylor's expansions of sync function
-			axis   = angvel*( btScalar(0.5)*timeStep-(timeStep*timeStep*timeStep)*(btScalar(0.020833333333))*fAngle*fAngle );
-		}
-		else
-		{
-			// sync(fAngle) = sin(c*fAngle)/t
-			axis   = angvel*( btSin(btScalar(0.5)*fAngle*timeStep)/fAngle );
-		}
-		btQuaternion dorn (axis.x(),axis.y(),axis.z(),btCos( fAngle*timeStep*btScalar(0.5) ));
-		btQuaternion orn0 = curTrans.getRotation();
+        if ( fAngle < btScalar(0.001) )
+        {
+            // use Taylor's expansions of sync function
+            axis   = angvel*( btScalar(0.5)*timeStep-(timeStep*timeStep*timeStep)*(btScalar(0.020833333333))*fAngle*fAngle );
+        }
+        else
+        {
+            // sync(fAngle) = sin(c*fAngle)/t
+            axis   = angvel*( btSin(btScalar(0.5)*fAngle*timeStep)/fAngle );
+        }
+        btQuaternion dorn (axis.x(),axis.y(),axis.z(),btCos( fAngle*timeStep*btScalar(0.5) ));
+        btQuaternion orn0 = curTrans.getRotation();
 
-		btQuaternion predictedOrn = dorn * orn0;
-		predictedOrn.normalize();
-	#endif
-		predictedTransform.setRotation(predictedOrn);
-	}
+        btQuaternion predictedOrn = dorn * orn0;
+        predictedOrn.normalize();
+    #endif
+        predictedTransform.setRotation(predictedOrn);
+    }
 
-	static void	calculateVelocity(const btTransform& transform0,const btTransform& transform1,btScalar timeStep,btVector3& linVel,btVector3& angVel)
-	{
-		linVel = (transform1.getOrigin() - transform0.getOrigin()) / timeStep;
-		btVector3 axis;
-		btScalar  angle;
-		calculateDiffAxisAngle(transform0,transform1,axis,angle);
-		angVel = axis * angle / timeStep;
-	}
+    static void    calculateVelocity(const btTransform& transform0,const btTransform& transform1,btScalar timeStep,btVector3& linVel,btVector3& angVel)
+    {
+        linVel = (transform1.getOrigin() - transform0.getOrigin()) / timeStep;
+        btVector3 axis;
+        btScalar  angle;
+        calculateDiffAxisAngle(transform0,transform1,axis,angle);
+        angVel = axis * angle / timeStep;
+    }
 
-	static void calculateDiffAxisAngle(const btTransform& transform0,const btTransform& transform1,btVector3& axis,btScalar& angle)
-	{
-	
-	#ifdef USE_QUATERNION_DIFF
-		btQuaternion orn0 = transform0.getRotation();
-		btQuaternion orn1a = transform1.getRotation();
-		btQuaternion orn1 = orn0.farthest(orn1a);
-		btQuaternion dorn = orn1 * orn0.inverse();
+    static void calculateDiffAxisAngle(const btTransform& transform0,const btTransform& transform1,btVector3& axis,btScalar& angle)
+    {
+    
+    #ifdef USE_QUATERNION_DIFF
+        btQuaternion orn0 = transform0.getRotation();
+        btQuaternion orn1a = transform1.getRotation();
+        btQuaternion orn1 = orn0.farthest(orn1a);
+        btQuaternion dorn = orn1 * orn0.inverse();
 #else
-		btMatrix3x3 dmat = transform1.getBasis() * transform0.getBasis().inverse();
-		btQuaternion dorn;
-		dmat.getRotation(dorn);
+        btMatrix3x3 dmat = transform1.getBasis() * transform0.getBasis().inverse();
+        btQuaternion dorn;
+        dmat.getRotation(dorn);
 #endif//USE_QUATERNION_DIFF
-	
-		///floating point inaccuracy can lead to w component > 1..., which breaks 
+    
+        ///floating point inaccuracy can lead to w component > 1..., which breaks 
 
-		dorn.normalize();
-		
-		angle = dorn.getAngle();
-		axis = btVector3(dorn.x(),dorn.y(),dorn.z());
-		axis[3] = btScalar(0.);
-		//check for axis length
-		btScalar len = axis.length2();
-		if (len < SIMD_EPSILON*SIMD_EPSILON)
-			axis = btVector3(btScalar(1.),btScalar(0.),btScalar(0.));
-		else
-			axis /= btSqrt(len);
-	}
+        dorn.normalize();
+        
+        angle = dorn.getAngle();
+        axis = btVector3(dorn.x(),dorn.y(),dorn.z());
+        axis[3] = btScalar(0.);
+        //check for axis length
+        btScalar len = axis.length2();
+        if (len < SIMD_EPSILON*SIMD_EPSILON)
+            axis = btVector3(btScalar(1.),btScalar(0.),btScalar(0.));
+        else
+            axis /= btSqrt(len);
+    }
 
 };
 

@@ -111,7 +111,7 @@ void PowerupManager::LoadOnePowerup(const lisp::Lisp* lisp, const char *name,
 
     if(model!="")
     {
-        // FIXME LEAK: not freed (uniportant, since the models have to exist
+        // FIXME LEAK: not freed (unimportant, since the models have to exist
         // for the whole game anyway).
         m_all_models[type] = loader->load(model, CB_COLLECTABLE);
         m_all_models[type]->ref();

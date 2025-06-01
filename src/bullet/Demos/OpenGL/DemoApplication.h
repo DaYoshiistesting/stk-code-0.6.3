@@ -31,168 +31,168 @@ subject to the following restrictions:
 #include "LinearMath/btQuickprof.h"
 #include "LinearMath/btAlignedObjectArray.h"
 
-class	btCollisionShape;
-class	btDynamicsWorld;
-class	btRigidBody;
-class	btTypedConstraint;
+class    btCollisionShape;
+class    btDynamicsWorld;
+class    btRigidBody;
+class    btTypedConstraint;
 
 
 
 class DemoApplication
 {
-	void	displayProfileString(int xOffset,int yStart,char* message);
-	class CProfileIterator* m_profileIterator;
+    void    displayProfileString(int xOffset,int yStart,char* message);
+    class CProfileIterator* m_profileIterator;
 
-	protected:
+    protected:
 #ifdef USE_BT_CLOCK
-	btClock m_clock;
+    btClock m_clock;
 #endif //USE_BT_CLOCK
 
-	///this is the most important class
-	btDynamicsWorld*		m_dynamicsWorld;
+    ///this is the most important class
+    btDynamicsWorld*        m_dynamicsWorld;
 
-	///constraint for mouse picking
-	btTypedConstraint*		m_pickConstraint;
+    ///constraint for mouse picking
+    btTypedConstraint*        m_pickConstraint;
 
-	btCollisionShape*	m_shootBoxShape;
+    btCollisionShape*    m_shootBoxShape;
 
-	float	m_cameraDistance;
-	int	m_debugMode;
-	
-	float m_ele;
-	float m_azi;
-	btVector3 m_cameraPosition;
-	btVector3 m_cameraTargetPosition;//look at
+    float    m_cameraDistance;
+    int    m_debugMode;
+    
+    float m_ele;
+    float m_azi;
+    btVector3 m_cameraPosition;
+    btVector3 m_cameraTargetPosition;//look at
 
-	float m_scaleBottom;
-	float m_scaleFactor;
-	btVector3 m_cameraUp;
-	int	m_forwardAxis;
+    float m_scaleBottom;
+    float m_scaleFactor;
+    btVector3 m_cameraUp;
+    int    m_forwardAxis;
 
-	int m_glutScreenWidth;
-	int m_glutScreenHeight;
+    int m_glutScreenWidth;
+    int m_glutScreenHeight;
 
-	float	m_ShootBoxInitialSpeed;
-	
-	bool	m_stepping;
-	bool m_singleStep;
-	bool m_idle;
-	int m_lastKey;
+    float    m_ShootBoxInitialSpeed;
+    
+    bool    m_stepping;
+    bool m_singleStep;
+    bool m_idle;
+    int m_lastKey;
 
-	void showProfileInfo(float& xOffset,float& yStart, float yIncr);
+    void showProfileInfo(float& xOffset,float& yStart, float yIncr);
 
-	GL_ShapeDrawer	m_shapeDrawer;
+    GL_ShapeDrawer    m_shapeDrawer;
 
 public:
-		
-	DemoApplication();
-	
-	virtual ~DemoApplication();
+        
+    DemoApplication();
+    
+    virtual ~DemoApplication();
 
-	btDynamicsWorld*		getDynamicsWorld()
-	{
-		return m_dynamicsWorld;
-	}
-	
-	void setOrthographicProjection();
-	void resetPerspectiveProjection();
+    btDynamicsWorld*        getDynamicsWorld()
+    {
+        return m_dynamicsWorld;
+    }
+    
+    void setOrthographicProjection();
+    void resetPerspectiveProjection();
 
-	int		getDebugMode()
-	{
-		return m_debugMode ;
-	}
-	
-	void	setDebugMode(int mode);
-	
-	
-	void	setCameraUp(const btVector3& camUp)
-	{
-		m_cameraUp = camUp;
-	}
-	void	setCameraForwardAxis(int axis)
-	{
-		m_forwardAxis = axis;
-	}
+    int        getDebugMode()
+    {
+        return m_debugMode ;
+    }
+    
+    void    setDebugMode(int mode);
+    
+    
+    void    setCameraUp(const btVector3& camUp)
+    {
+        m_cameraUp = camUp;
+    }
+    void    setCameraForwardAxis(int axis)
+    {
+        m_forwardAxis = axis;
+    }
 
-	void myinit();
+    void myinit();
 
-	void toggleIdle();
-	
-	virtual void updateCamera();
+    void toggleIdle();
+    
+    virtual void updateCamera();
 
-	btVector3	getCameraPosition()
-	{
-		return m_cameraPosition;
-	}
-	btVector3	getCameraTargetPosition()
-	{
-		return m_cameraTargetPosition;
-	}
+    btVector3    getCameraPosition()
+    {
+        return m_cameraPosition;
+    }
+    btVector3    getCameraTargetPosition()
+    {
+        return m_cameraTargetPosition;
+    }
 
-	btScalar	getDeltaTimeMicroseconds()
-	{
+    btScalar    getDeltaTimeMicroseconds()
+    {
 #ifdef USE_BT_CLOCK
-		btScalar dt = (const btScalar) m_clock.getTimeMicroseconds();
-		m_clock.reset();
-		return dt;
+        btScalar dt = (const btScalar) m_clock.getTimeMicroseconds();
+        m_clock.reset();
+        return dt;
 #else
-		return btScalar(16666.);
+        return btScalar(16666.);
 #endif
-	}
+    }
 
-	///glut callbacks
-				
-	float	getCameraDistance();
-	void	setCameraDistance(float dist);	
-	void	moveAndDisplay();
+    ///glut callbacks
+                
+    float    getCameraDistance();
+    void    setCameraDistance(float dist);    
+    void    moveAndDisplay();
 
-	virtual void clientMoveAndDisplay() = 0;
+    virtual void clientMoveAndDisplay() = 0;
 
-	virtual void	clientResetScene();
+    virtual void    clientResetScene();
 
-	///Demo functions
-	void	shootBox(const btVector3& destination);
-
-
-	btVector3	getRayTo(int x,int y);
-
-	btRigidBody*	localCreateRigidBody(float mass, const btTransform& startTransform,btCollisionShape* shape);
-
-	///callback methods by glut	
-
-	virtual void keyboardCallback(unsigned char key, int x, int y);
-
-	virtual void specialKeyboard(int key, int x, int y);
-
-	virtual void specialKeyboardUp(int key, int x, int y);
-
-	virtual void reshape(int w, int h);
-
-	virtual void mouseFunc(int button, int state, int x, int y);
-
-	virtual void	mouseMotionFunc(int x,int y);
-	
-	virtual void displayCallback();
-
-	virtual 	void renderme();
+    ///Demo functions
+    void    shootBox(const btVector3& destination);
 
 
-	void stepLeft();
-	void stepRight();
-	void stepFront();
-	void stepBack();
-	void zoomIn();
-	void zoomOut();
+    btVector3    getRayTo(int x,int y);
 
-	bool	isIdle() const
-	{
-		return	m_idle;
-	}
+    btRigidBody*    localCreateRigidBody(float mass, const btTransform& startTransform,btCollisionShape* shape);
 
-	void	setIdle(bool idle)
-	{
-		m_idle = idle;
-	}
+    ///callback methods by glut    
+
+    virtual void keyboardCallback(unsigned char key, int x, int y);
+
+    virtual void specialKeyboard(int key, int x, int y);
+
+    virtual void specialKeyboardUp(int key, int x, int y);
+
+    virtual void reshape(int w, int h);
+
+    virtual void mouseFunc(int button, int state, int x, int y);
+
+    virtual void    mouseMotionFunc(int x,int y);
+    
+    virtual void displayCallback();
+
+    virtual     void renderme();
+
+
+    void stepLeft();
+    void stepRight();
+    void stepFront();
+    void stepBack();
+    void zoomIn();
+    void zoomOut();
+
+    bool    isIdle() const
+    {
+        return    m_idle;
+    }
+
+    void    setIdle(bool idle)
+    {
+        m_idle = idle;
+    }
 
 
 };

@@ -54,7 +54,7 @@ Cake::Cake (Kart *kart) : Flyable(kart, POWERUP_CAKE)
 
     btTransform trans = kart->getTrans();
 
-	float heading = kart->getHeading();
+    float heading = kart->getHeading();
     float pitch   = kart->getTerrainPitch(heading);
 
     // find closest kart in front of the current one.
@@ -113,7 +113,7 @@ void Cake::init(const lisp::Lisp* lisp, ssgEntity *cake_model)
     m_st_max_distance_squared = 80.0f * 80.0f;
     m_gravity                 = 9.8f;
 
-	if (m_gravity < 0) m_gravity *= -1.0f;
+    if (m_gravity < 0) m_gravity *= -1.0f;
 
     lisp->get("max-distance",    m_st_max_distance  );
     m_st_max_distance_squared = m_st_max_distance*m_st_max_distance;

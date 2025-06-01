@@ -24,25 +24,25 @@ subject to the following restrictions:
 ///IndexedMesh indexes into existing vertex and index arrays, in a similar way OpenGL glDrawElements
 ///instead of the number of indices, we pass the number of triangles
 ///todo: explain with pictures
-ATTRIBUTE_ALIGNED16( struct)	btIndexedMesh
+ATTRIBUTE_ALIGNED16( struct)    btIndexedMesh
 {
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	int			m_numTriangles;
-	const unsigned char *		m_triangleIndexBase;
-	int			m_triangleIndexStride;
-	int			m_numVertices;
-	const unsigned char *		m_vertexBase;
-	int			m_vertexStride;
-	// The index type is set when adding an indexed mesh to the
-	// btTriangleIndexVertexArray, do not set it manually
-	PHY_ScalarType		m_indexType;
-	int			pad;
+    int            m_numTriangles;
+    const unsigned char *        m_triangleIndexBase;
+    int            m_triangleIndexStride;
+    int            m_numVertices;
+    const unsigned char *        m_vertexBase;
+    int            m_vertexStride;
+    // The index type is set when adding an indexed mesh to the
+    // btTriangleIndexVertexArray, do not set it manually
+    PHY_ScalarType        m_indexType;
+    int            pad;
 }
 ;
 
 
-typedef btAlignedObjectArray<btIndexedMesh>	IndexedMeshArray;
+typedef btAlignedObjectArray<btIndexedMesh>    IndexedMeshArray;
 
 ///TriangleIndexVertexArray allows to use multiple meshes, by indexing into existing triangle/index arrays.
 ///Additional meshes can be added using addIndexedMesh
@@ -51,58 +51,58 @@ typedef btAlignedObjectArray<btIndexedMesh>	IndexedMeshArray;
 ATTRIBUTE_ALIGNED16( class) btTriangleIndexVertexArray : public btStridingMeshInterface
 {
 protected:
-	IndexedMeshArray	m_indexedMeshes;
-	int m_pad[3];
+    IndexedMeshArray    m_indexedMeshes;
+    int m_pad[3];
 
-		
+        
 public:
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btTriangleIndexVertexArray()
-	{
-	}
+    btTriangleIndexVertexArray()
+    {
+    }
 
-	virtual ~btTriangleIndexVertexArray();
+    virtual ~btTriangleIndexVertexArray();
 
-	//just to be backwards compatible
-	btTriangleIndexVertexArray(int numTriangles,int* triangleIndexBase,int triangleIndexStride,int numVertices,btScalar* vertexBase,int vertexStride);
-	
-	void	addIndexedMesh(const btIndexedMesh& mesh, PHY_ScalarType indexType = PHY_INTEGER)
-	{
-		m_indexedMeshes.push_back(mesh);
-		m_indexedMeshes[m_indexedMeshes.size()-1].m_indexType = indexType;
-	}
-	
-	
-	virtual void	getLockedVertexIndexBase(unsigned char **vertexbase, int& numverts,PHY_ScalarType& type, int& vertexStride,unsigned char **indexbase,int & indexstride,int& numfaces,PHY_ScalarType& indicestype,int subpart=0);
+    //just to be backwards compatible
+    btTriangleIndexVertexArray(int numTriangles,int* triangleIndexBase,int triangleIndexStride,int numVertices,btScalar* vertexBase,int vertexStride);
+    
+    void    addIndexedMesh(const btIndexedMesh& mesh, PHY_ScalarType indexType = PHY_INTEGER)
+    {
+        m_indexedMeshes.push_back(mesh);
+        m_indexedMeshes[m_indexedMeshes.size()-1].m_indexType = indexType;
+    }
+    
+    
+    virtual void    getLockedVertexIndexBase(unsigned char **vertexbase, int& numverts,PHY_ScalarType& type, int& vertexStride,unsigned char **indexbase,int & indexstride,int& numfaces,PHY_ScalarType& indicestype,int subpart=0);
 
-	virtual void	getLockedReadOnlyVertexIndexBase(const unsigned char **vertexbase, int& numverts,PHY_ScalarType& type, int& vertexStride,const unsigned char **indexbase,int & indexstride,int& numfaces,PHY_ScalarType& indicestype,int subpart=0) const;
+    virtual void    getLockedReadOnlyVertexIndexBase(const unsigned char **vertexbase, int& numverts,PHY_ScalarType& type, int& vertexStride,const unsigned char **indexbase,int & indexstride,int& numfaces,PHY_ScalarType& indicestype,int subpart=0) const;
 
-	/// unLockVertexBase finishes the access to a subpart of the triangle mesh
-	/// make a call to unLockVertexBase when the read and write access (using getLockedVertexIndexBase) is finished
-	virtual void	unLockVertexBase(int subpart) {(void)subpart;}
+    /// unLockVertexBase finishes the access to a subpart of the triangle mesh
+    /// make a call to unLockVertexBase when the read and write access (using getLockedVertexIndexBase) is finished
+    virtual void    unLockVertexBase(int subpart) {(void)subpart;}
 
-	virtual void	unLockReadOnlyVertexBase(int subpart) const {(void)subpart;}
+    virtual void    unLockReadOnlyVertexBase(int subpart) const {(void)subpart;}
 
-	/// getNumSubParts returns the number of seperate subparts
-	/// each subpart has a continuous array of vertices and indices
-	virtual int		getNumSubParts() const { 
-		return (int)m_indexedMeshes.size();
-	}
+    /// getNumSubParts returns the number of seperate subparts
+    /// each subpart has a continuous array of vertices and indices
+    virtual int        getNumSubParts() const { 
+        return (int)m_indexedMeshes.size();
+    }
 
-	IndexedMeshArray&	getIndexedMeshArray()
-	{
-		return m_indexedMeshes;
-	}
+    IndexedMeshArray&    getIndexedMeshArray()
+    {
+        return m_indexedMeshes;
+    }
 
-	const IndexedMeshArray&	getIndexedMeshArray() const
-	{
-		return m_indexedMeshes;
-	}
+    const IndexedMeshArray&    getIndexedMeshArray() const
+    {
+        return m_indexedMeshes;
+    }
 
-	virtual void	preallocateVertices(int numverts){(void) numverts;}
-	virtual void	preallocateIndices(int numindices){(void) numindices;}
+    virtual void    preallocateVertices(int numverts){(void) numverts;}
+    virtual void    preallocateIndices(int numindices){(void) numindices;}
 
 }
 ;

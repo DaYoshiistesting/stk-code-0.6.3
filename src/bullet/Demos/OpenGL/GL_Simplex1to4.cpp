@@ -37,40 +37,40 @@ GL_Simplex1to4::GL_Simplex1to4()
 ///
 /// Debugging method calcClosest calculates the closest point to the origin, using m_simplexSolver
 ///
-void	GL_Simplex1to4::calcClosest(btScalar* m)
+void    GL_Simplex1to4::calcClosest(btScalar* m)
 {
-	btTransform tr;
-	tr.setFromOpenGLMatrix(m);
-	
+    btTransform tr;
+    tr.setFromOpenGLMatrix(m);
+    
 
 
-			GL_ShapeDrawer::drawCoordSystem();
-			
-			if (m_simplexSolver)
-			{
-				m_simplexSolver->reset();
-				bool res;
+            GL_ShapeDrawer::drawCoordSystem();
+            
+            if (m_simplexSolver)
+            {
+                m_simplexSolver->reset();
+                bool res;
 
-				btVector3 v;
+                btVector3 v;
 
-				for (int i=0;i<m_numVertices;i++)
-				{
-					v =  tr(m_vertices[i]);
-					m_simplexSolver->addVertex(v,v,btPoint3(0.f,0.f,0.f));
-					res = m_simplexSolver->closest(v);
-				}
+                for (int i=0;i<m_numVertices;i++)
+                {
+                    v =  tr(m_vertices[i]);
+                    m_simplexSolver->addVertex(v,v,btPoint3(0.f,0.f,0.f));
+                    res = m_simplexSolver->closest(v);
+                }
 
-				//draw v?
-				glDisable(GL_LIGHTING);
-				glBegin(GL_LINES);
-				btglColor3(1.f, 0.f, 0.f);
-				btglVertex3(0.f, 0.f, 0.f);
-				btglVertex3(v.x(),v.y(),v.z());
-				glEnd();
-				
-				glEnable(GL_LIGHTING);
+                //draw v?
+                glDisable(GL_LIGHTING);
+                glBegin(GL_LINES);
+                btglColor3(1.f, 0.f, 0.f);
+                btglVertex3(0.f, 0.f, 0.f);
+                btglVertex3(v.x(),v.y(),v.z());
+                glEnd();
+                
+                glEnable(GL_LIGHTING);
 
 
-			}
+            }
 
 }

@@ -25,48 +25,48 @@ subject to the following restrictions:
 class btMultiSphereShape : public btConvexInternalShape
 
 {
-	
-	btVector3 m_localPositions[MAX_NUM_SPHERES];
-	btScalar  m_radi[MAX_NUM_SPHERES];
-	btVector3	m_inertiaHalfExtents;
+    
+    btVector3 m_localPositions[MAX_NUM_SPHERES];
+    btScalar  m_radi[MAX_NUM_SPHERES];
+    btVector3    m_inertiaHalfExtents;
 
-	int m_numSpheres;
-	
+    int m_numSpheres;
+    
 
 
 
 public:
-	btMultiSphereShape (const btVector3& inertiaHalfExtents,const btVector3* positions,const btScalar* radi,int numSpheres);
+    btMultiSphereShape (const btVector3& inertiaHalfExtents,const btVector3* positions,const btScalar* radi,int numSpheres);
 
-	///CollisionShape Interface
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    ///CollisionShape Interface
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
 
-	/// btConvexShape Interface
-	virtual btVector3	localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
+    /// btConvexShape Interface
+    virtual btVector3    localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
 
-	virtual void	batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
-	
-	int	getSphereCount() const
-	{
-		return m_numSpheres;
-	}
+    virtual void    batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
+    
+    int    getSphereCount() const
+    {
+        return m_numSpheres;
+    }
 
-	const btVector3&	getSpherePosition(int index) const
-	{
-		return m_localPositions[index];
-	}
+    const btVector3&    getSpherePosition(int index) const
+    {
+        return m_localPositions[index];
+    }
 
-	btScalar	getSphereRadius(int index) const
-	{
-		return m_radi[index];
-	}
+    btScalar    getSphereRadius(int index) const
+    {
+        return m_radi[index];
+    }
 
-	virtual int	getShapeType() const { return MULTI_SPHERE_SHAPE_PROXYTYPE; }
+    virtual int    getShapeType() const { return MULTI_SPHERE_SHAPE_PROXYTYPE; }
 
-	virtual const char*	getName()const 
-	{
-		return "MultiSphere";
-	}
+    virtual const char*    getName()const 
+    {
+        return "MultiSphere";
+    }
 
 };
 

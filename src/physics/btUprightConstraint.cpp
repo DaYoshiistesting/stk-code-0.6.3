@@ -30,20 +30,20 @@ subject to the following restrictions:
 //!
 
 void btUprightConstraint::solveAngularLimit(
-			btUprightConstraintLimit *limit,
+            btUprightConstraintLimit *limit,
             btScalar timeStep, btScalar jacDiagABInv,
             btRigidBody * body0 )
 {
-	
-	// Work out if limit is violated
+    
+    // Work out if limit is violated
     if(limit->m_angle>=m_loLimit && limit->m_angle<=m_hiLimit) return;
 
     limit->m_currentLimitError = (limit->m_angle<m_loLimit) 
                                ? limit->m_angle - m_loLimit
                                : limit->m_angle - m_hiLimit;
 
-	btScalar targetVelocity        = -m_ERP*limit->m_currentLimitError/(3.1415f/8.0f*timeStep);
-	btScalar maxMotorForce         = m_maxLimitForce;
+    btScalar targetVelocity        = -m_ERP*limit->m_currentLimitError/(3.1415f/8.0f*timeStep);
+    btScalar maxMotorForce         = m_maxLimitForce;
 
     maxMotorForce *= timeStep;
 
@@ -57,7 +57,7 @@ void btUprightConstraint::solveAngularLimit(
     // correction impulse
     btScalar unclippedMotorImpulse = (1+m_bounce)*motorVelocity*jacDiagABInv;
 
-	// clip correction impulse
+    // clip correction impulse
     btScalar clippedMotorImpulse   = unclippedMotorImpulse;
 
     //todo: should clip against accumulated impulse
@@ -71,7 +71,7 @@ void btUprightConstraint::solveAngularLimit(
         clippedMotorImpulse = unclippedMotorImpulse < -maxMotorForce ? -maxMotorForce: unclippedMotorImpulse;
     }
 
-	// sort with accumulated impulses
+    // sort with accumulated impulses
     btScalar lo = btScalar(-1e30);
     btScalar hi = btScalar( 1e30);
 
@@ -79,7 +79,7 @@ void btUprightConstraint::solveAngularLimit(
 
     btScalar sum = oldaccumImpulse + clippedMotorImpulse;
 
-	limit->m_accumulatedImpulse = sum > hi ? btScalar(0.) : sum < lo ? btScalar(0.) : sum;
+    limit->m_accumulatedImpulse = sum > hi ? btScalar(0.) : sum < lo ? btScalar(0.) : sum;
 
     clippedMotorImpulse = limit->m_accumulatedImpulse - oldaccumImpulse;
 
@@ -107,7 +107,7 @@ btUprightConstraint::btUprightConstraint(const Kart *kart, const btTransform& fr
       m_limit[1].m_accumulatedImpulse = 0.0f;
       m_limit[0].m_axis               = btVector3(1,0,0);
       m_limit[1].m_axis               = btVector3(0,1,0);
-	  setLimit(SIMD_PI * 0.4f);
+      setLimit(SIMD_PI * 0.4f);
 }
  
 //!
@@ -148,6 +148,6 @@ void btUprightConstraint::solveConstraint(btScalar timeStep)
     solveAngularLimit(&m_limit[0], m_timeStep, 
                       btScalar(1.) / m_jacAng[0].getDiagonal(), &m_rbA);
     solveAngularLimit(&m_limit[1], 
-                      m_timeStep, btScalar(1.) / m_jacAng[1].getDiagonal(), &m_rbB);
+                      m_timeStep, btScalar(1.) / m_jacAng[1].getDiagonal(), &m_rbA);
 }
 

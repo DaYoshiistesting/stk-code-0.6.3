@@ -27,18 +27,16 @@ class Cake : public Flyable
 private:
     static float m_st_max_distance;    // maximum distance for a missile to be attracted
     static float m_st_max_distance_squared;
-	static float m_gravity;
+    static float m_gravity;
 
     btVector3    m_initial_velocity;
-    //float        steerTowards(btTransform& trans, btVector3& target);
-
     Kart*        m_target;            // which kart is targeted by this
                                       // projectile (NULL if none)
 public:
     Cake (Kart *kart);
     static  void init     (const lisp::Lisp* lisp, ssgEntity* cake_model);
     virtual bool hit      (Kart *kart, MovingPhysics *mp=NULL);
-    virtual void hitTrack ()                      { hit(NULL);               }
+    virtual void hitTrack ()                      {hit(NULL);                }
     // Kinematic objects are not allowed to have a velocity (assertion in 
     // bullet), so we have to do our own velocity handling here
     virtual const btVector3 &getVelocity() const  {return m_initial_velocity;}

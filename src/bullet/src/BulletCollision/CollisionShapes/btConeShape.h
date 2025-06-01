@@ -24,80 +24,80 @@ class btConeShape : public btConvexInternalShape
 
 {
 
-	btScalar m_sinAngle;
-	btScalar m_radius;
-	btScalar m_height;
-	int		m_coneIndices[3];
-	btVector3 coneLocalSupport(const btVector3& v) const;
+    btScalar m_sinAngle;
+    btScalar m_radius;
+    btScalar m_height;
+    int        m_coneIndices[3];
+    btVector3 coneLocalSupport(const btVector3& v) const;
 
 
 public:
-	btConeShape (btScalar radius,btScalar height);
-	
-	virtual btVector3	localGetSupportingVertex(const btVector3& vec) const;
-	virtual btVector3	localGetSupportingVertexWithoutMargin(const btVector3& vec) const;
-	virtual void	batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
+    btConeShape (btScalar radius,btScalar height);
+    
+    virtual btVector3    localGetSupportingVertex(const btVector3& vec) const;
+    virtual btVector3    localGetSupportingVertexWithoutMargin(const btVector3& vec) const;
+    virtual void    batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
 
-	btScalar getRadius() const { return m_radius;}
-	btScalar getHeight() const { return m_height;}
-
-
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const
-	{
-		btTransform identity;
-		identity.setIdentity();
-		btVector3 aabbMin,aabbMax;
-		getAabb(identity,aabbMin,aabbMax);
-
-		btVector3 halfExtents = (aabbMax-aabbMin)*btScalar(0.5);
-
-		btScalar margin = getMargin();
-
-		btScalar lx=btScalar(2.)*(halfExtents.x()+margin);
-		btScalar ly=btScalar(2.)*(halfExtents.y()+margin);
-		btScalar lz=btScalar(2.)*(halfExtents.z()+margin);
-		const btScalar x2 = lx*lx;
-		const btScalar y2 = ly*ly;
-		const btScalar z2 = lz*lz;
-		const btScalar scaledmass = mass * btScalar(0.08333333);
-
-		inertia = scaledmass * (btVector3(y2+z2,x2+z2,x2+y2));
-
-//		inertia.x() = scaledmass * (y2+z2);
-//		inertia.y() = scaledmass * (x2+z2);
-//		inertia.z() = scaledmass * (x2+y2);
-	}
+    btScalar getRadius() const { return m_radius;}
+    btScalar getHeight() const { return m_height;}
 
 
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const
+    {
+        btTransform identity;
+        identity.setIdentity();
+        btVector3 aabbMin,aabbMax;
+        getAabb(identity,aabbMin,aabbMax);
 
-		virtual int	getShapeType() const { return CONE_SHAPE_PROXYTYPE; }
+        btVector3 halfExtents = (aabbMax-aabbMin)*btScalar(0.5);
 
-		virtual const char*	getName()const 
-		{
-			return "Cone";
-		}
-		
-		///choose upAxis index
-		void	setConeUpIndex(int upIndex);
-		
-		int	getConeUpIndex() const
-		{
-			return m_coneIndices[1];
-		}
+        btScalar margin = getMargin();
+
+        btScalar lx=btScalar(2.)*(halfExtents.x()+margin);
+        btScalar ly=btScalar(2.)*(halfExtents.y()+margin);
+        btScalar lz=btScalar(2.)*(halfExtents.z()+margin);
+        const btScalar x2 = lx*lx;
+        const btScalar y2 = ly*ly;
+        const btScalar z2 = lz*lz;
+        const btScalar scaledmass = mass * btScalar(0.08333333);
+
+        inertia = scaledmass * (btVector3(y2+z2,x2+z2,x2+y2));
+
+//        inertia.x() = scaledmass * (y2+z2);
+//        inertia.y() = scaledmass * (x2+z2);
+//        inertia.z() = scaledmass * (x2+y2);
+    }
+
+
+
+        virtual int    getShapeType() const { return CONE_SHAPE_PROXYTYPE; }
+
+        virtual const char*    getName()const 
+        {
+            return "Cone";
+        }
+        
+        ///choose upAxis index
+        void    setConeUpIndex(int upIndex);
+        
+        int    getConeUpIndex() const
+        {
+            return m_coneIndices[1];
+        }
 };
 
 ///btConeShape implements a Cone shape, around the X axis
 class btConeShapeX : public btConeShape
 {
-	public:
-		btConeShapeX(btScalar radius,btScalar height);
+    public:
+        btConeShapeX(btScalar radius,btScalar height);
 };
 
 ///btConeShapeZ implements a Cone shape, around the Z axis
 class btConeShapeZ : public btConeShape
 {
-	public:
-		btConeShapeZ(btScalar radius,btScalar height);
+    public:
+        btConeShapeZ(btScalar radius,btScalar height);
 };
 #endif //CONE_MINKOWSKI_H
 

@@ -44,67 +44,67 @@
 class BMF_BitmapFont
 {
 public:
-	/**
-	 * Default constructor.
-	 */
-	BMF_BitmapFont(BMF_FontData* fontData);
+    /**
+     * Default constructor.
+     */
+    BMF_BitmapFont(BMF_FontData* fontData);
 
-	/**
-	 * Destructor.
-	 */
-	virtual	~BMF_BitmapFont(void);
+    /**
+     * Destructor.
+     */
+    virtual    ~BMF_BitmapFont(void);
 
-	/**
-	 * Draws a string at the current raster position.
-	 * @param str	The string to draw.
-	 */
-	void drawString(const char* str);
+    /**
+     * Draws a string at the current raster position.
+     * @param str    The string to draw.
+     */
+    void drawString(const char* str);
 
-	void drawStringMemory(char* str);
+    void drawStringMemory(char* str);
 
 
-	/**
-	 * Draws a string at the current raster position.
-	 * @param str	The string to draw.
-	 * @return The width of the string.
-	 */
-	int getStringWidth(char* str);
+    /**
+     * Draws a string at the current raster position.
+     * @param str    The string to draw.
+     * @return The width of the string.
+     */
+    int getStringWidth(char* str);
 
-	/**
-	 * Returns the bounding box of the font. The width and
-	 * height represent the bounding box of the union of
-	 * all glyps. The minimum and maximum values of the
-	 * box represent the extent of the font and its positioning
-	 * about the origin.
-	 */
-	void getBoundingBox(int & xMin, int & yMin, int & xMax, int & yMax);
+    /**
+     * Returns the bounding box of the font. The width and
+     * height represent the bounding box of the union of
+     * all glyps. The minimum and maximum values of the
+     * box represent the extent of the font and its positioning
+     * about the origin.
+     */
+    void getBoundingBox(int & xMin, int & yMin, int & xMax, int & yMax);
 
-	/**
-	 * Convert the font to a texture, and return the GL texture
-	 * ID of the texture. If the texture ID is bound, text can
-	 * be drawn using the texture by calling drawStringTexture.
-	 * 
-	 * @return The GL texture ID of the new texture, or -1 if unable
-	 * to create.
-	 */
-	int getTexture();
-	
-	/**
-	 * Draw the given @a string at the point @a x, @a y, @a z, using
-	 * texture coordinates. This assumes that an appropriate texture
-	 * has been bound, see BMF_BitmapFont::getTexture(). The string
-	 * is drawn along the positive X axis.
-	 * 
-	 * @param string The c-string to draw.
-	 * @param x The x coordinate to start drawing at.
-	 * @param y The y coordinate to start drawing at.
-	 * @param z The z coordinate to start drawing at.
-	 */
-	void drawStringTexture(char* string, float x, float y, float z);
-	
+    /**
+     * Convert the font to a texture, and return the GL texture
+     * ID of the texture. If the texture ID is bound, text can
+     * be drawn using the texture by calling drawStringTexture.
+     * 
+     * @return The GL texture ID of the new texture, or -1 if unable
+     * to create.
+     */
+    int getTexture();
+    
+    /**
+     * Draw the given @a string at the point @a x, @a y, @a z, using
+     * texture coordinates. This assumes that an appropriate texture
+     * has been bound, see BMF_BitmapFont::getTexture(). The string
+     * is drawn along the positive X axis.
+     * 
+     * @param string The c-string to draw.
+     * @param x The x coordinate to start drawing at.
+     * @param y The y coordinate to start drawing at.
+     * @param z The z coordinate to start drawing at.
+     */
+    void drawStringTexture(char* string, float x, float y, float z);
+    
 protected:
-	/** Pointer to the font data. */
-	 BMF_FontData* m_fontData;
+    /** Pointer to the font data. */
+     BMF_FontData* m_fontData;
 };
 
 #endif // __BMF_BITMAP_FONT_H

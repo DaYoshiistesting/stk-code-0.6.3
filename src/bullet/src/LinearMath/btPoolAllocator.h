@@ -21,21 +21,21 @@ subject to the following restrictions:
 
 class btPoolAllocator
 {
-	int				m_elemSize;
-	int				m_maxElements;
-	int				m_freeCount;
-	void*			m_firstFree;
-	unsigned char*	m_pool;
+    int                m_elemSize;
+    int                m_maxElements;
+    int                m_freeCount;
+    void*            m_firstFree;
+    unsigned char*    m_pool;
 
 public:
 
-	btPoolAllocator(int elemSize, int maxElements)
-		:m_elemSize(elemSize),
-		m_maxElements(maxElements)
-	{
-		m_pool = (unsigned char*) btAlignedAlloc(m_elemSize*m_maxElements,16);
+    btPoolAllocator(int elemSize, int maxElements)
+        :m_elemSize(elemSize),
+        m_maxElements(maxElements)
+    {
+        m_pool = (unsigned char*) btAlignedAlloc(m_elemSize*m_maxElements,16);
 
-		unsigned char* p = m_pool;
+        unsigned char* p = m_pool;
         m_firstFree = p;
         m_freeCount = m_maxElements;
         int count = m_maxElements;
@@ -46,47 +46,47 @@ public:
         *(void**)p = 0;
     }
 
-	~btPoolAllocator()
-	{
-		btAlignedFree( m_pool);
-	}
+    ~btPoolAllocator()
+    {
+        btAlignedFree( m_pool);
+    }
 
-	int	getFreeCount() const
-	{
-		return m_freeCount;
-	}
+    int    getFreeCount() const
+    {
+        return m_freeCount;
+    }
 
-	void*	allocate(int size)
-	{
-		btAssert(!size || size<=m_elemSize);
-		btAssert(m_freeCount>0);
+    void*    allocate(int size)
+    {
+        btAssert(!size || size<=m_elemSize);
+        btAssert(m_freeCount>0);
         void* result = m_firstFree;
         m_firstFree = *(void**)m_firstFree;
         --m_freeCount;
         return result;
-	}
+    }
 
-	bool validPtr(void* ptr)
-	{
-		if (ptr) {
-			if (((unsigned char*)ptr >= m_pool && (unsigned char*)ptr < m_pool + m_maxElements * m_elemSize))
-			{
-				return true;
-			}
-		}
-		return false;
-	}
+    bool validPtr(void* ptr)
+    {
+        if (ptr) {
+            if (((unsigned char*)ptr >= m_pool && (unsigned char*)ptr < m_pool + m_maxElements * m_elemSize))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-	void	freeMemory(void* ptr)
-	{
-		 if (ptr) {
+    void    freeMemory(void* ptr)
+    {
+         if (ptr) {
             btAssert((unsigned char*)ptr >= m_pool && (unsigned char*)ptr < m_pool + m_maxElements * m_elemSize);
 
             *(void**)ptr = m_firstFree;
             m_firstFree = ptr;
             ++m_freeCount;
         }
-	}
+    }
 
 
 };

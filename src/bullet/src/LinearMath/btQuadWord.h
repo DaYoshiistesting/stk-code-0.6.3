@@ -25,108 +25,108 @@ subject to the following restrictions:
 class btQuadWordStorage
 {
 protected:
-	btScalar	m_x;
-	btScalar	m_y;
-	btScalar	m_z;
-	btScalar	m_unusedW;
+    btScalar    m_x;
+    btScalar    m_y;
+    btScalar    m_z;
+    btScalar    m_unusedW;
 };
 
 
 ///btQuadWord is base-class for vectors, points
-class	btQuadWord : public btQuadWordStorage
+class    btQuadWord : public btQuadWordStorage
 {
-	public:
-	
-//		SIMD_FORCE_INLINE btScalar&       operator[](int i)       { return (&m_x)[i];	}      
-//		SIMD_FORCE_INLINE const btScalar& operator[](int i) const { return (&m_x)[i]; }
+    public:
+    
+//        SIMD_FORCE_INLINE btScalar&       operator[](int i)       { return (&m_x)[i];    }      
+//        SIMD_FORCE_INLINE const btScalar& operator[](int i) const { return (&m_x)[i]; }
 
-		SIMD_FORCE_INLINE const btScalar& getX() const { return m_x; }
+        SIMD_FORCE_INLINE const btScalar& getX() const { return m_x; }
 
-		SIMD_FORCE_INLINE const btScalar& getY() const { return m_y; }
+        SIMD_FORCE_INLINE const btScalar& getY() const { return m_y; }
 
-		SIMD_FORCE_INLINE const btScalar& getZ() const { return m_z; }
+        SIMD_FORCE_INLINE const btScalar& getZ() const { return m_z; }
 
-		SIMD_FORCE_INLINE void	setX(btScalar x) { m_x = x;};
+        SIMD_FORCE_INLINE void    setX(btScalar x) { m_x = x;};
 
-		SIMD_FORCE_INLINE void	setY(btScalar y) { m_y = y;};
+        SIMD_FORCE_INLINE void    setY(btScalar y) { m_y = y;};
 
-		SIMD_FORCE_INLINE void	setZ(btScalar z) { m_z = z;};
+        SIMD_FORCE_INLINE void    setZ(btScalar z) { m_z = z;};
 
-		SIMD_FORCE_INLINE void	setW(btScalar w) { m_unusedW = w;};
+        SIMD_FORCE_INLINE void    setW(btScalar w) { m_unusedW = w;};
 
-		SIMD_FORCE_INLINE const btScalar& x() const { return m_x; }
+        SIMD_FORCE_INLINE const btScalar& x() const { return m_x; }
 
-		SIMD_FORCE_INLINE const btScalar& y() const { return m_y; }
+        SIMD_FORCE_INLINE const btScalar& y() const { return m_y; }
 
-		SIMD_FORCE_INLINE const btScalar& z() const { return m_z; }
+        SIMD_FORCE_INLINE const btScalar& z() const { return m_z; }
 
-		SIMD_FORCE_INLINE const btScalar& w() const { return m_unusedW; }
-
-
-		SIMD_FORCE_INLINE	operator       btScalar *()       { return &m_x; }
-		SIMD_FORCE_INLINE	operator const btScalar *() const { return &m_x; }
+        SIMD_FORCE_INLINE const btScalar& w() const { return m_unusedW; }
 
 
+        SIMD_FORCE_INLINE    operator       btScalar *()       { return &m_x; }
+        SIMD_FORCE_INLINE    operator const btScalar *() const { return &m_x; }
 
-		SIMD_FORCE_INLINE void 	setValue(const btScalar& x, const btScalar& y, const btScalar& z)
-		{
-			m_x=x;
-			m_y=y;
-			m_z=z;
-			m_unusedW = 0.f;
-		}
 
-/*		void getValue(btScalar *m) const 
-		{
-			m[0] = m_x;
-			m[1] = m_y;
-			m[2] = m_z;
-		}
+
+        SIMD_FORCE_INLINE void     setValue(const btScalar& x, const btScalar& y, const btScalar& z)
+        {
+            m_x=x;
+            m_y=y;
+            m_z=z;
+            m_unusedW = 0.f;
+        }
+
+/*        void getValue(btScalar *m) const 
+        {
+            m[0] = m_x;
+            m[1] = m_y;
+            m[2] = m_z;
+        }
 */
-		SIMD_FORCE_INLINE void	setValue(const btScalar& x, const btScalar& y, const btScalar& z,const btScalar& w)
-		{
-			m_x=x;
-			m_y=y;
-			m_z=z;
-			m_unusedW=w;
-		}
+        SIMD_FORCE_INLINE void    setValue(const btScalar& x, const btScalar& y, const btScalar& z,const btScalar& w)
+        {
+            m_x=x;
+            m_y=y;
+            m_z=z;
+            m_unusedW=w;
+        }
 
-		SIMD_FORCE_INLINE btQuadWord()
-		//	:m_x(btScalar(0.)),m_y(btScalar(0.)),m_z(btScalar(0.)),m_unusedW(btScalar(0.))
-		{
-		}
+        SIMD_FORCE_INLINE btQuadWord()
+        //    :m_x(btScalar(0.)),m_y(btScalar(0.)),m_z(btScalar(0.)),m_unusedW(btScalar(0.))
+        {
+        }
 
-		SIMD_FORCE_INLINE btQuadWord(const btQuadWordStorage& q)
-		{
-			*((btQuadWordStorage*)this) = q;
-		}
+        SIMD_FORCE_INLINE btQuadWord(const btQuadWordStorage& q)
+        {
+            *((btQuadWordStorage*)this) = q;
+        }
 
-		SIMD_FORCE_INLINE btQuadWord(const btScalar& x, const btScalar& y, const btScalar& z)		
-		{
-			m_x = x, m_y = y, m_z = z, m_unusedW = 0.0f;
-		}
+        SIMD_FORCE_INLINE btQuadWord(const btScalar& x, const btScalar& y, const btScalar& z)        
+        {
+            m_x = x, m_y = y, m_z = z, m_unusedW = 0.0f;
+        }
 
-		SIMD_FORCE_INLINE btQuadWord(const btScalar& x, const btScalar& y, const btScalar& z,const btScalar& w) 
-		{
-			m_x = x, m_y = y, m_z = z, m_unusedW = w;
-		}
+        SIMD_FORCE_INLINE btQuadWord(const btScalar& x, const btScalar& y, const btScalar& z,const btScalar& w) 
+        {
+            m_x = x, m_y = y, m_z = z, m_unusedW = w;
+        }
 
 
-		SIMD_FORCE_INLINE void	setMax(const btQuadWord& other)
-		{
-			btSetMax(m_x, other.m_x);
-			btSetMax(m_y, other.m_y);
-			btSetMax(m_z, other.m_z);
-			btSetMax(m_unusedW, other.m_unusedW);
-		}
+        SIMD_FORCE_INLINE void    setMax(const btQuadWord& other)
+        {
+            btSetMax(m_x, other.m_x);
+            btSetMax(m_y, other.m_y);
+            btSetMax(m_z, other.m_z);
+            btSetMax(m_unusedW, other.m_unusedW);
+        }
 
-		SIMD_FORCE_INLINE void	setMin(const btQuadWord& other)
-		{
-			btSetMin(m_x, other.m_x);
-			btSetMin(m_y, other.m_y);
-			btSetMin(m_z, other.m_z);
-			btSetMin(m_unusedW, other.m_unusedW);
-		}
+        SIMD_FORCE_INLINE void    setMin(const btQuadWord& other)
+        {
+            btSetMin(m_x, other.m_x);
+            btSetMin(m_y, other.m_y);
+            btSetMin(m_z, other.m_z);
+            btSetMin(m_unusedW, other.m_unusedW);
+        }
 
 
 

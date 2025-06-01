@@ -26,84 +26,84 @@ subject to the following restrictions:
 class btCollisionShape
 {
 
-	void* m_userPointer;
+    void* m_userPointer;
 
 public:
 
-	btCollisionShape() : m_userPointer(0)
-	{
-	}
-	virtual ~btCollisionShape()
-	{
-	}
+    btCollisionShape() : m_userPointer(0)
+    {
+    }
+    virtual ~btCollisionShape()
+    {
+    }
 
-	///getAabb returns the axis aligned bounding box in the coordinate frame of the given transform t.
-	virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const =0;
+    ///getAabb returns the axis aligned bounding box in the coordinate frame of the given transform t.
+    virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const =0;
 
-	virtual void	getBoundingSphere(btVector3& center,btScalar& radius) const;
+    virtual void    getBoundingSphere(btVector3& center,btScalar& radius) const;
 
-	///getAngularMotionDisc returns the maximus radius needed for Conservative Advancement to handle time-of-impact with rotations.
-	virtual btScalar	getAngularMotionDisc() const;
+    ///getAngularMotionDisc returns the maximus radius needed for Conservative Advancement to handle time-of-impact with rotations.
+    virtual btScalar    getAngularMotionDisc() const;
 
 
-	///calculateTemporalAabb calculates the enclosing aabb for the moving object over interval [0..timeStep)
-	///result is conservative
-	void calculateTemporalAabb(const btTransform& curTrans,const btVector3& linvel,const btVector3& angvel,btScalar timeStep, btVector3& temporalAabbMin,btVector3& temporalAabbMax) const;
+    ///calculateTemporalAabb calculates the enclosing aabb for the moving object over interval [0..timeStep)
+    ///result is conservative
+    void calculateTemporalAabb(const btTransform& curTrans,const btVector3& linvel,const btVector3& angvel,btScalar timeStep, btVector3& temporalAabbMin,btVector3& temporalAabbMax) const;
 
 #ifndef __SPU__
 
-	SIMD_FORCE_INLINE bool	isPolyhedral() const
-	{
-		return btBroadphaseProxy::isPolyhedral(getShapeType());
-	}
+    SIMD_FORCE_INLINE bool    isPolyhedral() const
+    {
+        return btBroadphaseProxy::isPolyhedral(getShapeType());
+    }
 
-	SIMD_FORCE_INLINE bool	isConvex() const
-	{
-		return btBroadphaseProxy::isConvex(getShapeType());
-	}
-	SIMD_FORCE_INLINE bool	isConcave() const
-	{
-		return btBroadphaseProxy::isConcave(getShapeType());
-	}
-	SIMD_FORCE_INLINE bool	isCompound() const
-	{
-		return btBroadphaseProxy::isCompound(getShapeType());
-	}
+    SIMD_FORCE_INLINE bool    isConvex() const
+    {
+        return btBroadphaseProxy::isConvex(getShapeType());
+    }
+    SIMD_FORCE_INLINE bool    isConcave() const
+    {
+        return btBroadphaseProxy::isConcave(getShapeType());
+    }
+    SIMD_FORCE_INLINE bool    isCompound() const
+    {
+        return btBroadphaseProxy::isCompound(getShapeType());
+    }
 
-	///isInfinite is used to catch simulation error (aabb check)
-	SIMD_FORCE_INLINE bool isInfinite() const
-	{
-		return btBroadphaseProxy::isInfinite(getShapeType());
-	}
+    ///isInfinite is used to catch simulation error (aabb check)
+    SIMD_FORCE_INLINE bool isInfinite() const
+    {
+        return btBroadphaseProxy::isInfinite(getShapeType());
+    }
 
-	virtual int		getShapeType() const=0;
-	virtual void	setLocalScaling(const btVector3& scaling) =0;
-	virtual const btVector3& getLocalScaling() const =0;
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const = 0;
+    virtual int        getShapeType() const=0;
+    virtual void    setLocalScaling(const btVector3& scaling) =0;
+    virtual const btVector3& getLocalScaling() const =0;
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const = 0;
 
 
 //debugging support
-	virtual const char*	getName()const =0 ;
+    virtual const char*    getName()const =0 ;
 #endif //__SPU__
 
-	
+    
 
-	virtual void	setMargin(btScalar margin) = 0;
-	virtual btScalar	getMargin() const = 0;
+    virtual void    setMargin(btScalar margin) = 0;
+    virtual btScalar    getMargin() const = 0;
 
-	
-	///optional user data pointer
-	void	setUserPointer(void* userPtr)
-	{
-		m_userPointer = userPtr;
-	}
+    
+    ///optional user data pointer
+    void    setUserPointer(void* userPtr)
+    {
+        m_userPointer = userPtr;
+    }
 
-	void*	getUserPointer() const
-	{
-		return m_userPointer;
-	}
+    void*    getUserPointer() const
+    {
+        return m_userPointer;
+    }
 
-};	
+};    
 
 #endif //COLLISION_SHAPE_H
 

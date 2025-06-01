@@ -17,26 +17,26 @@ subject to the following restrictions:
 
 
 ///example usage of this class:
-//			btTriangleBuffer	triBuf;
-//			concaveShape->processAllTriangles(&triBuf,aabbMin, aabbMax);
-//			for (int i=0;i<triBuf.getNumTriangles();i++)
-//			{
-//				const btTriangle& tri = triBuf.getTriangle(i);
-//				//do something useful here with the triangle
-//			}
+//            btTriangleBuffer    triBuf;
+//            concaveShape->processAllTriangles(&triBuf,aabbMin, aabbMax);
+//            for (int i=0;i<triBuf.getNumTriangles();i++)
+//            {
+//                const btTriangle& tri = triBuf.getTriangle(i);
+//                //do something useful here with the triangle
+//            }
 
 
 
 
 void btTriangleBuffer::processTriangle(btVector3* triangle,int partId,int  triangleIndex)
 {
-		btTriangle	tri;
-		tri.m_vertex0 = triangle[0];
-		tri.m_vertex1 = triangle[1];
-		tri.m_vertex2 = triangle[2];
-		tri.m_partId = partId;
-		tri.m_triangleIndex = triangleIndex;
-			
-		m_triangleBuffer.push_back(tri);
+        btTriangle    tri;
+        tri.m_vertex0 = triangle[0];
+        tri.m_vertex1 = triangle[1];
+        tri.m_vertex2 = triangle[2];
+        tri.m_partId = partId;
+        tri.m_triangleIndex = triangleIndex;
+            
+        m_triangleBuffer.push_back(tri);
 }
 

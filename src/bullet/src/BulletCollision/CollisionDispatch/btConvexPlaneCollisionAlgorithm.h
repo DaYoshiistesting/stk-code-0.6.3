@@ -28,34 +28,34 @@ class btPersistentManifold;
 /// Other features are frame-coherency (persistent data) and collision response.
 class btConvexPlaneCollisionAlgorithm : public btCollisionAlgorithm
 {
-	bool	m_ownManifold;
-	btPersistentManifold*	m_manifoldPtr;
-	bool	m_isSwapped;
-	
+    bool    m_ownManifold;
+    btPersistentManifold*    m_manifoldPtr;
+    bool    m_isSwapped;
+    
 public:
 
-	btConvexPlaneCollisionAlgorithm(btPersistentManifold* mf,const btCollisionAlgorithmConstructionInfo& ci,btCollisionObject* col0,btCollisionObject* col1, bool isSwapped);
+    btConvexPlaneCollisionAlgorithm(btPersistentManifold* mf,const btCollisionAlgorithmConstructionInfo& ci,btCollisionObject* col0,btCollisionObject* col1, bool isSwapped);
 
-	virtual ~btConvexPlaneCollisionAlgorithm();
+    virtual ~btConvexPlaneCollisionAlgorithm();
 
-	virtual void processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual void processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	virtual btScalar calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual btScalar calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	struct CreateFunc :public 	btCollisionAlgorithmCreateFunc
-	{
-		virtual	btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, btCollisionObject* body0,btCollisionObject* body1)
-		{
-			void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btConvexPlaneCollisionAlgorithm));
-			if (!m_swapped)
-			{
-				return new(mem) btConvexPlaneCollisionAlgorithm(0,ci,body0,body1,false);
-			} else
-			{
-				return new(mem) btConvexPlaneCollisionAlgorithm(0,ci,body0,body1,true);
-			}
-		}
-	};
+    struct CreateFunc :public     btCollisionAlgorithmCreateFunc
+    {
+        virtual    btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, btCollisionObject* body0,btCollisionObject* body1)
+        {
+            void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btConvexPlaneCollisionAlgorithm));
+            if (!m_swapped)
+            {
+                return new(mem) btConvexPlaneCollisionAlgorithm(0,ci,body0,body1,false);
+            } else
+            {
+                return new(mem) btConvexPlaneCollisionAlgorithm(0,ci,body0,body1,true);
+            }
+        }
+    };
 
 };
 

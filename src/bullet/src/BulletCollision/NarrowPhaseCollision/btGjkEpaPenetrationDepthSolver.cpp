@@ -20,31 +20,31 @@ subject to the following restrictions:
 #include "BulletCollision/NarrowPhaseCollision/btGjkEpa.h"
 
 bool btGjkEpaPenetrationDepthSolver::calcPenDepth( btSimplexSolverInterface& simplexSolver,
-											  const btConvexShape* pConvexA, const btConvexShape* pConvexB,
-											  const btTransform& transformA, const btTransform& transformB,
-											  btVector3& v, btPoint3& wWitnessOnA, btPoint3& wWitnessOnB,
-											  class btIDebugDraw* debugDraw, btStackAlloc* stackAlloc )
+                                              const btConvexShape* pConvexA, const btConvexShape* pConvexB,
+                                              const btTransform& transformA, const btTransform& transformB,
+                                              btVector3& v, btPoint3& wWitnessOnA, btPoint3& wWitnessOnB,
+                                              class btIDebugDraw* debugDraw, btStackAlloc* stackAlloc )
 {
 
-	(void)debugDraw;
-	(void)v;
-	(void)simplexSolver;
+    (void)debugDraw;
+    (void)v;
+    (void)simplexSolver;
 
-	const btScalar				radialmargin(btScalar(0.));
-	
-	btGjkEpaSolver::sResults	results;
-	if(btGjkEpaSolver::Collide(	pConvexA,transformA,
-								pConvexB,transformB,
-								radialmargin,stackAlloc,results))
-		{
-	//	debugDraw->drawLine(results.witnesses[1],results.witnesses[1]+results.normal,btVector3(255,0,0));
-		//resultOut->addContactPoint(results.normal,results.witnesses[1],-results.depth);
-		wWitnessOnA = results.witnesses[0];
-		wWitnessOnB = results.witnesses[1];
-		return true;		
-		}
+    const btScalar                radialmargin(btScalar(0.));
+    
+    btGjkEpaSolver::sResults    results;
+    if(btGjkEpaSolver::Collide(    pConvexA,transformA,
+                                pConvexB,transformB,
+                                radialmargin,stackAlloc,results))
+        {
+    //    debugDraw->drawLine(results.witnesses[1],results.witnesses[1]+results.normal,btVector3(255,0,0));
+        //resultOut->addContactPoint(results.normal,results.witnesses[1],-results.depth);
+        wWitnessOnA = results.witnesses[0];
+        wWitnessOnB = results.witnesses[1];
+        return true;        
+        }
 
-	return false;
+    return false;
 }
 
 

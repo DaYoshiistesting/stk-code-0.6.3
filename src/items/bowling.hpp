@@ -35,8 +35,8 @@ public:
     virtual bool updateAndDel(float dt);
     virtual bool hit(Kart* kart, MovingPhysics* mp=NULL);
     
-	int getExplosionSound() const { return SFXManager::SOUND_BOWLING_STRIKE; }
-	
+    int getExplosionSound() const { return SFXManager::SOUND_BOWLING_STRIKE; }
+    
 };   // Bowling
 
 #endif

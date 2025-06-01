@@ -3,7 +3,7 @@
 (tuxkart-collectables
   (bubblegum
     (icon  "bubblegum-icon.rgb")
-    (model "../items/bubblegum.ac")
+    (model "bubblegum.ac")
   )
 
   (cake

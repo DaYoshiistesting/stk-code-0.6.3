@@ -25,20 +25,20 @@
 
 class BaseGUI
 {
-	void animateWidget(const int, const int);
-		
+    void animateWidget(const int, const int);
+        
 public:
     BaseGUI() : m_locked(false) {}
     virtual ~BaseGUI() {}
 
     virtual void update(float dt);
     virtual void select() = 0;
-	
-	virtual void handle(GameAction, int);
-	
-	virtual void inputKeyboard(SDLKey, int);
-	
-	virtual void countdown();
+    
+    virtual void handle(GameAction, int);
+    
+    virtual void inputKeyboard(SDLKey, int);
+    
+    virtual void countdown();
 
     void inputPointer(int x, int y);
 

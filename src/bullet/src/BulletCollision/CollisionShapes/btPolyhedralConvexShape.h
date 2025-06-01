@@ -26,67 +26,67 @@ class btPolyhedralConvexShape : public btConvexInternalShape
 {
 
 protected:
-	btVector3	m_localAabbMin;
-	btVector3	m_localAabbMax;
-	bool		m_isLocalAabbValid;
+    btVector3    m_localAabbMin;
+    btVector3    m_localAabbMax;
+    bool        m_isLocalAabbValid;
 
 public:
 
-	btPolyhedralConvexShape();
+    btPolyhedralConvexShape();
 
-	//brute force implementations
-	virtual btVector3	localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
-	virtual void	batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
-	
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
-
-
-	inline void getNonvirtualAabb(const btTransform& trans,btVector3& aabbMin,btVector3& aabbMax, btScalar margin) const
-	{
-
-		//lazy evaluation of local aabb
-		btAssert(m_isLocalAabbValid);
-
-		btAssert(m_localAabbMin.getX() <= m_localAabbMax.getX());
-		btAssert(m_localAabbMin.getY() <= m_localAabbMax.getY());
-		btAssert(m_localAabbMin.getZ() <= m_localAabbMax.getZ());
+    //brute force implementations
+    virtual btVector3    localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
+    virtual void    batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
+    
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
 
 
-		btVector3 localHalfExtents = btScalar(0.5)*(m_localAabbMax-m_localAabbMin);
-		btVector3 localCenter = btScalar(0.5)*(m_localAabbMax+m_localAabbMin);
-		
-		btMatrix3x3 abs_b = trans.getBasis().absolute();  
+    inline void getNonvirtualAabb(const btTransform& trans,btVector3& aabbMin,btVector3& aabbMax, btScalar margin) const
+    {
 
-		btPoint3 center = trans(localCenter);
+        //lazy evaluation of local aabb
+        btAssert(m_isLocalAabbValid);
 
-		btVector3 extent = btVector3(abs_b[0].dot(localHalfExtents),
-			   abs_b[1].dot(localHalfExtents),
-			  abs_b[2].dot(localHalfExtents));
-		extent += btVector3(margin,margin,margin);
+        btAssert(m_localAabbMin.getX() <= m_localAabbMax.getX());
+        btAssert(m_localAabbMin.getY() <= m_localAabbMax.getY());
+        btAssert(m_localAabbMin.getZ() <= m_localAabbMax.getZ());
 
-		aabbMin = center - extent;
-		aabbMax = center + extent;
 
-		
-	}
+        btVector3 localHalfExtents = btScalar(0.5)*(m_localAabbMax-m_localAabbMin);
+        btVector3 localCenter = btScalar(0.5)*(m_localAabbMax+m_localAabbMin);
+        
+        btMatrix3x3 abs_b = trans.getBasis().absolute();  
 
-	
-	virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+        btPoint3 center = trans(localCenter);
 
-	void	recalcLocalAabb();
+        btVector3 extent = btVector3(abs_b[0].dot(localHalfExtents),
+               abs_b[1].dot(localHalfExtents),
+              abs_b[2].dot(localHalfExtents));
+        extent += btVector3(margin,margin,margin);
 
-	virtual int	getNumVertices() const = 0 ;
-	virtual int getNumEdges() const = 0;
-	virtual void getEdge(int i,btPoint3& pa,btPoint3& pb) const = 0;
-	virtual void getVertex(int i,btPoint3& vtx) const = 0;
-	virtual int	getNumPlanes() const = 0;
-	virtual void getPlane(btVector3& planeNormal,btPoint3& planeSupport,int i ) const = 0;
-//	virtual int getIndex(int i) const = 0 ; 
+        aabbMin = center - extent;
+        aabbMax = center + extent;
 
-	virtual	bool isInside(const btPoint3& pt,btScalar tolerance) const = 0;
-	
-	/// optional Hull is for optional Separating Axis Test Hull collision detection, see Hull.cpp
-	class	Hull*	m_optionalHull;
+        
+    }
+
+    
+    virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+
+    void    recalcLocalAabb();
+
+    virtual int    getNumVertices() const = 0 ;
+    virtual int getNumEdges() const = 0;
+    virtual void getEdge(int i,btPoint3& pa,btPoint3& pb) const = 0;
+    virtual void getVertex(int i,btPoint3& vtx) const = 0;
+    virtual int    getNumPlanes() const = 0;
+    virtual void getPlane(btVector3& planeNormal,btPoint3& planeSupport,int i ) const = 0;
+//    virtual int getIndex(int i) const = 0 ; 
+
+    virtual    bool isInside(const btPoint3& pt,btScalar tolerance) const = 0;
+    
+    /// optional Hull is for optional Separating Axis Test Hull collision detection, see Hull.cpp
+    class    Hull*    m_optionalHull;
 
 };
 

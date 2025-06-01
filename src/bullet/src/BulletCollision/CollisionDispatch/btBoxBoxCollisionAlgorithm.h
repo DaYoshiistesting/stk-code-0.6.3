@@ -26,30 +26,30 @@ class btPersistentManifold;
 ///box-box collision detection
 class btBoxBoxCollisionAlgorithm : public btCollisionAlgorithm
 {
-	bool	m_ownManifold;
-	btPersistentManifold*	m_manifoldPtr;
-	
+    bool    m_ownManifold;
+    btPersistentManifold*    m_manifoldPtr;
+    
 public:
-	btBoxBoxCollisionAlgorithm(const btCollisionAlgorithmConstructionInfo& ci)
-		: btCollisionAlgorithm(ci) {}
+    btBoxBoxCollisionAlgorithm(const btCollisionAlgorithmConstructionInfo& ci)
+        : btCollisionAlgorithm(ci) {}
 
-	virtual void processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual void processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	virtual btScalar calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual btScalar calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	btBoxBoxCollisionAlgorithm(btPersistentManifold* mf,const btCollisionAlgorithmConstructionInfo& ci,btCollisionObject* body0,btCollisionObject* body1);
+    btBoxBoxCollisionAlgorithm(btPersistentManifold* mf,const btCollisionAlgorithmConstructionInfo& ci,btCollisionObject* body0,btCollisionObject* body1);
 
-	virtual ~btBoxBoxCollisionAlgorithm();
+    virtual ~btBoxBoxCollisionAlgorithm();
 
-	struct CreateFunc :public 	btCollisionAlgorithmCreateFunc
-	{
-		virtual	btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, btCollisionObject* body0,btCollisionObject* body1)
-		{
-			int bbsize = sizeof(btBoxBoxCollisionAlgorithm);
-			void* ptr = ci.m_dispatcher1->allocateCollisionAlgorithm(bbsize);
-			return new(ptr) btBoxBoxCollisionAlgorithm(0,ci,body0,body1);
-		}
-	};
+    struct CreateFunc :public     btCollisionAlgorithmCreateFunc
+    {
+        virtual    btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, btCollisionObject* body0,btCollisionObject* body1)
+        {
+            int bbsize = sizeof(btBoxBoxCollisionAlgorithm);
+            void* ptr = ci.m_dispatcher1->allocateCollisionAlgorithm(bbsize);
+            return new(ptr) btBoxBoxCollisionAlgorithm(0,ci,body0,body1);
+        }
+    };
 
 };
 

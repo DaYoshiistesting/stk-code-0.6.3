@@ -31,10 +31,10 @@ class KartPropertiesManager
 private:
     std::vector<std::string>                 m_all_groups;
     std::map<std::string, std::vector<int> > m_groups;
-	/** Vector containing kart numbers that have been selected in multiplayer
-	 * games.  This it used to ensure the same kart can not be selected more
-	 * than once. */
-    std::vector<int>		 m_selected_karts;
+    /** Vector containing kart numbers that have been selected in multiplayer
+     * games.  This it used to ensure the same kart can not be selected more
+     * than once. */
+    std::vector<int>         m_selected_karts;
     /** Contains a flag for each kart indicating wether it is available on
      *  all clients or not. */
     std::vector<bool>        m_kart_available;
@@ -47,7 +47,7 @@ protected:
 public:
     KartPropertiesManager();
     ~KartPropertiesManager();
-	    
+        
     const KartProperties*    getKartById            (int i) const;
     const KartProperties*    getKart                (const std::string &ident) const;
     const int                getKartId              (const std::string &ident) const;

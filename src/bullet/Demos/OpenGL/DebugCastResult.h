@@ -33,50 +33,50 @@ subject to the following restrictions:
 struct btDebugCastResult : public btConvexCast::CastResult
 {
 
-	btTransform	m_fromTrans;
-	const btPolyhedralConvexShape* m_shape;
-	btVector3	m_linVel;
-	btVector3 m_angVel;
-	GL_ShapeDrawer* m_shapeDrawer;
+    btTransform    m_fromTrans;
+    const btPolyhedralConvexShape* m_shape;
+    btVector3    m_linVel;
+    btVector3 m_angVel;
+    GL_ShapeDrawer* m_shapeDrawer;
 
-	btDebugCastResult(const btTransform& fromTrans,const btPolyhedralConvexShape* shape,
-					const btVector3& linVel,const btVector3& angVel,GL_ShapeDrawer* drawer)
-	:m_fromTrans(fromTrans),
-	m_shape(shape),
-	m_linVel(linVel),
-	m_angVel(angVel)
-	{
-	}
+    btDebugCastResult(const btTransform& fromTrans,const btPolyhedralConvexShape* shape,
+                    const btVector3& linVel,const btVector3& angVel,GL_ShapeDrawer* drawer)
+    :m_fromTrans(fromTrans),
+    m_shape(shape),
+    m_linVel(linVel),
+    m_angVel(angVel)
+    {
+    }
 
-	virtual void drawCoordSystem(const btTransform& tr)  
-	{
-		btScalar m[16];
-		tr.getOpenGLMatrix(m);
-		glPushMatrix();
-		btglLoadMatrix(m);
-		glBegin(GL_LINES);
-		btglColor3(1, 0, 0);
-		btglVertex3(0, 0, 0);
-		btglVertex3(1, 0, 0);
-		btglColor3(0, 1, 0);
-		btglVertex3(0, 0, 0);
-		btglVertex3(0, 1, 0);
-		btglColor3(0, 0, 1);
-		btglVertex3(0, 0, 0);
-		btglVertex3(0, 0, 1);
-		glEnd();
-		glPopMatrix();
-	}
+    virtual void drawCoordSystem(const btTransform& tr)  
+    {
+        btScalar m[16];
+        tr.getOpenGLMatrix(m);
+        glPushMatrix();
+        btglLoadMatrix(m);
+        glBegin(GL_LINES);
+        btglColor3(1, 0, 0);
+        btglVertex3(0, 0, 0);
+        btglVertex3(1, 0, 0);
+        btglColor3(0, 1, 0);
+        btglVertex3(0, 0, 0);
+        btglVertex3(0, 1, 0);
+        btglColor3(0, 0, 1);
+        btglVertex3(0, 0, 0);
+        btglVertex3(0, 0, 1);
+        glEnd();
+        glPopMatrix();
+    }
 
-	virtual void	DebugDraw(btScalar	fraction)
-	{
-	
-		btScalar m[16];
-		btTransform hitTrans;
-		btTransformUtil::integrateTransform(m_fromTrans,m_linVel,m_angVel,fraction,hitTrans);
-		hitTrans.getOpenGLMatrix(m);
-		m_shapeDrawer->drawOpenGL(m,m_shape,btVector3(1,0,0),btIDebugDraw::DBG_NoDebug);
-	}
+    virtual void    DebugDraw(btScalar    fraction)
+    {
+    
+        btScalar m[16];
+        btTransform hitTrans;
+        btTransformUtil::integrateTransform(m_fromTrans,m_linVel,m_angVel,fraction,hitTrans);
+        hitTrans.getOpenGLMatrix(m);
+        m_shapeDrawer->drawOpenGL(m,m_shape,btVector3(1,0,0),btIDebugDraw::DBG_NoDebug);
+    }
 };
 
 

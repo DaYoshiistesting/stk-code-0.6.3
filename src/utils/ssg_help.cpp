@@ -130,7 +130,7 @@ namespace SSGHelp
         sgMakeIdentMat4(mat);
         *min = Vec3(10000.0f);
         *max = Vec3(-10000.0f);
-        MinMaxInternal(p, mat,min, max);
+        MinMaxInternal(p, mat, min, max);
     }   // Minmax
 
 }   // namespace SSGHelp

@@ -41,32 +41,32 @@
 
 typedef enum
 {
-	BMF_kHelvetica10 = 0,
+    BMF_kHelvetica10 = 0,
 #if BMF_INCLUDE_HELV12
-	BMF_kHelvetica12,
+    BMF_kHelvetica12,
 #endif
 #if BMF_INCLUDE_HELVB8
-	BMF_kHelveticaBold8,
+    BMF_kHelveticaBold8,
 #endif
 #if BMF_INCLUDE_HELVB10
-	BMF_kHelveticaBold10,
+    BMF_kHelveticaBold10,
 #endif
 #if BMF_INCLUDE_HELVB12
-	BMF_kHelveticaBold12,
+    BMF_kHelveticaBold12,
 #endif
 #if BMF_INCLUDE_HELVB14
-	BMF_kHelveticaBold14,
+    BMF_kHelveticaBold14,
 #endif
 #if BMF_INCLUDE_SCR12
-	BMF_kScreen12,
+    BMF_kScreen12,
 #endif
 #if BMF_INCLUDE_SCR14
-	BMF_kScreen14,
+    BMF_kScreen14,
 #endif
 #if BMF_INCLUDE_SCR15
-	BMF_kScreen15,
+    BMF_kScreen15,
 #endif
-	BMF_kNumFonts
+    BMF_kNumFonts
 } BMF_FontType;
 
 typedef struct BMF_Font BMF_Font;

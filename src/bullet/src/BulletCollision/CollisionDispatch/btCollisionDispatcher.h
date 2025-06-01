@@ -42,104 +42,104 @@ typedef void (*btNearCallback)(btBroadphasePair& collisionPair, btCollisionDispa
 ///Time of Impact, Closest Points and Penetration Depth.
 class btCollisionDispatcher : public btDispatcher
 {
-	int m_count;
-	
-	btAlignedObjectArray<btPersistentManifold*>	m_manifoldsPtr;
+    int m_count;
+    
+    btAlignedObjectArray<btPersistentManifold*>    m_manifoldsPtr;
 
-	bool m_useIslands;
+    bool m_useIslands;
 
-	bool	m_staticWarningReported;
-	
-	btManifoldResult	m_defaultManifoldResult;
+    bool    m_staticWarningReported;
+    
+    btManifoldResult    m_defaultManifoldResult;
 
-	btNearCallback		m_nearCallback;
-	
-	btPoolAllocator*	m_collisionAlgorithmPoolAllocator;
+    btNearCallback        m_nearCallback;
+    
+    btPoolAllocator*    m_collisionAlgorithmPoolAllocator;
 
-	btPoolAllocator*	m_persistentManifoldPoolAllocator;
+    btPoolAllocator*    m_persistentManifoldPoolAllocator;
 
-	btCollisionAlgorithmCreateFunc* m_doubleDispatch[MAX_BROADPHASE_COLLISION_TYPES][MAX_BROADPHASE_COLLISION_TYPES];
-	
+    btCollisionAlgorithmCreateFunc* m_doubleDispatch[MAX_BROADPHASE_COLLISION_TYPES][MAX_BROADPHASE_COLLISION_TYPES];
+    
 
-	btCollisionConfiguration*	m_collisionConfiguration;
+    btCollisionConfiguration*    m_collisionConfiguration;
 
 
 public:
 
-	///registerCollisionCreateFunc allows registration of custom/alternative collision create functions
-	void	registerCollisionCreateFunc(int proxyType0,int proxyType1, btCollisionAlgorithmCreateFunc* createFunc);
+    ///registerCollisionCreateFunc allows registration of custom/alternative collision create functions
+    void    registerCollisionCreateFunc(int proxyType0,int proxyType1, btCollisionAlgorithmCreateFunc* createFunc);
 
-	int	getNumManifolds() const
-	{ 
-		return int( m_manifoldsPtr.size());
-	}
+    int    getNumManifolds() const
+    { 
+        return int( m_manifoldsPtr.size());
+    }
 
-	btPersistentManifold**	getInternalManifoldPointer()
-	{
-		return &m_manifoldsPtr[0];
-	}
+    btPersistentManifold**    getInternalManifoldPointer()
+    {
+        return &m_manifoldsPtr[0];
+    }
 
-	 btPersistentManifold* getManifoldByIndexInternal(int index)
-	{
-		return m_manifoldsPtr[index];
-	}
+     btPersistentManifold* getManifoldByIndexInternal(int index)
+    {
+        return m_manifoldsPtr[index];
+    }
 
-	 const btPersistentManifold* getManifoldByIndexInternal(int index) const
-	{
-		return m_manifoldsPtr[index];
-	}
+     const btPersistentManifold* getManifoldByIndexInternal(int index) const
+    {
+        return m_manifoldsPtr[index];
+    }
 
-	btCollisionDispatcher (btCollisionConfiguration* collisionConfiguration);
+    btCollisionDispatcher (btCollisionConfiguration* collisionConfiguration);
 
-	virtual ~btCollisionDispatcher();
+    virtual ~btCollisionDispatcher();
 
-	virtual btPersistentManifold*	getNewManifold(void* b0,void* b1);
-	
-	virtual void releaseManifold(btPersistentManifold* manifold);
+    virtual btPersistentManifold*    getNewManifold(void* b0,void* b1);
+    
+    virtual void releaseManifold(btPersistentManifold* manifold);
 
 
-	virtual void clearManifold(btPersistentManifold* manifold);
+    virtual void clearManifold(btPersistentManifold* manifold);
 
-			
-	btCollisionAlgorithm* findAlgorithm(btCollisionObject* body0,btCollisionObject* body1,btPersistentManifold* sharedManifold = 0);
-		
-	virtual bool	needsCollision(btCollisionObject* body0,btCollisionObject* body1);
-	
-	virtual bool	needsResponse(btCollisionObject* body0,btCollisionObject* body1);
-	
-	virtual void	dispatchAllCollisionPairs(btOverlappingPairCache* pairCache,btDispatcherInfo& dispatchInfo,btDispatcher* dispatcher);
+            
+    btCollisionAlgorithm* findAlgorithm(btCollisionObject* body0,btCollisionObject* body1,btPersistentManifold* sharedManifold = 0);
+        
+    virtual bool    needsCollision(btCollisionObject* body0,btCollisionObject* body1);
+    
+    virtual bool    needsResponse(btCollisionObject* body0,btCollisionObject* body1);
+    
+    virtual void    dispatchAllCollisionPairs(btOverlappingPairCache* pairCache,btDispatcherInfo& dispatchInfo,btDispatcher* dispatcher);
 
-	void	setNearCallback(btNearCallback	nearCallback)
-	{
-		m_nearCallback = nearCallback; 
-	}
+    void    setNearCallback(btNearCallback    nearCallback)
+    {
+        m_nearCallback = nearCallback; 
+    }
 
-	btNearCallback	getNearCallback() const
-	{
-		return m_nearCallback;
-	}
+    btNearCallback    getNearCallback() const
+    {
+        return m_nearCallback;
+    }
 
-	//by default, Bullet will use this near callback
-	static void  defaultNearCallback(btBroadphasePair& collisionPair, btCollisionDispatcher& dispatcher, btDispatcherInfo& dispatchInfo);
+    //by default, Bullet will use this near callback
+    static void  defaultNearCallback(btBroadphasePair& collisionPair, btCollisionDispatcher& dispatcher, btDispatcherInfo& dispatchInfo);
 
-	virtual	void* allocateCollisionAlgorithm(int size);
+    virtual    void* allocateCollisionAlgorithm(int size);
 
-	virtual	void freeCollisionAlgorithm(void* ptr);
+    virtual    void freeCollisionAlgorithm(void* ptr);
 
-	btCollisionConfiguration*	getCollisionConfiguration()
-	{
-		return m_collisionConfiguration;
-	}
+    btCollisionConfiguration*    getCollisionConfiguration()
+    {
+        return m_collisionConfiguration;
+    }
 
-	const btCollisionConfiguration*	getCollisionConfiguration() const
-	{
-		return m_collisionConfiguration;
-	}
+    const btCollisionConfiguration*    getCollisionConfiguration() const
+    {
+        return m_collisionConfiguration;
+    }
 
-	void	setCollisionConfiguration(btCollisionConfiguration* config)
-	{
-		m_collisionConfiguration = config;
-	}
+    void    setCollisionConfiguration(btCollisionConfiguration* config)
+    {
+        m_collisionConfiguration = config;
+    }
 
 };
 

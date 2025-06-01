@@ -26,28 +26,28 @@ Nov.2006
 class btStackAlloc;
 
 ///btGjkEpaSolver contributed under zlib by Nathanael Presson
-struct	btGjkEpaSolver
+struct    btGjkEpaSolver
 {
-struct	sResults
-	{
-	enum eStatus
-		{
-		Separated,		/* Shapes doesnt penetrate												*/ 
-		Penetrating,	/* Shapes are penetrating												*/ 
-		GJK_Failed,		/* GJK phase fail, no big issue, shapes are probably just 'touching'	*/ 
-		EPA_Failed,		/* EPA phase fail, bigger problem, need to save parameters, and debug	*/ 
-		}		status;
-	btVector3	witnesses[2];
-	btVector3	normal;
-	btScalar	depth;
-	int	epa_iterations;
-	int	gjk_iterations;
-	};
-static bool	Collide(const btConvexShape* shape0,const btTransform& wtrs0,
-					const btConvexShape* shape1,const btTransform& wtrs1,
-					btScalar	radialmargin,
-					btStackAlloc* stackAlloc,
-					sResults&	results);
+struct    sResults
+    {
+    enum eStatus
+        {
+        Separated,        /* Shapes doesnt penetrate                                                */ 
+        Penetrating,    /* Shapes are penetrating                                                */ 
+        GJK_Failed,        /* GJK phase fail, no big issue, shapes are probably just 'touching'    */ 
+        EPA_Failed,        /* EPA phase fail, bigger problem, need to save parameters, and debug    */ 
+        }        status;
+    btVector3    witnesses[2];
+    btVector3    normal;
+    btScalar    depth;
+    int    epa_iterations;
+    int    gjk_iterations;
+    };
+static bool    Collide(const btConvexShape* shape0,const btTransform& wtrs0,
+                    const btConvexShape* shape1,const btTransform& wtrs1,
+                    btScalar    radialmargin,
+                    btStackAlloc* stackAlloc,
+                    sResults&    results);
 };
 
 #endif

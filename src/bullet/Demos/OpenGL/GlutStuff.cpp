@@ -22,78 +22,78 @@ static DemoApplication* gDemoApplication = 0;
 
 #include "GlutStuff.h"
 
-static	void glutKeyboardCallback(unsigned char key, int x, int y)
+static    void glutKeyboardCallback(unsigned char key, int x, int y)
 {
-	gDemoApplication->keyboardCallback(key,x,y);
+    gDemoApplication->keyboardCallback(key,x,y);
 }
 
 static void glutSpecialKeyboardCallback(int key, int x, int y)
 {
-	gDemoApplication->specialKeyboard(key,x,y);
+    gDemoApplication->specialKeyboard(key,x,y);
 }
 
 static void glutSpecialKeyboardUpCallback(int key, int x, int y)
 {
-	gDemoApplication->specialKeyboardUp(key,x,y);
+    gDemoApplication->specialKeyboardUp(key,x,y);
 }
 
 
 static void glutReshapeCallback(int w, int h)
 {
-	gDemoApplication->reshape(w,h);
+    gDemoApplication->reshape(w,h);
 }
 
 static void glutMoveAndDisplayCallback()
 {
-	gDemoApplication->moveAndDisplay();
+    gDemoApplication->moveAndDisplay();
 }
 
 static void glutMouseFuncCallback(int button, int state, int x, int y)
 {
-	gDemoApplication->mouseFunc(button,state,x,y);
+    gDemoApplication->mouseFunc(button,state,x,y);
 }
 
 
-static void	glutMotionFuncCallback(int x,int y)
+static void    glutMotionFuncCallback(int x,int y)
 {
-	gDemoApplication->mouseMotionFunc(x,y);
+    gDemoApplication->mouseMotionFunc(x,y);
 }
 
 
 static void glutDisplayCallback(void)
 {
-	gDemoApplication->displayCallback();
+    gDemoApplication->displayCallback();
 }
 
 
 int glutmain(int argc, char **argv,int width,int height,const char* title,DemoApplication* demoApp) {
     
-	gDemoApplication = demoApp;
+    gDemoApplication = demoApp;
 
-	glutInit(&argc, argv);
+    glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH);
     glutInitWindowPosition(0, 0);
     glutInitWindowSize(width, height);
     glutCreateWindow(title);
 #ifdef BT_USE_FREEGLUT
-	glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
+    glutSetOption (GLUT_ACTION_ON_WINDOW_CLOSE, GLUT_ACTION_GLUTMAINLOOP_RETURNS);
 #endif
 
     gDemoApplication->myinit();
 
-	glutKeyboardFunc(glutKeyboardCallback);
-	glutSpecialFunc(glutSpecialKeyboardCallback);
-	glutSpecialUpFunc(glutSpecialKeyboardUpCallback);
+    glutKeyboardFunc(glutKeyboardCallback);
+    glutSpecialFunc(glutSpecialKeyboardCallback);
+    glutSpecialUpFunc(glutSpecialKeyboardUpCallback);
 
-	glutReshapeFunc(glutReshapeCallback);
+    glutReshapeFunc(glutReshapeCallback);
     //createMenu();
-	glutIdleFunc(glutMoveAndDisplayCallback);
-	glutMouseFunc(glutMouseFuncCallback);
-	glutMotionFunc(glutMotionFuncCallback);
-	glutDisplayFunc( glutDisplayCallback );
+    glutIdleFunc(glutMoveAndDisplayCallback);
+    glutMouseFunc(glutMouseFuncCallback);
+    glutMotionFunc(glutMotionFuncCallback);
+    glutDisplayFunc( glutDisplayCallback );
 
-	glutMoveAndDisplayCallback();
-	
+    glutMoveAndDisplayCallback();
+    
     glutMainLoop();
     return 0;
 }

@@ -23,17 +23,17 @@ subject to the following restrictions:
 ///Can be used by GJK.
 class GL_Simplex1to4 : public btBU_Simplex1to4
 {
-	btSimplexSolverInterface*	m_simplexSolver;
+    btSimplexSolverInterface*    m_simplexSolver;
 
-	public:
+    public:
 
-	GL_Simplex1to4();
+    GL_Simplex1to4();
 
-	void	calcClosest(btScalar* m);
+    void    calcClosest(btScalar* m);
 
-	void	setSimplexSolver(btSimplexSolverInterface* simplexSolver) {
-		m_simplexSolver = simplexSolver;
-	}
+    void    setSimplexSolver(btSimplexSolverInterface* simplexSolver) {
+        m_simplexSolver = simplexSolver;
+    }
 
 };
 

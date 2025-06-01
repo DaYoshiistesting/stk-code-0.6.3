@@ -28,40 +28,40 @@ subject to the following restrictions:
 
 /// btEmptyShape is a collision shape without actual collision detection. 
 ///It can be replaced by another shape during runtime
-class btEmptyShape	: public btConcaveShape
+class btEmptyShape    : public btConcaveShape
 {
 public:
-	btEmptyShape();
+    btEmptyShape();
 
-	virtual ~btEmptyShape();
-
-
-	///getAabb's default implementation is brute force, expected derived classes to implement a fast dedicated version
-	void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    virtual ~btEmptyShape();
 
 
-	virtual void	setLocalScaling(const btVector3& scaling)
-	{
-		m_localScaling = scaling;
-	}
-	virtual const btVector3& getLocalScaling() const 
-	{
-		return m_localScaling;
-	}
+    ///getAabb's default implementation is brute force, expected derived classes to implement a fast dedicated version
+    void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
-	
-	virtual int	getShapeType() const { return EMPTY_SHAPE_PROXYTYPE;}
 
-	
-	virtual const char*	getName()const
-	{
-		return "Empty";
-	}
+    virtual void    setLocalScaling(const btVector3& scaling)
+    {
+        m_localScaling = scaling;
+    }
+    virtual const btVector3& getLocalScaling() const 
+    {
+        return m_localScaling;
+    }
+
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    
+    virtual int    getShapeType() const { return EMPTY_SHAPE_PROXYTYPE;}
+
+    
+    virtual const char*    getName()const
+    {
+        return "Empty";
+    }
 
 
 protected:
-	btVector3	m_localScaling;
+    btVector3    m_localScaling;
 
 };
 

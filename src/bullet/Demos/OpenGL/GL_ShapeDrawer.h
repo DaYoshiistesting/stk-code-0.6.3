@@ -23,19 +23,19 @@ class btShapeHull;
 /// OpenGL shape drawing
 class GL_ShapeDrawer
 {
-	//clean-up memory of dynamically created shape hulls
-	btAlignedObjectArray<btShapeHull*>	m_shapeHulls;
+    //clean-up memory of dynamically created shape hulls
+    btAlignedObjectArray<btShapeHull*>    m_shapeHulls;
 
-	public:
-		GL_ShapeDrawer();
+    public:
+        GL_ShapeDrawer();
 
-		virtual ~GL_ShapeDrawer();
+        virtual ~GL_ShapeDrawer();
 
-		///drawOpenGL might allocate temporary memoty, stores pointer in shape userpointer
-		void		drawOpenGL(btScalar* m, const btCollisionShape* shape, const btVector3& color,int	debugMode);
-		
-		static void		drawCylinder(float radius,float halfHeight, int upAxis);
-		static void		drawCoordSystem();
+        ///drawOpenGL might allocate temporary memoty, stores pointer in shape userpointer
+        void        drawOpenGL(btScalar* m, const btCollisionShape* shape, const btVector3& color,int    debugMode);
+        
+        static void        drawCylinder(float radius,float halfHeight, int upAxis);
+        static void        drawCoordSystem();
 };
 
 void OGL_displaylist_register_shape(btCollisionShape * shape);

@@ -58,7 +58,7 @@ public:
 
     btRotationalLimitMotor()
     {
-    	m_accumulatedImpulse = 0.f;
+        m_accumulatedImpulse = 0.f;
         m_targetVelocity = 0;
         m_maxMotorForce = 0.1f;
         m_maxLimitForce = 300.0f;
@@ -89,27 +89,27 @@ public:
 
 
 
-	//! Is limited
+    //! Is limited
     bool isLimited()
     {
-    	if(m_loLimit>=m_hiLimit) return false;
-    	return true;
+        if(m_loLimit>=m_hiLimit) return false;
+        return true;
     }
 
-	//! Need apply correction
+    //! Need apply correction
     bool needApplyTorques()
     {
-    	if(m_currentLimit == 0 && m_enableMotor == false) return false;
-    	return true;
+        if(m_currentLimit == 0 && m_enableMotor == false) return false;
+        return true;
     }
 
-	//! calculates  error
-	/*!
-	calculates m_currentLimit and m_currentLimitError.
-	*/
-	int testLimitValue(btScalar test_value);
+    //! calculates  error
+    /*!
+    calculates m_currentLimit and m_currentLimitError.
+    */
+    int testLimitValue(btScalar test_value);
 
-	//! apply the correction impulses for two bodies
+    //! apply the correction impulses for two bodies
     btScalar solveAngularLimits(btScalar timeStep,btVector3& axis, btScalar jacDiagABInv,btRigidBody * body0, btRigidBody * body1);
 
 
@@ -120,53 +120,53 @@ public:
 class btTranslationalLimitMotor
 {
 public:
-	btVector3 m_lowerLimit;//!< the constraint lower limits
+    btVector3 m_lowerLimit;//!< the constraint lower limits
     btVector3 m_upperLimit;//!< the constraint upper limits
     btVector3 m_accumulatedImpulse;
     //! Linear_Limit_parameters
     //!@{
-    btScalar	m_limitSoftness;//!< Softness for linear limit
-    btScalar	m_damping;//!< Damping for linear limit
-    btScalar	m_restitution;//! Bounce parameter for linear limit
+    btScalar    m_limitSoftness;//!< Softness for linear limit
+    btScalar    m_damping;//!< Damping for linear limit
+    btScalar    m_restitution;//! Bounce parameter for linear limit
     //!@}
 
     btTranslationalLimitMotor()
     {
-    	m_lowerLimit.setValue(0.f,0.f,0.f);
-    	m_upperLimit.setValue(0.f,0.f,0.f);
-    	m_accumulatedImpulse.setValue(0.f,0.f,0.f);
+        m_lowerLimit.setValue(0.f,0.f,0.f);
+        m_upperLimit.setValue(0.f,0.f,0.f);
+        m_accumulatedImpulse.setValue(0.f,0.f,0.f);
 
-    	m_limitSoftness = 0.7f;
-    	m_damping = btScalar(1.0f);
-    	m_restitution = btScalar(0.5f);
+        m_limitSoftness = 0.7f;
+        m_damping = btScalar(1.0f);
+        m_restitution = btScalar(0.5f);
     }
 
     btTranslationalLimitMotor(const btTranslationalLimitMotor & other )
     {
-    	m_lowerLimit = other.m_lowerLimit;
-    	m_upperLimit = other.m_upperLimit;
-    	m_accumulatedImpulse = other.m_accumulatedImpulse;
+        m_lowerLimit = other.m_lowerLimit;
+        m_upperLimit = other.m_upperLimit;
+        m_accumulatedImpulse = other.m_accumulatedImpulse;
 
-    	m_limitSoftness = other.m_limitSoftness ;
-    	m_damping = other.m_damping;
-    	m_restitution = other.m_restitution;
+        m_limitSoftness = other.m_limitSoftness ;
+        m_damping = other.m_damping;
+        m_restitution = other.m_restitution;
     }
 
     //! Test limit
-	/*!
+    /*!
     - free means upper < lower,
     - locked means upper == lower
     - limited means upper > lower
     - limitIndex: first 3 are linear, next 3 are angular
     */
-    inline bool	isLimited(int limitIndex)
+    inline bool    isLimited(int limitIndex)
     {
        return (m_upperLimit[limitIndex] >= m_lowerLimit[limitIndex]);
     }
 
 
     btScalar solveLinearAxis(
-    	btScalar timeStep,
+        btScalar timeStep,
         btScalar jacDiagABInv,
         btRigidBody& body1,const btVector3 &pointInA,
         btRigidBody& body2,const btVector3 &pointInB,
@@ -192,18 +192,18 @@ This brings support for limit parameters and motors. </li>
 <table border=1 >
 <tr
 
-	<td><b>AXIS</b></td>
-	<td><b>MIN ANGLE</b></td>
-	<td><b>MAX ANGLE</b></td>
-	<td>X</td>
-		<td>-PI</td>
-		<td>PI</td>
-	<td>Y</td>
-		<td>-PI/2</td>
-		<td>PI/2</td>
-	<td>Z</td>
-		<td>-PI/2</td>
-		<td>PI/2</td>
+    <td><b>AXIS</b></td>
+    <td><b>MIN ANGLE</b></td>
+    <td><b>MAX ANGLE</b></td>
+    <td>X</td>
+        <td>-PI</td>
+        <td>PI</td>
+    <td>Y</td>
+        <td>-PI/2</td>
+        <td>PI/2</td>
+    <td>Z</td>
+        <td>-PI/2</td>
+        <td>PI/2</td>
 </tr>
 </table>
 </li>
@@ -214,19 +214,19 @@ class btGeneric6DofConstraint : public btTypedConstraint
 {
 protected:
 
-	//! relative_frames
+    //! relative_frames
     //!@{
-	btTransform	m_frameInA;//!< the constraint space w.r.t body A
-    btTransform	m_frameInB;//!< the constraint space w.r.t body B
+    btTransform    m_frameInA;//!< the constraint space w.r.t body A
+    btTransform    m_frameInB;//!< the constraint space w.r.t body B
     //!@}
 
     //! Jacobians
     //!@{
-    btJacobianEntry	m_jacLinear[3];//!< 3 orthogonal linear constraints
-    btJacobianEntry	m_jacAng[3];//!< 3 orthogonal angular constraints
+    btJacobianEntry    m_jacLinear[3];//!< 3 orthogonal linear constraints
+    btJacobianEntry    m_jacAng[3];//!< 3 orthogonal angular constraints
     //!@}
 
-	//! Linear_Limit_parameters
+    //! Linear_Limit_parameters
     //!@{
     btTranslationalLimitMotor m_linearLimits;
     //!@}
@@ -235,7 +235,7 @@ protected:
     //! hinge_parameters
     //!@{
     btRotationalLimitMotor m_angularLimits[3];
-	//!@}
+    //!@}
 
 
 protected:
@@ -247,11 +247,11 @@ protected:
     btVector3 m_calculatedAxisAngleDiff;
     btVector3 m_calculatedAxis[3];
     
-    bool	m_useLinearReferenceFrameA;
+    bool    m_useLinearReferenceFrameA;
     
     //!@}
 
-    btGeneric6DofConstraint&	operator=(btGeneric6DofConstraint&	other)
+    btGeneric6DofConstraint&    operator=(btGeneric6DofConstraint&    other)
     {
         btAssert(0);
         (void) other;
@@ -267,7 +267,7 @@ protected:
     void buildAngularJacobian(btJacobianEntry & jacAngular,const btVector3 & jointAxisW);
 
 
-	//! calcs the euler angles between the two bodies.
+    //! calcs the euler angles between the two bodies.
     void calculateAngleInfo();
 
 
@@ -277,20 +277,20 @@ public:
 
     btGeneric6DofConstraint();
 
-	//! Calcs global transform of the offsets
-	/*!
-	Calcs the global transform for the joint offset for body A an B, and also calcs the agle differences between the bodies.
-	\sa btGeneric6DofConstraint.getCalculatedTransformA , btGeneric6DofConstraint.getCalculatedTransformB, btGeneric6DofConstraint.calculateAngleInfo
-	*/
+    //! Calcs global transform of the offsets
+    /*!
+    Calcs the global transform for the joint offset for body A an B, and also calcs the agle differences between the bodies.
+    \sa btGeneric6DofConstraint.getCalculatedTransformA , btGeneric6DofConstraint.getCalculatedTransformB, btGeneric6DofConstraint.calculateAngleInfo
+    */
     void calculateTransforms();
 
-	//! Gets the global transform of the offset for body A
+    //! Gets the global transform of the offset for body A
     /*!
     \sa btGeneric6DofConstraint.getFrameOffsetA, btGeneric6DofConstraint.getFrameOffsetB, btGeneric6DofConstraint.calculateAngleInfo.
     */
     const btTransform & getCalculatedTransformA() const
     {
-    	return m_calculatedTransformA;
+        return m_calculatedTransformA;
     }
 
     //! Gets the global transform of the offset for body B
@@ -299,122 +299,122 @@ public:
     */
     const btTransform & getCalculatedTransformB() const
     {
-    	return m_calculatedTransformB;
+        return m_calculatedTransformB;
     }
 
     const btTransform & getFrameOffsetA() const
     {
-    	return m_frameInA;
+        return m_frameInA;
     }
 
     const btTransform & getFrameOffsetB() const
     {
-    	return m_frameInB;
+        return m_frameInB;
     }
 
 
     btTransform & getFrameOffsetA()
     {
-    	return m_frameInA;
+        return m_frameInA;
     }
 
     btTransform & getFrameOffsetB()
     {
-    	return m_frameInB;
+        return m_frameInB;
     }
 
 
-	//! performs Jacobian calculation, and also calculates angle differences and axis
-    virtual void	buildJacobian();
+    //! performs Jacobian calculation, and also calculates angle differences and axis
+    virtual void    buildJacobian();
 
-    virtual	void	solveConstraint(btScalar	timeStep);
+    virtual    void    solveConstraint(btScalar    timeStep);
 
-    void	updateRHS(btScalar	timeStep);
+    void    updateRHS(btScalar    timeStep);
 
-	//! Get the rotation axis in global coordinates
-	/*!
-	\pre btGeneric6DofConstraint.buildJacobian must be called previously.
-	*/
+    //! Get the rotation axis in global coordinates
+    /*!
+    \pre btGeneric6DofConstraint.buildJacobian must be called previously.
+    */
     btVector3 getAxis(int axis_index) const;
 
     //! Get the relative Euler angle
     /*!
-	\pre btGeneric6DofConstraint.buildJacobian must be called previously.
-	*/
+    \pre btGeneric6DofConstraint.buildJacobian must be called previously.
+    */
     btScalar getAngle(int axis_index) const;
 
-	//! Test angular limit.
-	/*!
-	Calculates angular correction and returns true if limit needs to be corrected.
-	\pre btGeneric6DofConstraint.buildJacobian must be called previously.
-	*/
+    //! Test angular limit.
+    /*!
+    Calculates angular correction and returns true if limit needs to be corrected.
+    \pre btGeneric6DofConstraint.buildJacobian must be called previously.
+    */
     bool testAngularLimitMotor(int axis_index);
 
-    void	setLinearLowerLimit(const btVector3& linearLower)
+    void    setLinearLowerLimit(const btVector3& linearLower)
     {
-    	m_linearLimits.m_lowerLimit = linearLower;
+        m_linearLimits.m_lowerLimit = linearLower;
     }
 
-    void	setLinearUpperLimit(const btVector3& linearUpper)
+    void    setLinearUpperLimit(const btVector3& linearUpper)
     {
-    	m_linearLimits.m_upperLimit = linearUpper;
+        m_linearLimits.m_upperLimit = linearUpper;
     }
 
-    void	setAngularLowerLimit(const btVector3& angularLower)
+    void    setAngularLowerLimit(const btVector3& angularLower)
     {
         m_angularLimits[0].m_loLimit = angularLower.getX();
         m_angularLimits[1].m_loLimit = angularLower.getY();
         m_angularLimits[2].m_loLimit = angularLower.getZ();
     }
 
-    void	setAngularUpperLimit(const btVector3& angularUpper)
+    void    setAngularUpperLimit(const btVector3& angularUpper)
     {
         m_angularLimits[0].m_hiLimit = angularUpper.getX();
         m_angularLimits[1].m_hiLimit = angularUpper.getY();
         m_angularLimits[2].m_hiLimit = angularUpper.getZ();
     }
 
-	//! Retrieves the angular limit informacion
+    //! Retrieves the angular limit informacion
     btRotationalLimitMotor * getRotationalLimitMotor(int index)
     {
-    	return &m_angularLimits[index];
+        return &m_angularLimits[index];
     }
 
     //! Retrieves the  limit informacion
     btTranslationalLimitMotor * getTranslationalLimitMotor()
     {
-    	return &m_linearLimits;
+        return &m_linearLimits;
     }
 
     //first 3 are linear, next 3 are angular
     void setLimit(int axis, btScalar lo, btScalar hi)
     {
-    	if(axis<3)
-    	{
-    		m_linearLimits.m_lowerLimit[axis] = lo;
-    		m_linearLimits.m_upperLimit[axis] = hi;
-    	}
-    	else
-    	{
-    		m_angularLimits[axis-3].m_loLimit = lo;
-    		m_angularLimits[axis-3].m_hiLimit = hi;
-    	}
+        if(axis<3)
+        {
+            m_linearLimits.m_lowerLimit[axis] = lo;
+            m_linearLimits.m_upperLimit[axis] = hi;
+        }
+        else
+        {
+            m_angularLimits[axis-3].m_loLimit = lo;
+            m_angularLimits[axis-3].m_hiLimit = hi;
+        }
     }
 
-	//! Test limit
-	/*!
+    //! Test limit
+    /*!
     - free means upper < lower,
     - locked means upper == lower
     - limited means upper > lower
     - limitIndex: first 3 are linear, next 3 are angular
     */
-    bool	isLimited(int limitIndex)
+    bool    isLimited(int limitIndex)
     {
-    	if(limitIndex<3)
-    	{
-			return m_linearLimits.isLimited(limitIndex);
+        if(limitIndex<3)
+        {
+            return m_linearLimits.isLimited(limitIndex);
 
-    	}
+        }
         return m_angularLimits[limitIndex-3].isLimited();
     }
 

@@ -29,44 +29,44 @@ class btConvexCast
 public:
 
 
-	virtual ~btConvexCast();
+    virtual ~btConvexCast();
 
-	///RayResult stores the closest result
-	/// alternatively, add a callback method to decide about closest/all results
-	struct	CastResult
-	{
-		//virtual bool	addRayResult(const btVector3& normal,btScalar	fraction) = 0;
-				
-		virtual void	DebugDraw(btScalar	fraction) {(void)fraction;}
-		virtual void	drawCoordSystem(const btTransform& trans) {(void)trans;}
+    ///RayResult stores the closest result
+    /// alternatively, add a callback method to decide about closest/all results
+    struct    CastResult
+    {
+        //virtual bool    addRayResult(const btVector3& normal,btScalar    fraction) = 0;
+                
+        virtual void    DebugDraw(btScalar    fraction) {(void)fraction;}
+        virtual void    drawCoordSystem(const btTransform& trans) {(void)trans;}
 
-		CastResult()
-			:m_fraction(btScalar(1e30)),
-			m_debugDrawer(0)
-		{
-		}
-
-
-		virtual ~CastResult() {};
-
-		btVector3	m_normal;
-		btVector3   m_hitPoint;
-		btScalar	m_fraction;
-		btTransform	m_hitTransformA;
-		btTransform	m_hitTransformB;
-
-		btIDebugDraw* m_debugDrawer;
-
-	};
+        CastResult()
+            :m_fraction(btScalar(1e30)),
+            m_debugDrawer(0)
+        {
+        }
 
 
-	/// cast a convex against another convex object
-	virtual bool	calcTimeOfImpact(
-					const btTransform& fromA,
-					const btTransform& toA,
-					const btTransform& fromB,
-					const btTransform& toB,
-					CastResult& result) = 0;
+        virtual ~CastResult() {};
+
+        btVector3    m_normal;
+        btVector3   m_hitPoint;
+        btScalar    m_fraction;
+        btTransform    m_hitTransformA;
+        btTransform    m_hitTransformB;
+
+        btIDebugDraw* m_debugDrawer;
+
+    };
+
+
+    /// cast a convex against another convex object
+    virtual bool    calcTimeOfImpact(
+                    const btTransform& fromA,
+                    const btTransform& toA,
+                    const btTransform& fromB,
+                    const btTransform& toB,
+                    CastResult& result) = 0;
 };
 
 #endif //CONVEX_CAST_H

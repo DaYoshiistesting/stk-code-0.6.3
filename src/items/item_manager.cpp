@@ -67,7 +67,7 @@ void ItemManager::loadDefaultItems()
     item_names[Item::ITEM_TRIGGER    ] = "trigger";
 
     const lisp::Lisp* ROOT = 0;
-    std::string items_file = file_manager->getConfigFile("items.items");
+    std::string items_file = file_manager->getConfigFile("items.data");
     lisp::Parser parser;
     ROOT = parser.parse(items_file);
     for(unsigned int i=Item::ITEM_FIRST; i<=Item::ITEM_LAST; i++)
@@ -90,7 +90,7 @@ void ItemManager::loadDefaultItems()
         }
         model->ref();
         m_item_model[i] = model;
-		
+        
     } //for i
     delete ROOT;
 }  //loadDefaultItems
@@ -158,7 +158,7 @@ void ItemManager::insertItem(Item *h)
     h->setItemId(index);
 
     if(m_items_in_sector)
-	{
+    {
         const Vec3 &xyz = h->getXYZ();
         int sector = Track::UNKNOWN_SECTOR;
         Track::get()->findRoadSector(xyz, &sector);

@@ -30,38 +30,38 @@ class btPersistentManifold;
 ///SimulationIslandManager creates and handles simulation islands, using btUnionFind
 class btSimulationIslandManager
 {
-	btUnionFind m_unionFind;
+    btUnionFind m_unionFind;
 
-	btAlignedObjectArray<btPersistentManifold*>  m_islandmanifold;
-	btAlignedObjectArray<btCollisionObject* >  m_islandBodies;
-	
-	
+    btAlignedObjectArray<btPersistentManifold*>  m_islandmanifold;
+    btAlignedObjectArray<btCollisionObject* >  m_islandBodies;
+    
+    
 public:
-	btSimulationIslandManager();
-	virtual ~btSimulationIslandManager();
+    btSimulationIslandManager();
+    virtual ~btSimulationIslandManager();
 
 
-	void initUnionFind(int n);	
-	
-		
-	btUnionFind& getUnionFind() { return m_unionFind;}
+    void initUnionFind(int n);    
+    
+        
+    btUnionFind& getUnionFind() { return m_unionFind;}
 
-	virtual	void	updateActivationState(btCollisionWorld* colWorld,btDispatcher* dispatcher);
-	virtual	void	storeIslandActivationState(btCollisionWorld* world);
+    virtual    void    updateActivationState(btCollisionWorld* colWorld,btDispatcher* dispatcher);
+    virtual    void    storeIslandActivationState(btCollisionWorld* world);
 
 
-	void	findUnions(btDispatcher* dispatcher,btCollisionWorld* colWorld);
+    void    findUnions(btDispatcher* dispatcher,btCollisionWorld* colWorld);
 
-	
+    
 
-	struct	IslandCallback
-	{
-		virtual ~IslandCallback() {};
+    struct    IslandCallback
+    {
+        virtual ~IslandCallback() {};
 
-		virtual	void	ProcessIsland(btCollisionObject** bodies,int numBodies,class btPersistentManifold**	manifolds,int numManifolds, int islandId) = 0;
-	};
+        virtual    void    ProcessIsland(btCollisionObject** bodies,int numBodies,class btPersistentManifold**    manifolds,int numManifolds, int islandId) = 0;
+    };
 
-	void	buildAndProcessIslands(btDispatcher* dispatcher,btCollisionObjectArray& collisionObjects, IslandCallback* callback);
+    void    buildAndProcessIslands(btDispatcher* dispatcher,btCollisionObjectArray& collisionObjects, IslandCallback* callback);
 
 };
 

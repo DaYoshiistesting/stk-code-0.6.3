@@ -28,22 +28,22 @@ class btTriangleShape;
 /// sphere-triangle to match the btDiscreteCollisionDetectorInterface
 struct SphereTriangleDetector : public btDiscreteCollisionDetectorInterface
 {
-	virtual void	getClosestPoints(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw);
+    virtual void    getClosestPoints(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw);
 
-	SphereTriangleDetector(btSphereShape* sphere,btTriangleShape* triangle);
+    SphereTriangleDetector(btSphereShape* sphere,btTriangleShape* triangle);
 
-	virtual ~SphereTriangleDetector() {};
+    virtual ~SphereTriangleDetector() {};
 
 private:
 
-	bool collide(const btVector3& sphereCenter,btVector3 &point, btVector3& resultNormal, btScalar& depth, btScalar &timeOfImpact);
-	bool pointInTriangle(const btVector3 vertices[], const btVector3 &normal, btVector3 *p );
-	bool facecontains(const btVector3 &p,const btVector3* vertices,btVector3& normal);
+    bool collide(const btVector3& sphereCenter,btVector3 &point, btVector3& resultNormal, btScalar& depth, btScalar &timeOfImpact);
+    bool pointInTriangle(const btVector3 vertices[], const btVector3 &normal, btVector3 *p );
+    bool facecontains(const btVector3 &p,const btVector3* vertices,btVector3& normal);
 
-	btSphereShape* m_sphere;
-	btTriangleShape* m_triangle;
+    btSphereShape* m_sphere;
+    btTriangleShape* m_triangle;
 
-	
+    
 };
 #endif //SPHERE_TRIANGLE_DETECTOR_H
 

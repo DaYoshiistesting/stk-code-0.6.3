@@ -75,16 +75,16 @@ private:
        deactivate collision so a kart is not hit by its own item */
     float         m_deactive_time;
 
-	/** Counts how often an item is used before it disappears. Used for 
+    /** Counts how often an item is used before it disappears. Used for 
      *  bubble gum to make them disappear after a while. A value >0
      *  indicates that the item still exists, =0 that the item can be
      *  deleted, and <0 that the item will never be deleted. */
     int           m_disappear_counter;
 
-	/** callback used if type == ITEM_TRIGGER */
+    /** callback used if type == ITEM_TRIGGER */
     TriggerItemListener* m_listener;
 
-	/** square distance at which item is collected */
+    /** square distance at which item is collected */
     float m_distance_2;
 
     void          initItem(ItemType type, const Vec3 &xyz);
@@ -98,7 +98,7 @@ public:
     virtual       ~Item ();
     void          update  (float delta);
     virtual void  isCollected(const Kart *kart, float t=2.0f);
-	
+    
     // ------------------------------------------------------------------------
     /** Returns true if the Kart is close enough to hit this item, and
      *  the item is not deactivated anymore.
@@ -120,14 +120,14 @@ public:
     // ------------------------------------------------------------------------
     /** Sets the index of this item in the item manager list. */
     void          setItemId(unsigned int n)  { m_item_id = n; }
-	// ------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
     unsigned int  getItemId()    const {return m_item_id;   }
     ssgTransform* getRoot()      const {return m_root;      }
     ItemType      getType()      const {return m_type;      }
     bool          wasCollected() const {return m_collected; }
     const Vec3&   getXYZ()       const {return m_xyz;       }
     bool          isUsedUp()     const {return m_disappear_counter==0; }
-	bool          canBeUsedUp()  const {return m_disappear_counter>-1; }
+    bool          canBeUsedUp()  const {return m_disappear_counter>-1; }
     void          setParent(Kart* parent);
     void          reset();
 };   // class Item

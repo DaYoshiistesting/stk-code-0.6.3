@@ -22,7 +22,7 @@ subject to the following restrictions:
 
 
 #define NUM_UNITSPHERE_POINTS 42
-static btVector3	sPenetrationDirections[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2] = 
+static btVector3    sPenetrationDirections[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2] = 
 {
 btVector3(btScalar(0.000000) , btScalar(-0.000000),btScalar(-1.000000)),
 btVector3(btScalar(0.723608) , btScalar(-0.525725),btScalar(-0.447219)),
@@ -70,196 +70,196 @@ btVector3(btScalar(0.162456) , btScalar(0.499995),btScalar(0.850654))
 
 
 bool btMinkowskiPenetrationDepthSolver::calcPenDepth(btSimplexSolverInterface& simplexSolver,
-												   const btConvexShape* convexA,const btConvexShape* convexB,
-												   const btTransform& transA,const btTransform& transB,
-												   btVector3& v, btPoint3& pa, btPoint3& pb,
-												   class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc
-												   )
+                                                   const btConvexShape* convexA,const btConvexShape* convexB,
+                                                   const btTransform& transA,const btTransform& transB,
+                                                   btVector3& v, btPoint3& pa, btPoint3& pb,
+                                                   class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc
+                                                   )
 {
 
-	(void)stackAlloc;
-	(void)v;
-	
+    (void)stackAlloc;
+    (void)v;
+    
 
-	struct btIntermediateResult : public btDiscreteCollisionDetectorInterface::Result
-	{
+    struct btIntermediateResult : public btDiscreteCollisionDetectorInterface::Result
+    {
 
-		btIntermediateResult():m_hasResult(false)
-		{
-		}
-		
-		btVector3 m_normalOnBInWorld;
-		btVector3 m_pointInWorld;
-		btScalar m_depth;
-		bool	m_hasResult;
+        btIntermediateResult():m_hasResult(false)
+        {
+        }
+        
+        btVector3 m_normalOnBInWorld;
+        btVector3 m_pointInWorld;
+        btScalar m_depth;
+        bool    m_hasResult;
 
-		virtual void setShapeIdentifiers(int partId0,int index0,	int partId1,int index1)
-		{
-			(void)partId0;
-			(void)index0;
-			(void)partId1;
-			(void)index1;
-		}
-		void addContactPoint(const btVector3& normalOnBInWorld,const btVector3& pointInWorld,btScalar depth)
-		{
-			m_normalOnBInWorld = normalOnBInWorld;
-			m_pointInWorld = pointInWorld;
-			m_depth = depth;
-			m_hasResult = true;
-		}
-	};
+        virtual void setShapeIdentifiers(int partId0,int index0,    int partId1,int index1)
+        {
+            (void)partId0;
+            (void)index0;
+            (void)partId1;
+            (void)index1;
+        }
+        void addContactPoint(const btVector3& normalOnBInWorld,const btVector3& pointInWorld,btScalar depth)
+        {
+            m_normalOnBInWorld = normalOnBInWorld;
+            m_pointInWorld = pointInWorld;
+            m_depth = depth;
+            m_hasResult = true;
+        }
+    };
 
-	//just take fixed number of orientation, and sample the penetration depth in that direction
-	btScalar minProj = btScalar(1e30);
-	btVector3 minNorm(btScalar(0.), btScalar(0.), btScalar(0.));
-	btVector3 minA,minB;
-	btVector3 seperatingAxisInA,seperatingAxisInB;
-	btVector3 pInA,qInB,pWorld,qWorld,w;
+    //just take fixed number of orientation, and sample the penetration depth in that direction
+    btScalar minProj = btScalar(1e30);
+    btVector3 minNorm(btScalar(0.), btScalar(0.), btScalar(0.));
+    btVector3 minA,minB;
+    btVector3 seperatingAxisInA,seperatingAxisInB;
+    btVector3 pInA,qInB,pWorld,qWorld,w;
 
 #define USE_BATCHED_SUPPORT 1
 #ifdef USE_BATCHED_SUPPORT
 
-	btVector3	supportVerticesABatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
-	btVector3	supportVerticesBBatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
-	btVector3	seperatingAxisInABatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
-	btVector3	seperatingAxisInBBatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
-	int i;
+    btVector3    supportVerticesABatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
+    btVector3    supportVerticesBBatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
+    btVector3    seperatingAxisInABatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
+    btVector3    seperatingAxisInBBatch[NUM_UNITSPHERE_POINTS+MAX_PREFERRED_PENETRATION_DIRECTIONS*2];
+    int i;
 
-	int numSampleDirections = NUM_UNITSPHERE_POINTS;
+    int numSampleDirections = NUM_UNITSPHERE_POINTS;
 
-	for (i=0;i<numSampleDirections;i++)
-	{
-		const btVector3& norm = sPenetrationDirections[i];
-		seperatingAxisInABatch[i] =  (-norm) * transA.getBasis() ;
-		seperatingAxisInBBatch[i] =  norm   * transB.getBasis() ;
-	}
+    for (i=0;i<numSampleDirections;i++)
+    {
+        const btVector3& norm = sPenetrationDirections[i];
+        seperatingAxisInABatch[i] =  (-norm) * transA.getBasis() ;
+        seperatingAxisInBBatch[i] =  norm   * transB.getBasis() ;
+    }
 
-	{
-		int numPDA = convexA->getNumPreferredPenetrationDirections();
-		if (numPDA)
-		{
-			for (int i=0;i<numPDA;i++)
-			{
-				btVector3 norm;
-				convexA->getPreferredPenetrationDirection(i,norm);
-				norm  = transA.getBasis() * norm;
-				sPenetrationDirections[numSampleDirections] = norm;
-				seperatingAxisInABatch[numSampleDirections] = (-norm) * transA.getBasis();
-				seperatingAxisInBBatch[numSampleDirections] = norm * transB.getBasis();
-				numSampleDirections++;
-			}
-		}
-	}
+    {
+        int numPDA = convexA->getNumPreferredPenetrationDirections();
+        if (numPDA)
+        {
+            for (int i=0;i<numPDA;i++)
+            {
+                btVector3 norm;
+                convexA->getPreferredPenetrationDirection(i,norm);
+                norm  = transA.getBasis() * norm;
+                sPenetrationDirections[numSampleDirections] = norm;
+                seperatingAxisInABatch[numSampleDirections] = (-norm) * transA.getBasis();
+                seperatingAxisInBBatch[numSampleDirections] = norm * transB.getBasis();
+                numSampleDirections++;
+            }
+        }
+    }
 
-	{
-		int numPDB = convexB->getNumPreferredPenetrationDirections();
-		if (numPDB)
-		{
-			for (int i=0;i<numPDB;i++)
-			{
-				btVector3 norm;
-				convexB->getPreferredPenetrationDirection(i,norm);
-				norm  = transB.getBasis() * norm;
-				sPenetrationDirections[numSampleDirections] = norm;
-				seperatingAxisInABatch[numSampleDirections] = (-norm) * transA.getBasis();
-				seperatingAxisInBBatch[numSampleDirections] = norm * transB.getBasis();
-				numSampleDirections++;
-			}
-		}
-	}
+    {
+        int numPDB = convexB->getNumPreferredPenetrationDirections();
+        if (numPDB)
+        {
+            for (int i=0;i<numPDB;i++)
+            {
+                btVector3 norm;
+                convexB->getPreferredPenetrationDirection(i,norm);
+                norm  = transB.getBasis() * norm;
+                sPenetrationDirections[numSampleDirections] = norm;
+                seperatingAxisInABatch[numSampleDirections] = (-norm) * transA.getBasis();
+                seperatingAxisInBBatch[numSampleDirections] = norm * transB.getBasis();
+                numSampleDirections++;
+            }
+        }
+    }
 
 
 
-	convexA->batchedUnitVectorGetSupportingVertexWithoutMargin(seperatingAxisInABatch,supportVerticesABatch,numSampleDirections);
-	convexB->batchedUnitVectorGetSupportingVertexWithoutMargin(seperatingAxisInBBatch,supportVerticesBBatch,numSampleDirections);
+    convexA->batchedUnitVectorGetSupportingVertexWithoutMargin(seperatingAxisInABatch,supportVerticesABatch,numSampleDirections);
+    convexB->batchedUnitVectorGetSupportingVertexWithoutMargin(seperatingAxisInBBatch,supportVerticesBBatch,numSampleDirections);
 
-	for (i=0;i<numSampleDirections;i++)
-	{
-		const btVector3& norm = sPenetrationDirections[i];
-		seperatingAxisInA = seperatingAxisInABatch[i];
-		seperatingAxisInB = seperatingAxisInBBatch[i];
+    for (i=0;i<numSampleDirections;i++)
+    {
+        const btVector3& norm = sPenetrationDirections[i];
+        seperatingAxisInA = seperatingAxisInABatch[i];
+        seperatingAxisInB = seperatingAxisInBBatch[i];
 
-		pInA = supportVerticesABatch[i];
-		qInB = supportVerticesBBatch[i];
+        pInA = supportVerticesABatch[i];
+        qInB = supportVerticesBBatch[i];
 
-		pWorld = transA(pInA);	
-		qWorld = transB(qInB);
-		w	= qWorld - pWorld;
-		btScalar delta = norm.dot(w);
-		//find smallest delta
-		if (delta < minProj)
-		{
-			minProj = delta;
-			minNorm = norm;
-			minA = pWorld;
-			minB = qWorld;
-		}
-	}	
+        pWorld = transA(pInA);    
+        qWorld = transB(qInB);
+        w    = qWorld - pWorld;
+        btScalar delta = norm.dot(w);
+        //find smallest delta
+        if (delta < minProj)
+        {
+            minProj = delta;
+            minNorm = norm;
+            minA = pWorld;
+            minB = qWorld;
+        }
+    }    
 #else
 
-	int numSampleDirections = NUM_UNITSPHERE_POINTS;
+    int numSampleDirections = NUM_UNITSPHERE_POINTS;
 
-	{
-		int numPDA = convexA->getNumPreferredPenetrationDirections();
-		if (numPDA)
-		{
-			for (int i=0;i<numPDA;i++)
-			{
-				btVector3 norm;
-				convexA->getPreferredPenetrationDirection(i,norm);
-				norm  = transA.getBasis() * norm;
-				sPenetrationDirections[numSampleDirections] = norm;
-				numSampleDirections++;
-			}
-		}
-	}
+    {
+        int numPDA = convexA->getNumPreferredPenetrationDirections();
+        if (numPDA)
+        {
+            for (int i=0;i<numPDA;i++)
+            {
+                btVector3 norm;
+                convexA->getPreferredPenetrationDirection(i,norm);
+                norm  = transA.getBasis() * norm;
+                sPenetrationDirections[numSampleDirections] = norm;
+                numSampleDirections++;
+            }
+        }
+    }
 
-	{
-		int numPDB = convexB->getNumPreferredPenetrationDirections();
-		if (numPDB)
-		{
-			for (int i=0;i<numPDB;i++)
-			{
-				btVector3 norm;
-				convexB->getPreferredPenetrationDirection(i,norm);
-				norm  = transB.getBasis() * norm;
-				sPenetrationDirections[numSampleDirections] = norm;
-				numSampleDirections++;
-			}
-		}
-	}
+    {
+        int numPDB = convexB->getNumPreferredPenetrationDirections();
+        if (numPDB)
+        {
+            for (int i=0;i<numPDB;i++)
+            {
+                btVector3 norm;
+                convexB->getPreferredPenetrationDirection(i,norm);
+                norm  = transB.getBasis() * norm;
+                sPenetrationDirections[numSampleDirections] = norm;
+                numSampleDirections++;
+            }
+        }
+    }
 
-	for (int i=0;i<numSampleDirections;i++)
-	{
-		const btVector3& norm = sPenetrationDirections[i];
-		seperatingAxisInA = (-norm)* transA.getBasis();
-		seperatingAxisInB = norm* transB.getBasis();
-		pInA = convexA->localGetSupportingVertexWithoutMargin(seperatingAxisInA);
-		qInB = convexB->localGetSupportingVertexWithoutMargin(seperatingAxisInB);
-		pWorld = transA(pInA);	
-		qWorld = transB(qInB);
-		w	= qWorld - pWorld;
-		btScalar delta = norm.dot(w);
-		//find smallest delta
-		if (delta < minProj)
-		{
-			minProj = delta;
-			minNorm = norm;
-			minA = pWorld;
-			minB = qWorld;
-		}
-	}
+    for (int i=0;i<numSampleDirections;i++)
+    {
+        const btVector3& norm = sPenetrationDirections[i];
+        seperatingAxisInA = (-norm)* transA.getBasis();
+        seperatingAxisInB = norm* transB.getBasis();
+        pInA = convexA->localGetSupportingVertexWithoutMargin(seperatingAxisInA);
+        qInB = convexB->localGetSupportingVertexWithoutMargin(seperatingAxisInB);
+        pWorld = transA(pInA);    
+        qWorld = transB(qInB);
+        w    = qWorld - pWorld;
+        btScalar delta = norm.dot(w);
+        //find smallest delta
+        if (delta < minProj)
+        {
+            minProj = delta;
+            minNorm = norm;
+            minA = pWorld;
+            minB = qWorld;
+        }
+    }
 #endif //USE_BATCHED_SUPPORT
 
-	//add the margins
+    //add the margins
 
-	minA += minNorm*convexA->getMargin();
-	minB -= minNorm*convexB->getMargin();
-	//no penetration
-	if (minProj < btScalar(0.))
-		return false;
+    minA += minNorm*convexA->getMargin();
+    minB -= minNorm*convexB->getMargin();
+    //no penetration
+    if (minProj < btScalar(0.))
+        return false;
 
-	minProj += (convexA->getMargin() + convexB->getMargin());
+    minProj += (convexA->getMargin() + convexB->getMargin());
 
 
 
@@ -267,65 +267,65 @@ bool btMinkowskiPenetrationDepthSolver::calcPenDepth(btSimplexSolverInterface& s
 
 //#define DEBUG_DRAW 1
 #ifdef DEBUG_DRAW
-	if (debugDraw)
-	{
-		btVector3 color(0,1,0);
-		debugDraw->drawLine(minA,minB,color);
-		color = btVector3 (1,1,1);
-		btVector3 vec = minB-minA;
-		btScalar prj2 = minNorm.dot(vec);
-		debugDraw->drawLine(minA,minA+(minNorm*minProj),color);
+    if (debugDraw)
+    {
+        btVector3 color(0,1,0);
+        debugDraw->drawLine(minA,minB,color);
+        color = btVector3 (1,1,1);
+        btVector3 vec = minB-minA;
+        btScalar prj2 = minNorm.dot(vec);
+        debugDraw->drawLine(minA,minA+(minNorm*minProj),color);
 
-	}
+    }
 #endif //DEBUG_DRAW
 
-	
+    
 
-	btGjkPairDetector gjkdet(convexA,convexB,&simplexSolver,0);
+    btGjkPairDetector gjkdet(convexA,convexB,&simplexSolver,0);
 
-	btScalar offsetDist = minProj;
-	btVector3 offset = minNorm * offsetDist;
-	
-
-
-	btGjkPairDetector::ClosestPointInput input;
-		
-	btVector3 newOrg = transA.getOrigin() + offset;
-
-	btTransform displacedTrans = transA;
-	displacedTrans.setOrigin(newOrg);
-
-	input.m_transformA = displacedTrans;
-	input.m_transformB = transB;
-	input.m_maximumDistanceSquared = btScalar(1e30);//minProj;
-	
-	btIntermediateResult res;
-	gjkdet.getClosestPoints(input,res,debugDraw);
-
-	btScalar correctedMinNorm = minProj - res.m_depth;
+    btScalar offsetDist = minProj;
+    btVector3 offset = minNorm * offsetDist;
+    
 
 
-	//the penetration depth is over-estimated, relax it
-	btScalar penetration_relaxation= btScalar(1.);
-	minNorm*=penetration_relaxation;
+    btGjkPairDetector::ClosestPointInput input;
+        
+    btVector3 newOrg = transA.getOrigin() + offset;
 
-	if (res.m_hasResult)
-	{
+    btTransform displacedTrans = transA;
+    displacedTrans.setOrigin(newOrg);
 
-		pa = res.m_pointInWorld - minNorm * correctedMinNorm;
-		pb = res.m_pointInWorld;
-		
+    input.m_transformA = displacedTrans;
+    input.m_transformB = transB;
+    input.m_maximumDistanceSquared = btScalar(1e30);//minProj;
+    
+    btIntermediateResult res;
+    gjkdet.getClosestPoints(input,res,debugDraw);
+
+    btScalar correctedMinNorm = minProj - res.m_depth;
+
+
+    //the penetration depth is over-estimated, relax it
+    btScalar penetration_relaxation= btScalar(1.);
+    minNorm*=penetration_relaxation;
+
+    if (res.m_hasResult)
+    {
+
+        pa = res.m_pointInWorld - minNorm * correctedMinNorm;
+        pb = res.m_pointInWorld;
+        
 #ifdef DEBUG_DRAW
-		if (debugDraw)
-		{
-			btVector3 color(1,0,0);
-			debugDraw->drawLine(pa,pb,color);
-		}
+        if (debugDraw)
+        {
+            btVector3 color(1,0,0);
+            debugDraw->drawLine(pa,pb,color);
+        }
 #endif//DEBUG_DRAW
 
 
-	}
-	return res.m_hasResult;
+    }
+    return res.m_hasResult;
 }
 
 

@@ -22,15 +22,15 @@ subject to the following restrictions:
 
 class btRigidBody;
 
-struct	btConstraintSetting
+struct    btConstraintSetting
 {
-	btConstraintSetting()	:
-		m_tau(btScalar(0.3)),
-		m_damping(btScalar(1.))
-	{
-	}
-	btScalar		m_tau;
-	btScalar		m_damping;
+    btConstraintSetting()    :
+        m_tau(btScalar(0.3)),
+        m_damping(btScalar(1.))
+    {
+    }
+    btScalar        m_tau;
+    btScalar        m_damping;
 };
 
 /// point to point constraint between two rigidbodies each with a pivotpoint that descibes the 'ballsocket' location in local space
@@ -39,49 +39,49 @@ class btPoint2PointConstraint : public btTypedConstraint
 #ifdef IN_PARALLELL_SOLVER
 public:
 #endif
-	btJacobianEntry	m_jac[3]; //3 orthogonal linear constraints
-	
-	btVector3	m_pivotInA;
-	btVector3	m_pivotInB;
-	
-	
-	
+    btJacobianEntry    m_jac[3]; //3 orthogonal linear constraints
+    
+    btVector3    m_pivotInA;
+    btVector3    m_pivotInB;
+    
+    
+    
 public:
 
-	btConstraintSetting	m_setting;
+    btConstraintSetting    m_setting;
 
-	btPoint2PointConstraint(btRigidBody& rbA,btRigidBody& rbB, const btVector3& pivotInA,const btVector3& pivotInB);
+    btPoint2PointConstraint(btRigidBody& rbA,btRigidBody& rbB, const btVector3& pivotInA,const btVector3& pivotInB);
 
-	btPoint2PointConstraint(btRigidBody& rbA,const btVector3& pivotInA);
+    btPoint2PointConstraint(btRigidBody& rbA,const btVector3& pivotInA);
 
-	btPoint2PointConstraint();
+    btPoint2PointConstraint();
 
-	virtual void	buildJacobian();
+    virtual void    buildJacobian();
 
 
-	virtual	void	solveConstraint(btScalar	timeStep);
+    virtual    void    solveConstraint(btScalar    timeStep);
 
-	void	updateRHS(btScalar	timeStep);
+    void    updateRHS(btScalar    timeStep);
 
-	void	setPivotA(const btVector3& pivotA)
-	{
-		m_pivotInA = pivotA;
-	}
+    void    setPivotA(const btVector3& pivotA)
+    {
+        m_pivotInA = pivotA;
+    }
 
-	void	setPivotB(const btVector3& pivotB)
-	{
-		m_pivotInB = pivotB;
-	}
+    void    setPivotB(const btVector3& pivotB)
+    {
+        m_pivotInB = pivotB;
+    }
 
-	const btVector3& getPivotInA() const
-	{
-		return m_pivotInA;
-	}
+    const btVector3& getPivotInA() const
+    {
+        return m_pivotInA;
+    }
 
-	const btVector3& getPivotInB() const
-	{
-		return m_pivotInB;
-	}
+    const btVector3& getPivotInB() const
+    {
+        return m_pivotInB;
+    }
 
 
 };

@@ -45,46 +45,46 @@ public:
 
 private:
     class StickInfo {
-	public:
-		SDL_Joystick         *m_sdlJoystick;
-		std::string           m_id;
-  	    int                   m_deadzone;
-		int                   m_index;
+    public:
+        SDL_Joystick         *m_sdlJoystick;
+        std::string           m_id;
+          int                   m_deadzone;
+        int                   m_index;
         Input::AxisDirection *m_prevAxisDirections;
-		StickInfo(int);
-		~StickInfo();
-	};   // Stickinfo
+        StickInfo(int);
+        ~StickInfo();
+    };   // Stickinfo
 
-	Input          *m_sensed_input;
+    Input          *m_sensed_input;
     /** Stores the maximum sensed input values. This allows to select the
      *  axis which was pushed the furthest when sensing input. */
     int              m_max_sensed_input;
     Input::InputType m_max_sensed_type;
-	ActionMap       *m_action_map;
-	SDL_Surface     *m_main_surface;
-	long             m_flags;
-	StickInfo      **m_stick_infos;
-	InputDriverMode  m_mode;
-	
-	/* Helper values to store and track the relative mouse movements. If these
-	* values exceed the deadzone value the input is reported to the game. This
-  	* makes the mouse behave like an analog axis on a gamepad/joystick.
-	*/
-	int    m_mouse_val_x, m_mouse_val_y;
-	
-	void   showPointer();
-	void   hidePointer();
+    ActionMap       *m_action_map;
+    SDL_Surface     *m_main_surface;
+    long             m_flags;
+    StickInfo      **m_stick_infos;
+    InputDriverMode  m_mode;
+    
+    /* Helper values to store and track the relative mouse movements. If these
+    * values exceed the deadzone value the input is reported to the game. This
+      * makes the mouse behave like an analog axis on a gamepad/joystick.
+    */
+    int    m_mouse_val_x, m_mouse_val_y;
+    
+    void   showPointer();
+    void   hidePointer();
     void   input(Input::InputType, int, int, int, int);
 public:
-	       SDLDriver();
+           SDLDriver();
           ~SDLDriver();
-	void   initStickInfos();
-	void   toggleFullscreen(bool resetTextures=1);
-	void   setVideoMode(bool resetTextures=1);
-	void   input();
-	void   setMode(InputDriverMode);		
-	bool   isInMode(InputDriverMode);
-	Input &getSensedInput();
+    void   initStickInfos();
+    void   toggleFullscreen(bool resetTextures=1);
+    void   setVideoMode(bool resetTextures=1);
+    void   input();
+    void   setMode(InputDriverMode);        
+    bool   isInMode(InputDriverMode);
+    Input &getSensedInput();
 };
 
 extern SDLDriver *inputDriver;

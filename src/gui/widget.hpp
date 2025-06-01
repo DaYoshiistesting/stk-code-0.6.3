@@ -141,8 +141,8 @@ class Widget
 
     /* support for specifying the position of a widget */
     bool m_fixed_position;
-	WidgetDirection m_horizontal, m_vertical;
-	float           m_percentage_x, m_percentage_y;
+    WidgetDirection m_horizontal, m_vertical;
+    float           m_percentage_x, m_percentage_y;
     const Widget   *m_widget_horizontal,
                    *m_widget_vertical;
 
@@ -219,7 +219,7 @@ class Widget
 
     /* position support */
     bool hasFixedPosition() const {return m_fixed_position;}
-	void layout();
+    void layout();
     /* Functions created simply to organize the code */
     bool createRect();
     void updateVariables( const float DELTA );
@@ -227,14 +227,14 @@ class Widget
     void applyTransformations();
 public:
     void setPosition(WidgetDirection horizontal, float percentage_horizontal, 
-		             WidgetDirection vertical,   float percentage_vertical)
+                     WidgetDirection vertical,   float percentage_vertical)
     {
         setPosition(horizontal, percentage_horizontal, NULL,
                  vertical, percentage_vertical, NULL);
     }
     void setPosition(WidgetDirection horizontal, float percentage_horizontal, 
                      const Widget *w_hori,
-		             WidgetDirection vertical,   float percentage_vertical,
+                     WidgetDirection vertical,   float percentage_vertical,
                      const Widget *w_verti);
     void resizeToText();   //This checks if the widget is smaller than the
                            //text, and if so, changes the width and height.

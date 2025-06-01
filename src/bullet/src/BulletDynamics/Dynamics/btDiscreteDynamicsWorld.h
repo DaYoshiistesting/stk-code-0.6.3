@@ -36,125 +36,125 @@ class btDiscreteDynamicsWorld : public btDynamicsWorld
 {
 protected:
 
-	btConstraintSolver*	m_constraintSolver;
+    btConstraintSolver*    m_constraintSolver;
 
-	btSimulationIslandManager*	m_islandManager;
+    btSimulationIslandManager*    m_islandManager;
 
-	btAlignedObjectArray<btTypedConstraint*> m_constraints;
-
-
-	btVector3	m_gravity;
-
-	//for variable timesteps
-	btScalar	m_localTime;
-	//for variable timesteps
-
-	bool	m_ownsIslandManager;
-	bool	m_ownsConstraintSolver;
-
-	btContactSolverInfo	m_solverInfo;
+    btAlignedObjectArray<btTypedConstraint*> m_constraints;
 
 
-	btAlignedObjectArray<btRaycastVehicle*>	m_vehicles;
+    btVector3    m_gravity;
 
-	int	m_profileTimings;
+    //for variable timesteps
+    btScalar    m_localTime;
+    //for variable timesteps
 
-	virtual void	predictUnconstraintMotion(btScalar timeStep);
-	
-	void	integrateTransforms(btScalar timeStep);
-		
-	void	calculateSimulationIslands();
+    bool    m_ownsIslandManager;
+    bool    m_ownsConstraintSolver;
 
-	void	solveConstraints(btContactSolverInfo& solverInfo);
-	
-	void	updateActivationState(btScalar timeStep);
+    btContactSolverInfo    m_solverInfo;
 
-	void	updateVehicles(btScalar timeStep);
 
-	void	startProfiling(btScalar timeStep);
+    btAlignedObjectArray<btRaycastVehicle*>    m_vehicles;
 
-	virtual void	internalSingleStepSimulation( btScalar timeStep);
+    int    m_profileTimings;
 
-	void	synchronizeMotionStates();
+    virtual void    predictUnconstraintMotion(btScalar timeStep);
+    
+    void    integrateTransforms(btScalar timeStep);
+        
+    void    calculateSimulationIslands();
 
-	void	saveKinematicState(btScalar timeStep);
+    void    solveConstraints(btContactSolverInfo& solverInfo);
+    
+    void    updateActivationState(btScalar timeStep);
 
-	void	debugDrawSphere(btScalar radius, const btTransform& transform, const btVector3& color);
+    void    updateVehicles(btScalar timeStep);
+
+    void    startProfiling(btScalar timeStep);
+
+    virtual void    internalSingleStepSimulation( btScalar timeStep);
+
+    void    synchronizeMotionStates();
+
+    void    saveKinematicState(btScalar timeStep);
+
+    void    debugDrawSphere(btScalar radius, const btTransform& transform, const btVector3& color);
 
 public:
 
 
-	///this btDiscreteDynamicsWorld constructor gets created objects from the user, and will not delete those
-	btDiscreteDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* pairCache,btConstraintSolver* constraintSolver,btCollisionConfiguration* collisionConfiguration);
+    ///this btDiscreteDynamicsWorld constructor gets created objects from the user, and will not delete those
+    btDiscreteDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* pairCache,btConstraintSolver* constraintSolver,btCollisionConfiguration* collisionConfiguration);
 
-	virtual ~btDiscreteDynamicsWorld();
+    virtual ~btDiscreteDynamicsWorld();
 
-	///if maxSubSteps > 0, it will interpolate motion between fixedTimeStep's
-	virtual int	stepSimulation( btScalar timeStep,int maxSubSteps=1, btScalar fixedTimeStep=btScalar(1.)/btScalar(60.));
-
-
-	void	addConstraint(btTypedConstraint* constraint, bool disableCollisionsBetweenLinkedBodies=false);
-
-	void	removeConstraint(btTypedConstraint* constraint);
-
-	void	addVehicle(btRaycastVehicle* vehicle);
-
-	void	removeVehicle(btRaycastVehicle* vehicle);
-
-	btSimulationIslandManager*	getSimulationIslandManager()
-	{
-		return m_islandManager;
-	}
-
-	const btSimulationIslandManager*	getSimulationIslandManager() const 
-	{
-		return m_islandManager;
-	}
-
-	btCollisionWorld*	getCollisionWorld()
-	{
-		return this;
-	}
+    ///if maxSubSteps > 0, it will interpolate motion between fixedTimeStep's
+    virtual int    stepSimulation( btScalar timeStep,int maxSubSteps=1, btScalar fixedTimeStep=btScalar(1.)/btScalar(60.));
 
 
-	virtual void	setGravity(const btVector3& gravity);
-	virtual btVector3 getGravity () const;
+    void    addConstraint(btTypedConstraint* constraint, bool disableCollisionsBetweenLinkedBodies=false);
 
-	virtual void	addRigidBody(btRigidBody* body);
+    void    removeConstraint(btTypedConstraint* constraint);
 
-	virtual void	addRigidBody(btRigidBody* body, short group, short mask);
+    void    addVehicle(btRaycastVehicle* vehicle);
 
-	virtual void	removeRigidBody(btRigidBody* body);
+    void    removeVehicle(btRaycastVehicle* vehicle);
 
-	void	debugDrawObject(const btTransform& worldTransform, const btCollisionShape* shape, const btVector3& color);
+    btSimulationIslandManager*    getSimulationIslandManager()
+    {
+        return m_islandManager;
+    }
 
-	virtual void	debugDrawWorld();
+    const btSimulationIslandManager*    getSimulationIslandManager() const 
+    {
+        return m_islandManager;
+    }
 
-	virtual void	setConstraintSolver(btConstraintSolver* solver);
+    btCollisionWorld*    getCollisionWorld()
+    {
+        return this;
+    }
 
-	virtual btConstraintSolver* getConstraintSolver();
-	
-	virtual	int		getNumConstraints() const;
 
-	virtual btTypedConstraint* getConstraint(int index)	;
+    virtual void    setGravity(const btVector3& gravity);
+    virtual btVector3 getGravity () const;
 
-	virtual const btTypedConstraint* getConstraint(int index) const;
+    virtual void    addRigidBody(btRigidBody* body);
 
-	btContactSolverInfo& getSolverInfo()
-	{
-		return m_solverInfo;
-	}
+    virtual void    addRigidBody(btRigidBody* body, short group, short mask);
 
-	virtual btDynamicsWorldType	getWorldType() const
-	{
-		return BT_DISCRETE_DYNAMICS_WORLD;
-	}
-	
-	///the forces on each rigidbody is accumulating together with gravity. clear this after each timestep.
-	virtual void	clearForces();
+    virtual void    removeRigidBody(btRigidBody* body);
 
-	///apply gravity, call this once per timestep
-	virtual void	applyGravity();
+    void    debugDrawObject(const btTransform& worldTransform, const btCollisionShape* shape, const btVector3& color);
+
+    virtual void    debugDrawWorld();
+
+    virtual void    setConstraintSolver(btConstraintSolver* solver);
+
+    virtual btConstraintSolver* getConstraintSolver();
+    
+    virtual    int        getNumConstraints() const;
+
+    virtual btTypedConstraint* getConstraint(int index)    ;
+
+    virtual const btTypedConstraint* getConstraint(int index) const;
+
+    btContactSolverInfo& getSolverInfo()
+    {
+        return m_solverInfo;
+    }
+
+    virtual btDynamicsWorldType    getWorldType() const
+    {
+        return BT_DISCRETE_DYNAMICS_WORLD;
+    }
+    
+    ///the forces on each rigidbody is accumulating together with gravity. clear this after each timestep.
+    virtual void    clearForces();
+
+    ///apply gravity, call this once per timestep
+    virtual void    applyGravity();
 
 
 };

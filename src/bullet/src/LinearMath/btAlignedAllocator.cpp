@@ -63,12 +63,12 @@ void    btAlignedFreeInternal   (void* ptr,int line,char* filename)
        int size = *((int*)(ptr)-2);
        gTotalBytesAlignedAllocs -= size;
 
-	   printf("free #%d at address %x, from %s,line %d, size %d\n",gNumAlignedFree,real, filename,line,size);
+       printf("free #%d at address %x, from %s,line %d, size %d\n",gNumAlignedFree,real, filename,line,size);
 
    free(real);
  } else
  {
-	 printf("NULL ptr\n");
+     printf("NULL ptr\n");
  }
 }
 
@@ -82,20 +82,20 @@ void    btAlignedFreeInternal   (void* ptr,int line,char* filename)
 
 
 #include <malloc.h>
-void*	btAlignedAllocInternal	(size_t size, int alignment)
+void*    btAlignedAllocInternal    (size_t size, int alignment)
 {
-	gNumAlignedAllocs++;
+    gNumAlignedAllocs++;
 
-	void* ptr = _aligned_malloc(size,alignment);
-//	printf("btAlignedAllocInternal %d, %x\n",size,ptr);
-	return ptr;
+    void* ptr = _aligned_malloc(size,alignment);
+//    printf("btAlignedAllocInternal %d, %x\n",size,ptr);
+    return ptr;
 }
 
-void	btAlignedFreeInternal	(void* ptr)
+void    btAlignedFreeInternal    (void* ptr)
 {
-	gNumAlignedFree++;
-//	printf("btAlignedFreeInternal %x\n",ptr);
-	_aligned_free(ptr);
+    gNumAlignedFree++;
+//    printf("btAlignedFreeInternal %x\n",ptr);
+    _aligned_free(ptr);
 }
 
 #else
@@ -106,21 +106,21 @@ void	btAlignedFreeInternal	(void* ptr)
 
 
 
-void*	btAlignedAllocInternal	(size_t size, int alignment)
+void*    btAlignedAllocInternal    (size_t size, int alignment)
 {
-	gNumAlignedAllocs++;
-	return memalign(alignment, size);
+    gNumAlignedAllocs++;
+    return memalign(alignment, size);
 }
 
-void	btAlignedFreeInternal	(void* ptr)
+void    btAlignedFreeInternal    (void* ptr)
 {
-	gNumAlignedFree++;
-	free(ptr);
+    gNumAlignedFree++;
+    free(ptr);
 }
 
 #else
 
-void*	btAlignedAllocInternal	(size_t size, int alignment)
+void*    btAlignedAllocInternal    (size_t size, int alignment)
 {
  void *ret;
   char *real;
@@ -139,7 +139,7 @@ void*	btAlignedAllocInternal	(size_t size, int alignment)
   return (ret);
 }
 
-void	btAlignedFreeInternal	(void* ptr)
+void    btAlignedFreeInternal    (void* ptr)
 {
 
  void* real;

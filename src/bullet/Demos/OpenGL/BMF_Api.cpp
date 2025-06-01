@@ -80,83 +80,83 @@ static BMF_BitmapFont bmfScreen15(&BMF_font_scr15);
 
 BMF_Font* BMF_GetFont(BMF_FontType font)
 {
-	switch (font)
-	{
+    switch (font)
+    {
 #if BMF_INCLUDE_HELV10
-	case BMF_kHelvetica10:	return (BMF_Font*) &bmfHelv10;
+    case BMF_kHelvetica10:    return (BMF_Font*) &bmfHelv10;
 #endif // BMF_INCLUDE_HELV10
 #if BMF_INCLUDE_HELV12
-	case BMF_kHelvetica12:	return (BMF_Font*) &bmfHelv12;
+    case BMF_kHelvetica12:    return (BMF_Font*) &bmfHelv12;
 #endif // BMF_INCLUDE_HELV12
 #if BMF_INCLUDE_HELVB8
-	case BMF_kHelveticaBold8:	return (BMF_Font*) &bmfHelvb8;
+    case BMF_kHelveticaBold8:    return (BMF_Font*) &bmfHelvb8;
 #endif // BMF_INCLUDE_HELVB8
 #if BMF_INCLUDE_HELVB10
-	case BMF_kHelveticaBold10:	return (BMF_Font*) &bmfHelvb10;
+    case BMF_kHelveticaBold10:    return (BMF_Font*) &bmfHelvb10;
 #endif // BMF_INCLUDE_HELVB10
 #if BMF_INCLUDE_HELVB12
-	case BMF_kHelveticaBold12:	return (BMF_Font*) &bmfHelvb12;
+    case BMF_kHelveticaBold12:    return (BMF_Font*) &bmfHelvb12;
 #endif // BMF_INCLUDE_HELVB12
 #if BMF_INCLUDE_HELVB14
-	case BMF_kHelveticaBold14:	return (BMF_Font*) &bmfHelvb14;
+    case BMF_kHelveticaBold14:    return (BMF_Font*) &bmfHelvb14;
 #endif // BMF_INCLUDE_HELVB12
 #if BMF_INCLUDE_SCR12
-	case BMF_kScreen12:	return (BMF_Font*) &bmfScreen12;
+    case BMF_kScreen12:    return (BMF_Font*) &bmfScreen12;
 #endif // BMF_INCLUDE_SCR12
 #if BMF_INCLUDE_SCR14
-	case BMF_kScreen14:	return (BMF_Font*) &bmfScreen14;
+    case BMF_kScreen14:    return (BMF_Font*) &bmfScreen14;
 #endif // BMF_INCLUDE_SCR14
 #if BMF_INCLUDE_SCR15
-	case BMF_kScreen15:	return (BMF_Font*) &bmfScreen15;
+    case BMF_kScreen15:    return (BMF_Font*) &bmfScreen15;
 #endif // BMF_INCLUDE_SCR15
-	default:
-		break;
-	}
-	return 0;
+    default:
+        break;
+    }
+    return 0;
 }
 
 
 int BMF_DrawCharacter(BMF_Font* font, char c)
 {
-	char str[2] = {c, '\0'};
-	return BMF_DrawString(font, str);
+    char str[2] = {c, '\0'};
+    return BMF_DrawString(font, str);
 }
 
 
 int BMF_DrawString(BMF_Font* font, const char* str)
 {
-	if (!font) return 0;
-	((BMF_BitmapFont*)font)->drawString(str);
-	return 1;
+    if (!font) return 0;
+    ((BMF_BitmapFont*)font)->drawString(str);
+    return 1;
 }
 
 
 int BMF_GetCharacterWidth(BMF_Font* font, char c)
 {
-	char str[2] = {c, '\0'};
-	return BMF_GetStringWidth(font, str);
+    char str[2] = {c, '\0'};
+    return BMF_GetStringWidth(font, str);
 }
 
 
 int BMF_GetStringWidth(BMF_Font* font, char* str)
 {
-	if (!font) return 0;
-	return ((BMF_BitmapFont*)font)->getStringWidth(str);
+    if (!font) return 0;
+    return ((BMF_BitmapFont*)font)->getStringWidth(str);
 }
 
 
 void BMF_GetBoundingBox(BMF_Font* font, int *xmin_r, int *ymin_r, int *xmax_r, int *ymax_r)
 {
-	if (!font) return;
-	((BMF_BitmapFont*)font)->getBoundingBox(*xmin_r, *ymin_r, *xmax_r, *ymax_r);
+    if (!font) return;
+    ((BMF_BitmapFont*)font)->getBoundingBox(*xmin_r, *ymin_r, *xmax_r, *ymax_r);
 }
 
 int BMF_GetFontTexture(BMF_Font* font) {
-	if (!font) return -1;
-	return ((BMF_BitmapFont*)font)->getTexture();
+    if (!font) return -1;
+    return ((BMF_BitmapFont*)font)->getTexture();
 }
 
 void BMF_DrawStringTexture(BMF_Font* font, char *string, float x, float y, float z) {
-	if (!font) return;
-	((BMF_BitmapFont*)font)->drawStringTexture(string, x, y, z);
+    if (!font) return;
+    ((BMF_BitmapFont*)font)->drawStringTexture(string, x, y, z);
 }

@@ -24,45 +24,45 @@ subject to the following restrictions:
 class btStaticPlaneShape : public btConcaveShape
 {
 protected:
-	btVector3	m_localAabbMin;
-	btVector3	m_localAabbMax;
-	
-	btVector3	m_planeNormal;
-	btScalar      m_planeConstant;
-	btVector3	m_localScaling;
+    btVector3    m_localAabbMin;
+    btVector3    m_localAabbMax;
+    
+    btVector3    m_planeNormal;
+    btScalar      m_planeConstant;
+    btVector3    m_localScaling;
 
 public:
-	btStaticPlaneShape(const btVector3& planeNormal,btScalar planeConstant);
+    btStaticPlaneShape(const btVector3& planeNormal,btScalar planeConstant);
 
-	virtual ~btStaticPlaneShape();
+    virtual ~btStaticPlaneShape();
 
 
-	virtual int	getShapeType() const
-	{
-		return STATIC_PLANE_PROXYTYPE;
-	}
+    virtual int    getShapeType() const
+    {
+        return STATIC_PLANE_PROXYTYPE;
+    }
 
-	virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	virtual void	processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const;
+    virtual void    processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const;
 
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
 
-	virtual void	setLocalScaling(const btVector3& scaling);
-	virtual const btVector3& getLocalScaling() const;
-	
-	const btVector3&	getPlaneNormal() const
-	{
-		return	m_planeNormal;
-	}
+    virtual void    setLocalScaling(const btVector3& scaling);
+    virtual const btVector3& getLocalScaling() const;
+    
+    const btVector3&    getPlaneNormal() const
+    {
+        return    m_planeNormal;
+    }
 
-	const btScalar&	getPlaneConstant() const
-	{
-		return	m_planeConstant;
-	}
+    const btScalar&    getPlaneConstant() const
+    {
+        return    m_planeConstant;
+    }
 
-	//debugging
-	virtual const char*	getName()const {return "STATICPLANE";}
+    //debugging
+    virtual const char*    getName()const {return "STATICPLANE";}
 
 
 };

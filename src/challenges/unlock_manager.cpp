@@ -184,7 +184,7 @@ void UnlockManager::raceFinished()
             unlockFeature(i->second);
         }   // if isActive && challenge solved
     }
-    race_manager->setCoinTarget(0);  //reset
+    race_manager->setEnergyTarget(0);  //reset
 }   // raceFinished
 
 //-----------------------------------------------------------------------------
@@ -198,7 +198,7 @@ void UnlockManager::grandPrixFinished()
             unlockFeature(i->second);
         }
     }
-    race_manager->setCoinTarget(0);
+    race_manager->setEnergyTarget(0);
 }   // grandPrixFinished
 
 //-----------------------------------------------------------------------------

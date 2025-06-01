@@ -142,112 +142,112 @@ void
 PlayerControls::select()
 {
     const int selected = widget_manager->getSelectedWgt();
-	switch (selected)
-	{
-		case WTOK_PLYR_NAME1:
-			// Switch to typing in the player's name.
-			widget_manager->setWgtText(WTOK_PLYR_NAME1, (m_name + "<").c_str());
-		
+    switch (selected)
+    {
+        case WTOK_PLYR_NAME1:
+            // Switch to typing in the player's name.
+            widget_manager->setWgtText(WTOK_PLYR_NAME1, (m_name + "<").c_str());
+        
             inputDriver->setMode(SDLDriver::LOWLEVEL);
-		
-        	break;
-		case WTOK_QUIT:
-			// Leave menu.
-	        menu_manager->popMenu();
-		
-			break;
-		default:
-			// Switch to input sensing.
+        
+            break;
+        case WTOK_QUIT:
+            // Leave menu.
+            menu_manager->popMenu();
+        
+            break;
+        default:
+            // Switch to input sensing.
 
-			// If the only remaining and not yet handled widgets are the ones
-			// that deal with the kart controls and the values are still in the
-			// correct order the assertion should hold. If not did something
-			// bad.
-			assert (selected >= WTOK_LEFT
-					&& selected <= WTOK_LOOK_BACK);
-		
-			
-		    m_edit_action = static_cast<KartAction>(selected - WTOK_LEFT);
-		    widget_manager->setWgtText(selected, _("Press key"));
+            // If the only remaining and not yet handled widgets are the ones
+            // that deal with the kart controls and the values are still in the
+            // correct order the assertion should hold. If not did something
+            // bad.
+            assert (selected >= WTOK_LEFT
+                    && selected <= WTOK_LOOK_BACK);
+        
+            
+            m_edit_action = static_cast<KartAction>(selected - WTOK_LEFT);
+            widget_manager->setWgtText(selected, _("Press key"));
             // Prefer axis (in case of gamepads that deliver two different
             // events for buttons, e.g. a digital event and an anlogue one)
             // for left/right, in all other cases prefer the button.
             inputDriver->setMode( (selected==WTOK_RIGHT||selected==WTOK_LEFT)
                                   ? SDLDriver::INPUT_SENSE_PREFER_AXIS
                                   : SDLDriver::INPUT_SENSE_PREFER_BUTTON     );
-			
-			break;
-	}
+            
+            break;
+    }
 }   // select
 //-----------------------------------------------------------------------------
 void
 PlayerControls::inputKeyboard(SDLKey key, int unicode)
 {
-	switch (key)
-	{
-	case SDLK_RSHIFT:
-	case SDLK_LSHIFT:
-		// Ignore shift, otherwise shift will disable input
-		// (making it impossible to enter upper case characters)
-	case SDLK_SPACE:
-		// Ignore space to prevent invisible names.
-			
-		// Note: This will never happen as long as SPACE has a mapping which
-		// causes GA_ENTER and therefore finishes the typing. Please leave this
-		// because I am not sure whether this is good behavior (that SPACE
-		// cannot reach inputKeyboard()) and with some changes to the input
-		// driver this code has suddenly a useful effect.
-	case SDLK_KP_ENTER:
-	case SDLK_RETURN:
-	case SDLK_ESCAPE:
-		// Ignore some control keys. What they could provide is implemented
-		// in the handle() method.
-		return;
-	case SDLK_BACKSPACE:
-		// Handle backspace.
-		if (m_name.size() >=1)
-			m_name.erase(m_name.size()-1, 1);
-		
-		widget_manager->setWgtText(WTOK_PLYR_NAME1, (m_name + "<").c_str());
-		break;
-		break;
-	default:
-		// Adds the character to the name.
-		// For this menu only unicode translation is enabled.
-		// So we use the unicode character here, since this will
-		// take care of upper/lower case etc.
-		if (unicode && m_name.size() <= PLAYER_NAME_MAX)
-			m_name += (char) unicode;
-		widget_manager->setWgtText(WTOK_PLYR_NAME1, (m_name + "<").c_str());
-		break;
-	}
+    switch (key)
+    {
+    case SDLK_RSHIFT:
+    case SDLK_LSHIFT:
+        // Ignore shift, otherwise shift will disable input
+        // (making it impossible to enter upper case characters)
+    case SDLK_SPACE:
+        // Ignore space to prevent invisible names.
+            
+        // Note: This will never happen as long as SPACE has a mapping which
+        // causes GA_ENTER and therefore finishes the typing. Please leave this
+        // because I am not sure whether this is good behavior (that SPACE
+        // cannot reach inputKeyboard()) and with some changes to the input
+        // driver this code has suddenly a useful effect.
+    case SDLK_KP_ENTER:
+    case SDLK_RETURN:
+    case SDLK_ESCAPE:
+        // Ignore some control keys. What they could provide is implemented
+        // in the handle() method.
+        return;
+    case SDLK_BACKSPACE:
+        // Handle backspace.
+        if (m_name.size() >=1)
+            m_name.erase(m_name.size()-1, 1);
+        
+        widget_manager->setWgtText(WTOK_PLYR_NAME1, (m_name + "<").c_str());
+        break;
+        break;
+    default:
+        // Adds the character to the name.
+        // For this menu only unicode translation is enabled.
+        // So we use the unicode character here, since this will
+        // take care of upper/lower case etc.
+        if (unicode && m_name.size() <= PLAYER_NAME_MAX)
+            m_name += (char) unicode;
+        widget_manager->setWgtText(WTOK_PLYR_NAME1, (m_name + "<").c_str());
+        break;
+    }
 
 }
 //-----------------------------------------------------------------------------
 void
 PlayerControls::clearMapping()
 {
-	const int selected = widget_manager->getSelectedWgt();
-	if (selected >= WTOK_LEFT && selected <= WTOK_LOOK_BACK)
-	{
-		user_config->clearInput(m_player_index,
-							  (KartAction) (selected - WTOK_LEFT));
-		updateAllKeyLabels();
-	}
+    const int selected = widget_manager->getSelectedWgt();
+    if (selected >= WTOK_LEFT && selected <= WTOK_LOOK_BACK)
+    {
+        user_config->clearInput(m_player_index,
+                              (KartAction) (selected - WTOK_LEFT));
+        updateAllKeyLabels();
+    }
 }
 //-----------------------------------------------------------------------------
 void PlayerControls::handle(GameAction ga, int value)
 {
-	if (value)
-		return;
-	
-	switch (ga)
-	{
-		case GA_CLEAR_MAPPING:
+    if (value)
+        return;
+    
+    switch (ga)
+    {
+        case GA_CLEAR_MAPPING:
             clearMapping();
 
-			break;
-		case GA_SENSE_COMPLETE:
+            break;
+        case GA_SENSE_COMPLETE:
             {
                 // Updates the configuration with the newly sensed input.
                 const Input &new_input = inputDriver->getSensedInput();
@@ -275,56 +275,56 @@ void PlayerControls::handle(GameAction ga, int value)
 
                 // Fall through to recover the widget labels.
             }
-		case GA_SENSE_CANCEL:
+        case GA_SENSE_CANCEL:
             inputDriver->setMode(SDLDriver::MENU);
-		
-			// Refresh all key labels since they mave changed because of
-			// conflicting bindings.
-			updateAllKeyLabels();
-			break;
-		case GA_ENTER:
-			// If the user is typing her name this will be finished at this
-			// point.
+        
+            // Refresh all key labels since they mave changed because of
+            // conflicting bindings.
+            updateAllKeyLabels();
+            break;
+        case GA_ENTER:
+            // If the user is typing her name this will be finished at this
+            // point.
             if (inputDriver->isInMode(SDLDriver::LOWLEVEL))
-			{
-				// Prevents zero-length names.
-				if (m_name.length() == 0)
+            {
+                // Prevents zero-length names.
+                if (m_name.length() == 0)
                     //I18N: as in 'Player 2'
-					m_name = _("Player ") + m_player_index;
-				user_config->m_player[m_player_index].setName(m_name);
-				widget_manager->setWgtText(WTOK_PLYR_NAME1, m_name.c_str());
+                    m_name = _("Player ") + m_player_index;
+                user_config->m_player[m_player_index].setName(m_name);
+                widget_manager->setWgtText(WTOK_PLYR_NAME1, m_name.c_str());
 
                 inputDriver->setMode(SDLDriver::MENU);
-			}
-			else
-				select();
-			break;
-		case GA_LEAVE:
-			// If the user is typing her name this will be cancelled at this
-			// point.
+            }
+            else
+                select();
+            break;
+        case GA_LEAVE:
+            // If the user is typing her name this will be cancelled at this
+            // point.
             if (inputDriver->isInMode(SDLDriver::LOWLEVEL))
-			{
-				m_name = user_config->m_player[m_player_index].getName();
-				widget_manager->setWgtText(WTOK_PLYR_NAME1, m_name.c_str());
+            {
+                m_name = user_config->m_player[m_player_index].getName();
+                widget_manager->setWgtText(WTOK_PLYR_NAME1, m_name.c_str());
 
                 inputDriver->setMode(SDLDriver::MENU);
-				break;
-			}
-			// Fall through to reach the usual GA_LEAVE code (leave menu).
-		default:
-			BaseGUI::handle(ga, value);
-	}
-	
+                break;
+            }
+            // Fall through to reach the usual GA_LEAVE code (leave menu).
+        default:
+            BaseGUI::handle(ga, value);
+    }
+    
 }
 
 //-----------------------------------------------------------------------------
 void
 PlayerControls::updateAllKeyLabels()
 {
-	for (int i = KA_FIRST; i <= KA_LAST; i++)
+    for (int i = KA_FIRST; i <= KA_LAST; i++)
   {
     m_key_names[i] = user_config->getMappingAsString(m_player_index,
-													 (KartAction) i);
+                                                     (KartAction) i);
     widget_manager->setWgtText(WTOK_LEFT + i, m_key_names[i].c_str());
   }
 }

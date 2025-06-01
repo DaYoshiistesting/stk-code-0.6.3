@@ -47,7 +47,7 @@ public:
     virtual void                  speed(float factor);
     virtual void                  position(const Vec3 &position);
     virtual SFXManager::SFXStatus getStatus();
-	
+
 };   // SFXOpenAL
 
 #endif // HEADER_SFX_OPENAL_HPP

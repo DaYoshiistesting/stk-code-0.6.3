@@ -120,7 +120,7 @@ bool Plunger::updateAndDel(float dt)
             ssgTransform *m = getModelTransform();
             m->removeAllKids();
             scene->remove(m);
-			return true;
+            return true;
         }
         if(m_rubber_band != NULL) m_rubber_band->update(dt);
         return false;
@@ -134,7 +134,7 @@ bool Plunger::updateAndDel(float dt)
 
 // -----------------------------------------------------------------------------
 /** Virtual function called when the plunger hits something.
- *  The plunger is special in that it is not deleted when hitting an object.
+ *  The plunger is special in case that it is not deleted when hitting an object.
  *  Instead it stays around (though not as a graphical or physical object)
  *  till the rubber band expires.
  *  \param kart Pointer to the kart hit (NULL if not a kart).
@@ -185,8 +185,8 @@ bool Plunger::hit(Kart *kart, MovingPhysics *mp)
         }
     }
 
-	// Ruberband attached.
-	return false;
+    // Ruberband attached.
+    return false;
 }   // hit
 
 // -----------------------------------------------------------------------------

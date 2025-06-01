@@ -27,7 +27,7 @@ m_rbA(s_fixed),
 m_rbB(s_fixed),
 m_appliedImpulse(btScalar(0.))
 {
-	s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
+    s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
 }
 btTypedConstraint::btTypedConstraint(btTypedConstraintType type, btRigidBody& rbA)
 :m_userConstraintType(-1),
@@ -37,7 +37,7 @@ m_rbA(rbA),
 m_rbB(s_fixed),
 m_appliedImpulse(btScalar(0.))
 {
-		s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
+        s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
 
 }
 
@@ -50,7 +50,7 @@ m_rbA(rbA),
 m_rbB(rbB),
 m_appliedImpulse(btScalar(0.))
 {
-		s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
+        s_fixed.setMassProps(btScalar(0.),btVector3(btScalar(0.),btScalar(0.),btScalar(0.)));
 
 }
 

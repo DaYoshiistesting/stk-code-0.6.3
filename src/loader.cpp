@@ -100,9 +100,9 @@ void Loader::preProcessObj (ssgEntity *entity, bool mirror)
 
     entity->dirtyBSphere();
 
-    if (entity->isAKindOf(ssgTypeLeaf()))
+    if(entity->isAKindOf(ssgTypeLeaf()))
     {
-        if (mirror)
+        if(mirror)
             for ( int i = 0 ; i < ((ssgLeaf *) entity)->getNumVertices(); i++)
                 ((ssgLeaf *) entity)->getVertex(i)[0] *= -1.0f;
 
@@ -110,7 +110,7 @@ void Loader::preProcessObj (ssgEntity *entity, bool mirror)
         return ;
     }
 
-    if (mirror && entity->isAKindOf(ssgTypeTransform()))
+    if(mirror && entity->isAKindOf(ssgTypeTransform()))
     {
         sgMat4 xform ;
 
@@ -131,25 +131,25 @@ void Loader::preProcessObj (ssgEntity *entity, bool mirror)
 //-----------------------------------------------------------------------------
 ssgBranch *Loader::animInit (char *data ) const
 {
-    while (!isdigit (*data) && *data != '\0')
+    while(!isdigit (*data) && *data != '\0')
         data++ ;
 
     const int   START_LIM =        strtol(data, &data, 0);
     const int   END_LIM   =        strtol(data, &data, 0);
     const float TIME_LIM  = (float)strtod(data, &data);
 
-    while (*data <= ' ' && *data != '\0')
+    while(*data <= ' ' && *data != '\0')
         data++ ;
 
-    char mode = toupper (*data ) ;
+    char mode = toupper(*data);
 
     ssgTimedSelector *br = new ssgTimedSelector;
 
     br->setLimits  (START_LIM+1, END_LIM+1);
     br->setDuration(TIME_LIM);
     br->setMode    ((mode=='O') ?  SSG_ANIM_ONESHOT
-                    :  (mode=='S') ?  SSG_ANIM_SWING
-                    : SSG_ANIM_SHUTTLE);
+                   :(mode=='S') ?  SSG_ANIM_SWING
+                   : SSG_ANIM_SHUTTLE);
     br->control    (SSG_ANIM_START);
 
     return br;

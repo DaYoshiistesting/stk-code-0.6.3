@@ -115,8 +115,8 @@ Widget *WidgetManager::addWgt
     new_id.widget->m_enable_track = m_default_show_track;
     new_id.widget->m_track_num = m_default_track_num;
 
-	new_id.widget->m_width = (int)(user_config->m_width  * new_id.min_width  * 0.01);
-	new_id.widget->m_height =(int)(user_config->m_height * new_id.min_height * 0.01);
+    new_id.widget->m_width = (int)(user_config->m_width  * new_id.min_width  * 0.01);
+    new_id.widget->m_height =(int)(user_config->m_height * new_id.min_height * 0.01);
 
     m_elems.push_back(WidgetElement(ET_WGT, (int)m_widgets.size()));
     m_widgets.push_back(new_id);
@@ -404,10 +404,10 @@ bool WidgetManager::layout(const WidgetArea POSITION)
         case ET_WGT:
             curr_wgt = &m_widgets[ m_elems[ i ].pos ];
             if(curr_wgt->widget->hasFixedPosition())
-			{
+            {
                 curr_wgt->widget->layout();
-				break;
-			}
+                break;
+            }
             curr_wgt->widget->m_x = cursor_x;
 
             //We have to give createRect() the bottom left corner
@@ -1787,7 +1787,7 @@ WidgetManager::handleLeft()
 {
     if( m_selected_wgt_token == WGT_NONE ) return WGT_NONE;
 
-	return handleFinish(findLeftWidget(findId(m_selected_wgt_token)));
+    return handleFinish(findLeftWidget(findId(m_selected_wgt_token)));
 }
 
     int
@@ -1795,7 +1795,7 @@ WidgetManager::handleRight()
 {
     if( m_selected_wgt_token == WGT_NONE ) return WGT_NONE;
 
-	return handleFinish(findRightWidget(findId(m_selected_wgt_token)));
+    return handleFinish(findRightWidget(findId(m_selected_wgt_token)));
 }
 
 int
@@ -1803,7 +1803,7 @@ WidgetManager::handleUp()
 {
     if( m_selected_wgt_token == WGT_NONE ) return WGT_NONE;
 
-	return handleFinish(findTopWidget(findId(m_selected_wgt_token)));
+    return handleFinish(findTopWidget(findId(m_selected_wgt_token)));
 }
 
 int
@@ -1811,17 +1811,17 @@ WidgetManager::handleDown()
 {
     if( m_selected_wgt_token == WGT_NONE ) return WGT_NONE;
 
-	return handleFinish(findBottomWidget(findId(m_selected_wgt_token)));
+    return handleFinish(findBottomWidget(findId(m_selected_wgt_token)));
 }
 
 int
 WidgetManager::handleFinish(const int next_wgt)
 {
     if( next_wgt == WGT_NONE)
-		return WGT_NONE;
+        return WGT_NONE;
 
     setSelectedWgtToken( m_widgets[next_wgt].token );
-	return m_selected_wgt_token;
+    return m_selected_wgt_token;
 }
 
 void
@@ -1829,12 +1829,12 @@ WidgetManager::increaseScrollSpeed(const bool fast)
 {
     //FIXME: to increase the scroll speed we substract, and to decrease
     //we add; this goes against logic, making code harder to read.
-	const int ID = findId(m_selected_wgt_token);
-	if( m_widgets[ID].widget->m_enable_scroll )
-	{
+    const int ID = findId(m_selected_wgt_token);
+    if( m_widgets[ID].widget->m_enable_scroll )
+    {
         int &speed = m_widgets[ID].widget->m_scroll_speed_y;
-		//FIXME: these increases shouldn't be in pixels, but in percentages.
-		//This should increase it by 1%, and the page buttons by 5%.
+        //FIXME: these increases shouldn't be in pixels, but in percentages.
+        //This should increase it by 1%, and the page buttons by 5%.
         if( fast )
         {
             if( speed > 0 && speed < 50 ) speed = 0;
@@ -1845,18 +1845,18 @@ WidgetManager::increaseScrollSpeed(const bool fast)
             if( speed > 0 && speed < 10 ) speed = 0;
             else speed -= 10;
         }
-	}
+    }
 }
 
 void
 WidgetManager::decreaseScrollSpeed(const bool fast)
 {
-	const int ID = findId(m_selected_wgt_token);
-	if( m_widgets[ID].widget->m_enable_scroll )
-	{
+    const int ID = findId(m_selected_wgt_token);
+    if( m_widgets[ID].widget->m_enable_scroll )
+    {
         int &speed = m_widgets[ID].widget->m_scroll_speed_y;
-		//FIXME: these increases shouldn't be in pixels, but in percentages.
-		//This should increase it by 1%, and the page buttons by 5%.
+        //FIXME: these increases shouldn't be in pixels, but in percentages.
+        //This should increase it by 1%, and the page buttons by 5%.
         if( fast )
         {
             if( speed < 0 && speed > -50 ) speed = 0;
@@ -1867,7 +1867,7 @@ WidgetManager::decreaseScrollSpeed(const bool fast)
             if( speed < 0 && speed > -10 ) speed = 0;
             else speed += 10;
         }
-	}
+    }
 }
 
 /** findLeftWidget() returns the closest widget to the left of START_WGT.
@@ -2136,37 +2136,37 @@ void WidgetManager::reloadFonts()
 
 // ----------------------------------------------------------------------------
 void WidgetManager::setPosition(const int token,
-								WidgetDirection hori,  float percentage_x, 
-								WidgetDirection verti, float percentage_y)
+                                WidgetDirection hori,  float percentage_x, 
+                                WidgetDirection verti, float percentage_y)
 {
     const int id = findId(token);
-	if( id != WGT_NONE )
-		m_widgets[id].widget->setPosition(hori,  percentage_x,
-										  verti, percentage_y);
+    if( id != WGT_NONE )
+        m_widgets[id].widget->setPosition(hori,  percentage_x,
+                                          verti, percentage_y);
 }   // setPosition
 
 // ----------------------------------------------------------------------------
 /** Sets the width of all widgets between widget_min and widget_max to 
-	be the same */
+    be the same */
 void WidgetManager::sameWidth(int widget_min, int widget_max)
 {
-	int width = -1;
-	for(int i=widget_min; i<=widget_max; i++)
-	{
-		const int id = findId(i);
-		Widget *w = m_widgets[id].widget;
-		w->m_width = (int)(user_config->m_width * m_widgets[id].min_width * 0.01);
+    int width = -1;
+    for(int i=widget_min; i<=widget_max; i++)
+    {
+        const int id = findId(i);
+        Widget *w = m_widgets[id].widget;
+        w->m_width = (int)(user_config->m_width * m_widgets[id].min_width * 0.01);
 
-		if( m_widgets[id].resize_to_text ) w->resizeToText();
+        if( m_widgets[id].resize_to_text ) w->resizeToText();
 
-		if(width < w->m_width)
-			width = w->m_width;
-	}
-	for(int i=widget_min; i<=widget_max; i++)
-	{
-		const int id = findId(i);
-		m_widgets[id].widget->m_width = width;
-	}
+        if(width < w->m_width)
+            width = w->m_width;
+    }
+    for(int i=widget_min; i<=widget_max; i++)
+    {
+        const int id = findId(i);
+        m_widgets[id].widget->m_width = width;
+    }
 
 }   // sameWidth
 

@@ -25,7 +25,7 @@ subject to the following restrictions:
 
 
 
-btContinuousConvexCollision::btContinuousConvexCollision ( const btConvexShape*	convexA,const btConvexShape*	convexB,btSimplexSolverInterface* simplexSolver, btConvexPenetrationDepthSolver* penetrationDepthSolver)
+btContinuousConvexCollision::btContinuousConvexCollision ( const btConvexShape*    convexA,const btConvexShape*    convexB,btSimplexSolverInterface* simplexSolver, btConvexPenetrationDepthSolver* penetrationDepthSolver)
 :m_simplexSolver(simplexSolver),
 m_penetrationDepthSolver(penetrationDepthSolver),
 m_convexA(convexA),m_convexB(convexB)
@@ -36,175 +36,175 @@ m_convexA(convexA),m_convexB(convexB)
 /// You don't want your game ever to lock-up.
 #define MAX_ITERATIONS 64
 
-bool	btContinuousConvexCollision::calcTimeOfImpact(
-				const btTransform& fromA,
-				const btTransform& toA,
-				const btTransform& fromB,
-				const btTransform& toB,
-				CastResult& result)
+bool    btContinuousConvexCollision::calcTimeOfImpact(
+                const btTransform& fromA,
+                const btTransform& toA,
+                const btTransform& fromB,
+                const btTransform& toB,
+                CastResult& result)
 {
 
-	m_simplexSolver->reset();
+    m_simplexSolver->reset();
 
-	/// compute linear and angular velocity for this interval, to interpolate
-	btVector3 linVelA,angVelA,linVelB,angVelB;
-	btTransformUtil::calculateVelocity(fromA,toA,btScalar(1.),linVelA,angVelA);
-	btTransformUtil::calculateVelocity(fromB,toB,btScalar(1.),linVelB,angVelB);
+    /// compute linear and angular velocity for this interval, to interpolate
+    btVector3 linVelA,angVelA,linVelB,angVelB;
+    btTransformUtil::calculateVelocity(fromA,toA,btScalar(1.),linVelA,angVelA);
+    btTransformUtil::calculateVelocity(fromB,toB,btScalar(1.),linVelB,angVelB);
 
-	btScalar boundingRadiusA = m_convexA->getAngularMotionDisc();
-	btScalar boundingRadiusB = m_convexB->getAngularMotionDisc();
+    btScalar boundingRadiusA = m_convexA->getAngularMotionDisc();
+    btScalar boundingRadiusB = m_convexB->getAngularMotionDisc();
 
-	btScalar maxAngularProjectedVelocity = angVelA.length() * boundingRadiusA + angVelB.length() * boundingRadiusB;
+    btScalar maxAngularProjectedVelocity = angVelA.length() * boundingRadiusA + angVelB.length() * boundingRadiusB;
 
-	btScalar radius = btScalar(0.001);
+    btScalar radius = btScalar(0.001);
 
-	btScalar lambda = btScalar(0.);
-	btVector3 v(1,0,0);
+    btScalar lambda = btScalar(0.);
+    btVector3 v(1,0,0);
 
-	int maxIter = MAX_ITERATIONS;
+    int maxIter = MAX_ITERATIONS;
 
-	btVector3 n;
-	n.setValue(btScalar(0.),btScalar(0.),btScalar(0.));
-	bool hasResult = false;
-	btVector3 c;
+    btVector3 n;
+    n.setValue(btScalar(0.),btScalar(0.),btScalar(0.));
+    bool hasResult = false;
+    btVector3 c;
 
-	btScalar lastLambda = lambda;
-	//btScalar epsilon = btScalar(0.001);
+    btScalar lastLambda = lambda;
+    //btScalar epsilon = btScalar(0.001);
 
-	int numIter = 0;
-	//first solution, using GJK
-
-
-	btTransform identityTrans;
-	identityTrans.setIdentity();
-
-	btSphereShape	raySphere(btScalar(0.0));
-	raySphere.setMargin(btScalar(0.));
+    int numIter = 0;
+    //first solution, using GJK
 
 
-//	result.drawCoordSystem(sphereTr);
+    btTransform identityTrans;
+    identityTrans.setIdentity();
 
-	btPointCollector	pointCollector1;
-
-	{
-		
-		btGjkPairDetector gjk(m_convexA,m_convexB,m_simplexSolver,m_penetrationDepthSolver);		
-		btGjkPairDetector::ClosestPointInput input;
-	
-		//we don't use margins during CCD
-	//	gjk.setIgnoreMargin(true);
-
-		input.m_transformA = fromA;
-		input.m_transformB = fromB;
-		gjk.getClosestPoints(input,pointCollector1,0);
-
-		hasResult = pointCollector1.m_hasResult;
-		c = pointCollector1.m_pointInWorld;
-	}
-
-	if (hasResult)
-	{
-		btScalar dist;
-		dist = pointCollector1.m_distance;
-		n = pointCollector1.m_normalOnBInWorld;
-
-	
-
-		//not close enough
-		while (dist > radius)
-		{
-			numIter++;
-			if (numIter > maxIter)
-			{
-				return false; //todo: report a failure
-			}
-			btScalar dLambda = btScalar(0.);
-
-				btScalar projectedLinearVelocity = (linVelB-linVelA).dot(n);
-
-			//calculate safe moving fraction from distance / (linear+rotational velocity)
-			
-			//btScalar clippedDist  = GEN_min(angularConservativeRadius,dist);
-			//btScalar clippedDist  = dist;
-			
-			
-			dLambda = dist / (projectedLinearVelocity+ maxAngularProjectedVelocity);
-
-			lambda = lambda + dLambda;
-
-			if (lambda > btScalar(1.))
-				return false;
-
-			if (lambda < btScalar(0.))
-				return false;
+    btSphereShape    raySphere(btScalar(0.0));
+    raySphere.setMargin(btScalar(0.));
 
 
-			//todo: next check with relative epsilon
-			if (lambda <= lastLambda)
-			{
-				return false;
-				//n.setValue(0,0,0);
-				break;
-			}
-			lastLambda = lambda;
+//    result.drawCoordSystem(sphereTr);
 
-			
+    btPointCollector    pointCollector1;
 
-			//interpolate to next lambda
-			btTransform interpolatedTransA,interpolatedTransB,relativeTrans;
+    {
+        
+        btGjkPairDetector gjk(m_convexA,m_convexB,m_simplexSolver,m_penetrationDepthSolver);        
+        btGjkPairDetector::ClosestPointInput input;
+    
+        //we don't use margins during CCD
+    //    gjk.setIgnoreMargin(true);
 
-			btTransformUtil::integrateTransform(fromA,linVelA,angVelA,lambda,interpolatedTransA);
-			btTransformUtil::integrateTransform(fromB,linVelB,angVelB,lambda,interpolatedTransB);
-			relativeTrans = interpolatedTransB.inverseTimes(interpolatedTransA);
+        input.m_transformA = fromA;
+        input.m_transformB = fromB;
+        gjk.getClosestPoints(input,pointCollector1,0);
 
-			result.DebugDraw( lambda );
+        hasResult = pointCollector1.m_hasResult;
+        c = pointCollector1.m_pointInWorld;
+    }
 
-			btPointCollector	pointCollector;
-			btGjkPairDetector gjk(m_convexA,m_convexB,m_simplexSolver,m_penetrationDepthSolver);
-			btGjkPairDetector::ClosestPointInput input;
-			input.m_transformA = interpolatedTransA;
-			input.m_transformB = interpolatedTransB;
-			gjk.getClosestPoints(input,pointCollector,0);
-			if (pointCollector.m_hasResult)
-			{
-				if (pointCollector.m_distance < btScalar(0.))
-				{
-					//degenerate ?!
-					result.m_fraction = lastLambda;
-					n = pointCollector.m_normalOnBInWorld;
-					result.m_normal=n;//.setValue(1,1,1);// = n;
-					result.m_hitPoint = pointCollector.m_pointInWorld;
-					return true;
-				}
-				c = pointCollector.m_pointInWorld;		
-				n = pointCollector.m_normalOnBInWorld;
-				dist = pointCollector.m_distance;
-			} else
-			{
-				//??
-				return false;
-			}
+    if (hasResult)
+    {
+        btScalar dist;
+        dist = pointCollector1.m_distance;
+        n = pointCollector1.m_normalOnBInWorld;
 
-		}
+    
 
-		result.m_fraction = lambda;
-		result.m_normal = n;
-		result.m_hitPoint = c;
-		return true;
-	}
+        //not close enough
+        while (dist > radius)
+        {
+            numIter++;
+            if (numIter > maxIter)
+            {
+                return false; //todo: report a failure
+            }
+            btScalar dLambda = btScalar(0.);
 
-	return false;
+                btScalar projectedLinearVelocity = (linVelB-linVelA).dot(n);
+
+            //calculate safe moving fraction from distance / (linear+rotational velocity)
+            
+            //btScalar clippedDist  = GEN_min(angularConservativeRadius,dist);
+            //btScalar clippedDist  = dist;
+            
+            
+            dLambda = dist / (projectedLinearVelocity+ maxAngularProjectedVelocity);
+
+            lambda = lambda + dLambda;
+
+            if (lambda > btScalar(1.))
+                return false;
+
+            if (lambda < btScalar(0.))
+                return false;
+
+
+            //todo: next check with relative epsilon
+            if (lambda <= lastLambda)
+            {
+                return false;
+                //n.setValue(0,0,0);
+                break;
+            }
+            lastLambda = lambda;
+
+            
+
+            //interpolate to next lambda
+            btTransform interpolatedTransA,interpolatedTransB,relativeTrans;
+
+            btTransformUtil::integrateTransform(fromA,linVelA,angVelA,lambda,interpolatedTransA);
+            btTransformUtil::integrateTransform(fromB,linVelB,angVelB,lambda,interpolatedTransB);
+            relativeTrans = interpolatedTransB.inverseTimes(interpolatedTransA);
+
+            result.DebugDraw( lambda );
+
+            btPointCollector    pointCollector;
+            btGjkPairDetector gjk(m_convexA,m_convexB,m_simplexSolver,m_penetrationDepthSolver);
+            btGjkPairDetector::ClosestPointInput input;
+            input.m_transformA = interpolatedTransA;
+            input.m_transformB = interpolatedTransB;
+            gjk.getClosestPoints(input,pointCollector,0);
+            if (pointCollector.m_hasResult)
+            {
+                if (pointCollector.m_distance < btScalar(0.))
+                {
+                    //degenerate ?!
+                    result.m_fraction = lastLambda;
+                    n = pointCollector.m_normalOnBInWorld;
+                    result.m_normal=n;//.setValue(1,1,1);// = n;
+                    result.m_hitPoint = pointCollector.m_pointInWorld;
+                    return true;
+                }
+                c = pointCollector.m_pointInWorld;        
+                n = pointCollector.m_normalOnBInWorld;
+                dist = pointCollector.m_distance;
+            } else
+            {
+                //??
+                return false;
+            }
+
+        }
+
+        result.m_fraction = lambda;
+        result.m_normal = n;
+        result.m_hitPoint = c;
+        return true;
+    }
+
+    return false;
 
 /*
 //todo:
-	//if movement away from normal, discard result
-	btVector3 move = transBLocalTo.getOrigin() - transBLocalFrom.getOrigin();
-	if (result.m_fraction < btScalar(1.))
-	{
-		if (move.dot(result.m_normal) <= btScalar(0.))
-		{
-		}
-	}
+    //if movement away from normal, discard result
+    btVector3 move = transBLocalTo.getOrigin() - transBLocalFrom.getOrigin();
+    if (result.m_fraction < btScalar(1.))
+    {
+        if (move.dot(result.m_normal) <= btScalar(0.))
+        {
+        }
+    }
 */
 
 }

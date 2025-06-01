@@ -54,7 +54,7 @@ HelpPageOne::HelpPageOne()
     m_big_nitro = 0;
     m_banana = 0;
 
-	m_clock = 0;
+    m_clock = 0;
 
     //FIXME: instead of using setInitialTextState, the gui & widget manager macros should improve it's design
     widget_manager->setInitialTextState
@@ -164,14 +164,14 @@ HelpPageOne::~HelpPageOne()
 {
     widget_manager->reset();
 
-	if (m_box != NULL && m_small_nitro != NULL && m_big_nitro != NULL
+    if (m_box != NULL && m_small_nitro != NULL && m_big_nitro != NULL
         && m_banana != NULL )
-	{
-		ssgDeRefDelete(m_box);
-		ssgDeRefDelete(m_small_nitro);
-		ssgDeRefDelete(m_big_nitro);
-		ssgDeRefDelete(m_banana);
-	}
+    {
+        ssgDeRefDelete(m_box);
+        ssgDeRefDelete(m_small_nitro);
+        ssgDeRefDelete(m_big_nitro);
+        ssgDeRefDelete(m_banana);
+    }
 
     delete m_context;
 

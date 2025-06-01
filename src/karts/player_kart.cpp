@@ -43,11 +43,10 @@ PlayerKart::PlayerKart(const std::string& kart_name, int position, Player *playe
     m_camera       = scene->createCamera(player_index, this);
     m_camera->setMode(Camera::CM_NORMAL);
 
-    m_bzzt_sound  = sfx_manager->newSFX(SFXManager::SOUND_BZZT );
-    m_wee_sound   = sfx_manager->newSFX(SFXManager::SOUND_WEE  );
-    m_ugh_sound   = sfx_manager->newSFX(SFXManager::SOUND_UGH  );
-    m_grab_sound  = sfx_manager->newSFX(SFXManager::SOUND_GRAB );
-    m_full_sound  = sfx_manager->newSFX(SFXManager::SOUND_FULL );
+    m_bzzt_sound  = sfx_manager->newSFX(SFXManager::SOUND_BZZT);
+    m_ugh_sound   = sfx_manager->newSFX(SFXManager::SOUND_UGH );
+    m_grab_sound  = sfx_manager->newSFX(SFXManager::SOUND_GRAB);
+    m_full_sound  = sfx_manager->newSFX(SFXManager::SOUND_FULL);
 
     reset();
 }   // PlayerKart
@@ -56,7 +55,6 @@ PlayerKart::PlayerKart(const std::string& kart_name, int position, Player *playe
 PlayerKart::~PlayerKart()
 {
     sfx_manager->deleteSFX(m_bzzt_sound);
-    sfx_manager->deleteSFX(m_wee_sound );
     sfx_manager->deleteSFX(m_ugh_sound );
     sfx_manager->deleteSFX(m_grab_sound);
     sfx_manager->deleteSFX(m_full_sound);
@@ -250,25 +248,22 @@ void PlayerKart::update(float dt)
         return;
     }
 
-    if ( m_controls.m_fire && !isRescue())
+    if(m_controls.m_fire && !isRescue())
     {
-		if (m_powerup.getType()==POWERUP_NOTHING) 
-            Kart::beepPlayer();
+        if (m_powerup.getType()==POWERUP_NOTHING) 
+            Kart::beep();
     }
 
-    // We can't restrict rescue to fulfil isOnGround() (which would be more like
+    // We can't restrict rescue to fulfill isOnGround() (which would be more like
     // MK), since e.g. in the City track it is possible for the kart to end
     // up sitting on a brick wall, with all wheels in the air :((
-    if ( m_controls.m_rescue )
+    if(m_controls.m_rescue)
     {
-      //Kart::beep();
         forceRescue();
         m_controls.m_rescue=false;
     }
-    // FIXME: This is the code previously done in Kart::update (for player 
-    //        karts). Does this mean that there are actually two sounds played
-    //        when rescue? beep above and bzzt her???
-    if (isRescue() && m_attachment.getType() != ATTACH_TINYTUX)
+    // Play bzzt sound if the kart is getting rescued.
+    if(isRescue() && m_attachment.getType() != ATTACH_TINYTUX)
     {
         m_bzzt_sound->play();
     }
@@ -295,9 +290,9 @@ void PlayerKart::setPosition(int p)
             Kart *kart = RaceManager::getWorld()->getKart(i);
             if(kart->getPosition() == p + 1)
             {
-                kart->beep();
+                kart->beepAI();
                 break;
-			}
+            }
         }
     }
     Kart::setPosition(p);
@@ -321,22 +316,6 @@ void PlayerKart::raceFinished(float time)
                       this, 2.0f, 60);
     }
 }   // raceFinished
-
-//-----------------------------------------------------------------------------
-/** Called when a kart hits or uses a zipper.
- * \param play_sfx This makes the sfx sound play even if the kart is not
- *                 on a zipper material. It is used by the zipper powerup.
- */
-void PlayerKart::handleZipper(bool play_sfx)
-{
-    if (play_sfx || m_wee_sound->getStatus() != SFXManager::SFX_PLAYING && 
-        getMaterial()!=getLastMaterial())
-    {
-        m_wee_sound->play();
-    }
-	if (m_wee_sound->getStatus()==SFXManager::SFX_PLAYING)
-        Kart::handleZipper();
-}   // handleZipper
 
 //-----------------------------------------------------------------------------
 /** Called when a kart hits an item.
@@ -363,11 +342,11 @@ void PlayerKart::collectedItem(const Item *item, int add_info)
     {
         switch(item->getType())
         {
-		    case Item::ITEM_BANANA:
+            case Item::ITEM_BANANA:
                 m_ugh_sound->play();
                 break;
-		    case Item::ITEM_BUBBLEGUM:
-                //The skid sound is played by the kart class. Do nothing here.
+            case Item::ITEM_BUBBLEGUM:
+                //The ugh sound is played by the kart class. Do nothing here.
                 //See Kart::collectedItem()
                 break;
             default:

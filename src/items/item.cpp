@@ -27,8 +27,8 @@
 Item::Item(ItemType type, const Vec3& xyz, const Vec3& normal,
            ssgEntity* model)
 {
-	assert(type != ITEM_TRIGGER);
-	initItem(type, xyz);
+    assert(type != ITEM_TRIGGER);
+    initItem(type, xyz);
     // Sets heading to 0, and sets pitch and roll depending on the normal. */
     Vec3 hpr           = Vec3(0, normal);
     m_coord            = Coord(xyz, hpr);
@@ -42,7 +42,6 @@ Item::Item(ItemType type, const Vec3& xyz, const Vec3& normal,
     scene->add(m_root);
 }   // Item
 //-----------------------------------------------------------------------------
-
 /** \brief Constructor to create a trigger item.
   * Trigger items are invisible and can be used to trigger a behavior when
   * approaching a point.
@@ -64,15 +63,15 @@ Item::Item(const Vec3& xyz, float distance, TriggerItemListener* trigger)
  */
 void Item::initItem(ItemType type, const Vec3 &xyz)
 {
-	m_type              = type;
-	m_parent            = NULL;
-	m_xyz               = xyz;
+    m_type              = type;
+    m_parent            = NULL;
+    m_xyz               = xyz;
     m_deactive_time     = 0;
     m_item_id           = -1;
-	m_original_type     = ITEM_NONE;
+    m_original_type     = ITEM_NONE;
     m_collected         = false;
     m_time_till_return  = 0.0f;  // not strictly necessary, see isCollected()
-	m_rotate            = (type!=ITEM_BUBBLEGUM) && (type!=ITEM_TRIGGER);
+    m_rotate            = (type!=ITEM_BUBBLEGUM) && (type!=ITEM_TRIGGER);
     m_disappear_counter = m_type==ITEM_BUBBLEGUM 
                         ? stk_config->m_bubble_gum_counter
                         : -1 ;
@@ -105,10 +104,10 @@ void Item::reset()
     m_collected        = false;
     m_time_till_return = 0.0f;
     m_deactive_time    = 0.0f;
-	m_disappear_counter = m_type==ITEM_BUBBLEGUM 
+    m_disappear_counter = m_type==ITEM_BUBBLEGUM 
                         ? stk_config->m_bubble_gum_counter
                         : -1 ;
-	if(m_original_type!=ITEM_NONE)
+    if(m_original_type!=ITEM_NONE)
     {
         setType(m_original_type);
         m_original_type = ITEM_NONE;
@@ -127,38 +126,37 @@ void Item::setParent(Kart* parent)
 }
 
 //-----------------------------------------------------------------------------
-void Item::update(float delta)
+void Item::update(float dt)
 {
-    if(m_deactive_time > 0) m_deactive_time -= delta;
-    
+    if(m_deactive_time > 0) m_deactive_time -= dt;
+
     if(m_collected)
     {
-        m_time_till_return -= delta;
-        if ( m_time_till_return > 0 )
+        m_time_till_return -= dt;
+        if(m_time_till_return > 0)
         {
             if (m_root != NULL)
             {
                 Vec3 hell(m_coord.getXYZ());
-                hell.setZ( (m_time_till_return>1.0f) ? -1000000.0f 
-		            : m_coord.getXYZ().getZ() - m_time_till_return / 2.0f);
+                hell.setZ((m_time_till_return>1.0f) ? -1000000.0f
+                : m_coord.getXYZ().getZ()-m_time_till_return*2.3f);
                 m_root->setTransform(hell.toFloat());
             }
         }
         else
         {
-            m_collected    = false;
+            m_collected = false;
             if(m_root != NULL)
                 m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
         }   // T>0
-
     }
     else
     {   // not m_collected
         
         if(!m_rotate) return;
         // have it rotate
-        Vec3 rotation(delta*M_PI, 0, 0);
-		m_coord.setHPR(m_coord.getHPR()+rotation);
+        Vec3 rotation(dt*M_PI, 0, 0);
+        m_coord.setHPR(m_coord.getHPR()+rotation);
         m_root->setTransform(const_cast<sgCoord*>(&m_coord.toSgCoord()));
     }
 }   // update

@@ -25,9 +25,9 @@ subject to the following restrictions:
 
 #define BT_BULLET_VERSION 268
 
-inline int	btGetVersion()
+inline int    btGetVersion()
 {
-	return BT_BULLET_VERSION;
+    return BT_BULLET_VERSION;
 }
 
 #if defined(DEBUG) || defined (_DEBUG)
@@ -37,92 +37,92 @@ inline int	btGetVersion()
 
 #ifdef WIN32
 
-		#if defined(__MINGW32__) || defined(__CYGWIN__) || (defined (_MSC_VER) && _MSC_VER < 1300)
+        #if defined(__MINGW32__) || defined(__CYGWIN__) || (defined (_MSC_VER) && _MSC_VER < 1300)
 
-			#define SIMD_FORCE_INLINE inline
-			#define ATTRIBUTE_ALIGNED16(a) a
-			#define ATTRIBUTE_ALIGNED128(a) a
-		#else
-			#define BT_HAS_ALIGNED_ALLOCATOR
-			#pragma warning(disable:4530)
-			#pragma warning(disable:4996)
-			#pragma warning(disable:4786)
-			#define SIMD_FORCE_INLINE __forceinline
-			#define ATTRIBUTE_ALIGNED16(a) __declspec(align(16)) a
-			#define ATTRIBUTE_ALIGNED128(a) __declspec (align(128)) a
-		#ifdef _XBOX
-			#define BT_USE_VMX128
+            #define SIMD_FORCE_INLINE inline
+            #define ATTRIBUTE_ALIGNED16(a) a
+            #define ATTRIBUTE_ALIGNED128(a) a
+        #else
+            #define BT_HAS_ALIGNED_ALLOCATOR
+            #pragma warning(disable:4530)
+            #pragma warning(disable:4996)
+            #pragma warning(disable:4786)
+            #define SIMD_FORCE_INLINE __forceinline
+            #define ATTRIBUTE_ALIGNED16(a) __declspec(align(16)) a
+            #define ATTRIBUTE_ALIGNED128(a) __declspec (align(128)) a
+        #ifdef _XBOX
+            #define BT_USE_VMX128
 
-			#include <ppcintrinsics.h>
- 			#define BT_HAVE_NATIVE_FSEL
- 			#define btFsel(a,b,c) __fsel((a),(b),(c))
-		#else
-			#define BT_USE_SSE
-		#endif
-		#endif //__MINGW32__
+            #include <ppcintrinsics.h>
+             #define BT_HAVE_NATIVE_FSEL
+             #define btFsel(a,b,c) __fsel((a),(b),(c))
+        #else
+            #define BT_USE_SSE
+        #endif
+        #endif //__MINGW32__
 
-		#include <assert.h>
-		#define btAssert assert
-		//btFullAssert is optional, slows down a lot
-		#define btFullAssert(x)
+        #include <assert.h>
+        #define btAssert assert
+        //btFullAssert is optional, slows down a lot
+        #define btFullAssert(x)
 
-		#define btLikely(_c)  _c
-		#define btUnlikely(_c) _c
+        #define btLikely(_c)  _c
+        #define btUnlikely(_c) _c
 
 #else
-	
-#if defined	(__CELLOS_LV2__)
-		#define SIMD_FORCE_INLINE inline
-		#define ATTRIBUTE_ALIGNED16(a) a __attribute__ ((aligned (16)))
-		#define ATTRIBUTE_ALIGNED128(a) a __attribute__ ((aligned (128)))
-		#ifndef assert
-		#include <assert.h>
-		#endif
-		#define btAssert assert
-		//btFullAssert is optional, slows down a lot
-		#define btFullAssert(x)
+    
+#if defined    (__CELLOS_LV2__)
+        #define SIMD_FORCE_INLINE inline
+        #define ATTRIBUTE_ALIGNED16(a) a __attribute__ ((aligned (16)))
+        #define ATTRIBUTE_ALIGNED128(a) a __attribute__ ((aligned (128)))
+        #ifndef assert
+        #include <assert.h>
+        #endif
+        #define btAssert assert
+        //btFullAssert is optional, slows down a lot
+        #define btFullAssert(x)
 
-		#define btLikely(_c)  _c
-		#define btUnlikely(_c) _c
+        #define btLikely(_c)  _c
+        #define btUnlikely(_c) _c
 
 #else
 
 #ifdef USE_LIBSPE2
 
-		#define SIMD_FORCE_INLINE __inline
-		#define ATTRIBUTE_ALIGNED16(a) a __attribute__ ((aligned (16)))
-		#define ATTRIBUTE_ALIGNED128(a) a __attribute__ ((aligned (128)))
-		#ifndef assert
-		#include <assert.h>
-		#endif
-		#define btAssert assert
-		//btFullAssert is optional, slows down a lot
-		#define btFullAssert(x)
+        #define SIMD_FORCE_INLINE __inline
+        #define ATTRIBUTE_ALIGNED16(a) a __attribute__ ((aligned (16)))
+        #define ATTRIBUTE_ALIGNED128(a) a __attribute__ ((aligned (128)))
+        #ifndef assert
+        #include <assert.h>
+        #endif
+        #define btAssert assert
+        //btFullAssert is optional, slows down a lot
+        #define btFullAssert(x)
 
 
-		#define btLikely(_c)   __builtin_expect((_c), 1)
-		#define btUnlikely(_c) __builtin_expect((_c), 0)
-		
+        #define btLikely(_c)   __builtin_expect((_c), 1)
+        #define btUnlikely(_c) __builtin_expect((_c), 0)
+        
 
 #else
-	//non-windows systems
+    //non-windows systems
 
-		#define SIMD_FORCE_INLINE inline
-		#define ATTRIBUTE_ALIGNED16(a) a
-		#define ATTRIBUTE_ALIGNED128(a) a
-		#ifndef assert
-		#include <assert.h>
-		#endif
-		#define btAssert assert
-		//btFullAssert is optional, slows down a lot
-		#define btFullAssert(x)
-		#define btLikely(_c)  _c
-		#define btUnlikely(_c) _c
+        #define SIMD_FORCE_INLINE inline
+        #define ATTRIBUTE_ALIGNED16(a) a
+        #define ATTRIBUTE_ALIGNED128(a) a
+        #ifndef assert
+        #include <assert.h>
+        #endif
+        #define btAssert assert
+        //btFullAssert is optional, slows down a lot
+        #define btFullAssert(x)
+        #define btLikely(_c)  _c
+        #define btUnlikely(_c) _c
 
 
 #endif // LIBSPE2
 
-#endif	//__CELLOS_LV2__
+#endif    //__CELLOS_LV2__
 #endif
 
 /// older compilers (gcc 3.x) and Sun needs double version of sqrt etc.
@@ -142,15 +142,15 @@ typedef float btScalar;
 
 
 #define BT_DECLARE_ALIGNED_ALLOCATOR() \
-	SIMD_FORCE_INLINE void* operator new(size_t sizeInBytes)	{ return btAlignedAlloc(sizeInBytes,16); }	\
-	SIMD_FORCE_INLINE void  operator delete(void* ptr)			{ btAlignedFree(ptr); }	\
-	SIMD_FORCE_INLINE void* operator new(size_t, void* ptr)	{ return ptr; }	\
-	SIMD_FORCE_INLINE void  operator delete(void*, void*)		{ }	\
+    SIMD_FORCE_INLINE void* operator new(size_t sizeInBytes)    { return btAlignedAlloc(sizeInBytes,16); }    \
+    SIMD_FORCE_INLINE void  operator delete(void* ptr)            { btAlignedFree(ptr); }    \
+    SIMD_FORCE_INLINE void* operator new(size_t, void* ptr)    { return ptr; }    \
+    SIMD_FORCE_INLINE void  operator delete(void*, void*)        { }    \
 
 
 
 #if defined(BT_USE_DOUBLE_PRECISION) || defined(BT_FORCE_DOUBLE_FUNCTIONS)
-		
+        
 SIMD_FORCE_INLINE btScalar btSqrt(btScalar x) { return sqrt(x); }
 SIMD_FORCE_INLINE btScalar btFabs(btScalar x) { return fabs(x); }
 SIMD_FORCE_INLINE btScalar btCos(btScalar x) { return cos(x); }
@@ -165,25 +165,25 @@ SIMD_FORCE_INLINE btScalar btLog(btScalar x) { return log(x); }
 SIMD_FORCE_INLINE btScalar btPow(btScalar x,btScalar y) { return pow(x,y); }
 
 #else
-		
+        
 SIMD_FORCE_INLINE btScalar btSqrt(btScalar y) 
 { 
 #ifdef USE_APPROXIMATION
     double x, z, tempf;
     unsigned long *tfptr = ((unsigned long *)&tempf) + 1;
 
-	tempf = y;
-	*tfptr = (0xbfcdd90a - *tfptr)>>1; /* estimate of 1/sqrt(y) */
-	x =  tempf;
-	z =  y*btScalar(0.5);                        /* hoist out the “/2”    */
-	x = (btScalar(1.5)*x)-(x*x)*(x*z);         /* iteration formula     */
-	x = (btScalar(1.5)*x)-(x*x)*(x*z);
-	x = (btScalar(1.5)*x)-(x*x)*(x*z);
-	x = (btScalar(1.5)*x)-(x*x)*(x*z);
-	x = (btScalar(1.5)*x)-(x*x)*(x*z);
-	return x*y;
+    tempf = y;
+    *tfptr = (0xbfcdd90a - *tfptr)>>1; /* estimate of 1/sqrt(y) */
+    x =  tempf;
+    z =  y*btScalar(0.5);                        /* hoist out the “/2”    */
+    x = (btScalar(1.5)*x)-(x*x)*(x*z);         /* iteration formula     */
+    x = (btScalar(1.5)*x)-(x*x)*(x*z);
+    x = (btScalar(1.5)*x)-(x*x)*(x*z);
+    x = (btScalar(1.5)*x)-(x*x)*(x*z);
+    x = (btScalar(1.5)*x)-(x*x)*(x*z);
+    return x*y;
 #else
-	return sqrtf(y); 
+    return sqrtf(y); 
 #endif
 }
 SIMD_FORCE_INLINE btScalar btFabs(btScalar x) { return fabsf(x); }
@@ -191,8 +191,8 @@ SIMD_FORCE_INLINE btScalar btCos(btScalar x) { return cosf(x); }
 SIMD_FORCE_INLINE btScalar btSin(btScalar x) { return sinf(x); }
 SIMD_FORCE_INLINE btScalar btTan(btScalar x) { return tanf(x); }
 SIMD_FORCE_INLINE btScalar btAcos(btScalar x) { 
-	btAssert(x <= btScalar(1.));
-	return acosf(x); 
+    btAssert(x <= btScalar(1.));
+    return acosf(x); 
 }
 SIMD_FORCE_INLINE btScalar btAsin(btScalar x) { return asinf(x); }
 SIMD_FORCE_INLINE btScalar btAtan(btScalar x) { return atanf(x); }
@@ -200,7 +200,7 @@ SIMD_FORCE_INLINE btScalar btAtan2(btScalar x, btScalar y) { return atan2f(x, y)
 SIMD_FORCE_INLINE btScalar btExp(btScalar x) { return expf(x); }
 SIMD_FORCE_INLINE btScalar btLog(btScalar x) { return logf(x); }
 SIMD_FORCE_INLINE btScalar btPow(btScalar x,btScalar y) { return powf(x,y); }
-	
+    
 #endif
 
 #define SIMD_2_PI         btScalar(6.283185307179586232)
@@ -219,27 +219,27 @@ SIMD_FORCE_INLINE btScalar btPow(btScalar x,btScalar y) { return powf(x,y); }
 
 SIMD_FORCE_INLINE btScalar btAtan2Fast(btScalar y, btScalar x) 
 {
-	btScalar coeff_1 = SIMD_PI / 4.0f;
-	btScalar coeff_2 = 3.0f * coeff_1;
-	btScalar abs_y = btFabs(y);
-	btScalar angle;
-	if (x >= 0.0f) {
-		btScalar r = (x - abs_y) / (x + abs_y);
-		angle = coeff_1 - coeff_1 * r;
-	} else {
-		btScalar r = (x + abs_y) / (abs_y - x);
-		angle = coeff_2 - coeff_1 * r;
-	}
-	return (y < 0.0f) ? -angle : angle;
+    btScalar coeff_1 = SIMD_PI / 4.0f;
+    btScalar coeff_2 = 3.0f * coeff_1;
+    btScalar abs_y = btFabs(y);
+    btScalar angle;
+    if (x >= 0.0f) {
+        btScalar r = (x - abs_y) / (x + abs_y);
+        angle = coeff_1 - coeff_1 * r;
+    } else {
+        btScalar r = (x + abs_y) / (abs_y - x);
+        angle = coeff_2 - coeff_1 * r;
+    }
+    return (y < 0.0f) ? -angle : angle;
 }
 
 SIMD_FORCE_INLINE bool      btFuzzyZero(btScalar x) { return btFabs(x) < SIMD_EPSILON; }
 
-SIMD_FORCE_INLINE bool	btEqual(btScalar a, btScalar eps) {
-	return (((a) <= eps) && !((a) < -eps));
+SIMD_FORCE_INLINE bool    btEqual(btScalar a, btScalar eps) {
+    return (((a) <= eps) && !((a) < -eps));
 }
-SIMD_FORCE_INLINE bool	btGreaterEqual (btScalar a, btScalar eps) {
-	return (!((a) <= eps));
+SIMD_FORCE_INLINE bool    btGreaterEqual (btScalar a, btScalar eps) {
+    return (!((a) <= eps));
 }
 
 
@@ -255,7 +255,7 @@ SIMD_FORCE_INLINE btScalar btDegrees(btScalar x) { return x * SIMD_DEGS_PER_RAD;
 #ifndef btFsel
 SIMD_FORCE_INLINE btScalar btFsel(btScalar a, btScalar b, btScalar c)
 {
-	return a >= 0 ? b : c;
+    return a >= 0 ? b : c;
 }
 #endif
 #define btFsels(a,b,c) (btScalar)btFsel(a,b,c)
@@ -266,9 +266,9 @@ SIMD_FORCE_INLINE bool btMachineIsLittleEndian()
    long int i = 1;
    const char *p = (const char *) &i;
    if (p[0] == 1)  // Lowest address contains the least significant byte
-	   return true;
+       return true;
    else
-	   return false;
+       return false;
 }
 
 
@@ -302,31 +302,31 @@ SIMD_FORCE_INLINE float btSelect(unsigned condition, float valueIfConditionNonZe
 
 template<typename T> SIMD_FORCE_INLINE void btSwap(T& a, T& b)
 {
-	T tmp = a;
-	a = b;
-	b = tmp;
+    T tmp = a;
+    a = b;
+    b = tmp;
 }
 
 
 //PCK: endian swapping functions
 SIMD_FORCE_INLINE unsigned btSwapEndian(unsigned val)
 {
-	return (((val & 0xff000000) >> 24) | ((val & 0x00ff0000) >> 8) | ((val & 0x0000ff00) << 8)  | ((val & 0x000000ff) << 24));
+    return (((val & 0xff000000) >> 24) | ((val & 0x00ff0000) >> 8) | ((val & 0x0000ff00) << 8)  | ((val & 0x000000ff) << 24));
 }
 
 SIMD_FORCE_INLINE unsigned short btSwapEndian(unsigned short val)
 {
-	return (((val & 0xff00) >> 8) | ((val & 0x00ff) << 8));
+    return (((val & 0xff00) >> 8) | ((val & 0x00ff) << 8));
 }
 
 SIMD_FORCE_INLINE unsigned btSwapEndian(int val)
 {
-	return btSwapEndian((unsigned)val);
+    return btSwapEndian((unsigned)val);
 }
 
 SIMD_FORCE_INLINE unsigned short btSwapEndian(short val)
 {
-	return btSwapEndian((unsigned short) val);
+    return btSwapEndian((unsigned short) val);
 }
 
 ///btSwapFloat uses using char pointers to swap the endianness
@@ -395,7 +395,7 @@ SIMD_FORCE_INLINE double btUnswapEndianDouble(const unsigned char *src)
     dst[6] = src[1];
     dst[7] = src[0];
 
-	return d;
+    return d;
 }
 
 

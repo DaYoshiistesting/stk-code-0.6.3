@@ -21,7 +21,7 @@ subject to the following restrictions:
 class btCollisionAlgorithm;
 struct btBroadphaseProxy;
 class btRigidBody;
-class	btCollisionObject;
+class    btCollisionObject;
 class btOverlappingPairCache;
 
 
@@ -30,34 +30,34 @@ class btStackAlloc;
 
 struct btDispatcherInfo
 {
-	enum DispatchFunc
-	{
-		DISPATCH_DISCRETE = 1,
-		DISPATCH_CONTINUOUS
-	};
-	btDispatcherInfo()
-		:m_timeStep(btScalar(0.)),
-		m_stepCount(0),
-		m_dispatchFunc(DISPATCH_DISCRETE),
-		m_timeOfImpact(btScalar(1.)),
-		m_useContinuous(false),
-		m_debugDraw(0),
-		m_enableSatConvex(false),
-		m_enableSPU(true),
-		m_stackAllocator(0)
-	{
+    enum DispatchFunc
+    {
+        DISPATCH_DISCRETE = 1,
+        DISPATCH_CONTINUOUS
+    };
+    btDispatcherInfo()
+        :m_timeStep(btScalar(0.)),
+        m_stepCount(0),
+        m_dispatchFunc(DISPATCH_DISCRETE),
+        m_timeOfImpact(btScalar(1.)),
+        m_useContinuous(false),
+        m_debugDraw(0),
+        m_enableSatConvex(false),
+        m_enableSPU(true),
+        m_stackAllocator(0)
+    {
 
-	}
-	btScalar	m_timeStep;
-	int		m_stepCount;
-	int		m_dispatchFunc;
-	btScalar	m_timeOfImpact;
-	bool	m_useContinuous;
-	class btIDebugDraw*	m_debugDraw;
-	bool	m_enableSatConvex;
-	bool	m_enableSPU;
-	btStackAlloc*	m_stackAllocator;
-	
+    }
+    btScalar    m_timeStep;
+    int        m_stepCount;
+    int        m_dispatchFunc;
+    btScalar    m_timeOfImpact;
+    bool    m_useContinuous;
+    class btIDebugDraw*    m_debugDraw;
+    bool    m_enableSatConvex;
+    bool    m_enableSPU;
+    btStackAlloc*    m_stackAllocator;
+    
 };
 
 /// btDispatcher can be used in combination with broadphase to dispatch overlapping pairs.
@@ -67,31 +67,31 @@ class btDispatcher
 
 
 public:
-	virtual ~btDispatcher() ;
+    virtual ~btDispatcher() ;
 
-	virtual btCollisionAlgorithm* findAlgorithm(btCollisionObject* body0,btCollisionObject* body1,btPersistentManifold* sharedManifold=0) = 0;
+    virtual btCollisionAlgorithm* findAlgorithm(btCollisionObject* body0,btCollisionObject* body1,btPersistentManifold* sharedManifold=0) = 0;
 
-	virtual btPersistentManifold*	getNewManifold(void* body0,void* body1)=0;
+    virtual btPersistentManifold*    getNewManifold(void* body0,void* body1)=0;
 
-	virtual void releaseManifold(btPersistentManifold* manifold)=0;
+    virtual void releaseManifold(btPersistentManifold* manifold)=0;
 
-	virtual void clearManifold(btPersistentManifold* manifold)=0;
+    virtual void clearManifold(btPersistentManifold* manifold)=0;
 
-	virtual bool	needsCollision(btCollisionObject* body0,btCollisionObject* body1) = 0;
+    virtual bool    needsCollision(btCollisionObject* body0,btCollisionObject* body1) = 0;
 
-	virtual bool	needsResponse(btCollisionObject* body0,btCollisionObject* body1)=0;
+    virtual bool    needsResponse(btCollisionObject* body0,btCollisionObject* body1)=0;
 
-	virtual void	dispatchAllCollisionPairs(btOverlappingPairCache* pairCache,btDispatcherInfo& dispatchInfo,btDispatcher* dispatcher)=0;
+    virtual void    dispatchAllCollisionPairs(btOverlappingPairCache* pairCache,btDispatcherInfo& dispatchInfo,btDispatcher* dispatcher)=0;
 
-	virtual int getNumManifolds() const = 0;
+    virtual int getNumManifolds() const = 0;
 
-	virtual btPersistentManifold* getManifoldByIndexInternal(int index) = 0;
+    virtual btPersistentManifold* getManifoldByIndexInternal(int index) = 0;
 
-	virtual	btPersistentManifold**	getInternalManifoldPointer() = 0;
+    virtual    btPersistentManifold**    getInternalManifoldPointer() = 0;
 
-	virtual	void* allocateCollisionAlgorithm(int size) = 0;
+    virtual    void* allocateCollisionAlgorithm(int size) = 0;
 
-	virtual	void freeCollisionAlgorithm(void* ptr) = 0;
+    virtual    void freeCollisionAlgorithm(void* ptr) = 0;
 
 };
 

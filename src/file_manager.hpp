@@ -42,9 +42,8 @@ public:
 
     std::string getHomeDir       () const;
     std::string getTrackDir      () const;
-	std::string getChallengeDir () const;
+    std::string getChallengeDir  () const;
     std::string getKartDir       () const;
-    std::string getItemsDir    () const;
     std::string getTranslationDir() const;
     std::vector<std::string>getMusicDirs() const;
     std::string getTextureFile   (const std::string& fname) const;
@@ -52,11 +51,10 @@ public:
                                   const std::string& kart="") const;
     std::string getTrackFile     (const std::string& fname, 
                                   const std::string& track="") const;
-	std::string getChallengeFile (const std::string& fname) const;
+    std::string getChallengeFile (const std::string& fname) const;
     std::string getConfigFile    (const std::string& fname) const;
     std::string getHighscoreFile (const std::string& fname) const;
     std::string getLogFile       (const std::string& fname) const;
-    std::string getItemFile      (const std::string& fname) const;
     std::string getMusicFile     (const std::string& fname) const;
     std::string getSFXFile       (const std::string& fname) const;
     std::string getFontFile      (const std::string& fname) const;
@@ -67,18 +65,18 @@ public:
         const;
 
     void       pushTextureSearchPath(const std::string& path) 
-                                    { m_texture_search_path.push_back(path);}
+                                    {m_texture_search_path.push_back(path);}
     void       pushModelSearchPath  (const std::string& path)
-                                    { m_model_search_path.push_back(path);  }
+                                    {m_model_search_path.push_back(path);  }
     void       pushMusicSearchPath  (const std::string& path)
-                                    { m_music_search_path.push_back(path);  }
-    void       popTextureSearchPath () {m_texture_search_path.pop_back();   }
-    void       popModelSearchPath   () {m_model_search_path.pop_back();     }
-    void       popMusicSearchPath   () {m_music_search_path.pop_back();     }
-    void       initConfigDir();
+                                    {m_music_search_path.push_back(path);  }
+    void       popTextureSearchPath () {m_texture_search_path.pop_back();  }
+    void       popModelSearchPath   () {m_model_search_path.pop_back();    }
+    void       popMusicSearchPath   () {m_music_search_path.pop_back();    }
+    void       initConfigDir        ();
 private:
-    void         makePath     (std::string& path, const std::string& dir, 
-                               const std::string& fname) const;
+    void       makePath          (std::string& path, const std::string& dir, 
+                                  const std::string& fname) const;
 };
 
 extern FileManager* file_manager;

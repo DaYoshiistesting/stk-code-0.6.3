@@ -102,8 +102,8 @@ void MainLoop::run()
         if (!music_on && !race_manager->raceIsActive())
         {
             sound_manager->stopMusic();   // stop potential 'left over' music from race
-        	sound_manager->startMusic(stk_config->m_title_music);
-		    music_on = true;
+            sound_manager->startMusic(stk_config->m_title_music);
+            music_on = true;
         }
 
         network_manager->update(dt);

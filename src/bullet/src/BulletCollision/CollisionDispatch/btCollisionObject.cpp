@@ -17,23 +17,23 @@ subject to the following restrictions:
 #include "btCollisionObject.h"
 
 btCollisionObject::btCollisionObject()
-	:	m_broadphaseHandle(0),
-		m_collisionShape(0),
-		m_collisionFlags(btCollisionObject::CF_STATIC_OBJECT),
-		m_islandTag1(-1),
-		m_companionId(-1),
-		m_activationState1(1),
-		m_deactivationTime(btScalar(0.)),
-		m_friction(btScalar(0.5)),
-		m_restitution(btScalar(0.)),
-		m_userObjectPointer(0),
-		m_internalType(CO_COLLISION_OBJECT),
-		m_hitFraction(btScalar(1.)),
-		m_ccdSweptSphereRadius(btScalar(0.)),
-		m_ccdSquareMotionThreshold(btScalar(0.)),
-		m_checkCollideWith(false)
+    :    m_broadphaseHandle(0),
+        m_collisionShape(0),
+        m_collisionFlags(btCollisionObject::CF_STATIC_OBJECT),
+        m_islandTag1(-1),
+        m_companionId(-1),
+        m_activationState1(1),
+        m_deactivationTime(btScalar(0.)),
+        m_friction(btScalar(0.5)),
+        m_restitution(btScalar(0.)),
+        m_userObjectPointer(0),
+        m_internalType(CO_COLLISION_OBJECT),
+        m_hitFraction(btScalar(1.)),
+        m_ccdSweptSphereRadius(btScalar(0.)),
+        m_ccdSquareMotionThreshold(btScalar(0.)),
+        m_checkCollideWith(false)
 {
-	
+    
 }
 
 btCollisionObject::~btCollisionObject()
@@ -42,22 +42,22 @@ btCollisionObject::~btCollisionObject()
 
 void btCollisionObject::setActivationState(int newState) 
 { 
-	if ( (m_activationState1 != DISABLE_DEACTIVATION) && (m_activationState1 != DISABLE_SIMULATION))
-		m_activationState1 = newState;
+    if ( (m_activationState1 != DISABLE_DEACTIVATION) && (m_activationState1 != DISABLE_SIMULATION))
+        m_activationState1 = newState;
 }
 
 void btCollisionObject::forceActivationState(int newState)
 {
-	m_activationState1 = newState;
+    m_activationState1 = newState;
 }
 
 void btCollisionObject::activate(bool forceActivation)
 {
-	if (forceActivation || !(m_collisionFlags & (CF_STATIC_OBJECT|CF_KINEMATIC_OBJECT)))
-	{
-		setActivationState(ACTIVE_TAG);
-		m_deactivationTime = btScalar(0.);
-	}
+    if (forceActivation || !(m_collisionFlags & (CF_STATIC_OBJECT|CF_KINEMATIC_OBJECT)))
+    {
+        setActivationState(ACTIVE_TAG);
+        m_deactivationTime = btScalar(0.);
+    }
 }
 
 

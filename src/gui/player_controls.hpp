@@ -34,24 +34,24 @@ public:
     void select();
     void clearMapping();
 
-	void handle(GameAction, int);
-	void inputKeyboard(SDLKey, int);
-	void addKeyLabel(int change_id, KartAction control, bool start);
-	void setKeyInfoString(KartAction control);
+    void handle(GameAction, int);
+    void inputKeyboard(SDLKey, int);
+    void addKeyLabel(int change_id, KartAction control, bool start);
+    void setKeyInfoString(KartAction control);
 
 private:
-	void updateAllKeyLabels();
+    void updateAllKeyLabels();
 
     int m_player_index;
     bool m_grab_input;
 
-	/** Stores the KartAction for which the input is being sensed. */
+    /** Stores the KartAction for which the input is being sensed. */
     KartAction m_edit_action;
 
     std::string m_name;
     std::string m_key_names[KC_COUNT];
 
-	static const size_t PLAYER_NAME_MAX;
+    static const size_t PLAYER_NAME_MAX;
 };
 
 #endif

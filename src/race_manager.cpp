@@ -74,7 +74,7 @@ RaceManager::RaceManager()
     m_track_number       = 0;
     m_active_race        = false;
     m_score_for_position = stk_config->m_scores;
-    m_coin_target        = 0;
+    m_energy_target        = 0;
     setTrack("jungle");
     setNumLocalPlayers(1);
     setLocalKartInfo(0, "tux");

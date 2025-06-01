@@ -117,7 +117,7 @@ GrandPrixEnd::GrandPrixEnd()
             i-start + 1 /* add 1 because, while the inner ranks start at 0, users expect them to start at 1 */,
             race_manager->getKartScore(this_kart_id),
             other_kart->getName().c_str());
-		
+        
         
         widget_manager->addWgt(WTOK_FIRSTKART + i, 40, 5);
         widget_manager->showWgtRect(WTOK_FIRSTKART + i);

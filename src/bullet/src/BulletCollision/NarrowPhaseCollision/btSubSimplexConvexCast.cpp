@@ -35,102 +35,102 @@ m_convexA(convexA),m_convexB(convexB)
 #else
 #define MAX_ITERATIONS 32
 #endif
-bool	btSubsimplexConvexCast::calcTimeOfImpact(
-		const btTransform& fromA,
-		const btTransform& toA,
-		const btTransform& fromB,
-		const btTransform& toB,
-		CastResult& result)
+bool    btSubsimplexConvexCast::calcTimeOfImpact(
+        const btTransform& fromA,
+        const btTransform& toA,
+        const btTransform& fromB,
+        const btTransform& toB,
+        CastResult& result)
 {
 
-	m_simplexSolver->reset();
+    m_simplexSolver->reset();
 
-	btVector3 linVelA,linVelB;
-	linVelA = toA.getOrigin()-fromA.getOrigin();
-	linVelB = toB.getOrigin()-fromB.getOrigin();
+    btVector3 linVelA,linVelB;
+    linVelA = toA.getOrigin()-fromA.getOrigin();
+    linVelB = toB.getOrigin()-fromB.getOrigin();
 
-	btScalar lambda = btScalar(0.);
+    btScalar lambda = btScalar(0.);
 
-	btTransform interpolatedTransA = fromA;
-	btTransform interpolatedTransB = fromB;
+    btTransform interpolatedTransA = fromA;
+    btTransform interpolatedTransB = fromB;
 
-	///take relative motion
-	btVector3 r = (linVelA-linVelB);
-	btVector3 v;
-	
-	btVector3 supVertexA = fromA(m_convexA->localGetSupportingVertex(-r*fromA.getBasis()));
-	btVector3 supVertexB = fromB(m_convexB->localGetSupportingVertex(r*fromB.getBasis()));
-	v = supVertexA-supVertexB;
-	int maxIter = MAX_ITERATIONS;
+    ///take relative motion
+    btVector3 r = (linVelA-linVelB);
+    btVector3 v;
+    
+    btVector3 supVertexA = fromA(m_convexA->localGetSupportingVertex(-r*fromA.getBasis()));
+    btVector3 supVertexB = fromB(m_convexB->localGetSupportingVertex(r*fromB.getBasis()));
+    v = supVertexA-supVertexB;
+    int maxIter = MAX_ITERATIONS;
 
-	btVector3 n;
-	n.setValue(btScalar(0.),btScalar(0.),btScalar(0.));
-	bool hasResult = false;
-	btVector3 c;
+    btVector3 n;
+    n.setValue(btScalar(0.),btScalar(0.),btScalar(0.));
+    bool hasResult = false;
+    btVector3 c;
 
-	btScalar lastLambda = lambda;
+    btScalar lastLambda = lambda;
 
 
-	btScalar dist2 = v.length2();
+    btScalar dist2 = v.length2();
 #ifdef BT_USE_DOUBLE_PRECISION
-	btScalar epsilon = btScalar(0.0001);
+    btScalar epsilon = btScalar(0.0001);
 #else
-	btScalar epsilon = btScalar(0.0001);
+    btScalar epsilon = btScalar(0.0001);
 #endif //BT_USE_DOUBLE_PRECISION
-	btVector3	w,p;
-	btScalar VdotR;
-	
-	while ( (dist2 > epsilon) && maxIter--)
-	{
-		supVertexA = interpolatedTransA(m_convexA->localGetSupportingVertex(-v*interpolatedTransA.getBasis()));
-		supVertexB = interpolatedTransB(m_convexB->localGetSupportingVertex(v*interpolatedTransB.getBasis()));
-		w = supVertexA-supVertexB;
+    btVector3    w,p;
+    btScalar VdotR;
+    
+    while ( (dist2 > epsilon) && maxIter--)
+    {
+        supVertexA = interpolatedTransA(m_convexA->localGetSupportingVertex(-v*interpolatedTransA.getBasis()));
+        supVertexB = interpolatedTransB(m_convexB->localGetSupportingVertex(v*interpolatedTransB.getBasis()));
+        w = supVertexA-supVertexB;
 
-		btScalar VdotW = v.dot(w);
+        btScalar VdotW = v.dot(w);
 
-		if ( VdotW > btScalar(0.))
-		{
-			VdotR = v.dot(r);
+        if ( VdotW > btScalar(0.))
+        {
+            VdotR = v.dot(r);
 
-			if (VdotR >= -(SIMD_EPSILON*SIMD_EPSILON))
-				return false;
-			else
-			{
-				lambda = lambda - VdotW / VdotR;
-				//interpolate to next lambda
-				//	x = s + lambda * r;
-				interpolatedTransA.getOrigin().setInterpolate3(fromA.getOrigin(),toA.getOrigin(),lambda);
-				interpolatedTransB.getOrigin().setInterpolate3(fromB.getOrigin(),toB.getOrigin(),lambda);
-				//m_simplexSolver->reset();
-				//check next line
-				 w = supVertexA-supVertexB;
-				lastLambda = lambda;
-				n = v;
-				hasResult = true;
-			}
-		} 
-		m_simplexSolver->addVertex( w, supVertexA , supVertexB);
-		if (m_simplexSolver->closest(v))
-		{
-			dist2 = v.length2();
-			hasResult = true;
-			//printf("V=%f , %f, %f\n",v[0],v[1],v[2]);
-			//printf("DIST2=%f\n",dist2);
-			//printf("numverts = %i\n",m_simplexSolver->numVertices());
-		} else
-		{
-			dist2 = btScalar(0.);
-		} 
-	}
+            if (VdotR >= -(SIMD_EPSILON*SIMD_EPSILON))
+                return false;
+            else
+            {
+                lambda = lambda - VdotW / VdotR;
+                //interpolate to next lambda
+                //    x = s + lambda * r;
+                interpolatedTransA.getOrigin().setInterpolate3(fromA.getOrigin(),toA.getOrigin(),lambda);
+                interpolatedTransB.getOrigin().setInterpolate3(fromB.getOrigin(),toB.getOrigin(),lambda);
+                //m_simplexSolver->reset();
+                //check next line
+                 w = supVertexA-supVertexB;
+                lastLambda = lambda;
+                n = v;
+                hasResult = true;
+            }
+        } 
+        m_simplexSolver->addVertex( w, supVertexA , supVertexB);
+        if (m_simplexSolver->closest(v))
+        {
+            dist2 = v.length2();
+            hasResult = true;
+            //printf("V=%f , %f, %f\n",v[0],v[1],v[2]);
+            //printf("DIST2=%f\n",dist2);
+            //printf("numverts = %i\n",m_simplexSolver->numVertices());
+        } else
+        {
+            dist2 = btScalar(0.);
+        } 
+    }
 
-	//int numiter = MAX_ITERATIONS - maxIter;
-//	printf("number of iterations: %d", numiter);
-	result.m_fraction = lambda;
-	result.m_normal = n.normalized();
-	btVector3 hitA,hitB;
-	m_simplexSolver->compute_points(hitA,hitB);
-	result.m_hitPoint=hitB;
-	return true;
+    //int numiter = MAX_ITERATIONS - maxIter;
+//    printf("number of iterations: %d", numiter);
+    result.m_fraction = lambda;
+    result.m_normal = n.normalized();
+    btVector3 hitA,hitB;
+    m_simplexSolver->compute_points(hitA,hitB);
+    result.m_hitPoint=hitB;
+    return true;
 }
 
 

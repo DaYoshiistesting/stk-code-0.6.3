@@ -27,15 +27,15 @@ class btTransform;
 ///ConvexPenetrationDepthSolver provides an interface for penetration depth calculation.
 class btConvexPenetrationDepthSolver
 {
-public:	
-	
-	virtual ~btConvexPenetrationDepthSolver() {};
-	virtual bool calcPenDepth( btSimplexSolverInterface& simplexSolver,
-		const btConvexShape* convexA,const btConvexShape* convexB,
-					const btTransform& transA,const btTransform& transB,
-				btVector3& v, btPoint3& pa, btPoint3& pb,
-				class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc
-				) = 0;
+public:    
+    
+    virtual ~btConvexPenetrationDepthSolver() {};
+    virtual bool calcPenDepth( btSimplexSolverInterface& simplexSolver,
+        const btConvexShape* convexA,const btConvexShape* convexB,
+                    const btTransform& transA,const btTransform& transB,
+                btVector3& v, btPoint3& pa, btPoint3& pb,
+                class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc
+                ) = 0;
 
 
 };

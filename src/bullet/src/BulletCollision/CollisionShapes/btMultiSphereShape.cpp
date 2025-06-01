@@ -20,93 +20,93 @@ subject to the following restrictions:
 btMultiSphereShape::btMultiSphereShape (const btVector3& inertiaHalfExtents,const btVector3* positions,const btScalar* radi,int numSpheres)
 :m_inertiaHalfExtents(inertiaHalfExtents)
 {
-	btScalar startMargin = btScalar(1e30);
+    btScalar startMargin = btScalar(1e30);
 
-	m_numSpheres = numSpheres;
-	for (int i=0;i<m_numSpheres;i++)
-	{
-		m_localPositions[i] = positions[i];
-		m_radi[i] = radi[i];
-		if (radi[i] < startMargin)
-			startMargin = radi[i];
-	}
-	setMargin(startMargin);
+    m_numSpheres = numSpheres;
+    for (int i=0;i<m_numSpheres;i++)
+    {
+        m_localPositions[i] = positions[i];
+        m_radi[i] = radi[i];
+        if (radi[i] < startMargin)
+            startMargin = radi[i];
+    }
+    setMargin(startMargin);
 
 }
 
 
 
  
- btVector3	btMultiSphereShape::localGetSupportingVertexWithoutMargin(const btVector3& vec0)const
+ btVector3    btMultiSphereShape::localGetSupportingVertexWithoutMargin(const btVector3& vec0)const
 {
-	int i;
-	btVector3 supVec(0,0,0);
+    int i;
+    btVector3 supVec(0,0,0);
 
-	btScalar maxDot(btScalar(-1e30));
+    btScalar maxDot(btScalar(-1e30));
 
 
-	btVector3 vec = vec0;
-	btScalar lenSqr = vec.length2();
-	if (lenSqr < (SIMD_EPSILON*SIMD_EPSILON))
-	{
-		vec.setValue(1,0,0);
-	} else
-	{
-		btScalar rlen = btScalar(1.) / btSqrt(lenSqr );
-		vec *= rlen;
-	}
+    btVector3 vec = vec0;
+    btScalar lenSqr = vec.length2();
+    if (lenSqr < (SIMD_EPSILON*SIMD_EPSILON))
+    {
+        vec.setValue(1,0,0);
+    } else
+    {
+        btScalar rlen = btScalar(1.) / btSqrt(lenSqr );
+        vec *= rlen;
+    }
 
-	btVector3 vtx;
-	btScalar newDot;
+    btVector3 vtx;
+    btScalar newDot;
 
-	const btVector3* pos = &m_localPositions[0];
-	const btScalar* rad = &m_radi[0];
+    const btVector3* pos = &m_localPositions[0];
+    const btScalar* rad = &m_radi[0];
 
-	for (i=0;i<m_numSpheres;i++)
-	{
-		vtx = (*pos) +vec*m_localScaling*(*rad) - vec * getMargin();
-		pos++;
-		rad++;
-		newDot = vec.dot(vtx);
-		if (newDot > maxDot)
-		{
-			maxDot = newDot;
-			supVec = vtx;
-		}
-	}
+    for (i=0;i<m_numSpheres;i++)
+    {
+        vtx = (*pos) +vec*m_localScaling*(*rad) - vec * getMargin();
+        pos++;
+        rad++;
+        newDot = vec.dot(vtx);
+        if (newDot > maxDot)
+        {
+            maxDot = newDot;
+            supVec = vtx;
+        }
+    }
 
-	return supVec;
+    return supVec;
 
 }
 
- void	btMultiSphereShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
+ void    btMultiSphereShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
 {
 
-	for (int j=0;j<numVectors;j++)
-	{
-		btScalar maxDot(btScalar(-1e30));
+    for (int j=0;j<numVectors;j++)
+    {
+        btScalar maxDot(btScalar(-1e30));
 
-		const btVector3& vec = vectors[j];
+        const btVector3& vec = vectors[j];
 
-		btVector3 vtx;
-		btScalar newDot;
+        btVector3 vtx;
+        btScalar newDot;
 
-		const btVector3* pos = &m_localPositions[0];
-		const btScalar* rad = &m_radi[0];
+        const btVector3* pos = &m_localPositions[0];
+        const btScalar* rad = &m_radi[0];
 
-		for (int i=0;i<m_numSpheres;i++)
-		{
-			vtx = (*pos) +vec*m_localScaling*(*rad) - vec * getMargin();
-			pos++;
-			rad++;
-			newDot = vec.dot(vtx);
-			if (newDot > maxDot)
-			{
-				maxDot = newDot;
-				supportVerticesOut[j] = vtx;
-			}
-		}
-	}
+        for (int i=0;i<m_numSpheres;i++)
+        {
+            vtx = (*pos) +vec*m_localScaling*(*rad) - vec * getMargin();
+            pos++;
+            rad++;
+            newDot = vec.dot(vtx);
+            if (newDot > maxDot)
+            {
+                maxDot = newDot;
+                supportVerticesOut[j] = vtx;
+            }
+        }
+    }
 }
 
 
@@ -116,31 +116,31 @@ btMultiSphereShape::btMultiSphereShape (const btVector3& inertiaHalfExtents,cons
 
 
 
-void	btMultiSphereShape::calculateLocalInertia(btScalar mass,btVector3& inertia) const
+void    btMultiSphereShape::calculateLocalInertia(btScalar mass,btVector3& inertia) const
 {
-	//as an approximation, take the inertia of the box that bounds the spheres
+    //as an approximation, take the inertia of the box that bounds the spheres
 
-	btTransform ident;
-	ident.setIdentity();
-//	btVector3 aabbMin,aabbMax;
+    btTransform ident;
+    ident.setIdentity();
+//    btVector3 aabbMin,aabbMax;
 
-//	getAabb(ident,aabbMin,aabbMax);
+//    getAabb(ident,aabbMin,aabbMax);
 
-	btVector3 halfExtents = m_inertiaHalfExtents;//(aabbMax - aabbMin)* btScalar(0.5);
+    btVector3 halfExtents = m_inertiaHalfExtents;//(aabbMax - aabbMin)* btScalar(0.5);
 
-	btScalar margin = CONVEX_DISTANCE_MARGIN;
+    btScalar margin = CONVEX_DISTANCE_MARGIN;
 
-	btScalar lx=btScalar(2.)*(halfExtents[0]+margin);
-	btScalar ly=btScalar(2.)*(halfExtents[1]+margin);
-	btScalar lz=btScalar(2.)*(halfExtents[2]+margin);
-	const btScalar x2 = lx*lx;
-	const btScalar y2 = ly*ly;
-	const btScalar z2 = lz*lz;
-	const btScalar scaledmass = mass * btScalar(.08333333);
+    btScalar lx=btScalar(2.)*(halfExtents[0]+margin);
+    btScalar ly=btScalar(2.)*(halfExtents[1]+margin);
+    btScalar lz=btScalar(2.)*(halfExtents[2]+margin);
+    const btScalar x2 = lx*lx;
+    const btScalar y2 = ly*ly;
+    const btScalar z2 = lz*lz;
+    const btScalar scaledmass = mass * btScalar(.08333333);
 
-	inertia[0] = scaledmass * (y2+z2);
-	inertia[1] = scaledmass * (x2+z2);
-	inertia[2] = scaledmass * (x2+y2);
+    inertia[0] = scaledmass * (y2+z2);
+    inertia[1] = scaledmass * (x2+z2);
+    inertia[2] = scaledmass * (x2+y2);
 
 }
 

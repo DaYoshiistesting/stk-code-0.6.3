@@ -64,7 +64,7 @@ Flyable::Flyable(Kart *kart, PowerupType type, float mass) : Moveable()
     m_time_since_thrown = 0;
     m_owner_has_temporary_immunity = true;
     m_max_lifespan = -1;
-	
+    
     // Add the graphical model
     ssgTransform *m     = getModelTransform();
     m->addKid(m_st_model[type]);
@@ -245,9 +245,9 @@ void Flyable::getLinearKartItemIntersection (const Vec3 &origin,
     float b = item_XY_speed * cosf (fire_th) + target_kart_speed * cosf (target_kart_heading);
 
     if (fabsf(a) > fabsf(b)) 
-		time = fabsf (dx / a);
+        time = fabsf (dx / a);
     else if (b != 0.0f)      
-		time = fabsf(dy / b);
+        time = fabsf(dy / b);
 
     if (fire_th > M_PI)
         fire_th -= M_PI;
@@ -266,16 +266,16 @@ bool Flyable::updateAndDel(float dt)
 {
     m_time_since_thrown += dt;
     if(m_max_lifespan > -1 && m_time_since_thrown > m_max_lifespan) hit(NULL);
-	
+    
     if(m_exploded) return false;
     if(m_has_hit_something) return true;
-	
+    
     Vec3 pos = getXYZ();
     // Check if the flyable is out of the track  boundary. If so, let it explode.
     Vec3 min, max;
     RaceManager::getTrack()->getAABB(&min, &max);
 
-	// I have seen that the bullet AABB can be slightly different from the 
+    // I have seen that the bullet AABB can be slightly different from the 
     // one computed here - I assume due to minor floating point errors
     // (e.g. 308.25842 instead of 308.25845). To avoid a crash with a bullet
     // assertion (see bug 3058932) I add an epsilon here - but admittedly

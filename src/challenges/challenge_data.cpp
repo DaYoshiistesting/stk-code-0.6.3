@@ -220,7 +220,7 @@ void ChallengeData::setRace() const
         race_manager->setNumKarts(m_num_karts);
         race_manager->setNumPlayers(1);
         race_manager->setNumLocalPlayers(1);
-        race_manager->setCoinTarget(m_energy);
+        race_manager->setEnergyTarget(m_energy);
     }
     else   // GP
     {

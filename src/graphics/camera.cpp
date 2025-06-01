@@ -71,7 +71,7 @@ void Camera::setScreenPosition(int camera_index)
     }
     else if(num_players == 2)
     {
-        m_context->setFOV(50.0f, 50.0f);
+        m_context->setFOV(35.0f, 42.5f);
         switch(camera_index)
         {
             case 0 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 1.0f; break;
@@ -276,10 +276,10 @@ void Camera::apply()
 {
     int width  = user_config->m_width;
     int height = user_config->m_height;
-    glViewport((int)((float)width  * m_x),
-               (int)((float)height * m_y),
-               (int)((float)width  * m_w),
-               (int)((float)height * m_h));
+    glViewport((int)(width  * m_x),
+               (int)(height * m_y),
+               (int)(width  * m_w),
+               (int)(height * m_h));
     m_context->makeCurrent();
 }   // apply
 

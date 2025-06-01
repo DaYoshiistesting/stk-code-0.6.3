@@ -43,7 +43,6 @@ private:
     Camera *m_camera;
 
     SFXBase *m_bzzt_sound;
-    SFXBase *m_wee_sound;
     SFXBase *m_ugh_sound;
     SFXBase *m_grab_sound;
     SFXBase *m_full_sound;
@@ -58,7 +57,6 @@ public:
     Player      *getPlayer         () {return m_player;        }
     void         update            (float);
     void         action            (KartAction action, int value);
-    void         handleZipper      (bool play_sfx);
     void         collectedItem     (const Item *item, int add_info=-1);
     virtual void crashed           (Kart *k);
     virtual void setPosition       (int p);

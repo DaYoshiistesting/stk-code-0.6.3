@@ -26,52 +26,52 @@ subject to the following restrictions:
 ///(memory is much slower then the cpu)
 ATTRIBUTE_ALIGNED16(class) btConvexHullShape : public btPolyhedralConvexShape
 {
-	btAlignedObjectArray<btPoint3>	m_points;
+    btAlignedObjectArray<btPoint3>    m_points;
 
 public:
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	
-	///this constructor optionally takes in a pointer to points. Each point is assumed to be 3 consecutive btScalar (x,y,z), the striding defines the number of bytes between each point, in memory.
-	///It is easier to not pass any points in the constructor, and just add one point at a time, using addPoint.
-	///btConvexHullShape make an internal copy of the points.
-	btConvexHullShape(const btScalar* points=0,int numPoints=0, int stride=sizeof(btPoint3));
+    
+    ///this constructor optionally takes in a pointer to points. Each point is assumed to be 3 consecutive btScalar (x,y,z), the striding defines the number of bytes between each point, in memory.
+    ///It is easier to not pass any points in the constructor, and just add one point at a time, using addPoint.
+    ///btConvexHullShape make an internal copy of the points.
+    btConvexHullShape(const btScalar* points=0,int numPoints=0, int stride=sizeof(btPoint3));
 
-	void addPoint(const btPoint3& point);
+    void addPoint(const btPoint3& point);
 
-	btPoint3* getPoints()
-	{
-		return &m_points[0];
-	}
+    btPoint3* getPoints()
+    {
+        return &m_points[0];
+    }
 
-	const btPoint3* getPoints() const
-	{
-		return &m_points[0];
-	}
+    const btPoint3* getPoints() const
+    {
+        return &m_points[0];
+    }
 
-	int getNumPoints() const 
-	{
-		return m_points.size();
-	}
+    int getNumPoints() const 
+    {
+        return m_points.size();
+    }
 
-	virtual btVector3	localGetSupportingVertex(const btVector3& vec)const;
-	virtual btVector3	localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
-	virtual void	batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
-	
+    virtual btVector3    localGetSupportingVertex(const btVector3& vec)const;
+    virtual btVector3    localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
+    virtual void    batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
+    
 
-	virtual int	getShapeType()const { return CONVEX_HULL_SHAPE_PROXYTYPE; }
+    virtual int    getShapeType()const { return CONVEX_HULL_SHAPE_PROXYTYPE; }
 
-	//debugging
-	virtual const char*	getName()const {return "Convex";}
+    //debugging
+    virtual const char*    getName()const {return "Convex";}
 
-	
-	virtual int	getNumVertices() const;
-	virtual int getNumEdges() const;
-	virtual void getEdge(int i,btPoint3& pa,btPoint3& pb) const;
-	virtual void getVertex(int i,btPoint3& vtx) const;
-	virtual int	getNumPlanes() const;
-	virtual void getPlane(btVector3& planeNormal,btPoint3& planeSupport,int i ) const;
-	virtual	bool isInside(const btPoint3& pt,btScalar tolerance) const;
+    
+    virtual int    getNumVertices() const;
+    virtual int getNumEdges() const;
+    virtual void getEdge(int i,btPoint3& pa,btPoint3& pb) const;
+    virtual void getVertex(int i,btPoint3& vtx) const;
+    virtual int    getNumPlanes() const;
+    virtual void getPlane(btVector3& planeNormal,btPoint3& planeSupport,int i ) const;
+    virtual    bool isInside(const btPoint3& pt,btScalar tolerance) const;
 
 
 

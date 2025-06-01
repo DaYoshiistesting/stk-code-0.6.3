@@ -35,16 +35,15 @@ class Vec3;
 class SFXBase
 {
 public:
-    virtual           ~SFXBase()                       {}
+    virtual           ~SFXBase() {}
     virtual void       position(const Vec3 &position) = 0;
-    virtual void       loop()              = 0;
-    virtual void       play()              = 0;
-    virtual void       stop()              = 0;
-    virtual void       pause()             = 0;
-    virtual void       resume()            = 0;
-    virtual void       speed(float factor) = 0;
-    virtual SFXManager::SFXStatus  
-                       getStatus()         = 0;
+    virtual void       loop()                         = 0;
+    virtual void       play()                         = 0;
+    virtual void       stop()                         = 0;
+    virtual void       pause()                        = 0;
+    virtual void       resume()                       = 0;
+    virtual void       speed(float factor)            = 0;
+    virtual SFXManager::SFXStatus  getStatus()        = 0;
 };   // SfxBase
 
 

@@ -104,30 +104,30 @@ void SFXManager::loadSfx()
         std::string msg="No sfx-config node";
         throw std::runtime_error(msg);
     }
-    loadSingleSfx(lisp, "ugh",           SOUND_UGH            );
-    loadSingleSfx(lisp, "skid",          SOUND_SKID           );
-	loadSingleSfx(lisp, "bowling_roll",  SOUND_BOWLING_ROLL   );
-	loadSingleSfx(lisp, "bowling_strike",SOUND_BOWLING_STRIKE );
-    loadSingleSfx(lisp, "winner",        SOUND_WINNER         );
-    loadSingleSfx(lisp, "crash",         SOUND_CRASH          );
-    loadSingleSfx(lisp, "grab",          SOUND_GRAB           );
-    loadSingleSfx(lisp, "goo",           SOUND_GOO            );
-    loadSingleSfx(lisp, "shot",          SOUND_SHOT           );
-    loadSingleSfx(lisp, "wee",           SOUND_WEE            );
-    loadSingleSfx(lisp, "explosion",     SOUND_EXPLOSION      );
-    loadSingleSfx(lisp, "bzzt",          SOUND_BZZT           );
-    loadSingleSfx(lisp, "beep",          SOUND_BEEP           );
-    loadSingleSfx(lisp, "beep_player",   SOUND_BEEP_PLAYER    );
-    loadSingleSfx(lisp, "back_menu",     SOUND_BACK_MENU      );
-    loadSingleSfx(lisp, "use_anvil",     SOUND_USE_ANVIL      );
-    loadSingleSfx(lisp, "use_parachute", SOUND_USE_PARACHUTE  );
-    loadSingleSfx(lisp, "select_menu",   SOUND_SELECT_MENU    );
-    loadSingleSfx(lisp, "move_menu",     SOUND_MOVE_MENU      );
-    loadSingleSfx(lisp, "full",          SOUND_FULL           );
-    loadSingleSfx(lisp, "prestart",      SOUND_PRESTART       );
-    loadSingleSfx(lisp, "start",         SOUND_START          );
-    loadSingleSfx(lisp, "engine_small",  SOUND_ENGINE_SMALL   );
-    loadSingleSfx(lisp, "engine_large",  SOUND_ENGINE_LARGE   );
+    loadSingleSfx(lisp, "ugh",           SOUND_UGH           );
+    loadSingleSfx(lisp, "skid",          SOUND_SKID          );
+    loadSingleSfx(lisp, "bowling_roll",  SOUND_BOWLING_ROLL  );
+    loadSingleSfx(lisp, "bowling_strike",SOUND_BOWLING_STRIKE);
+    loadSingleSfx(lisp, "winner",        SOUND_WINNER        );
+    loadSingleSfx(lisp, "crash",         SOUND_CRASH         );
+    loadSingleSfx(lisp, "grab",          SOUND_GRAB          );
+    loadSingleSfx(lisp, "goo",           SOUND_GOO           );
+    loadSingleSfx(lisp, "shot",          SOUND_SHOT          );
+    loadSingleSfx(lisp, "wee",           SOUND_WEE           );
+    loadSingleSfx(lisp, "explosion",     SOUND_EXPLOSION     );
+    loadSingleSfx(lisp, "bzzt",          SOUND_BZZT          );
+    loadSingleSfx(lisp, "beep",          SOUND_BEEP          );
+    loadSingleSfx(lisp, "beep_ai",       SOUND_BEEP_AI       );
+    loadSingleSfx(lisp, "back_menu",     SOUND_BACK_MENU     );
+    loadSingleSfx(lisp, "use_anvil",     SOUND_USE_ANVIL     );
+    loadSingleSfx(lisp, "use_parachute", SOUND_USE_PARACHUTE );
+    loadSingleSfx(lisp, "select_menu",   SOUND_SELECT_MENU   );
+    loadSingleSfx(lisp, "move_menu",     SOUND_MOVE_MENU     );
+    loadSingleSfx(lisp, "full",          SOUND_FULL          );
+    loadSingleSfx(lisp, "prestart",      SOUND_PRESTART      );
+    loadSingleSfx(lisp, "start",         SOUND_START         );
+    loadSingleSfx(lisp, "engine_small",  SOUND_ENGINE_SMALL  );
+    loadSingleSfx(lisp, "engine_large",  SOUND_ENGINE_LARGE  );
 }   // loadSfx
 //----------------------------------------------------------------------------
 void SFXManager::loadSingleSfx(const lisp::Lisp* lisp, 
@@ -136,10 +136,10 @@ void SFXManager::loadSingleSfx(const lisp::Lisp* lisp,
     const lisp::Lisp* sfxLisp = lisp->getLisp(name);
     std::string wav; float rolloff = 0.1f; float gain = 1.0f; int positional = 0;
 
-    sfxLisp->get("filename",    wav         );
-    sfxLisp->get("roll-off",    rolloff     );
-    sfxLisp->get("positional",  positional  );
-    sfxLisp->get("volume",      gain        );
+    sfxLisp->get("filename",    wav       );
+    sfxLisp->get("roll-off",    rolloff   );
+    sfxLisp->get("positional",  positional);
+    sfxLisp->get("volume",      gain      );
 
     m_sfx_rolloff[item] = rolloff;
     m_sfx_positional[item] = positional;
@@ -155,25 +155,25 @@ void SFXManager::loadSingleSfx(const lisp::Lisp* lisp,
     Uint8* data = NULL;
     SDL_AudioSpec spec;
 
-    if( SDL_LoadWAV( path.c_str(), &spec, &data, &size ) == NULL)
+    if(SDL_LoadWAV(path.c_str(), &spec, &data, &size ) == NULL)
     {
         fprintf(stdout, "SDL_LoadWAV() failed to load %s\n", path.c_str());
         return;
     }
 
-    switch( spec.format )
+    switch(spec.format)
     {
         case AUDIO_U8:
         case AUDIO_S8:
-            format = ( spec.channels == 2 ) ? AL_FORMAT_STEREO8
-                                            : AL_FORMAT_MONO8;
+            format = (spec.channels == 2) ? AL_FORMAT_STEREO8
+                                          : AL_FORMAT_MONO8;
             break;
         case AUDIO_U16LSB:
         case AUDIO_S16LSB:
         case AUDIO_U16MSB:
         case AUDIO_S16MSB:
-            format = ( spec.channels == 2 ) ? AL_FORMAT_STEREO16
-                                            : AL_FORMAT_MONO16;
+            format = (spec.channels == 2) ? AL_FORMAT_STEREO16
+                                          : AL_FORMAT_MONO16;
             
 #if defined(WORDS_BIGENDIAN) || SDL_BYTEORDER==SDL_BIG_ENDIAN
             // swap bytes around for big-endian systems

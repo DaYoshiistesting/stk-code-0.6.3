@@ -43,7 +43,7 @@ private:
     //! relative_frames
 
     //!@{
-    btTransform		m_frameInA;//!< the constraint space w.r.t body A
+    btTransform        m_frameInA;//!< the constraint space w.r.t body A
     //!@}
 
     //! Jacobians
@@ -51,7 +51,7 @@ private:
     btJacobianEntry     m_jacAng[ 2 ];//!< angular constraint
     //!@}
 
-	const Kart *m_kart;
+    const Kart *m_kart;
 protected:
 
     //! temporal variables
@@ -86,13 +86,13 @@ protected:
 public:
 
     btUprightConstraint(const Kart *kart, const btTransform& frameInA );
-    // -PI,+PI			is the full range
-    // 0,0				is no rotation around x or z
-    // -PI*0.2,+PI*0.2	is a nice bit of tilt
+    // -PI,+PI            is the full range
+    // 0,0                is no rotation around x or z
+    // -PI*0.2,+PI*0.2    is a nice bit of tilt
     void setLimit( btScalar range )
     {
-    	m_loLimit = -range;
-    	m_hiLimit = +range;
+        m_loLimit = -range;
+        m_hiLimit = +range;
     }
     
     // Error correction scaling

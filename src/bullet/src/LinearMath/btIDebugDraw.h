@@ -31,81 +31,81 @@ DEALINGS IN THE SOFTWARE.
 #include "btVector3.h"
 
 
-class	btIDebugDraw
+class    btIDebugDraw
 {
-	public:
+    public:
 
-	enum	DebugDrawModes
-	{
-		DBG_NoDebug=0,
-		DBG_DrawWireframe = 1,
-		DBG_DrawAabb=2,
-		DBG_DrawFeaturesText=4,
-		DBG_DrawContactPoints=8,
-		DBG_NoDeactivation=16,
-		DBG_NoHelpText = 32,
-		DBG_DrawText=64,
-		DBG_ProfileTimings = 128,
-		DBG_EnableSatComparison = 256,
-		DBG_DisableBulletLCP = 512,
-		DBG_EnableCCD = 1024,
-		DBG_MAX_DEBUG_DRAW_MODE
-	};
+    enum    DebugDrawModes
+    {
+        DBG_NoDebug=0,
+        DBG_DrawWireframe = 1,
+        DBG_DrawAabb=2,
+        DBG_DrawFeaturesText=4,
+        DBG_DrawContactPoints=8,
+        DBG_NoDeactivation=16,
+        DBG_NoHelpText = 32,
+        DBG_DrawText=64,
+        DBG_ProfileTimings = 128,
+        DBG_EnableSatComparison = 256,
+        DBG_DisableBulletLCP = 512,
+        DBG_EnableCCD = 1024,
+        DBG_MAX_DEBUG_DRAW_MODE
+    };
 
-	virtual ~btIDebugDraw() {};
+    virtual ~btIDebugDraw() {};
 
-	virtual void	drawLine(const btVector3& from,const btVector3& to,const btVector3& color)=0;
-	
-	virtual	void	drawTriangle(const btVector3& v0,const btVector3& v1,const btVector3& v2,const btVector3& n0,const btVector3& n1,const btVector3& n2,const btVector3& color, btScalar alpha)
-	{
-		drawTriangle(v0,v1,v2,color,alpha);
-	}
-	virtual	void	drawTriangle(const btVector3& v0,const btVector3& v1,const btVector3& v2,const btVector3& color, btScalar alpha)
-	{
-		drawLine(v0,v1,color);
-		drawLine(v1,v2,color);
-		drawLine(v2,v0,color);
-	}
+    virtual void    drawLine(const btVector3& from,const btVector3& to,const btVector3& color)=0;
+    
+    virtual    void    drawTriangle(const btVector3& v0,const btVector3& v1,const btVector3& v2,const btVector3& n0,const btVector3& n1,const btVector3& n2,const btVector3& color, btScalar alpha)
+    {
+        drawTriangle(v0,v1,v2,color,alpha);
+    }
+    virtual    void    drawTriangle(const btVector3& v0,const btVector3& v1,const btVector3& v2,const btVector3& color, btScalar alpha)
+    {
+        drawLine(v0,v1,color);
+        drawLine(v1,v2,color);
+        drawLine(v2,v0,color);
+    }
 
-	virtual void	drawContactPoint(const btVector3& PointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)=0;
+    virtual void    drawContactPoint(const btVector3& PointOnB,const btVector3& normalOnB,btScalar distance,int lifeTime,const btVector3& color)=0;
 
-	virtual void	reportErrorWarning(const char* warningString) = 0;
+    virtual void    reportErrorWarning(const char* warningString) = 0;
 
-	virtual void	draw3dText(const btVector3& location,const char* textString) = 0;
-	
-	virtual void	setDebugMode(int debugMode) =0;
-	
-	virtual int		getDebugMode() const = 0;
+    virtual void    draw3dText(const btVector3& location,const char* textString) = 0;
+    
+    virtual void    setDebugMode(int debugMode) =0;
+    
+    virtual int        getDebugMode() const = 0;
 
-	inline void drawAabb(const btVector3& from,const btVector3& to,const btVector3& color)
-	{
+    inline void drawAabb(const btVector3& from,const btVector3& to,const btVector3& color)
+    {
 
-		btVector3 halfExtents = (to-from)* 0.5f;
-		btVector3 center = (to+from) *0.5f;
-		int i,j;
+        btVector3 halfExtents = (to-from)* 0.5f;
+        btVector3 center = (to+from) *0.5f;
+        int i,j;
 
-		btVector3 edgecoord(1.f,1.f,1.f),pa,pb;
-		for (i=0;i<4;i++)
-		{
-			for (j=0;j<3;j++)
-			{
-				pa = btVector3(edgecoord[0]*halfExtents[0], edgecoord[1]*halfExtents[1],		
-					edgecoord[2]*halfExtents[2]);
-				pa+=center;
+        btVector3 edgecoord(1.f,1.f,1.f),pa,pb;
+        for (i=0;i<4;i++)
+        {
+            for (j=0;j<3;j++)
+            {
+                pa = btVector3(edgecoord[0]*halfExtents[0], edgecoord[1]*halfExtents[1],        
+                    edgecoord[2]*halfExtents[2]);
+                pa+=center;
 
-				int othercoord = j%3;
-				edgecoord[othercoord]*=-1.f;
-				pb = btVector3(edgecoord[0]*halfExtents[0], edgecoord[1]*halfExtents[1],	
-					edgecoord[2]*halfExtents[2]);
-				pb+=center;
+                int othercoord = j%3;
+                edgecoord[othercoord]*=-1.f;
+                pb = btVector3(edgecoord[0]*halfExtents[0], edgecoord[1]*halfExtents[1],    
+                    edgecoord[2]*halfExtents[2]);
+                pb+=center;
 
-				drawLine(pa,pb,color);
-			}
-			edgecoord = btVector3(-1.f,-1.f,-1.f);
-			if (i<3)
-				edgecoord[i]*=-1.f;
-		}
-	}
+                drawLine(pa,pb,color);
+            }
+            edgecoord = btVector3(-1.f,-1.f,-1.f);
+            if (i<3)
+                edgecoord[i]*=-1.f;
+        }
+    }
 };
 
 

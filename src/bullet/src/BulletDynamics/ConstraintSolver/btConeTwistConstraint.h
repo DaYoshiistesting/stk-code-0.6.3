@@ -33,93 +33,93 @@ class btConeTwistConstraint : public btTypedConstraint
 #ifdef IN_PARALLELL_SOLVER
 public:
 #endif
-	btJacobianEntry	m_jac[3]; //3 orthogonal linear constraints
+    btJacobianEntry    m_jac[3]; //3 orthogonal linear constraints
 
-	btTransform m_rbAFrame; 
-	btTransform m_rbBFrame;
+    btTransform m_rbAFrame; 
+    btTransform m_rbBFrame;
 
-	btScalar	m_limitSoftness;
-	btScalar	m_biasFactor;
-	btScalar	m_relaxationFactor;
+    btScalar    m_limitSoftness;
+    btScalar    m_biasFactor;
+    btScalar    m_relaxationFactor;
 
-	btScalar	m_swingSpan1;
-	btScalar	m_swingSpan2;
-	btScalar	m_twistSpan;
+    btScalar    m_swingSpan1;
+    btScalar    m_swingSpan2;
+    btScalar    m_twistSpan;
 
-	btVector3   m_swingAxis;
-	btVector3	m_twistAxis;
+    btVector3   m_swingAxis;
+    btVector3    m_twistAxis;
 
-	btScalar	m_kSwing;
-	btScalar	m_kTwist;
+    btScalar    m_kSwing;
+    btScalar    m_kTwist;
 
-	btScalar	m_twistLimitSign;
-	btScalar	m_swingCorrection;
-	btScalar	m_twistCorrection;
+    btScalar    m_twistLimitSign;
+    btScalar    m_swingCorrection;
+    btScalar    m_twistCorrection;
 
-	btScalar	m_accSwingLimitImpulse;
-	btScalar	m_accTwistLimitImpulse;
+    btScalar    m_accSwingLimitImpulse;
+    btScalar    m_accTwistLimitImpulse;
 
-	bool		m_angularOnly;
-	bool		m_solveTwistLimit;
-	bool		m_solveSwingLimit;
+    bool        m_angularOnly;
+    bool        m_solveTwistLimit;
+    bool        m_solveSwingLimit;
 
-	
+    
 public:
 
-	btConeTwistConstraint(btRigidBody& rbA,btRigidBody& rbB,const btTransform& rbAFrame, const btTransform& rbBFrame);
-	
-	btConeTwistConstraint(btRigidBody& rbA,const btTransform& rbAFrame);
+    btConeTwistConstraint(btRigidBody& rbA,btRigidBody& rbB,const btTransform& rbAFrame, const btTransform& rbBFrame);
+    
+    btConeTwistConstraint(btRigidBody& rbA,const btTransform& rbAFrame);
 
-	btConeTwistConstraint();
+    btConeTwistConstraint();
 
-	virtual void	buildJacobian();
+    virtual void    buildJacobian();
 
-	virtual	void	solveConstraint(btScalar	timeStep);
+    virtual    void    solveConstraint(btScalar    timeStep);
 
-	void	updateRHS(btScalar	timeStep);
+    void    updateRHS(btScalar    timeStep);
 
-	const btRigidBody& getRigidBodyA() const
-	{
-		return m_rbA;
-	}
-	const btRigidBody& getRigidBodyB() const
-	{
-		return m_rbB;
-	}
+    const btRigidBody& getRigidBodyA() const
+    {
+        return m_rbA;
+    }
+    const btRigidBody& getRigidBodyB() const
+    {
+        return m_rbB;
+    }
 
-	void	setAngularOnly(bool angularOnly)
-	{
-		m_angularOnly = angularOnly;
-	}
+    void    setAngularOnly(bool angularOnly)
+    {
+        m_angularOnly = angularOnly;
+    }
 
-	void	setLimit(btScalar _swingSpan1,btScalar _swingSpan2,btScalar _twistSpan,  btScalar _softness = 0.8f, btScalar _biasFactor = 0.3f, btScalar _relaxationFactor = 1.0f)
-	{
-		m_swingSpan1 = _swingSpan1;
-		m_swingSpan2 = _swingSpan2;
-		m_twistSpan  = _twistSpan;
+    void    setLimit(btScalar _swingSpan1,btScalar _swingSpan2,btScalar _twistSpan,  btScalar _softness = 0.8f, btScalar _biasFactor = 0.3f, btScalar _relaxationFactor = 1.0f)
+    {
+        m_swingSpan1 = _swingSpan1;
+        m_swingSpan2 = _swingSpan2;
+        m_twistSpan  = _twistSpan;
 
-		m_limitSoftness =  _softness;
-		m_biasFactor = _biasFactor;
-		m_relaxationFactor = _relaxationFactor;
-	}
+        m_limitSoftness =  _softness;
+        m_biasFactor = _biasFactor;
+        m_relaxationFactor = _relaxationFactor;
+    }
 
-	const btTransform& getAFrame() { return m_rbAFrame; };	
-	const btTransform& getBFrame() { return m_rbBFrame; };
+    const btTransform& getAFrame() { return m_rbAFrame; };    
+    const btTransform& getBFrame() { return m_rbBFrame; };
 
-	inline int getSolveTwistLimit()
-	{
-		return m_solveTwistLimit;
-	}
+    inline int getSolveTwistLimit()
+    {
+        return m_solveTwistLimit;
+    }
 
-	inline int getSolveSwingLimit()
-	{
-		return m_solveTwistLimit;
-	}
+    inline int getSolveSwingLimit()
+    {
+        return m_solveTwistLimit;
+    }
 
-	inline btScalar getTwistLimitSign()
-	{
-		return m_twistLimitSign;
-	}
+    inline btScalar getTwistLimitSign()
+    {
+        return m_twistLimitSign;
+    }
 
 };
 

@@ -37,19 +37,19 @@
 #define __BMF_FONTDATA_H__
 
 typedef struct {
-	signed char width, height;
-	signed char xorig, yorig;
-	signed char advance;
-	
-	short		data_offset;
+    signed char width, height;
+    signed char xorig, yorig;
+    signed char advance;
+    
+    short        data_offset;
 } BMF_CharData;
 
 typedef struct {
-	int				xmin, ymin;
-	int				xmax, ymax;
+    int                xmin, ymin;
+    int                xmax, ymax;
 
-	BMF_CharData	chars[256];
-	unsigned char*	bitmap_data;
+    BMF_CharData    chars[256];
+    unsigned char*    bitmap_data;
 } BMF_FontData;
 
 #endif

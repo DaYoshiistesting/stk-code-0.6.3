@@ -102,12 +102,14 @@ Kart::Kart (const std::string& kart_name, int position,
     m_rescue                  = false;
     m_wheel_rotation          = 0;
 
-    m_engine_sound      = sfx_manager->newSFX(m_kart_properties->getEngineSfxType());
-    m_player_beep_sound = sfx_manager->newSFX(  SFXManager::SOUND_BEEP_PLAYER      );
-    m_beep_sound        = sfx_manager->newSFX(  SFXManager::SOUND_BEEP             );
-    m_crash_sound       = sfx_manager->newSFX(  SFXManager::SOUND_CRASH            );
-    m_skid_sound        = sfx_manager->newSFX(  SFXManager::SOUND_SKID             );
-    m_goo_sound         = sfx_manager->newSFX(  SFXManager::SOUND_GOO              );
+    m_engine_sound  = sfx_manager->newSFX(m_kart_properties->getEngineSfxType());
+    m_beep_ai_sound = sfx_manager->newSFX(SFXManager::SOUND_BEEP_AI);
+    m_beep_sound    = sfx_manager->newSFX(SFXManager::SOUND_BEEP   );
+    m_crash_sound   = sfx_manager->newSFX(SFXManager::SOUND_CRASH  );
+    m_skid_sound    = sfx_manager->newSFX(SFXManager::SOUND_SKID   );
+    m_wee_sound     = sfx_manager->newSFX(SFXManager::SOUND_WEE    );
+    m_goo_sound     = sfx_manager->newSFX(SFXManager::SOUND_GOO    );
+    
     
     if(!m_engine_sound)
     {
@@ -234,12 +236,13 @@ Kart::~Kart()
     {
         m_engine_sound->stop();
     }
-    sfx_manager->deleteSFX(m_engine_sound     );
-    sfx_manager->deleteSFX(m_beep_sound       );
-    sfx_manager->deleteSFX(m_player_beep_sound);
-    sfx_manager->deleteSFX(m_crash_sound      );
-    sfx_manager->deleteSFX(m_skid_sound       );
-    sfx_manager->deleteSFX(m_goo_sound        );
+    sfx_manager->deleteSFX(m_engine_sound );
+    sfx_manager->deleteSFX(m_beep_sound   );
+    sfx_manager->deleteSFX(m_beep_ai_sound);
+    sfx_manager->deleteSFX(m_crash_sound  );
+    sfx_manager->deleteSFX(m_skid_sound   );
+    sfx_manager->deleteSFX(m_wee_sound    );
+    sfx_manager->deleteSFX(m_goo_sound    );
     
     if(m_smoke_system) ssgDeRefDelete(m_smoke_system);
     if(m_nitro)        ssgDeRefDelete(m_nitro);
@@ -260,6 +263,9 @@ Kart::~Kart()
 }   // ~Kart
 
 //-----------------------------------------------------------------------------
+/** Removes the kart after it was eliminated in follow the leader mode
+ *  by placing it waaaay under the track.
+ */
 void Kart::eliminate()
 {
     m_eliminated = true;
@@ -273,9 +279,7 @@ void Kart::eliminate()
 }   // eliminate
 
 //-----------------------------------------------------------------------------
-/** Returns true if the kart is 'resting'
- *
- * Returns true if the kart is 'resting', i.e. (nearly) not moving.
+/** Returns true if the kart is 'resting', i.e. (nearly) not moving.
  */
 bool Kart::isInRest() const
 {
@@ -307,6 +311,7 @@ void Kart::updatedWeight()
 }   // updatedWeight
 
 //-----------------------------------------------------------------------------
+/** Resets the kart. */
 void Kart::reset()
 {
     // If the kart was eliminated or rescued, the body was removed from the
@@ -372,59 +377,61 @@ void Kart::raceFinished(float time)
 //-----------------------------------------------------------------------------
 void Kart::collectedItem(const Item *item, int add_info)
 {
-	const Item::ItemType type = item->getType();
+    const Item::ItemType type = item->getType();
 
     switch (type)
     {
-    case Item::ITEM_BANANA      : m_attachment.hitBanana(item, add_info); break;
-    case Item::ITEM_SMALL_NITRO : m_collected_energy++ ;                  break;
-    case Item::ITEM_BIG_NITRO   : m_collected_energy += 3 ;               break;
-    case Item::ITEM_BONUS_BOX   : 
+        case Item::ITEM_BANANA      : m_attachment.hitBanana(item, add_info); break;
+        case Item::ITEM_SMALL_NITRO : m_collected_energy++;                   break;
+        case Item::ITEM_BIG_NITRO   : m_collected_energy += 3;                break;
+        case Item::ITEM_BONUS_BOX   : 
         { 
             // In wheelie style, karts get more items depending on energy,
             // in nitro mode it's only one item.
             int n = 1;
-            m_powerup.hitBonusBox(n, item,add_info);   
+            m_powerup.hitBonusBox(n, item, add_info);   
             break;
         }
-    case Item::ITEM_BUBBLEGUM:
+        case Item::ITEM_BUBBLEGUM:
         // slow down
         m_body->setLinearVelocity(m_body->getLinearVelocity()*0.3f);
         m_goo_sound->position(getXYZ());
         m_goo_sound->play();
         break;
-    default        : break;
+        default : break;
     }   // switch TYPE
 
     // Attachments and powerups are stored in the corresponding
     // functions (hit {Box, Banana} Item), so only nitros need to be
     // stored here.
     if(network_manager->getMode()==NetworkManager::NW_SERVER &&
-       (type==Item::ITEM_SMALL_NITRO || type==Item::ITEM_BIG_NITRO))
+      (type==Item::ITEM_SMALL_NITRO || type==Item::ITEM_BIG_NITRO))
     {
         race_state->itemCollected(getWorldKartId(), item->getItemId());
     }
 
-    if ( m_collected_energy > MAX_ITEMS_COLLECTED )
+    if(m_collected_energy > MAX_ITEMS_COLLECTED)
         m_collected_energy = MAX_ITEMS_COLLECTED;
 
 }   // collectedItem
 
 //-----------------------------------------------------------------------------
-// Simulates gears
+/** Simulates gears by adjusting the force of the engine, while taking zippers 
+ *  effects in account.
+ */
 float Kart::getActualWheelForce()
 {
-    float zipperF=(m_zipper_time_left>0.0f) ? stk_config->m_zipper_force : 0.0f;
+    float zipperForce=(m_zipper_time_left>0.0f) ? stk_config->m_zipper_force : 0.0f;
     const std::vector<float>& gear_ratio=m_kart_properties->getGearSwitchRatio();
     for(unsigned int i=0; i<gear_ratio.size(); i++)
     {
         if(m_speed <= getMaxSpeed()*gear_ratio[i])
         {
-            m_current_gear_ratio = gear_ratio[i];
-            return getMaxPower()*m_kart_properties->getGearPowerIncrease()[i]+zipperF;
+            return getMaxPower()*m_kart_properties->getGearPowerIncrease()[i]
+                  +zipperForce;
         }
     }
-    return getMaxPower()+zipperF;
+    return getMaxPower()+zipperForce;
 
 }   // getActualWheelForce
 
@@ -435,7 +442,7 @@ float Kart::getActualWheelForce()
 bool Kart::isOnGround() const
 {
     return (m_vehicle->getNumWheelsOnGround() == m_vehicle->getNumWheels()
-		&& !isRescue());
+        && !isRescue());
            
 }   // isOnGround
 //-----------------------------------------------------------------------------
@@ -488,7 +495,7 @@ void Kart::handleExplosion(const Vec3& pos, bool direct_hit)
 //-----------------------------------------------------------------------------
 void Kart::update(float dt)
 {
-	// Update the position and other data taken from the physics    
+    // Update the position and other data taken from the physics    
     Moveable::update(dt);
 
     if(m_body->getAngularVelocity().getZ()>1.9f)
@@ -536,8 +543,8 @@ void Kart::update(float dt)
         if(m_attachment.getType() != ATTACH_TINYTUX)
         {
             m_attachment.set(ATTACH_TINYTUX, rescue_time);
-            m_rescue_pitch = getHPR().getPitch();
-            m_rescue_roll  = getHPR().getRoll();  
+            m_rescue_pitch = getPitch();
+            m_rescue_roll  = getRoll();  
             race_state->itemCollected(getWorldKartId(), -1, -1);
         }
         RaceManager::getWorld()->getPhysics()->removeKart(this);
@@ -558,13 +565,13 @@ void Kart::update(float dt)
     }  // user_config->m_graphical_effects
     updatePhysics(dt);
 
-    //kart_info.m_last_track_coords = kart_info.m_curr_track_coords;
+    // kart_info.m_last_track_coords = kart_info.m_curr_track_coords;
 
-    m_engine_sound->position      (getXYZ());
-    m_beep_sound->position        (getXYZ());
-    m_player_beep_sound->position (getXYZ());
-    m_crash_sound->position       (getXYZ());
-    m_skid_sound->position        (getXYZ());
+    m_engine_sound   ->  position(getXYZ());
+    m_beep_sound     ->  position(getXYZ());
+    m_beep_ai_sound  ->  position(getXYZ());
+    m_crash_sound    ->  position(getXYZ());
+    m_skid_sound     ->  position(getXYZ());
 
     // Check if a kart is (nearly) upside down and not moving much --> automatic rescue
     if((fabs(getHPR().getRoll())>60 && fabs(getSpeed())<3.0f))
@@ -604,12 +611,12 @@ void Kart::update(float dt)
     }
     const Material* material=getMaterial();
     m_power_reduction = 50.0f;
-    if (getHoT()==Track::NOHIT)   // kart falling off the track
+    if(getHoT()==Track::NOHIT)   // kart falling off the track
     {
         // let kart fall a bit before rescuing
-        if( RaceManager::getTrack()->m_left_driveline.size() > 0 &&
-            fabs( getXYZ().getZ() - RaceManager::getTrack()->m_left_driveline[0].getZ() ) > 17)
-            forceRescue();    
+        if(RaceManager::getTrack()->m_left_driveline.size() > 0 &&
+           fabs(getXYZ().getZ() - RaceManager::getTrack()->m_left_driveline[0].getZ()) > 17)
+           forceRescue();    
     } 
     else if(material)
     {
@@ -671,8 +678,14 @@ void Kart::handleZipper(bool play_sfx)
     float current_speed = v.length();
     float speed         = std::min(current_speed+stk_config->m_zipper_speed_gain, 
                                    getMaxSpeedOnTerrain());
+
+    // Only play the wee sound if it's a player.
+    if(isPlayerKart())
+    {
+        if(play_sfx || m_wee_sound->getStatus() != SFXManager::SFX_PLAYING && 
+           getMaterial()!=getLastMaterial()) m_wee_sound->play();
+    }
     m_vehicle->activateZipper(speed);
-    Moveable::handleZipper(play_sfx);
 }   // handleZipper
 //-----------------------------------------------------------------------------
 void Kart::draw()
@@ -755,9 +768,9 @@ void Kart::beep()
 } // beep
 
 // -----------------------------------------------------------------------------
-void Kart::beepPlayer()
+void Kart::beepAI()
 {
-    m_player_beep_sound->play();
+    m_beep_ai_sound->play();
 } // beep_ai
 
 // -----------------------------------------------------------------------------

@@ -18,34 +18,34 @@ subject to the following restrictions:
 
 struct btContactSolverInfoData
 {
-	btScalar	m_tau;
-	btScalar	m_damping;
-	btScalar	m_friction;
-	btScalar	m_timeStep;
-	btScalar	m_restitution;
-	int		m_numIterations;
-	btScalar	m_maxErrorReduction;
-	btScalar	m_sor;
-	btScalar	m_erp;
+    btScalar    m_tau;
+    btScalar    m_damping;
+    btScalar    m_friction;
+    btScalar    m_timeStep;
+    btScalar    m_restitution;
+    int        m_numIterations;
+    btScalar    m_maxErrorReduction;
+    btScalar    m_sor;
+    btScalar    m_erp;
 
 };
 
 struct btContactSolverInfo : public btContactSolverInfoData
 {
 
-	inline btContactSolverInfo()
-	{
-		m_tau = btScalar(0.6);
-		m_damping = btScalar(1.0);
-		m_friction = btScalar(0.3);
-		m_restitution = btScalar(0.);
-		m_maxErrorReduction = btScalar(20.);
-		m_numIterations = 10;
-		m_erp = btScalar(0.4);
-		m_sor = btScalar(1.3);
-	}
+    inline btContactSolverInfo()
+    {
+        m_tau = btScalar(0.6);
+        m_damping = btScalar(1.0);
+        m_friction = btScalar(0.3);
+        m_restitution = btScalar(0.);
+        m_maxErrorReduction = btScalar(20.);
+        m_numIterations = 10;
+        m_erp = btScalar(0.4);
+        m_sor = btScalar(1.3);
+    }
 
-	
+    
 };
 
 #endif //CONTACT_SOLVER_INFO

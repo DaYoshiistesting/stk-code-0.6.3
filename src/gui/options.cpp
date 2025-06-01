@@ -84,8 +84,8 @@ void Options::select()
         break;
     case WTOK_QUIT:
         //FIXME: this shouldn't be in this screen
-		// Make config changes permanent.
-		user_config->saveConfig();
+        // Make config changes permanent.
+        user_config->saveConfig();
 
         menu_manager->popMenu();
         break;
@@ -96,9 +96,9 @@ void Options::select()
 
 void Options::handle(GameAction action, int value)
 {
-	// Save config on leave.
-	if (!value && action == GA_LEAVE)
-		user_config->saveConfig();
+    // Save config on leave.
+    if (!value && action == GA_LEAVE)
+        user_config->saveConfig();
 
-	BaseGUI::handle(action, value);
+    BaseGUI::handle(action, value);
 }

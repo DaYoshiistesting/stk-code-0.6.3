@@ -75,7 +75,7 @@ void StandardRace::update(float delta)
     if(race_manager->getFinishedKarts() >= race_manager->getNumKarts() )
     {
         TimedRace::enterRaceOverState();
-	    if(user_config->m_profile<0) printProfileResultAndExit();
+        if(user_config->m_profile<0) printProfileResultAndExit();
         unlock_manager->raceFinished();
     }   // if all karts are finished
     

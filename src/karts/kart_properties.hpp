@@ -123,7 +123,7 @@ private:
                                       *   kart down onto the track if one axis
                                       *   loses contact with the track. */
     float m_suspension_rest;
-	float m_suspension_travel_cm;
+    float m_suspension_travel_cm;
     float m_jump_velocity;            // z velocity set when jumping
     float m_upright_tolerance;
     float m_upright_max_force;

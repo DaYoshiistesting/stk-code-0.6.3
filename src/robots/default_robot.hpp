@@ -145,7 +145,7 @@ private:
      */
     float m_skidding_threshold;
 
-    int  m_sector;
+    int   m_sector;
 
     /*Functions called directly from update(). They all represent an action
      *that can be done, and end up setting their respective m_controls
@@ -170,7 +170,7 @@ private:
 
     /*Lower level functions not called directly from update()*/
     float steerToAngle(const size_t SECTOR, const float ANGLE);
-    float steerToPoint(const sgVec2 point, float dt);
+    float steerToPoint(const Vec3 point, float dt);
 
     void  checkCrashes(const int STEPS, const Vec3& pos);
     void  findNonCrashingPoint(sgVec2 result);

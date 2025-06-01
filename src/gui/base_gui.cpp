@@ -25,16 +25,16 @@
 void
 BaseGUI::animateWidget(const int PREV_SELECTED_WGT, const int SELECTED_WGT)
 {
-	if( SELECTED_WGT != WidgetManager::WGT_NONE )
-	{
-		if( PREV_SELECTED_WGT != WidgetManager::WGT_NONE )
-		{
-			widget_manager->darkenWgtColor( PREV_SELECTED_WGT );
-		}
+    if( SELECTED_WGT != WidgetManager::WGT_NONE )
+    {
+        if( PREV_SELECTED_WGT != WidgetManager::WGT_NONE )
+        {
+            widget_manager->darkenWgtColor( PREV_SELECTED_WGT );
+        }
 
-		widget_manager->lightenWgtColor( SELECTED_WGT );
-		widget_manager->pulseWgt( SELECTED_WGT );
-	}
+        widget_manager->lightenWgtColor( SELECTED_WGT );
+        widget_manager->pulseWgt( SELECTED_WGT );
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -46,39 +46,39 @@ BaseGUI::handle(GameAction action, int value)
     // Skip on keypress, act on keyrelease only.
     if (value) return;
 
-	int previous = widget_manager->getSelectedWgt();
+    int previous = widget_manager->getSelectedWgt();
 
     switch ( action )
     {
     case GA_CURSOR_LEFT:
-		animateWidget(previous,
-					  widget_manager->handleLeft());
+        animateWidget(previous,
+                      widget_manager->handleLeft());
 
-		break;
+        break;
     case GA_CURSOR_RIGHT:
-		animateWidget(previous,
-					  widget_manager->handleRight());
-		break;
+        animateWidget(previous,
+                      widget_manager->handleRight());
+        break;
     case GA_CURSOR_UP:
-		animateWidget(previous,
-					  widget_manager->handleUp());
-		break;
+        animateWidget(previous,
+                      widget_manager->handleUp());
+        break;
     case GA_CURSOR_DOWN:
-		animateWidget(previous,
-					  widget_manager->handleDown());
-		break;
-	case GA_INC_SCROLL_SPEED:
-		widget_manager->increaseScrollSpeed();
-		break;
-	case GA_INC_SCROLL_SPEED_FAST:
-		widget_manager->increaseScrollSpeed(true);
-		break;
-	case GA_DEC_SCROLL_SPEED:
-		widget_manager->decreaseScrollSpeed();
-		break;
-	case GA_DEC_SCROLL_SPEED_FAST:
-		widget_manager->decreaseScrollSpeed(true);
-		break;
+        animateWidget(previous,
+                      widget_manager->handleDown());
+        break;
+    case GA_INC_SCROLL_SPEED:
+        widget_manager->increaseScrollSpeed();
+        break;
+    case GA_INC_SCROLL_SPEED_FAST:
+        widget_manager->increaseScrollSpeed(true);
+        break;
+    case GA_DEC_SCROLL_SPEED:
+        widget_manager->decreaseScrollSpeed();
+        break;
+    case GA_DEC_SCROLL_SPEED_FAST:
+        widget_manager->decreaseScrollSpeed(true);
+        break;
     case GA_ENTER:
         select();
         break;
@@ -137,9 +137,9 @@ BaseGUI::TimeToString(const double TIME, char *s) const
 void
 BaseGUI::inputKeyboard(SDLKey, int)
 {
-	// This method is not supposed to be called since BaseGUI does not
-	// handle low-level keyboard input.
-	assert(false);
+    // This method is not supposed to be called since BaseGUI does not
+    // handle low-level keyboard input.
+    assert(false);
 }
 
 //-----------------------------------------------------------------------------

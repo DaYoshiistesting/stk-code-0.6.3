@@ -28,14 +28,14 @@ class btKart : public btRaycastVehicle
     bool         m_zipper_active;
     btScalar     m_zipper_velocity;
 public:
-                 btKart(const btVehicleTuning& tuning,btRigidBody* chassis,	
+                 btKart(const btVehicleTuning& tuning,btRigidBody* chassis,    
                         btVehicleRaycaster* raycaster, float track_connect_accel );
-	virtual     ~btKart() ;
+    virtual     ~btKart() ;
     btScalar     rayCast(btWheelInfo& wheel);
     btScalar     rayCast(btWheelInfo& wheel, const btVector3& ray);
     bool         projectVehicleToSurface(const btVector3& ray, bool translate_vehicle);
     void         setSkidding(btScalar sf)     { m_skidding_factor = sf; }
-	virtual void updateVehicle(btScalar step);
+    virtual void updateVehicle(btScalar step);
     void         resetSuspension();
     int          getNumWheelsOnGround() const { return m_num_wheels_on_ground; }
     void         setRaycastWheelInfo(int wheelIndex , bool isInContact, 
@@ -44,7 +44,7 @@ public:
     void         setPitchControl(btScalar pitch) { m_pitchControl = pitch; }
     void         activateZipper(btScalar vel) { m_zipper_active = true; m_zipper_velocity = vel; }
     void         deactivateZipper() { m_zipper_active = false; }
-	void         updateSuspension(btScalar deltaTime);
+    void         updateSuspension(btScalar deltaTime);
     virtual void updateFriction(btScalar timeStep);
 };
 

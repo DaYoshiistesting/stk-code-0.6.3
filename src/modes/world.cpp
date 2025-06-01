@@ -109,19 +109,19 @@ void World::init()
         int global_player_id         = race_manager->getKartGlobalPlayerId(i);
         if(user_config->m_profile)
         {
-    	    // Create a camera for the last kart (since this way more of the 
-	        // karts can be seen.
+            // Create a camera for the last kart (since this way more of the 
+            // karts can be seen.
             newkart = new DefaultRobot(kart_name, i+1, init_pos, m_track);
             m_local_player_karts[0] = static_cast<PlayerKart*>(newkart);
         }
         else
         {
-			newkart = createKart(kart_name, i, local_player_id, 
+            newkart = createKart(kart_name, i, local_player_id, 
                                  global_player_id, init_pos);
         }   // if !user_config->m_profile
 
         newkart->getModelTransform()->clrTraversalMaskBits(SSGTRAV_ISECT|SSGTRAV_HOT);
-        scene->add ( newkart -> getModelTransform() ) ;
+        scene->add(newkart->getModelTransform());
         m_kart.push_back(newkart);
         newkart->setWorldKartId(m_kart.size()-1);
     }  // for i
@@ -213,7 +213,7 @@ World::~World()
         m_track->cleanup();
     // Clear all callbacks
     callback_manager->clear(CB_TRACK);
-	callback_manager->clear(CB_ITEM);
+    callback_manager->clear(CB_ITEM);
 
     for(unsigned int i = 0 ; i < m_kart.size() ; i++)
         delete m_kart[i];
@@ -249,21 +249,21 @@ void World::terminateRace()
 //-----------------------------------------------------------------------------
 /** Waits till each kart is resting on the ground
  *
- * Does simulation steps still all karts reach the ground, i.e. are not
- * moving anymore
+ *  Does simulation steps still all karts reach the ground, i.e. are not
+ *  moving anymore
  */
 void World::resetAllKarts()
 {
     //Project karts onto track from above. This will lower each kart so
     //that at least one of its wheel will be on the surface of the track
-    for (Karts::iterator i=m_kart.begin(); i!=m_kart.end(); i++)
+    for(Karts::iterator i=m_kart.begin(); i!=m_kart.end(); i++)
     {
-		///start projection from top of kart
+        ///start projection from top of kart
         btVector3 up_offset(0, 0, 0.54f * ((*i)->getKartHeight()));
         (*i)->getBody()->translate(up_offset);
         bool kart_over_ground = m_physics->projectKartDownwards(*i);
 
-        if (!kart_over_ground)
+        if(!kart_over_ground)
         {
             fprintf(stderr, "ERROR: no valid starting position for kart %d on track %s.\n",
                     (int)(i-m_kart.begin()), m_track->getIdent().c_str());
@@ -285,7 +285,7 @@ void World::resetAllKarts()
     {
         m_physics->update(1.f/60.f);
         all_finished=true;
-        for ( Karts::iterator i=m_kart.begin(); i!=m_kart.end(); i++)
+        for(Karts::iterator i=m_kart.begin(); i!=m_kart.end(); i++)
         {
             if(!(*i)->isInRest()) 
             {
@@ -303,7 +303,7 @@ void World::resetAllKarts()
                 if(!material)
                 {
                     fprintf(stderr, "ERROR: no valid starting position for kart %d on track %s.\n",
-			    (int)(i-m_kart.begin()), m_track->getIdent().c_str());
+                (int)(i-m_kart.begin()), m_track->getIdent().c_str());
                     exit(-1);
                 }
                 all_finished=false;
@@ -314,7 +314,7 @@ void World::resetAllKarts()
 
     // Now store the current (i.e. in rest) suspension length for each kart,
     // so that the karts can visualise the suspension.
-    for ( Karts::iterator i=m_kart.begin(); i!=m_kart.end(); i++)
+    for(Karts::iterator i=m_kart.begin(); i!=m_kart.end(); i++)
         (*i)->setSuspensionLength();
     for(unsigned int i=0; i<m_player_karts.size(); i++)
         m_player_karts[i]->getCamera()->setInitialTransform();
@@ -329,7 +329,7 @@ void World::update(float dt)
     race_state->clear();
 
     if(network_manager->getMode()!=NetworkManager::NW_CLIENT &&
-        !history->dontDoPhysics())
+      !history->dontDoPhysics())
     {
         m_physics->update(dt);
     }
@@ -381,11 +381,11 @@ void World::updateHighscores()
     unsigned int *index = new unsigned int[m_kart.size()];
 
     const unsigned int kart_amount = m_kart.size();
-    for (unsigned int i=0; i<kart_amount; i++ )
+    for(unsigned int i=0; i<kart_amount; i++)
     {
         index[i] = 999; // first reset the contents of the array
     }
-    for (unsigned int i=0; i<kart_amount; i++ )
+    for(unsigned int i=0; i<kart_amount; i++)
     {
         const int pos = m_kart[i]->getPosition()-1;
         if(pos < 0 || pos >= (int)kart_amount) continue; // wrong position
@@ -434,7 +434,7 @@ void World::updateHighscores()
 void World::printProfileResultAndExit()
 {
     float min_t=999999.9f, max_t=0.0, av_t=0.0;
-    for ( Karts::size_type i = 0; i < m_kart.size(); ++i)
+    for(Karts::size_type i = 0; i < m_kart.size(); ++i)
     {
         max_t = std::max(max_t, m_kart[i]->getFinishTime());
         min_t = std::min(min_t, m_kart[i]->getFinishTime());
@@ -458,8 +458,8 @@ void World::removeKart(int kart_number)
     RaceGUI* m=(RaceGUI*)menu_manager->getRaceMenu();
     if(m)
     {
-        for (std::vector<PlayerKart*>::iterator i  = m_player_karts.begin();
-                                                i != m_player_karts.end();  i++ )
+        for(std::vector<PlayerKart*>::iterator i  = m_player_karts.begin();
+                                               i != m_player_karts.end();  i++)
         {   
             if(*i==kart) 
             {
@@ -532,7 +532,7 @@ void World::restartRace()
 }   // restartRace
 
 //-----------------------------------------------------------------------------
-void  World::pause()
+void World::pause()
 {
     sound_manager->pauseMusic();
     sfx_manager->pauseAll();
@@ -540,7 +540,7 @@ void  World::pause()
 }
 
 //-----------------------------------------------------------------------------
-void  World::unpause()
+void World::unpause()
 {
     sound_manager->resumeMusic() ;
     sfx_manager->resumeAll();

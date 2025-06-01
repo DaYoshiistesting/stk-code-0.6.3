@@ -14,7 +14,7 @@ Alpha-2/2.2 updates karts and tracks without any optimization.
 
 In July 2023, Pre-alpha-3 was released. It is the first version to include tracks from 0.7.0.
 
-In August 2023, P1ngvin join the SuperTuxKart 0.6.3, preparing the Alpha-3 version.
+In August 2023, P1ngvin joins the SuperTuxKart 0.6.3 project, preparing the Alpha-3 version.
 
 In October 2023, the latest official version of SuperTuxKart 0.6.3 (Alpha-3a) was released. It is the first published version that has changes in source code.
 

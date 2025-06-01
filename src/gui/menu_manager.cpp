@@ -101,18 +101,18 @@ void MenuManager::pushMenu(MenuManagerIDs id)
 
     if(MENUID_EXITGAME == id)
     {
-		m_back_sound->play();
-	}
-	else
-	{
+        m_back_sound->play();
+    }
+    else
+    {
         if(!is_startup) m_select_sound->play();
         else is_startup = false;
     }
 
-	// Creates a new entry for the to be displayed menu.
-	pair <MenuManagerIDs, int> element;
-	element.first = id;
-	element.second = WidgetManager::WGT_NONE;
+    // Creates a new entry for the to be displayed menu.
+    pair <MenuManagerIDs, int> element;
+    element.first = id;
+    element.second = WidgetManager::WGT_NONE;
 
     m_menu_stack.push_back(element);
 
@@ -154,9 +154,9 @@ void MenuManager::update()
 
         if(!m_menu_stack.empty())
         {
-			pair<MenuManagerIDs, int> saved = m_menu_stack.back();
+            pair<MenuManagerIDs, int> saved = m_menu_stack.back();
             MenuManagerIDs id = saved.first;
-			int saved_widget = saved.second;
+            int saved_widget = saved.second;
 
             switch(id)
             {
@@ -326,12 +326,12 @@ void MenuManager::switchToRace()
  */
 bool MenuManager::isSomewhereOnStack(MenuManagerIDs id)
 {
-	for(vector<pair<MenuManagerIDs,int> >::iterator i = m_menu_stack.begin(); i != m_menu_stack.end(); i++)
-	{
-		if ((*i).first == id)
-			return true;
-	}
-	return false;
+    for(vector<pair<MenuManagerIDs,int> >::iterator i = m_menu_stack.begin(); i != m_menu_stack.end(); i++)
+    {
+        if ((*i).first == id)
+            return true;
+    }
+    return false;
 }   // isSomewhereOnStack
 
 // -----------------------------------------------------------------------------

@@ -45,7 +45,7 @@ void Physics::init(const Vec3 &world_min, const Vec3 &world_max)
 {
     m_axis_sweep     = new btAxisSweep3(world_min, world_max);
     m_dynamics_world = new btDiscreteDynamicsWorld(m_dispatcher, 
-                                                    m_axis_sweep, 
+                                                   m_axis_sweep, 
                                                    this,
                                                    m_collision_conf);
     m_dynamics_world->setGravity(btVector3(0.0f, 0.0f, 
@@ -197,7 +197,7 @@ void Physics::KartKartCollision(Kart *kartA, Kart *kartB)
         }
     }
     else if(attachmentB->getType()==ATTACH_BOMB &&
-        attachmentB->getPreviousOwner()!=kartA) 
+            attachmentB->getPreviousOwner()!=kartA) 
     {
         attachmentB->moveBombFromTo(kartB, kartA);
     }

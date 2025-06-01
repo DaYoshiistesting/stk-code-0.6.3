@@ -81,14 +81,14 @@ RaceResultsGUI::RaceResultsGUI()
             }
             w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0, bottom_of_list);
             Widget *w_prev = w;
-			if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_GRAND_PRIX)
-			{
-				w=widget_manager->addTextButtonWgt ( WTOK_CONTINUE_GP, 60, 7, _("Back to the main menu"));
-			}
-			else
-			{
+            if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_GRAND_PRIX)
+            {
+                w=widget_manager->addTextButtonWgt ( WTOK_CONTINUE_GP, 60, 7, _("Back to the main menu"));
+            }
+            else
+            {
             w=widget_manager->addTextButtonWgt( WTOK_RESTART_RACE, 60, 7, _("Race in this track again"));
-			}
+            }
             w->setPosition(WGT_DIR_CENTER, 0.0, NULL, WGT_DIR_UNDER_WIDGET, 0, w_prev);
             w_prev = w;
             if(race_manager->getMajorMode()==RaceManager::MAJOR_MODE_SINGLE)
@@ -326,13 +326,13 @@ void RaceResultsGUI::update(float dt)
 
     switch(m_selected_widget)
     {
-	case WTOK_CONTINUE_GP:
-		// Needed to create this
-		// to make players not 
-		// restarting a race.
+    case WTOK_CONTINUE_GP:
+        // Needed to create this
+        // to make players not 
+        // restarting a race.
         race_manager->exit_race();
-		menu_manager->switchToMainMenu();
-		break;
+        menu_manager->switchToMainMenu();
+        break;
     case WTOK_CONTINUE:
         // Gets called when:
         // 1) something was unlocked

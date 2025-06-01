@@ -112,12 +112,12 @@
     (max-speed-radius   15.0   21.5)
     ;; Different engine powers for different difficulties:
     ;; hard, medium, low level order!
-    (engine-power       418 400 300)
+    (engine-power       425 350 280)
     ;; Different maximum speed for different difficulties:
     ;; hard, medium, low level order!
-    (max-speed          33.90 28 25) ;; = 123 101 90 km/h 
+    (max-speed           33  27  22) ;; ≃ 119 97 78 km/h 
     (mass                     225.0)
-    (suspension-stiffness      54.0)
+    (suspension-stiffness      51.0)
     (wheel-damping-relaxation  20.0)
     (wheel-damping-compression 4.40)
     (friction-slip         10000000)

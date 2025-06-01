@@ -26,49 +26,49 @@ class btBU_Simplex1to4 : public btPolyhedralConvexShape
 {
 protected:
 
-	int	m_numVertices;
-	btPoint3	m_vertices[4];
+    int    m_numVertices;
+    btPoint3    m_vertices[4];
 
 public:
-	btBU_Simplex1to4();
+    btBU_Simplex1to4();
 
-	btBU_Simplex1to4(const btPoint3& pt0);
-	btBU_Simplex1to4(const btPoint3& pt0,const btPoint3& pt1);
-	btBU_Simplex1to4(const btPoint3& pt0,const btPoint3& pt1,const btPoint3& pt2);
-	btBU_Simplex1to4(const btPoint3& pt0,const btPoint3& pt1,const btPoint3& pt2,const btPoint3& pt3);
+    btBU_Simplex1to4(const btPoint3& pt0);
+    btBU_Simplex1to4(const btPoint3& pt0,const btPoint3& pt1);
+    btBU_Simplex1to4(const btPoint3& pt0,const btPoint3& pt1,const btPoint3& pt2);
+    btBU_Simplex1to4(const btPoint3& pt0,const btPoint3& pt1,const btPoint3& pt2,const btPoint3& pt3);
 
     
-	void	reset()
-	{
-		m_numVertices = 0;
-	}
-	
+    void    reset()
+    {
+        m_numVertices = 0;
+    }
+    
 
-	virtual int	getShapeType() const{ return TETRAHEDRAL_SHAPE_PROXYTYPE; }
+    virtual int    getShapeType() const{ return TETRAHEDRAL_SHAPE_PROXYTYPE; }
 
-	void addVertex(const btPoint3& pt);
+    void addVertex(const btPoint3& pt);
 
-	//PolyhedralConvexShape interface
+    //PolyhedralConvexShape interface
 
-	virtual int	getNumVertices() const;
+    virtual int    getNumVertices() const;
 
-	virtual int getNumEdges() const;
+    virtual int getNumEdges() const;
 
-	virtual void getEdge(int i,btPoint3& pa,btPoint3& pb) const;
-	
-	virtual void getVertex(int i,btPoint3& vtx) const;
+    virtual void getEdge(int i,btPoint3& pa,btPoint3& pb) const;
+    
+    virtual void getVertex(int i,btPoint3& vtx) const;
 
-	virtual int	getNumPlanes() const;
+    virtual int    getNumPlanes() const;
 
-	virtual void getPlane(btVector3& planeNormal,btPoint3& planeSupport,int i) const;
+    virtual void getPlane(btVector3& planeNormal,btPoint3& planeSupport,int i) const;
 
-	virtual int getIndex(int i) const;
+    virtual int getIndex(int i) const;
 
-	virtual	bool isInside(const btPoint3& pt,btScalar tolerance) const;
+    virtual    bool isInside(const btPoint3& pt,btScalar tolerance) const;
 
 
-	///getName is for debugging
-	virtual const char*	getName()const { return "btBU_Simplex1to4";}
+    ///getName is for debugging
+    virtual const char*    getName()const { return "btBU_Simplex1to4";}
 
 };
 

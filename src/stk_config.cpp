@@ -201,7 +201,7 @@ void STKConfig::getAllData(const lisp::Lisp* lisp)
     lisp->get("anvil-time",                   m_anvil_time             );
     lisp->get("zipper-time",                  m_zipper_time            );
     lisp->get("zipper-force",                 m_zipper_force           );
-	lisp->get("bubblegum-disappear-counter",  m_bubble_gum_counter     );
+    lisp->get("bubblegum-disappear-counter",  m_bubble_gum_counter     );
     lisp->get("zipper-speed-gain",            m_zipper_speed_gain      );
     lisp->get("explosion-impulse",            m_explosion_impulse      );
     lisp->get("explosion-impulse-obj",        m_explosion_impulse_obj  );

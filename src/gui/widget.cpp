@@ -104,10 +104,10 @@ Widget::~Widget()
 //-----------------------------------------------------------------------------
 void Widget::setPosition(WidgetDirection horizontal, float percentage_horizontal, 
                          const Widget *w_hori,
-		                 WidgetDirection vertical,   float percentage_vertical,
+                         WidgetDirection vertical,   float percentage_vertical,
                          const Widget *w_verti)
 {
-	m_fixed_position    = true;
+    m_fixed_position    = true;
     m_horizontal        = horizontal;
     m_percentage_x      = percentage_horizontal;
     m_widget_horizontal = w_hori;
@@ -132,11 +132,11 @@ void Widget::setPosition(WidgetDirection horizontal, float percentage_horizontal
 // ----------------------------------------------------------------------------
 void Widget::layout()
 {
-	if(!hasFixedPosition())
-	{
+    if(!hasFixedPosition())
+    {
         std::cerr << "Warning: layout called for widget without fixed position.\n";
         return;
-	}
+    }
     if( !createRect() ) return;
 
     switch(m_horizontal)

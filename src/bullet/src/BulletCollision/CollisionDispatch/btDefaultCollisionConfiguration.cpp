@@ -36,159 +36,159 @@ subject to the following restrictions:
 
 
 #define DEFAULT_MAX_OVERLAPPING_PAIRS 65535
-#define DEFAULT_STACK_ALLOCATOR_SIZE	(5*1024*1024)
+#define DEFAULT_STACK_ALLOCATOR_SIZE    (5*1024*1024)
 
 
-btDefaultCollisionConfiguration::btDefaultCollisionConfiguration(btStackAlloc*	stackAlloc,btPoolAllocator*	persistentManifoldPool,btPoolAllocator*	collisionAlgorithmPool)
+btDefaultCollisionConfiguration::btDefaultCollisionConfiguration(btStackAlloc*    stackAlloc,btPoolAllocator*    persistentManifoldPool,btPoolAllocator*    collisionAlgorithmPool)
 {
 
-	void* mem = btAlignedAlloc(sizeof(btVoronoiSimplexSolver),16);
-	m_simplexSolver = new (mem)btVoronoiSimplexSolver();
-	mem = btAlignedAlloc(sizeof(btGjkEpaPenetrationDepthSolver),16);
-	m_pdSolver = new (mem)btGjkEpaPenetrationDepthSolver;
+    void* mem = btAlignedAlloc(sizeof(btVoronoiSimplexSolver),16);
+    m_simplexSolver = new (mem)btVoronoiSimplexSolver();
+    mem = btAlignedAlloc(sizeof(btGjkEpaPenetrationDepthSolver),16);
+    m_pdSolver = new (mem)btGjkEpaPenetrationDepthSolver;
 
-	//default CreationFunctions, filling the m_doubleDispatch table
-	mem = btAlignedAlloc(sizeof(btConvexConvexAlgorithm::CreateFunc),16);
-	m_convexConvexCreateFunc = new(mem) btConvexConvexAlgorithm::CreateFunc(m_simplexSolver,m_pdSolver);
-	mem = btAlignedAlloc(sizeof(btConvexConcaveCollisionAlgorithm::CreateFunc),16);
-	m_convexConcaveCreateFunc = new (mem)btConvexConcaveCollisionAlgorithm::CreateFunc;
-	mem = btAlignedAlloc(sizeof(btConvexConcaveCollisionAlgorithm::CreateFunc),16);
-	m_swappedConvexConcaveCreateFunc = new (mem)btConvexConcaveCollisionAlgorithm::SwappedCreateFunc;
-	mem = btAlignedAlloc(sizeof(btCompoundCollisionAlgorithm::CreateFunc),16);
-	m_compoundCreateFunc = new (mem)btCompoundCollisionAlgorithm::CreateFunc;
-	mem = btAlignedAlloc(sizeof(btCompoundCollisionAlgorithm::SwappedCreateFunc),16);
-	m_swappedCompoundCreateFunc = new (mem)btCompoundCollisionAlgorithm::SwappedCreateFunc;
-	mem = btAlignedAlloc(sizeof(btEmptyAlgorithm::CreateFunc),16);
-	m_emptyCreateFunc = new(mem) btEmptyAlgorithm::CreateFunc;
-	
-	mem = btAlignedAlloc(sizeof(btSphereSphereCollisionAlgorithm::CreateFunc),16);
-	m_sphereSphereCF = new(mem) btSphereSphereCollisionAlgorithm::CreateFunc;
-	mem = btAlignedAlloc(sizeof(btSphereBoxCollisionAlgorithm::CreateFunc),16);
-	m_sphereBoxCF = new(mem) btSphereBoxCollisionAlgorithm::CreateFunc;
-	mem = btAlignedAlloc(sizeof(btSphereBoxCollisionAlgorithm::CreateFunc),16);
-	m_boxSphereCF = new (mem)btSphereBoxCollisionAlgorithm::CreateFunc;
-	m_boxSphereCF->m_swapped = true;
-	mem = btAlignedAlloc(sizeof(btSphereTriangleCollisionAlgorithm::CreateFunc),16);
-	m_sphereTriangleCF = new (mem)btSphereTriangleCollisionAlgorithm::CreateFunc;
-	mem = btAlignedAlloc(sizeof(btSphereTriangleCollisionAlgorithm::CreateFunc),16);
-	m_triangleSphereCF = new (mem)btSphereTriangleCollisionAlgorithm::CreateFunc;
-	m_triangleSphereCF->m_swapped = true;
-	
-	mem = btAlignedAlloc(sizeof(btBoxBoxCollisionAlgorithm::CreateFunc),16);
-	m_boxBoxCF = new(mem)btBoxBoxCollisionAlgorithm::CreateFunc;
+    //default CreationFunctions, filling the m_doubleDispatch table
+    mem = btAlignedAlloc(sizeof(btConvexConvexAlgorithm::CreateFunc),16);
+    m_convexConvexCreateFunc = new(mem) btConvexConvexAlgorithm::CreateFunc(m_simplexSolver,m_pdSolver);
+    mem = btAlignedAlloc(sizeof(btConvexConcaveCollisionAlgorithm::CreateFunc),16);
+    m_convexConcaveCreateFunc = new (mem)btConvexConcaveCollisionAlgorithm::CreateFunc;
+    mem = btAlignedAlloc(sizeof(btConvexConcaveCollisionAlgorithm::CreateFunc),16);
+    m_swappedConvexConcaveCreateFunc = new (mem)btConvexConcaveCollisionAlgorithm::SwappedCreateFunc;
+    mem = btAlignedAlloc(sizeof(btCompoundCollisionAlgorithm::CreateFunc),16);
+    m_compoundCreateFunc = new (mem)btCompoundCollisionAlgorithm::CreateFunc;
+    mem = btAlignedAlloc(sizeof(btCompoundCollisionAlgorithm::SwappedCreateFunc),16);
+    m_swappedCompoundCreateFunc = new (mem)btCompoundCollisionAlgorithm::SwappedCreateFunc;
+    mem = btAlignedAlloc(sizeof(btEmptyAlgorithm::CreateFunc),16);
+    m_emptyCreateFunc = new(mem) btEmptyAlgorithm::CreateFunc;
+    
+    mem = btAlignedAlloc(sizeof(btSphereSphereCollisionAlgorithm::CreateFunc),16);
+    m_sphereSphereCF = new(mem) btSphereSphereCollisionAlgorithm::CreateFunc;
+    mem = btAlignedAlloc(sizeof(btSphereBoxCollisionAlgorithm::CreateFunc),16);
+    m_sphereBoxCF = new(mem) btSphereBoxCollisionAlgorithm::CreateFunc;
+    mem = btAlignedAlloc(sizeof(btSphereBoxCollisionAlgorithm::CreateFunc),16);
+    m_boxSphereCF = new (mem)btSphereBoxCollisionAlgorithm::CreateFunc;
+    m_boxSphereCF->m_swapped = true;
+    mem = btAlignedAlloc(sizeof(btSphereTriangleCollisionAlgorithm::CreateFunc),16);
+    m_sphereTriangleCF = new (mem)btSphereTriangleCollisionAlgorithm::CreateFunc;
+    mem = btAlignedAlloc(sizeof(btSphereTriangleCollisionAlgorithm::CreateFunc),16);
+    m_triangleSphereCF = new (mem)btSphereTriangleCollisionAlgorithm::CreateFunc;
+    m_triangleSphereCF->m_swapped = true;
+    
+    mem = btAlignedAlloc(sizeof(btBoxBoxCollisionAlgorithm::CreateFunc),16);
+    m_boxBoxCF = new(mem)btBoxBoxCollisionAlgorithm::CreateFunc;
 
-	//convex versus plane
-	mem = btAlignedAlloc (sizeof(btConvexPlaneCollisionAlgorithm::CreateFunc),16);
-	m_convexPlaneCF = new (mem) btConvexPlaneCollisionAlgorithm::CreateFunc;
-	mem = btAlignedAlloc (sizeof(btConvexPlaneCollisionAlgorithm::CreateFunc),16);
-	m_planeConvexCF = new (mem) btConvexPlaneCollisionAlgorithm::CreateFunc;
-	m_planeConvexCF->m_swapped = true;
-	
-	///calculate maximum element size, big enough to fit any collision algorithm in the memory pool
-	int maxSize = sizeof(btConvexConvexAlgorithm);
-	int maxSize2 = sizeof(btConvexConcaveCollisionAlgorithm);
-	int maxSize3 = sizeof(btCompoundCollisionAlgorithm);
-	int maxSize4 = sizeof(btEmptyAlgorithm);
-	
-	int	collisionAlgorithmMaxElementSize = btMax(maxSize,maxSize2);
-	collisionAlgorithmMaxElementSize = btMax(collisionAlgorithmMaxElementSize,maxSize3);
-	collisionAlgorithmMaxElementSize = btMax(collisionAlgorithmMaxElementSize,maxSize4);
+    //convex versus plane
+    mem = btAlignedAlloc (sizeof(btConvexPlaneCollisionAlgorithm::CreateFunc),16);
+    m_convexPlaneCF = new (mem) btConvexPlaneCollisionAlgorithm::CreateFunc;
+    mem = btAlignedAlloc (sizeof(btConvexPlaneCollisionAlgorithm::CreateFunc),16);
+    m_planeConvexCF = new (mem) btConvexPlaneCollisionAlgorithm::CreateFunc;
+    m_planeConvexCF->m_swapped = true;
+    
+    ///calculate maximum element size, big enough to fit any collision algorithm in the memory pool
+    int maxSize = sizeof(btConvexConvexAlgorithm);
+    int maxSize2 = sizeof(btConvexConcaveCollisionAlgorithm);
+    int maxSize3 = sizeof(btCompoundCollisionAlgorithm);
+    int maxSize4 = sizeof(btEmptyAlgorithm);
+    
+    int    collisionAlgorithmMaxElementSize = btMax(maxSize,maxSize2);
+    collisionAlgorithmMaxElementSize = btMax(collisionAlgorithmMaxElementSize,maxSize3);
+    collisionAlgorithmMaxElementSize = btMax(collisionAlgorithmMaxElementSize,maxSize4);
 
-	if (stackAlloc)
-	{
-		m_ownsStackAllocator = false;
-		this->m_stackAlloc = stackAlloc;
-	} else
-	{
-		m_ownsStackAllocator = true;
-		void* mem = btAlignedAlloc(sizeof(btStackAlloc),16);
-		m_stackAlloc = new(mem)btStackAlloc(DEFAULT_STACK_ALLOCATOR_SIZE);
-	}
-		
-	if (persistentManifoldPool)
-	{
-		m_ownsPersistentManifoldPool = false;
-		m_persistentManifoldPool = persistentManifoldPool;
-	} else
-	{
-		m_ownsPersistentManifoldPool = true;
-		void* mem = btAlignedAlloc(sizeof(btPoolAllocator),16);
-		m_persistentManifoldPool = new (mem) btPoolAllocator(sizeof(btPersistentManifold),DEFAULT_MAX_OVERLAPPING_PAIRS);
-	}
-	
-	if (collisionAlgorithmPool)
-	{
-		m_ownsCollisionAlgorithmPool = false;
-		m_collisionAlgorithmPool = collisionAlgorithmPool;
-	} else
-	{
-		m_ownsCollisionAlgorithmPool = true;
-		void* mem = btAlignedAlloc(sizeof(btPoolAllocator),16);
-		m_collisionAlgorithmPool = new(mem) btPoolAllocator(collisionAlgorithmMaxElementSize,DEFAULT_MAX_OVERLAPPING_PAIRS);
-	}
+    if (stackAlloc)
+    {
+        m_ownsStackAllocator = false;
+        this->m_stackAlloc = stackAlloc;
+    } else
+    {
+        m_ownsStackAllocator = true;
+        void* mem = btAlignedAlloc(sizeof(btStackAlloc),16);
+        m_stackAlloc = new(mem)btStackAlloc(DEFAULT_STACK_ALLOCATOR_SIZE);
+    }
+        
+    if (persistentManifoldPool)
+    {
+        m_ownsPersistentManifoldPool = false;
+        m_persistentManifoldPool = persistentManifoldPool;
+    } else
+    {
+        m_ownsPersistentManifoldPool = true;
+        void* mem = btAlignedAlloc(sizeof(btPoolAllocator),16);
+        m_persistentManifoldPool = new (mem) btPoolAllocator(sizeof(btPersistentManifold),DEFAULT_MAX_OVERLAPPING_PAIRS);
+    }
+    
+    if (collisionAlgorithmPool)
+    {
+        m_ownsCollisionAlgorithmPool = false;
+        m_collisionAlgorithmPool = collisionAlgorithmPool;
+    } else
+    {
+        m_ownsCollisionAlgorithmPool = true;
+        void* mem = btAlignedAlloc(sizeof(btPoolAllocator),16);
+        m_collisionAlgorithmPool = new(mem) btPoolAllocator(collisionAlgorithmMaxElementSize,DEFAULT_MAX_OVERLAPPING_PAIRS);
+    }
 
 
 }
 
 btDefaultCollisionConfiguration::~btDefaultCollisionConfiguration()
 {
-	if (m_ownsStackAllocator)
-	{
-		m_stackAlloc->destroy();
-		m_stackAlloc->~btStackAlloc();
-		btAlignedFree(m_stackAlloc);
-	}
-	if (m_ownsCollisionAlgorithmPool)
-	{
-		m_collisionAlgorithmPool->~btPoolAllocator();
-		btAlignedFree(m_collisionAlgorithmPool);
-	}
-	if (m_ownsPersistentManifoldPool)
-	{
-		m_persistentManifoldPool->~btPoolAllocator();
-		btAlignedFree(m_persistentManifoldPool);
-	}
+    if (m_ownsStackAllocator)
+    {
+        m_stackAlloc->destroy();
+        m_stackAlloc->~btStackAlloc();
+        btAlignedFree(m_stackAlloc);
+    }
+    if (m_ownsCollisionAlgorithmPool)
+    {
+        m_collisionAlgorithmPool->~btPoolAllocator();
+        btAlignedFree(m_collisionAlgorithmPool);
+    }
+    if (m_ownsPersistentManifoldPool)
+    {
+        m_persistentManifoldPool->~btPoolAllocator();
+        btAlignedFree(m_persistentManifoldPool);
+    }
 
-	m_convexConvexCreateFunc->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree(	m_convexConvexCreateFunc);
+    m_convexConvexCreateFunc->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree(    m_convexConvexCreateFunc);
 
-	m_convexConcaveCreateFunc->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_convexConcaveCreateFunc);
-	m_swappedConvexConcaveCreateFunc->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_swappedConvexConcaveCreateFunc);
+    m_convexConcaveCreateFunc->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_convexConcaveCreateFunc);
+    m_swappedConvexConcaveCreateFunc->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_swappedConvexConcaveCreateFunc);
 
-	m_compoundCreateFunc->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_compoundCreateFunc);
+    m_compoundCreateFunc->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_compoundCreateFunc);
 
-	m_swappedCompoundCreateFunc->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_swappedCompoundCreateFunc);
+    m_swappedCompoundCreateFunc->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_swappedCompoundCreateFunc);
 
-	m_emptyCreateFunc->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_emptyCreateFunc);
+    m_emptyCreateFunc->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_emptyCreateFunc);
 
-	m_sphereSphereCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_sphereSphereCF);
+    m_sphereSphereCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_sphereSphereCF);
 
-	m_sphereBoxCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_sphereBoxCF);
-	m_boxSphereCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_boxSphereCF);
-	m_sphereTriangleCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_sphereTriangleCF);
-	m_triangleSphereCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_triangleSphereCF);
-	m_boxBoxCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_boxBoxCF);
+    m_sphereBoxCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_sphereBoxCF);
+    m_boxSphereCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_boxSphereCF);
+    m_sphereTriangleCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_sphereTriangleCF);
+    m_triangleSphereCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_triangleSphereCF);
+    m_boxBoxCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_boxBoxCF);
 
-	m_convexPlaneCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_convexPlaneCF);
-	m_planeConvexCF->~btCollisionAlgorithmCreateFunc();
-	btAlignedFree( m_planeConvexCF);
+    m_convexPlaneCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_convexPlaneCF);
+    m_planeConvexCF->~btCollisionAlgorithmCreateFunc();
+    btAlignedFree( m_planeConvexCF);
 
-	m_simplexSolver->~btVoronoiSimplexSolver();
-	btAlignedFree(m_simplexSolver);
-	m_pdSolver->~btGjkEpaPenetrationDepthSolver();
-	btAlignedFree(m_pdSolver);
+    m_simplexSolver->~btVoronoiSimplexSolver();
+    btAlignedFree(m_simplexSolver);
+    m_pdSolver->~btGjkEpaPenetrationDepthSolver();
+    btAlignedFree(m_pdSolver);
 
 
 }
@@ -199,72 +199,72 @@ btCollisionAlgorithmCreateFunc* btDefaultCollisionConfiguration::getCollisionAlg
 
 
 
-	if ((proxyType0 == SPHERE_SHAPE_PROXYTYPE) && (proxyType1==SPHERE_SHAPE_PROXYTYPE))
-	{
-		return	m_sphereSphereCF;
-	}
+    if ((proxyType0 == SPHERE_SHAPE_PROXYTYPE) && (proxyType1==SPHERE_SHAPE_PROXYTYPE))
+    {
+        return    m_sphereSphereCF;
+    }
 
-	if ((proxyType0 == SPHERE_SHAPE_PROXYTYPE) && (proxyType1==BOX_SHAPE_PROXYTYPE))
-	{
-		return	m_sphereBoxCF;
-	}
+    if ((proxyType0 == SPHERE_SHAPE_PROXYTYPE) && (proxyType1==BOX_SHAPE_PROXYTYPE))
+    {
+        return    m_sphereBoxCF;
+    }
 
-	if ((proxyType0 == BOX_SHAPE_PROXYTYPE ) && (proxyType1==SPHERE_SHAPE_PROXYTYPE))
-	{
-		return	m_boxSphereCF;
-	}
+    if ((proxyType0 == BOX_SHAPE_PROXYTYPE ) && (proxyType1==SPHERE_SHAPE_PROXYTYPE))
+    {
+        return    m_boxSphereCF;
+    }
 
-	if ((proxyType0 == SPHERE_SHAPE_PROXYTYPE ) && (proxyType1==TRIANGLE_SHAPE_PROXYTYPE))
-	{
-		return	m_sphereTriangleCF;
-	}
+    if ((proxyType0 == SPHERE_SHAPE_PROXYTYPE ) && (proxyType1==TRIANGLE_SHAPE_PROXYTYPE))
+    {
+        return    m_sphereTriangleCF;
+    }
 
-	if ((proxyType0 == TRIANGLE_SHAPE_PROXYTYPE  ) && (proxyType1==SPHERE_SHAPE_PROXYTYPE))
-	{
-		return	m_triangleSphereCF;
-	}
+    if ((proxyType0 == TRIANGLE_SHAPE_PROXYTYPE  ) && (proxyType1==SPHERE_SHAPE_PROXYTYPE))
+    {
+        return    m_triangleSphereCF;
+    }
 
-	if ((proxyType0 == BOX_SHAPE_PROXYTYPE) && (proxyType1 == BOX_SHAPE_PROXYTYPE))
-	{
-		return m_boxBoxCF;
-	}
-	
-	if (btBroadphaseProxy::isConvex(proxyType0) && (proxyType1 == STATIC_PLANE_PROXYTYPE))
-	{
-		return m_convexPlaneCF;
-	}
+    if ((proxyType0 == BOX_SHAPE_PROXYTYPE) && (proxyType1 == BOX_SHAPE_PROXYTYPE))
+    {
+        return m_boxBoxCF;
+    }
+    
+    if (btBroadphaseProxy::isConvex(proxyType0) && (proxyType1 == STATIC_PLANE_PROXYTYPE))
+    {
+        return m_convexPlaneCF;
+    }
 
-	if (btBroadphaseProxy::isConvex(proxyType1) && (proxyType0 == STATIC_PLANE_PROXYTYPE))
-	{
-		return m_planeConvexCF;
-	}
+    if (btBroadphaseProxy::isConvex(proxyType1) && (proxyType0 == STATIC_PLANE_PROXYTYPE))
+    {
+        return m_planeConvexCF;
+    }
 
-	if (btBroadphaseProxy::isConvex(proxyType0) && btBroadphaseProxy::isConvex(proxyType1))
-	{
-		return m_convexConvexCreateFunc;
-	}
+    if (btBroadphaseProxy::isConvex(proxyType0) && btBroadphaseProxy::isConvex(proxyType1))
+    {
+        return m_convexConvexCreateFunc;
+    }
 
-	if (btBroadphaseProxy::isConvex(proxyType0) && btBroadphaseProxy::isConcave(proxyType1))
-	{
-		return m_convexConcaveCreateFunc;
-	}
+    if (btBroadphaseProxy::isConvex(proxyType0) && btBroadphaseProxy::isConcave(proxyType1))
+    {
+        return m_convexConcaveCreateFunc;
+    }
 
-	if (btBroadphaseProxy::isConvex(proxyType1) && btBroadphaseProxy::isConcave(proxyType0))
-	{
-		return m_swappedConvexConcaveCreateFunc;
-	}
+    if (btBroadphaseProxy::isConvex(proxyType1) && btBroadphaseProxy::isConcave(proxyType0))
+    {
+        return m_swappedConvexConcaveCreateFunc;
+    }
 
-	if (btBroadphaseProxy::isCompound(proxyType0))
-	{
-		return m_compoundCreateFunc;
-	} else
-	{
-		if (btBroadphaseProxy::isCompound(proxyType1))
-		{
-			return m_swappedCompoundCreateFunc;
-		}
-	}
+    if (btBroadphaseProxy::isCompound(proxyType0))
+    {
+        return m_compoundCreateFunc;
+    } else
+    {
+        if (btBroadphaseProxy::isCompound(proxyType1))
+        {
+            return m_swappedCompoundCreateFunc;
+        }
+    }
 
-	//failed to find an algorithm
-	return m_emptyCreateFunc;
+    //failed to find an algorithm
+    return m_emptyCreateFunc;
 }

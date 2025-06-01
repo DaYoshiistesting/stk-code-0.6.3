@@ -42,149 +42,149 @@ btContinuousDynamicsWorld::~btContinuousDynamicsWorld()
 {
 }
 
-	
-void	btContinuousDynamicsWorld::internalSingleStepSimulation( btScalar timeStep)
+    
+void    btContinuousDynamicsWorld::internalSingleStepSimulation( btScalar timeStep)
 {
-	
-	startProfiling(timeStep);
-	
+    
+    startProfiling(timeStep);
+    
 
-	///update aabbs information
-	updateAabbs();
-	//static int frame=0;
-//	printf("frame %d\n",frame++);
+    ///update aabbs information
+    updateAabbs();
+    //static int frame=0;
+//    printf("frame %d\n",frame++);
 
-	///apply gravity, predict motion
-	predictUnconstraintMotion(timeStep);
+    ///apply gravity, predict motion
+    predictUnconstraintMotion(timeStep);
 
-	btDispatcherInfo& dispatchInfo = getDispatchInfo();
+    btDispatcherInfo& dispatchInfo = getDispatchInfo();
 
-	dispatchInfo.m_timeStep = timeStep;
-	dispatchInfo.m_stepCount = 0;
-	dispatchInfo.m_debugDraw = getDebugDrawer();
+    dispatchInfo.m_timeStep = timeStep;
+    dispatchInfo.m_stepCount = 0;
+    dispatchInfo.m_debugDraw = getDebugDrawer();
 
-	///perform collision detection
-	performDiscreteCollisionDetection();
+    ///perform collision detection
+    performDiscreteCollisionDetection();
 
-	calculateSimulationIslands();
+    calculateSimulationIslands();
 
-	
-	getSolverInfo().m_timeStep = timeStep;
-	
-
-
-	///solve contact and other joint constraints
-	solveConstraints(getSolverInfo());
-	
-	///CallbackTriggers();
-	calculateTimeOfImpacts(timeStep);
-
-	btScalar toi = dispatchInfo.m_timeOfImpact;
-//	if (toi < 1.f)
-//		printf("toi = %f\n",toi);
-	if (toi < 0.f)
-		printf("toi = %f\n",toi);
+    
+    getSolverInfo().m_timeStep = timeStep;
+    
 
 
-	///integrate transforms
-	integrateTransforms(timeStep * toi);
+    ///solve contact and other joint constraints
+    solveConstraints(getSolverInfo());
+    
+    ///CallbackTriggers();
+    calculateTimeOfImpacts(timeStep);
 
-	///update vehicle simulation
-	updateVehicles(timeStep);
+    btScalar toi = dispatchInfo.m_timeOfImpact;
+//    if (toi < 1.f)
+//        printf("toi = %f\n",toi);
+    if (toi < 0.f)
+        printf("toi = %f\n",toi);
 
 
-	updateActivationState( timeStep );
-	
-	if(0 != m_internalTickCallback) {
-		(*m_internalTickCallback)(this, timeStep);
-	}
+    ///integrate transforms
+    integrateTransforms(timeStep * toi);
+
+    ///update vehicle simulation
+    updateVehicles(timeStep);
+
+
+    updateActivationState( timeStep );
+    
+    if(0 != m_internalTickCallback) {
+        (*m_internalTickCallback)(this, timeStep);
+    }
 }
 
-void	btContinuousDynamicsWorld::calculateTimeOfImpacts(btScalar timeStep)
+void    btContinuousDynamicsWorld::calculateTimeOfImpacts(btScalar timeStep)
 {
-		///these should be 'temporal' aabbs!
-		updateTemporalAabbs(timeStep);
-		
-		///'toi' is the global smallest time of impact. However, we just calculate the time of impact for each object individually.
-		///so we handle the case moving versus static properly, and we cheat for moving versus moving
-		float toi = 1.f;
-		
-	
-		btDispatcherInfo& dispatchInfo = getDispatchInfo();
-		dispatchInfo.m_timeStep = timeStep;
-		dispatchInfo.m_timeOfImpact = 1.f;
-		dispatchInfo.m_stepCount = 0;
-		dispatchInfo.m_dispatchFunc = btDispatcherInfo::DISPATCH_CONTINUOUS;
+        ///these should be 'temporal' aabbs!
+        updateTemporalAabbs(timeStep);
+        
+        ///'toi' is the global smallest time of impact. However, we just calculate the time of impact for each object individually.
+        ///so we handle the case moving versus static properly, and we cheat for moving versus moving
+        float toi = 1.f;
+        
+    
+        btDispatcherInfo& dispatchInfo = getDispatchInfo();
+        dispatchInfo.m_timeStep = timeStep;
+        dispatchInfo.m_timeOfImpact = 1.f;
+        dispatchInfo.m_stepCount = 0;
+        dispatchInfo.m_dispatchFunc = btDispatcherInfo::DISPATCH_CONTINUOUS;
 
-		///calculate time of impact for overlapping pairs
+        ///calculate time of impact for overlapping pairs
 
 
-		btDispatcher* dispatcher = getDispatcher();
-		if (dispatcher)
-			dispatcher->dispatchAllCollisionPairs(m_broadphasePairCache->getOverlappingPairCache(),dispatchInfo,m_dispatcher1);
+        btDispatcher* dispatcher = getDispatcher();
+        if (dispatcher)
+            dispatcher->dispatchAllCollisionPairs(m_broadphasePairCache->getOverlappingPairCache(),dispatchInfo,m_dispatcher1);
 
-		toi = dispatchInfo.m_timeOfImpact;
+        toi = dispatchInfo.m_timeOfImpact;
 
-		dispatchInfo.m_dispatchFunc = btDispatcherInfo::DISPATCH_DISCRETE;
+        dispatchInfo.m_dispatchFunc = btDispatcherInfo::DISPATCH_DISCRETE;
 
 }
 
-void	btContinuousDynamicsWorld::updateTemporalAabbs(btScalar timeStep)
+void    btContinuousDynamicsWorld::updateTemporalAabbs(btScalar timeStep)
 {
 
-	btVector3 temporalAabbMin,temporalAabbMax;
+    btVector3 temporalAabbMin,temporalAabbMax;
 
-	for ( int i=0;i<m_collisionObjects.size();i++)
-	{
-		btCollisionObject* colObj = m_collisionObjects[i];
-		
-		btRigidBody* body = btRigidBody::upcast(colObj);
-		if (body)
-		{
-			body->getCollisionShape()->getAabb(m_collisionObjects[i]->getWorldTransform(),temporalAabbMin,temporalAabbMax);
-			const btVector3& linvel = body->getLinearVelocity();
+    for ( int i=0;i<m_collisionObjects.size();i++)
+    {
+        btCollisionObject* colObj = m_collisionObjects[i];
+        
+        btRigidBody* body = btRigidBody::upcast(colObj);
+        if (body)
+        {
+            body->getCollisionShape()->getAabb(m_collisionObjects[i]->getWorldTransform(),temporalAabbMin,temporalAabbMax);
+            const btVector3& linvel = body->getLinearVelocity();
 
-			//make the AABB temporal
-			float temporalAabbMaxx = temporalAabbMax.getX();
-			float temporalAabbMaxy = temporalAabbMax.getY();
-			float temporalAabbMaxz = temporalAabbMax.getZ();
-			float temporalAabbMinx = temporalAabbMin.getX();
-			float temporalAabbMiny = temporalAabbMin.getY();
-			float temporalAabbMinz = temporalAabbMin.getZ();
+            //make the AABB temporal
+            float temporalAabbMaxx = temporalAabbMax.getX();
+            float temporalAabbMaxy = temporalAabbMax.getY();
+            float temporalAabbMaxz = temporalAabbMax.getZ();
+            float temporalAabbMinx = temporalAabbMin.getX();
+            float temporalAabbMiny = temporalAabbMin.getY();
+            float temporalAabbMinz = temporalAabbMin.getZ();
 
-			// add linear motion
-			btVector3 linMotion = linvel*timeStep;
-		
-			if (linMotion.x() > 0.f)
-				temporalAabbMaxx += linMotion.x(); 
-			else
-				temporalAabbMinx += linMotion.x();
-			if (linMotion.y() > 0.f)
-				temporalAabbMaxy += linMotion.y(); 
-			else
-				temporalAabbMiny += linMotion.y();
-			if (linMotion.z() > 0.f)
-				temporalAabbMaxz += linMotion.z(); 
-			else
-				temporalAabbMinz += linMotion.z();
+            // add linear motion
+            btVector3 linMotion = linvel*timeStep;
+        
+            if (linMotion.x() > 0.f)
+                temporalAabbMaxx += linMotion.x(); 
+            else
+                temporalAabbMinx += linMotion.x();
+            if (linMotion.y() > 0.f)
+                temporalAabbMaxy += linMotion.y(); 
+            else
+                temporalAabbMiny += linMotion.y();
+            if (linMotion.z() > 0.f)
+                temporalAabbMaxz += linMotion.z(); 
+            else
+                temporalAabbMinz += linMotion.z();
 
-			//add conservative angular motion
-			btScalar angularMotion(0);// = angvel.length() * GetAngularMotionDisc() * timeStep;
-			btVector3 angularMotion3d(angularMotion,angularMotion,angularMotion);
-			temporalAabbMin = btVector3(temporalAabbMinx,temporalAabbMiny,temporalAabbMinz);
-			temporalAabbMax = btVector3(temporalAabbMaxx,temporalAabbMaxy,temporalAabbMaxz);
+            //add conservative angular motion
+            btScalar angularMotion(0);// = angvel.length() * GetAngularMotionDisc() * timeStep;
+            btVector3 angularMotion3d(angularMotion,angularMotion,angularMotion);
+            temporalAabbMin = btVector3(temporalAabbMinx,temporalAabbMiny,temporalAabbMinz);
+            temporalAabbMax = btVector3(temporalAabbMaxx,temporalAabbMaxy,temporalAabbMaxz);
 
-			temporalAabbMin -= angularMotion3d;
-			temporalAabbMax += angularMotion3d;
+            temporalAabbMin -= angularMotion3d;
+            temporalAabbMax += angularMotion3d;
 
-			m_broadphasePairCache->setAabb(body->getBroadphaseHandle(),temporalAabbMin,temporalAabbMax,m_dispatcher1);
-		}
-	}
+            m_broadphasePairCache->setAabb(body->getBroadphaseHandle(),temporalAabbMin,temporalAabbMax,m_dispatcher1);
+        }
+    }
 
-	//update aabb (of all moved objects)
+    //update aabb (of all moved objects)
 
-	m_broadphasePairCache->calculateOverlappingPairs(m_dispatcher1);
-	
+    m_broadphasePairCache->calculateOverlappingPairs(m_dispatcher1);
+    
 
 
 }

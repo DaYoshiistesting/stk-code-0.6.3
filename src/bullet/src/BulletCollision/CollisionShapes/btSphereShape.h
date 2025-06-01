@@ -23,40 +23,40 @@ subject to the following restrictions:
 ATTRIBUTE_ALIGNED16(class) btSphereShape : public btConvexInternalShape
 
 {
-	
+    
 public:
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btSphereShape (btScalar radius);
-	
-	
-	virtual btVector3	localGetSupportingVertex(const btVector3& vec)const;
-	virtual btVector3	localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
-	//notice that the vectors should be unit length
-	virtual void	batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
+    btSphereShape (btScalar radius);
+    
+    
+    virtual btVector3    localGetSupportingVertex(const btVector3& vec)const;
+    virtual btVector3    localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
+    //notice that the vectors should be unit length
+    virtual void    batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
 
 
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
 
-	virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    virtual void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	virtual int	getShapeType() const { return SPHERE_SHAPE_PROXYTYPE; }
+    virtual int    getShapeType() const { return SPHERE_SHAPE_PROXYTYPE; }
 
-	btScalar	getRadius() const { return m_implicitShapeDimensions.getX() * m_localScaling.getX();}
+    btScalar    getRadius() const { return m_implicitShapeDimensions.getX() * m_localScaling.getX();}
 
-	//debugging
-	virtual const char*	getName()const {return "SPHERE";}
+    //debugging
+    virtual const char*    getName()const {return "SPHERE";}
 
-	virtual void	setMargin(btScalar margin)
-	{
-		btConvexInternalShape::setMargin(margin);
-	}
-	virtual btScalar	getMargin() const
-	{
-		//to improve gjk behaviour, use radius+margin as the full margin, so never get into the penetration case
-		//this means, non-uniform scaling is not supported anymore
-		return getRadius();
-	}
+    virtual void    setMargin(btScalar margin)
+    {
+        btConvexInternalShape::setMargin(margin);
+    }
+    virtual btScalar    getMargin() const
+    {
+        //to improve gjk behaviour, use radius+margin as the full margin, so never get into the penetration case
+        //this means, non-uniform scaling is not supported anymore
+        return getRadius();
+    }
 
 
 };

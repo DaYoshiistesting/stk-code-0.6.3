@@ -28,106 +28,106 @@ class btOptimizedBvh;
 
 ATTRIBUTE_ALIGNED16(struct) btCompoundShapeChild
 {
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btTransform			m_transform;
-	btCollisionShape*	m_childShape;
-	int					m_childShapeType;
-	btScalar			m_childMargin;
+    btTransform            m_transform;
+    btCollisionShape*    m_childShape;
+    int                    m_childShapeType;
+    btScalar            m_childMargin;
 };
-	
+    
 /// btCompoundShape allows to store multiple other btCollisionShapes
 /// This allows for concave collision objects. This is more general then the Static Concave btTriangleMeshShape.
-ATTRIBUTE_ALIGNED16(class) btCompoundShape	: public btCollisionShape
+ATTRIBUTE_ALIGNED16(class) btCompoundShape    : public btCollisionShape
 {
-	//btAlignedObjectArray<btTransform>		m_childTransforms;
-	//btAlignedObjectArray<btCollisionShape*>	m_childShapes;
-	btAlignedObjectArray<btCompoundShapeChild> m_children;
-	btVector3						m_localAabbMin;
-	btVector3						m_localAabbMax;
+    //btAlignedObjectArray<btTransform>        m_childTransforms;
+    //btAlignedObjectArray<btCollisionShape*>    m_childShapes;
+    btAlignedObjectArray<btCompoundShapeChild> m_children;
+    btVector3                        m_localAabbMin;
+    btVector3                        m_localAabbMax;
 
-	btOptimizedBvh*					m_aabbTree;
+    btOptimizedBvh*                    m_aabbTree;
 
 public:
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btCompoundShape();
+    btCompoundShape();
 
-	virtual ~btCompoundShape();
+    virtual ~btCompoundShape();
 
-	void	addChildShape(const btTransform& localTransform,btCollisionShape* shape);
+    void    addChildShape(const btTransform& localTransform,btCollisionShape* shape);
 
-	int		getNumChildShapes() const
-	{
-		return int (m_children.size());
-	}
+    int        getNumChildShapes() const
+    {
+        return int (m_children.size());
+    }
 
-	btCollisionShape* getChildShape(int index)
-	{
-		return m_children[index].m_childShape;
-	}
-	const btCollisionShape* getChildShape(int index) const
-	{
-		return m_children[index].m_childShape;
-	}
+    btCollisionShape* getChildShape(int index)
+    {
+        return m_children[index].m_childShape;
+    }
+    const btCollisionShape* getChildShape(int index) const
+    {
+        return m_children[index].m_childShape;
+    }
 
-	btTransform	getChildTransform(int index)
-	{
-		return m_children[index].m_transform;
-	}
-	const btTransform	getChildTransform(int index) const
-	{
-		return m_children[index].m_transform;
-	}
-
-
-	btCompoundShapeChild* getChildList()
-	{
-		return &m_children[0];
-	}
-
-	///getAabb's default implementation is brute force, expected derived classes to implement a fast dedicated version
-	void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
+    btTransform    getChildTransform(int index)
+    {
+        return m_children[index].m_transform;
+    }
+    const btTransform    getChildTransform(int index) const
+    {
+        return m_children[index].m_transform;
+    }
 
 
-	virtual void	setLocalScaling(const btVector3& scaling)
-	{
-		m_localScaling = scaling;
-	}
-	virtual const btVector3& getLocalScaling() const 
-	{
-		return m_localScaling;
-	}
+    btCompoundShapeChild* getChildList()
+    {
+        return &m_children[0];
+    }
 
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
-	
-	virtual int	getShapeType() const { return COMPOUND_SHAPE_PROXYTYPE;}
+    ///getAabb's default implementation is brute force, expected derived classes to implement a fast dedicated version
+    void getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const;
 
-	virtual void	setMargin(btScalar margin)
-	{
-		m_collisionMargin = margin;
-	}
-	virtual btScalar	getMargin() const
-	{
-		return m_collisionMargin;
-	}
-	virtual const char*	getName()const
-	{
-		return "Compound";
-	}
 
-	//this is optional, but should make collision queries faster, by culling non-overlapping nodes
-	void	createAabbTreeFromChildren();
+    virtual void    setLocalScaling(const btVector3& scaling)
+    {
+        m_localScaling = scaling;
+    }
+    virtual const btVector3& getLocalScaling() const 
+    {
+        return m_localScaling;
+    }
 
-	const btOptimizedBvh*					getAabbTree() const
-	{
-		return m_aabbTree;
-	}
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    
+    virtual int    getShapeType() const { return COMPOUND_SHAPE_PROXYTYPE;}
+
+    virtual void    setMargin(btScalar margin)
+    {
+        m_collisionMargin = margin;
+    }
+    virtual btScalar    getMargin() const
+    {
+        return m_collisionMargin;
+    }
+    virtual const char*    getName()const
+    {
+        return "Compound";
+    }
+
+    //this is optional, but should make collision queries faster, by culling non-overlapping nodes
+    void    createAabbTreeFromChildren();
+
+    const btOptimizedBvh*                    getAabbTree() const
+    {
+        return m_aabbTree;
+    }
 
 private:
-	btScalar	m_collisionMargin;
+    btScalar    m_collisionMargin;
 protected:
-	btVector3	m_localScaling;
+    btVector3    m_localScaling;
 
 };
 

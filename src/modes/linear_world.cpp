@@ -271,11 +271,11 @@ void LinearWorld::doLapCounting ( KartInfo& kart_info, Kart* kart )
             float time_per_lap;
             if (kart_info.m_race_lap == 1) // just completed first lap
             {
-            	time_per_lap=getTime();
+                time_per_lap=getTime();
             }
             else //completing subsequent laps
             {
-            	time_per_lap=getTime() - kart_info.m_lap_start_time;
+                time_per_lap=getTime() - kart_info.m_lap_start_time;
             }
             
             // if new fastest lap
@@ -542,14 +542,14 @@ void LinearWorld::moveKartAfterRescue(Kart* kart, btRigidBody* body)
     // FIXME - removing 1 here makes it less likely to fall in a rescue loop since the kart
     // moves back on each attempt. This is still a weak hack. Also some other code depends
     // on 1 being substracted, like 'forceRescue'
-    if ( info.m_track_sector > 0 ) info.m_track_sector-- ;
+    if (info.m_track_sector > 0) info.m_track_sector-- ;
     info.m_last_valid_sector = info.m_track_sector;
-    if ( info.m_last_valid_sector > 0 ) info.m_last_valid_sector --;
+    if (info.m_last_valid_sector > 0) info.m_last_valid_sector --;
         
     // check if by removing 1 we 'warped around'; if so, remove a lap.
     if(info.m_track_sector <= 0) info.m_race_lap--;   
     
-    kart->setXYZ( m_track->trackToSpatial(info.m_track_sector) );
+    kart->setXYZ(m_track->trackToSpatial(info.m_track_sector));
     
     btQuaternion heading(btVector3(0.0f, 0.0f, 1.0f), 
                          m_track->m_angle[info.m_track_sector] );

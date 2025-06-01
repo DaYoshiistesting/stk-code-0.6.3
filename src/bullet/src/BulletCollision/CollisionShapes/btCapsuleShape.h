@@ -26,57 +26,57 @@ subject to the following restrictions:
 class btCapsuleShape : public btConvexInternalShape
 {
 protected:
-	int	m_upAxis;
+    int    m_upAxis;
 
 protected:
-	///only used for btCapsuleShapeZ and btCapsuleShapeX subclasses.
-	btCapsuleShape() {};
+    ///only used for btCapsuleShapeZ and btCapsuleShapeX subclasses.
+    btCapsuleShape() {};
 
 public:
-	btCapsuleShape(btScalar radius,btScalar height);
+    btCapsuleShape(btScalar radius,btScalar height);
 
-	///CollisionShape Interface
-	virtual void	calculateLocalInertia(btScalar mass,btVector3& inertia) const;
+    ///CollisionShape Interface
+    virtual void    calculateLocalInertia(btScalar mass,btVector3& inertia) const;
 
-	/// btConvexShape Interface
-	virtual btVector3	localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
+    /// btConvexShape Interface
+    virtual btVector3    localGetSupportingVertexWithoutMargin(const btVector3& vec)const;
 
-	virtual void	batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
-	
-	virtual int	getShapeType() const { return CAPSULE_SHAPE_PROXYTYPE; }
+    virtual void    batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const;
+    
+    virtual int    getShapeType() const { return CAPSULE_SHAPE_PROXYTYPE; }
 
-	virtual void getAabb (const btTransform& t, btVector3& aabbMin, btVector3& aabbMax) const
-	{
-			btVector3 halfExtents(getRadius(),getRadius(),getRadius());
-			halfExtents[m_upAxis] = getRadius() + getHalfHeight();
-			btMatrix3x3 abs_b = t.getBasis().absolute();  
-			btPoint3 center = t.getOrigin();
-			btVector3 extent = btVector3(abs_b[0].dot(halfExtents),abs_b[1].dot(halfExtents),abs_b[2].dot(halfExtents));		  
-			extent += btVector3(getMargin(),getMargin(),getMargin());
-			aabbMin = center - extent;
-			aabbMax = center + extent;
-	}
+    virtual void getAabb (const btTransform& t, btVector3& aabbMin, btVector3& aabbMax) const
+    {
+            btVector3 halfExtents(getRadius(),getRadius(),getRadius());
+            halfExtents[m_upAxis] = getRadius() + getHalfHeight();
+            btMatrix3x3 abs_b = t.getBasis().absolute();  
+            btPoint3 center = t.getOrigin();
+            btVector3 extent = btVector3(abs_b[0].dot(halfExtents),abs_b[1].dot(halfExtents),abs_b[2].dot(halfExtents));          
+            extent += btVector3(getMargin(),getMargin(),getMargin());
+            aabbMin = center - extent;
+            aabbMax = center + extent;
+    }
 
-	virtual const char*	getName()const 
-	{
-		return "CapsuleShape";
-	}
+    virtual const char*    getName()const 
+    {
+        return "CapsuleShape";
+    }
 
-	int	getUpAxis() const
-	{
-		return m_upAxis;
-	}
+    int    getUpAxis() const
+    {
+        return m_upAxis;
+    }
 
-	btScalar	getRadius() const
-	{
-		int radiusAxis = (m_upAxis+2)%3;
-		return m_implicitShapeDimensions[radiusAxis];
-	}
+    btScalar    getRadius() const
+    {
+        int radiusAxis = (m_upAxis+2)%3;
+        return m_implicitShapeDimensions[radiusAxis];
+    }
 
-	btScalar	getHalfHeight() const
-	{
-		return m_implicitShapeDimensions[m_upAxis];
-	}
+    btScalar    getHalfHeight() const
+    {
+        return m_implicitShapeDimensions[m_upAxis];
+    }
 
 };
 
@@ -86,15 +86,15 @@ class btCapsuleShapeX : public btCapsuleShape
 {
 public:
 
-	btCapsuleShapeX(btScalar radius,btScalar height);
-		
-	//debugging
-	virtual const char*	getName()const
-	{
-		return "CapsuleX";
-	}
+    btCapsuleShapeX(btScalar radius,btScalar height);
+        
+    //debugging
+    virtual const char*    getName()const
+    {
+        return "CapsuleX";
+    }
 
-	
+    
 
 };
 
@@ -103,15 +103,15 @@ public:
 class btCapsuleShapeZ : public btCapsuleShape
 {
 public:
-	btCapsuleShapeZ(btScalar radius,btScalar height);
+    btCapsuleShapeZ(btScalar radius,btScalar height);
 
-		//debugging
-	virtual const char*	getName()const
-	{
-		return "CapsuleZ";
-	}
+        //debugging
+    virtual const char*    getName()const
+    {
+        return "CapsuleZ";
+    }
 
-	
+    
 };
 
 

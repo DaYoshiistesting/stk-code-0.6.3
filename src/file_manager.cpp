@@ -86,14 +86,14 @@ FileManager::FileManager()
 {
     m_is_full_path = false;
     
-    if ( getenv ( "SUPERTUXKART_DATADIR" ) != NULL )
-        m_root_dir= getenv ( "SUPERTUXKART_DATADIR" ) ;
+    if (getenv("SUPERTUXKART_DATADIR") != NULL)
+        m_root_dir= getenv("SUPERTUXKART_DATADIR");
 #ifdef __APPLE__
     else if( macSetBundlePathIfRelevant( m_root_dir ) ) { /* nothing to do */ }
 #endif
-    else if ( access ( "data/stk_config.data", F_OK ) == 0 )
+    else if(access("data/stk_config.data", F_OK) == 0)
         m_root_dir = "." ;
-    else if ( access ( "../data/stk_config.data", F_OK ) == 0 )
+    else if (access("../data/stk_config.data", F_OK) == 0)
         m_root_dir = ".." ;
     else
 #ifdef SUPERTUXKART_DATADIR
@@ -182,7 +182,7 @@ std::string FileManager::getTextureFile(const std::string& FNAME) const
     std::string path;
     findFile(path, FNAME, m_texture_search_path);
     return path;
-}   // makeTexturePath
+}   // getTextureFile
 
 //-----------------------------------------------------------------------------
 std::string FileManager::getModelFile(const std::string& FNAME) const
@@ -205,15 +205,10 @@ std::string FileManager::getKartDir() const
 }   // getKartDir
 
 //-----------------------------------------------------------------------------
-std::string FileManager::getItemsDir() const
-{
-    return m_root_dir+"/data/items";
-}   // getItemsDir
-//-----------------------------------------------------------------------------
 std::string FileManager::getChallengeDir() const
 {
     return m_root_dir+"/data/challenges";
-}   // getTranslationDir
+}   // getChallengeDir
 
 //-----------------------------------------------------------------------------
 std::string FileManager::getTranslationDir() const
@@ -258,15 +253,11 @@ std::string FileManager::getConfigFile(const std::string& fname) const
 }   // getConfigFile
 
 //-----------------------------------------------------------------------------
-std::string FileManager::getItemFile(const std::string& fname) const
-{
-    return getItemsDir()+"/"+fname;
-}   // getItemFile
-//-----------------------------------------------------------------------------
 std::string FileManager::getChallengeFile(const std::string& fname) const
 {
     return getChallengeDir()+"/"+fname;
 }   // getChallengeFile
+
 //-----------------------------------------------------------------------------
 std::string FileManager::getHomeDir() const
 {
@@ -370,5 +361,3 @@ void FileManager::listFiles(std::set<std::string>& result, const std::string& di
         }
         ulCloseDir(mydir);
 }   // listFiles
-
-//-----------------------------------------------------------------------------

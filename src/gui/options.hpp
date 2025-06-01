@@ -29,7 +29,7 @@ public:
     ~Options();
 
     void select();
-	void handle(GameAction, int);
+    void handle(GameAction, int);
 
 };
 

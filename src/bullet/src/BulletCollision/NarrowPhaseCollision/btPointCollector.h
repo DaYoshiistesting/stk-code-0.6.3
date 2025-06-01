@@ -22,39 +22,39 @@ subject to the following restrictions:
 
 struct btPointCollector : public btDiscreteCollisionDetectorInterface::Result
 {
-	
-	
-	btVector3 m_normalOnBInWorld;
-	btVector3 m_pointInWorld;
-	btScalar	m_distance;//negative means penetration
+    
+    
+    btVector3 m_normalOnBInWorld;
+    btVector3 m_pointInWorld;
+    btScalar    m_distance;//negative means penetration
 
-	bool	m_hasResult;
+    bool    m_hasResult;
 
-	btPointCollector () 
-		: m_distance(btScalar(1e30)),m_hasResult(false)
-	{
-	}
+    btPointCollector () 
+        : m_distance(btScalar(1e30)),m_hasResult(false)
+    {
+    }
 
-	virtual void setShapeIdentifiers(int partId0,int index0,	int partId1,int index1)
-	{
-		(void)partId0;
-		(void)index0;
-		(void)partId1;
-		(void)index1;
-		//??
-	}
+    virtual void setShapeIdentifiers(int partId0,int index0,    int partId1,int index1)
+    {
+        (void)partId0;
+        (void)index0;
+        (void)partId1;
+        (void)index1;
+        //??
+    }
 
-	virtual void addContactPoint(const btVector3& normalOnBInWorld,const btVector3& pointInWorld,btScalar depth)
-	{
-		if (depth< m_distance)
-		{
-			m_hasResult = true;
-			m_normalOnBInWorld = normalOnBInWorld;
-			m_pointInWorld = pointInWorld;
-			//negative means penetration
-			m_distance = depth;
-		}
-	}
+    virtual void addContactPoint(const btVector3& normalOnBInWorld,const btVector3& pointInWorld,btScalar depth)
+    {
+        if (depth< m_distance)
+        {
+            m_hasResult = true;
+            m_normalOnBInWorld = normalOnBInWorld;
+            m_pointInWorld = pointInWorld;
+            //negative means penetration
+            m_distance = depth;
+        }
+    }
 };
 
 #endif //POINT_COLLECTOR_H

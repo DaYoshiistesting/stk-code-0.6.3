@@ -61,7 +61,7 @@ KartModel::KartModel()
 void KartModel::loadInfo(const lisp::Lisp* lisp)
 {
     lisp->get("model-file", m_model_filename);
-	//lisp->get("christ-offset", m_christ_offset);
+    //lisp->get("christ-offset", m_christ_offset);
     loadWheelInfo(lisp, "wheel-front-right", 0);
     loadWheelInfo(lisp, "wheel-front-left",  1);
     loadWheelInfo(lisp, "wheel-rear-right",  2);
@@ -84,7 +84,7 @@ KartModel::~KartModel()
  */
 void KartModel::loadModels()
 {
-    ssgEntity *obj = loader->load(m_model_filename, CB_KART);
+    ssgEntity *obj = loader->load(m_model_filename, CB_KART, false);
     if(!obj)
     {
         fprintf(stderr, "Can't find kart model '%s'.\n",m_model_filename.c_str());

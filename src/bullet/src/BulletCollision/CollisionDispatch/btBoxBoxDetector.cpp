@@ -81,8 +81,8 @@ do { \
 typedef btScalar dMatrix3[4*3];
 
 void dLineClosestApproach (const btVector3& pa, const btVector3& ua,
-			   const btVector3& pb, const btVector3& ub,
-			   btScalar *alpha, btScalar *beta)
+               const btVector3& pb, const btVector3& ub,
+               btScalar *alpha, btScalar *beta)
 {
   btVector3 p;
   p[0] = pb[0] - pa[0];
@@ -130,32 +130,32 @@ static int intersectRectQuad2 (btScalar h[2], btScalar p[8], btScalar ret[16])
       btScalar *pr = r;
       nr = 0;
       for (int i=nq; i > 0; i--) {
-	// go through all points in q and all lines between adjacent points
-	if (sign*pq[dir] < h[dir]) {
-	  // this point is inside the chopping line
-	  pr[0] = pq[0];
-	  pr[1] = pq[1];
-	  pr += 2;
-	  nr++;
-	  if (nr & 8) {
-	    q = r;
-	    goto done;
-	  }
-	}
-	btScalar *nextq = (i > 1) ? pq+2 : q;
-	if ((sign*pq[dir] < h[dir]) ^ (sign*nextq[dir] < h[dir])) {
-	  // this line crosses the chopping line
-	  pr[1-dir] = pq[1-dir] + (nextq[1-dir]-pq[1-dir]) /
-	    (nextq[dir]-pq[dir]) * (sign*h[dir]-pq[dir]);
-	  pr[dir] = sign*h[dir];
-	  pr += 2;
-	  nr++;
-	  if (nr & 8) {
-	    q = r;
-	    goto done;
-	  }
-	}
-	pq += 2;
+    // go through all points in q and all lines between adjacent points
+    if (sign*pq[dir] < h[dir]) {
+      // this point is inside the chopping line
+      pr[0] = pq[0];
+      pr[1] = pq[1];
+      pr += 2;
+      nr++;
+      if (nr & 8) {
+        q = r;
+        goto done;
+      }
+    }
+    btScalar *nextq = (i > 1) ? pq+2 : q;
+    if ((sign*pq[dir] < h[dir]) ^ (sign*nextq[dir] < h[dir])) {
+      // this line crosses the chopping line
+      pr[1-dir] = pq[1-dir] + (nextq[1-dir]-pq[1-dir]) /
+        (nextq[dir]-pq[dir]) * (sign*h[dir]-pq[dir]);
+      pr[dir] = sign*h[dir];
+      pr += 2;
+      nr++;
+      if (nr & 8) {
+        q = r;
+        goto done;
+      }
+    }
+    pq += 2;
       }
       q = r;
       r = (q==ret) ? buffer : ret;
@@ -167,7 +167,7 @@ static int intersectRectQuad2 (btScalar h[2], btScalar p[8], btScalar ret[16])
   return nr;
 }
 
-#define dAtan2(y,x) ((float)atan2f((y),(x)))	/* arc tangent with 2 args */
+#define dAtan2(y,x) ((float)atan2f((y),(x)))    /* arc tangent with 2 args */
 #define M__PI 3.14159265f
 
 // given n points in the plane (array p, of size 2*n), generate m points that
@@ -222,20 +222,20 @@ void cullPoints2 (int n, btScalar p[], int m, int i0, int iret[])
     if (a > M__PI) a -= 2*M__PI;
     btScalar maxdiff=1e9,diff;
 #ifndef dNODEBUG
-    *iret = i0;			// iret is not allowed to keep this value
+    *iret = i0;            // iret is not allowed to keep this value
 #endif
     for (i=0; i<n; i++) {
       if (avail[i]) {
-	diff = fabsf (A[i]-a);
-	if (diff > M__PI) diff = 2*M__PI - diff;
-	if (diff < maxdiff) {
-	  maxdiff = diff;
-	  *iret = i;
-	}
+    diff = fabsf (A[i]-a);
+    if (diff > M__PI) diff = 2*M__PI - diff;
+    if (diff < maxdiff) {
+      maxdiff = diff;
+      *iret = i;
+    }
       }
     }
 #ifndef dNODEBUG
-    btAssert (*iret != i0);	// ensure iret got set
+    btAssert (*iret != i0);    // ensure iret got set
 #endif
     avail[*iret] = 0;
     iret++;
@@ -246,10 +246,10 @@ void cullPoints2 (int n, btScalar p[], int m, int i0, int iret[])
 
 
 int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
-	     const btVector3& side1, const btVector3& p2,
-	     const dMatrix3 R2, const btVector3& side2,
-	     btVector3& normal, btScalar *depth, int *return_code,
-		 int maxc, dContactGeom *contact, int skip,btDiscreteCollisionDetectorInterface::Result& output)
+         const btVector3& side1, const btVector3& p2,
+         const dMatrix3 R2, const btVector3& side2,
+         btVector3& normal, btScalar *depth, int *return_code,
+         int maxc, dContactGeom *contact, int skip,btDiscreteCollisionDetectorInterface::Result& output)
 {
   const btScalar fudge_factor = btScalar(1.05);
   btVector3 p,pp,normalC;
@@ -260,7 +260,7 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
 
   // get vector from centers of box 1 to box 2, relative to box 1
   p = p2 - p1;
-  dMULTIPLY1_331 (pp,R1,p);		// get pp = p relative to body 1
+  dMULTIPLY1_331 (pp,R1,p);        // get pp = p relative to body 1
 
   // get side lengths / 2
   A[0] = side1[0]*btScalar(0.5);
@@ -397,21 +397,21 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
     for (i=0; i<3; i++) pa[i] += ua[i]*alpha;
     for (i=0; i<3; i++) pb[i] += ub[i]*beta;
 
-	{
-		
-		//contact[0].pos[i] = btScalar(0.5)*(pa[i]+pb[i]);
-		//contact[0].depth = *depth;
-		btVector3 pointInWorld;
+    {
+        
+        //contact[0].pos[i] = btScalar(0.5)*(pa[i]+pb[i]);
+        //contact[0].depth = *depth;
+        btVector3 pointInWorld;
 
 #ifdef USE_CENTER_POINT
-	    for (i=0; i<3; i++) 
-			pointInWorld[i] = (pa[i]+pb[i])*btScalar(0.5);
-		output.addContactPoint(-normal,pointInWorld,-*depth);
+        for (i=0; i<3; i++) 
+            pointInWorld[i] = (pa[i]+pb[i])*btScalar(0.5);
+        output.addContactPoint(-normal,pointInWorld,-*depth);
 #else
-		output.addContactPoint(-normal,pb,-*depth);
+        output.addContactPoint(-normal,pb,-*depth);
 #endif //
-		*return_code = code;
-	}
+        *return_code = code;
+    }
     return 1;
   }
 
@@ -511,7 +511,7 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
   }
 
   // find the four corners of the incident face, in reference-face coordinates
-  btScalar quad[8];	// 2D coordinate of incident face (x,y pairs)
+  btScalar quad[8];    // 2D coordinate of incident face (x,y pairs)
   btScalar c1,c2,m11,m12,m21,m22;
   c1 = dDOT14 (center,Ra+code1);
   c2 = dDOT14 (center,Ra+code2);
@@ -545,25 +545,25 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
   // intersect the incident and reference faces
   btScalar ret[16];
   int n = intersectRectQuad2 (rect,quad,ret);
-  if (n < 1) return 0;		// this should never happen
+  if (n < 1) return 0;        // this should never happen
 
   // convert the intersection points into reference-face coordinates,
   // and compute the contact position and depth for each point. only keep
   // those points that have a positive (penetrating) depth. delete points in
   // the 'ret' array as necessary so that 'point' and 'ret' correspond.
-  btScalar point[3*8];		// penetrating contact points
-  btScalar dep[8];			// depths for those points
+  btScalar point[3*8];        // penetrating contact points
+  btScalar dep[8];            // depths for those points
   btScalar det1 = 1.f/(m11*m22 - m12*m21);
   m11 *= det1;
   m12 *= det1;
   m21 *= det1;
   m22 *= det1;
-  int cnum = 0;			// number of penetrating contact points found
+  int cnum = 0;            // number of penetrating contact points found
   for (j=0; j < n; j++) {
     btScalar k1 =  m22*(ret[j*2]-c1) - m12*(ret[j*2+1]-c2);
     btScalar k2 = -m21*(ret[j*2]-c1) + m11*(ret[j*2+1]-c2);
     for (i=0; i<3; i++) point[cnum*3+i] =
-			  center[i] + k1*Rb[i*4+a1] + k2*Rb[i*4+a2];
+              center[i] + k1*Rb[i*4+a1] + k2*Rb[i*4+a2];
     dep[cnum] = Sa[codeN] - dDOT(normal2,point+cnum*3);
     if (dep[cnum] >= 0) {
       ret[cnum*2] = ret[j*2];
@@ -571,7 +571,7 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
       cnum++;
     }
   }
-  if (cnum < 1) return 0;	// this should never happen
+  if (cnum < 1) return 0;    // this should never happen
 
   // we can't generate more contacts than we actually have
   if (maxc > cnum) maxc = cnum;
@@ -581,16 +581,16 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
     // we have less contacts than we need, so we use them all
     for (j=0; j < cnum; j++) {
 
-		//AddContactPoint...
+        //AddContactPoint...
 
-		//dContactGeom *con = CONTACT(contact,skip*j);
+        //dContactGeom *con = CONTACT(contact,skip*j);
       //for (i=0; i<3; i++) con->pos[i] = point[j*3+i] + pa[i];
       //con->depth = dep[j];
 
-		btVector3 pointInWorld;
-		for (i=0; i<3; i++) 
-			pointInWorld[i] = point[j*3+i] + pa[i];
-		output.addContactPoint(-normal,pointInWorld,-dep[j]);
+        btVector3 pointInWorld;
+        for (i=0; i<3; i++) 
+            pointInWorld[i] = point[j*3+i] + pa[i];
+        output.addContactPoint(-normal,pointInWorld,-dep[j]);
 
     }
   }
@@ -601,8 +601,8 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
     btScalar maxdepth = dep[0];
     for (i=1; i<cnum; i++) {
       if (dep[i] > maxdepth) {
-	maxdepth = dep[i];
-	i1 = i;
+    maxdepth = dep[i];
+    i1 = i;
       }
     }
 
@@ -614,10 +614,10 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
   //    for (i=0; i<3; i++) con->pos[i] = point[iret[j]*3+i] + pa[i];
     //  con->depth = dep[iret[j]];
 
-		btVector3 posInWorld;
-		for (i=0; i<3; i++) 
-			posInWorld[i] = point[iret[j]*3+i] + pa[i];
-		output.addContactPoint(-normal,posInWorld,-dep[iret[j]]);
+        btVector3 posInWorld;
+        for (i=0; i<3; i++) 
+            posInWorld[i] = point[iret[j]*3+i] + pa[i];
+        output.addContactPoint(-normal,posInWorld,-dep[iret[j]]);
     }
     cnum = maxc;
   }
@@ -626,49 +626,49 @@ int dBoxBox2 (const btVector3& p1, const dMatrix3 R1,
   return cnum;
 }
 
-void	btBoxBoxDetector::getClosestPoints(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw)
+void    btBoxBoxDetector::getClosestPoints(const ClosestPointInput& input,Result& output,class btIDebugDraw* debugDraw)
 {
-	
-	const btTransform& transformA = input.m_transformA;
-	const btTransform& transformB = input.m_transformB;
-	
-	int skip = 0;
-	dContactGeom *contact = 0;
+    
+    const btTransform& transformA = input.m_transformA;
+    const btTransform& transformB = input.m_transformB;
+    
+    int skip = 0;
+    dContactGeom *contact = 0;
 
-	dMatrix3 R1;
-	dMatrix3 R2;
+    dMatrix3 R1;
+    dMatrix3 R2;
 
-	for (int j=0;j<3;j++)
-	{
-		R1[0+4*j] = transformA.getBasis()[j].x();
-		R2[0+4*j] = transformB.getBasis()[j].x();
+    for (int j=0;j<3;j++)
+    {
+        R1[0+4*j] = transformA.getBasis()[j].x();
+        R2[0+4*j] = transformB.getBasis()[j].x();
 
-		R1[1+4*j] = transformA.getBasis()[j].y();
-		R2[1+4*j] = transformB.getBasis()[j].y();
-
-
-		R1[2+4*j] = transformA.getBasis()[j].z();
-		R2[2+4*j] = transformB.getBasis()[j].z();
-
-	}
-
-	
-
-	btVector3 normal;
-	btScalar depth;
-	int return_code;
-	int maxc = 4;
+        R1[1+4*j] = transformA.getBasis()[j].y();
+        R2[1+4*j] = transformB.getBasis()[j].y();
 
 
-	dBoxBox2 (transformA.getOrigin(), 
-	R1,
-	2.f*m_box1->getHalfExtentsWithMargin(),
-	transformB.getOrigin(),
-	R2, 
-	2.f*m_box2->getHalfExtentsWithMargin(),
-	normal, &depth, &return_code,
-	maxc, contact, skip,
-	output
-	);
+        R1[2+4*j] = transformA.getBasis()[j].z();
+        R2[2+4*j] = transformB.getBasis()[j].z();
+
+    }
+
+    
+
+    btVector3 normal;
+    btScalar depth;
+    int return_code;
+    int maxc = 4;
+
+
+    dBoxBox2 (transformA.getOrigin(), 
+    R1,
+    2.f*m_box1->getHalfExtentsWithMargin(),
+    transformB.getOrigin(),
+    R2, 
+    2.f*m_box2->getHalfExtentsWithMargin(),
+    normal, &depth, &return_code,
+    maxc, contact, skip,
+    output
+    );
 
 }

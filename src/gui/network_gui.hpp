@@ -33,7 +33,7 @@ private:
     enum {NGS_NONE, NGS_CONNECT_DISPLAY, NGS_CONNECT_DOIT} 
                           m_state;
 
-	static const int      SERVER_NAME_MAX;
+    static const int      SERVER_NAME_MAX;
 
     void switchToWaitForConnectionMode();
 public:
@@ -41,8 +41,8 @@ public:
         ~NetworkGUI();
     void select();
     void update(float dt);
-	void handle(GameAction, int);
-	void inputKeyboard(SDLKey, int);
+    void handle(GameAction, int);
+    void inputKeyboard(SDLKey, int);
 
 };
 

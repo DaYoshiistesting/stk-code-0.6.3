@@ -23,17 +23,17 @@ subject to the following restrictions:
 ///calculate the penetration depth between two convex shapes.
 class btGjkEpaPenetrationDepthSolver : public btConvexPenetrationDepthSolver
 {
-	public :
+    public :
 
-		bool			calcPenDepth( btSimplexSolverInterface& simplexSolver,
-									  const btConvexShape* pConvexA, const btConvexShape* pConvexB,
-									  const btTransform& transformA, const btTransform& transformB,
-									  btVector3& v, btPoint3& wWitnessOnA, btPoint3& wWitnessOnB,
-									  class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc );
+        bool            calcPenDepth( btSimplexSolverInterface& simplexSolver,
+                                      const btConvexShape* pConvexA, const btConvexShape* pConvexB,
+                                      const btTransform& transformA, const btTransform& transformB,
+                                      btVector3& v, btPoint3& wWitnessOnA, btPoint3& wWitnessOnB,
+                                      class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc );
 
-	private :
+    private :
 
 };
 
-#endif	// BT_GJP_EPA_PENETRATION_DEPTH_H
+#endif    // BT_GJP_EPA_PENETRATION_DEPTH_H
 

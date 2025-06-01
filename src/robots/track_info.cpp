@@ -37,10 +37,10 @@ void TrackInfo::setupSteerInfo()
     // direction changes from either straight to curve or the other way round.
     int i = 0;
     int num_drivelines  = m_track->m_driveline.size();
-    // not ready yet float current_angle = m_track->m_angle[i];
+    float current_angle = m_track->m_angle[i];
     while(i<num_drivelines)
     {
-      // not ready yetDirectionType dir = computeDirection(i);
+        DirectionType dir = computeDirection(i);
         i++;
     }
 }   // setupSteerInfo
@@ -54,11 +54,11 @@ TrackInfo::DirectionType TrackInfo::computeDirection(int i)
     float angle      = m_track->m_angle[i];
 
     float diff       = prev_angle - angle;
-    while( diff>  2*M_PI ) diff -= 2*M_PI;
-    while( diff < -2*M_PI ) diff += 2*M_PI;
+    while(diff> 2*M_PI) diff -= 2*M_PI;
+    while(diff<-2*M_PI) diff += 2*M_PI;
 
-    if( diff > M_PI ) diff -= 2*M_PI;
-    else if( diff < -M_PI ) diff+= 2*M_PI;
+    if(diff > M_PI) diff -= 2*M_PI;
+    else if(diff < -M_PI) diff+= 2*M_PI;
 
     // Consider a difference of up to 5 degrees as 'straight'.
     const float curve_degree = 5*M_PI/180.0f;  

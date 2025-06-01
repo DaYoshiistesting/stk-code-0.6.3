@@ -59,7 +59,7 @@ bool ReplayKart::init( const std::string &strKartIdent )
 
     ssgRangeSelector *lod = new ssgRangeSelector;
 
-    float r [ 2 ] = { -10.0f, 100.0f } ;
+    float r [ 2 ] = { -10.0f, 200.0f } ;
     lod -> addKid ( obj ) ;
     lod -> setRanges ( r, 2 ) ;
 

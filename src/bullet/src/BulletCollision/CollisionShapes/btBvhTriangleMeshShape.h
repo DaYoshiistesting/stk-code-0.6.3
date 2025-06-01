@@ -26,63 +26,63 @@ subject to the following restrictions:
 ATTRIBUTE_ALIGNED16(class) btBvhTriangleMeshShape : public btTriangleMeshShape
 {
 
-	btOptimizedBvh*	m_bvh;
-	bool m_useQuantizedAabbCompression;
-	bool m_ownsBvh;
-	bool m_pad[11];////need padding due to alignment
+    btOptimizedBvh*    m_bvh;
+    bool m_useQuantizedAabbCompression;
+    bool m_ownsBvh;
+    bool m_pad[11];////need padding due to alignment
 
 public:
 
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btBvhTriangleMeshShape() :btTriangleMeshShape(0),m_bvh(0),m_ownsBvh(false) {};
-	btBvhTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression, bool buildBvh = true);
+    btBvhTriangleMeshShape() :btTriangleMeshShape(0),m_bvh(0),m_ownsBvh(false) {};
+    btBvhTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression, bool buildBvh = true);
 
-	///optionally pass in a larger bvh aabb, used for quantization. This allows for deformations within this aabb
-	btBvhTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression,const btVector3& bvhAabbMin,const btVector3& bvhAabbMax, bool buildBvh = true);
-	
-	virtual ~btBvhTriangleMeshShape();
+    ///optionally pass in a larger bvh aabb, used for quantization. This allows for deformations within this aabb
+    btBvhTriangleMeshShape(btStridingMeshInterface* meshInterface, bool useQuantizedAabbCompression,const btVector3& bvhAabbMin,const btVector3& bvhAabbMax, bool buildBvh = true);
+    
+    virtual ~btBvhTriangleMeshShape();
 
-	virtual int	getShapeType() const
-	{
-		return TRIANGLE_MESH_SHAPE_PROXYTYPE;
-	}
-	
-	void performRaycast (btTriangleCallback* callback, const btVector3& raySource, const btVector3& rayTarget);
-	void performConvexcast (btTriangleCallback* callback, const btVector3& boxSource, const btVector3& boxTarget, const btVector3& boxMin, const btVector3& boxMax);
+    virtual int    getShapeType() const
+    {
+        return TRIANGLE_MESH_SHAPE_PROXYTYPE;
+    }
+    
+    void performRaycast (btTriangleCallback* callback, const btVector3& raySource, const btVector3& rayTarget);
+    void performConvexcast (btTriangleCallback* callback, const btVector3& boxSource, const btVector3& boxTarget, const btVector3& boxMin, const btVector3& boxMax);
 
-	virtual void	processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const;
+    virtual void    processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const;
 
-	void	refitTree(const btVector3& aabbMin,const btVector3& aabbMax);
+    void    refitTree(const btVector3& aabbMin,const btVector3& aabbMax);
 
-	///for a fast incremental refit of parts of the tree. Note: the entire AABB of the tree will become more conservative, it never shrinks
-	void	partialRefitTree(const btVector3& aabbMin,const btVector3& aabbMax);
+    ///for a fast incremental refit of parts of the tree. Note: the entire AABB of the tree will become more conservative, it never shrinks
+    void    partialRefitTree(const btVector3& aabbMin,const btVector3& aabbMax);
 
-	//debugging
-	virtual const char*	getName()const {return "BVHTRIANGLEMESH";}
-
-
-	virtual void	setLocalScaling(const btVector3& scaling);
-	
-	btOptimizedBvh*	getOptimizedBvh()
-	{
-		return m_bvh;
-	}
+    //debugging
+    virtual const char*    getName()const {return "BVHTRIANGLEMESH";}
 
 
-	void	setOptimizedBvh(btOptimizedBvh* bvh)
-	{
-		btAssert(!m_bvh);
-		btAssert(!m_ownsBvh);
+    virtual void    setLocalScaling(const btVector3& scaling);
+    
+    btOptimizedBvh*    getOptimizedBvh()
+    {
+        return m_bvh;
+    }
 
-		m_bvh = bvh;
-		m_ownsBvh = false;
-	}
 
-	bool	usesQuantizedAabbCompression() const
-	{
-		return	m_useQuantizedAabbCompression;
-	}
+    void    setOptimizedBvh(btOptimizedBvh* bvh)
+    {
+        btAssert(!m_bvh);
+        btAssert(!m_ownsBvh);
+
+        m_bvh = bvh;
+        m_ownsBvh = false;
+    }
+
+    bool    usesQuantizedAabbCompression() const
+    {
+        return    m_useQuantizedAabbCompression;
+    }
 }
 ;
 

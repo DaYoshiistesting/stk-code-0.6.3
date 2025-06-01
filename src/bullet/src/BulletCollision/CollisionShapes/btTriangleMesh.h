@@ -27,36 +27,36 @@ subject to the following restrictions:
 ///If you prefer, you can avoid using btTriangleMesh and directly use btTriangleIndexVertexArray or derive your own class from btStridingMeshInterface. This allows to share render and collision meshes.
 class btTriangleMesh : public btTriangleIndexVertexArray
 {
-	btAlignedObjectArray<btVector3>	m_4componentVertices;
-	btAlignedObjectArray<float>		m_3componentVertices;
+    btAlignedObjectArray<btVector3>    m_4componentVertices;
+    btAlignedObjectArray<float>        m_3componentVertices;
 
-	btAlignedObjectArray<int>		m_32bitIndices;
-	btAlignedObjectArray<short int>		m_16bitIndices;
-	bool	m_use32bitIndices;
-	bool	m_use4componentVertices;
+    btAlignedObjectArray<int>        m_32bitIndices;
+    btAlignedObjectArray<short int>        m_16bitIndices;
+    bool    m_use32bitIndices;
+    bool    m_use4componentVertices;
 
 
-	public:
-		btTriangleMesh (bool use32bitIndices=true,bool use4componentVertices=true);
+    public:
+        btTriangleMesh (bool use32bitIndices=true,bool use4componentVertices=true);
 
-		bool	getUse32bitIndices() const
-		{
-			return m_use32bitIndices;
-		}
+        bool    getUse32bitIndices() const
+        {
+            return m_use32bitIndices;
+        }
 
-		bool	getUse4componentVertices() const
-		{
-			return m_use4componentVertices;
-		}
-		
-		void	addTriangle(const btVector3& vertex0,const btVector3& vertex1,const btVector3& vertex2);
-		
-		int getNumTriangles() const;
+        bool    getUse4componentVertices() const
+        {
+            return m_use4componentVertices;
+        }
+        
+        void    addTriangle(const btVector3& vertex0,const btVector3& vertex1,const btVector3& vertex2);
+        
+        int getNumTriangles() const;
 
-		virtual void	preallocateVertices(int numverts){(void) numverts;}
-		virtual void	preallocateIndices(int numindices){(void) numindices;}
+        virtual void    preallocateVertices(int numverts){(void) numverts;}
+        virtual void    preallocateIndices(int numindices){(void) numindices;}
 
-		
+        
 };
 
 #endif //TRIANGLE_MESH_H

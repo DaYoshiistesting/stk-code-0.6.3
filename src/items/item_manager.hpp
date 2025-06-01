@@ -48,7 +48,7 @@ private:
     void insertItem(Item *h);
     void deleteItem(Item *h);
 
-	// Stores which items are on which sectors
+    // Stores which items are on which sectors
     std::vector< AllItemTypes > *m_items_in_sector;
 
     ItemManager();
@@ -77,14 +77,14 @@ public:
     unsigned int getNumberOfItems()      const {return m_all_items.size();}
     const Item*  getItem(unsigned int n) const {return m_all_items[n];};
     Item*        getItem(unsigned int n)       {return m_all_items[n];};
-	static ssgEntity*    getItemModel   (Item::ItemType type)
+    static ssgEntity*    getItemModel   (Item::ItemType type)
                                         {return m_item_model[type];}
     const AllItemTypes& getItemsInDriveline (unsigned int n) const 
     {
         assert(m_items_in_sector); 
         assert(n<(*m_items_in_sector).size());
         return (*m_items_in_sector)[n];
-	}
+    }
 };
 
 #endif

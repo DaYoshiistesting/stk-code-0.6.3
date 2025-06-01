@@ -21,7 +21,7 @@ subject to the following restrictions:
 
 btUnionFind::~btUnionFind()
 {
-	Free();
+    Free();
 
 }
 
@@ -30,54 +30,54 @@ btUnionFind::btUnionFind()
 
 }
 
-void	btUnionFind::allocate(int N)
+void    btUnionFind::allocate(int N)
 {
-	m_elements.resize(N);
+    m_elements.resize(N);
 }
-void	btUnionFind::Free()
+void    btUnionFind::Free()
 {
-	m_elements.clear();
+    m_elements.clear();
 }
 
 
-void	btUnionFind::reset(int N)
+void    btUnionFind::reset(int N)
 {
-	allocate(N);
+    allocate(N);
 
-	for (int i = 0; i < N; i++) 
-	{ 
-		m_elements[i].m_id = i; m_elements[i].m_sz = 1; 
-	} 
+    for (int i = 0; i < N; i++) 
+    { 
+        m_elements[i].m_id = i; m_elements[i].m_sz = 1; 
+    } 
 }
 
 
 class btUnionFindElementSortPredicate
 {
-	public:
+    public:
 
-		bool operator() ( const btElement& lhs, const btElement& rhs )
-		{
-			return lhs.m_id < rhs.m_id;
-		}
+        bool operator() ( const btElement& lhs, const btElement& rhs )
+        {
+            return lhs.m_id < rhs.m_id;
+        }
 };
 
 ///this is a special operation, destroying the content of btUnionFind.
 ///it sorts the elements, based on island id, in order to make it easy to iterate over islands
-void	btUnionFind::sortIslands()
+void    btUnionFind::sortIslands()
 {
 
-	//first store the original body index, and islandId
-	int numElements = m_elements.size();
-	
-	for (int i=0;i<numElements;i++)
-	{
-		m_elements[i].m_id = find(i);
-		m_elements[i].m_sz = i;
-	}
-	
-	 // Sort the vector using predicate and std::sort
-	  //std::sort(m_elements.begin(), m_elements.end(), btUnionFindElementSortPredicate);
-	  m_elements.quickSort(btUnionFindElementSortPredicate());
+    //first store the original body index, and islandId
+    int numElements = m_elements.size();
+    
+    for (int i=0;i<numElements;i++)
+    {
+        m_elements[i].m_id = find(i);
+        m_elements[i].m_sz = i;
+    }
+    
+     // Sort the vector using predicate and std::sort
+      //std::sort(m_elements.begin(), m_elements.end(), btUnionFindElementSortPredicate);
+      m_elements.quickSort(btUnionFindElementSortPredicate());
 
 }
 

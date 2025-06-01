@@ -21,137 +21,137 @@ subject to the following restrictions:
 
 btCapsuleShape::btCapsuleShape(btScalar radius, btScalar height)
 {
-	m_upAxis = 1;
-	m_implicitShapeDimensions.setValue(radius,0.5f*height,radius);
+    m_upAxis = 1;
+    m_implicitShapeDimensions.setValue(radius,0.5f*height,radius);
 }
 
  
- btVector3	btCapsuleShape::localGetSupportingVertexWithoutMargin(const btVector3& vec0)const
+ btVector3    btCapsuleShape::localGetSupportingVertexWithoutMargin(const btVector3& vec0)const
 {
 
-	btVector3 supVec(0,0,0);
+    btVector3 supVec(0,0,0);
 
-	btScalar maxDot(btScalar(-1e30));
+    btScalar maxDot(btScalar(-1e30));
 
-	btVector3 vec = vec0;
-	btScalar lenSqr = vec.length2();
-	if (lenSqr < btScalar(0.0001))
-	{
-		vec.setValue(1,0,0);
-	} else
-	{
-		btScalar rlen = btScalar(1.) / btSqrt(lenSqr );
-		vec *= rlen;
-	}
+    btVector3 vec = vec0;
+    btScalar lenSqr = vec.length2();
+    if (lenSqr < btScalar(0.0001))
+    {
+        vec.setValue(1,0,0);
+    } else
+    {
+        btScalar rlen = btScalar(1.) / btSqrt(lenSqr );
+        vec *= rlen;
+    }
 
-	btVector3 vtx;
-	btScalar newDot;
-	
-	btScalar radius = getRadius();
+    btVector3 vtx;
+    btScalar newDot;
+    
+    btScalar radius = getRadius();
 
 
-	{
-		btVector3 pos(0,0,0);
-		pos[getUpAxis()] = getHalfHeight();
+    {
+        btVector3 pos(0,0,0);
+        pos[getUpAxis()] = getHalfHeight();
 
-		vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
-		newDot = vec.dot(vtx);
-		if (newDot > maxDot)
-		{
-			maxDot = newDot;
-			supVec = vtx;
-		}
-	}
-	{
-		btVector3 pos(0,0,0);
-		pos[getUpAxis()] = -getHalfHeight();
+        vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
+        newDot = vec.dot(vtx);
+        if (newDot > maxDot)
+        {
+            maxDot = newDot;
+            supVec = vtx;
+        }
+    }
+    {
+        btVector3 pos(0,0,0);
+        pos[getUpAxis()] = -getHalfHeight();
 
-		vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
-		newDot = vec.dot(vtx);
-		if (newDot > maxDot)
-		{
-			maxDot = newDot;
-			supVec = vtx;
-		}
-	}
+        vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
+        newDot = vec.dot(vtx);
+        if (newDot > maxDot)
+        {
+            maxDot = newDot;
+            supVec = vtx;
+        }
+    }
 
-	return supVec;
+    return supVec;
 
 }
 
- void	btCapsuleShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
+ void    btCapsuleShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
 {
 
-	
-	btScalar radius = getRadius();
+    
+    btScalar radius = getRadius();
 
-	for (int j=0;j<numVectors;j++)
-	{
-		btScalar maxDot(btScalar(-1e30));
-		const btVector3& vec = vectors[j];
+    for (int j=0;j<numVectors;j++)
+    {
+        btScalar maxDot(btScalar(-1e30));
+        const btVector3& vec = vectors[j];
 
-		btVector3 vtx;
-		btScalar newDot;
-		{
-			btVector3 pos(0,0,0);
-			pos[getUpAxis()] = getHalfHeight();
-			vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
-			newDot = vec.dot(vtx);
-			if (newDot > maxDot)
-			{
-				maxDot = newDot;
-				supportVerticesOut[j] = vtx;
-			}
-		}
-		{
-			btVector3 pos(0,0,0);
-			pos[getUpAxis()] = -getHalfHeight();
-			vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
-			newDot = vec.dot(vtx);
-			if (newDot > maxDot)
-			{
-				maxDot = newDot;
-				supportVerticesOut[j] = vtx;
-			}
-		}
-		
-	}
+        btVector3 vtx;
+        btScalar newDot;
+        {
+            btVector3 pos(0,0,0);
+            pos[getUpAxis()] = getHalfHeight();
+            vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
+            newDot = vec.dot(vtx);
+            if (newDot > maxDot)
+            {
+                maxDot = newDot;
+                supportVerticesOut[j] = vtx;
+            }
+        }
+        {
+            btVector3 pos(0,0,0);
+            pos[getUpAxis()] = -getHalfHeight();
+            vtx = pos +vec*m_localScaling*(radius) - vec * getMargin();
+            newDot = vec.dot(vtx);
+            if (newDot > maxDot)
+            {
+                maxDot = newDot;
+                supportVerticesOut[j] = vtx;
+            }
+        }
+        
+    }
 }
 
 
-void	btCapsuleShape::calculateLocalInertia(btScalar mass,btVector3& inertia) const
+void    btCapsuleShape::calculateLocalInertia(btScalar mass,btVector3& inertia) const
 {
-	//as an approximation, take the inertia of the box that bounds the spheres
+    //as an approximation, take the inertia of the box that bounds the spheres
 
-	btTransform ident;
-	ident.setIdentity();
+    btTransform ident;
+    ident.setIdentity();
 
-	
-	btScalar radius = getRadius();
+    
+    btScalar radius = getRadius();
 
-	btVector3 halfExtents(radius,radius,radius);
-	halfExtents[getUpAxis()]+=getHalfHeight();
+    btVector3 halfExtents(radius,radius,radius);
+    halfExtents[getUpAxis()]+=getHalfHeight();
 
-	btScalar margin = CONVEX_DISTANCE_MARGIN;
+    btScalar margin = CONVEX_DISTANCE_MARGIN;
 
-	btScalar lx=btScalar(2.)*(halfExtents[0]+margin);
-	btScalar ly=btScalar(2.)*(halfExtents[1]+margin);
-	btScalar lz=btScalar(2.)*(halfExtents[2]+margin);
-	const btScalar x2 = lx*lx;
-	const btScalar y2 = ly*ly;
-	const btScalar z2 = lz*lz;
-	const btScalar scaledmass = mass * btScalar(.08333333);
+    btScalar lx=btScalar(2.)*(halfExtents[0]+margin);
+    btScalar ly=btScalar(2.)*(halfExtents[1]+margin);
+    btScalar lz=btScalar(2.)*(halfExtents[2]+margin);
+    const btScalar x2 = lx*lx;
+    const btScalar y2 = ly*ly;
+    const btScalar z2 = lz*lz;
+    const btScalar scaledmass = mass * btScalar(.08333333);
 
-	inertia[0] = scaledmass * (y2+z2);
-	inertia[1] = scaledmass * (x2+z2);
-	inertia[2] = scaledmass * (x2+y2);
+    inertia[0] = scaledmass * (y2+z2);
+    inertia[1] = scaledmass * (x2+z2);
+    inertia[2] = scaledmass * (x2+y2);
 
 }
 
 btCapsuleShapeX::btCapsuleShapeX(btScalar radius,btScalar height)
 {
-	m_upAxis = 0;
-	m_implicitShapeDimensions.setValue(0.5f*height, radius,radius);
+    m_upAxis = 0;
+    m_implicitShapeDimensions.setValue(0.5f*height, radius,radius);
 }
 
 
@@ -161,8 +161,8 @@ btCapsuleShapeX::btCapsuleShapeX(btScalar radius,btScalar height)
 
 btCapsuleShapeZ::btCapsuleShapeZ(btScalar radius,btScalar height)
 {
-	m_upAxis = 2;
-	m_implicitShapeDimensions.setValue(radius,radius,0.5f*height);
+    m_upAxis = 2;
+    m_implicitShapeDimensions.setValue(radius,radius,0.5f*height);
 }
 
 

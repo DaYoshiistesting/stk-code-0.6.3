@@ -27,23 +27,23 @@ class btEmptyAlgorithm : public btCollisionAlgorithm
 {
 
 public:
-	
-	btEmptyAlgorithm(const btCollisionAlgorithmConstructionInfo& ci);
+    
+    btEmptyAlgorithm(const btCollisionAlgorithmConstructionInfo& ci);
 
-	virtual void processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual void processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	virtual btScalar calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
+    virtual btScalar calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut);
 
-	struct CreateFunc :public 	btCollisionAlgorithmCreateFunc
-	{
-		virtual	btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, btCollisionObject* body0,btCollisionObject* body1)
-		{
-			(void)body0;
-			(void)body1;
-			void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btEmptyAlgorithm));
-			return new(mem) btEmptyAlgorithm(ci);
-		}
-	};
+    struct CreateFunc :public     btCollisionAlgorithmCreateFunc
+    {
+        virtual    btCollisionAlgorithm* CreateCollisionAlgorithm(btCollisionAlgorithmConstructionInfo& ci, btCollisionObject* body0,btCollisionObject* body1)
+        {
+            (void)body0;
+            (void)body1;
+            void* mem = ci.m_dispatcher1->allocateCollisionAlgorithm(sizeof(btEmptyAlgorithm));
+            return new(mem) btEmptyAlgorithm(ci);
+        }
+    };
 
 } ATTRIBUTE_ALIGNED(16);
 

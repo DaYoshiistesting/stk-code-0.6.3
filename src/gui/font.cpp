@@ -29,9 +29,9 @@ Font* font_race;
 
 int init_fonts()
 {
-	// As we don't have any cyrillic fonts, we'll get it from 0.7.
+    // As we don't have any cyrillic fonts, we'll get it from 0.7.
     font_gui = new Font("DomesticManners.txf");
-	//font_gui_cyrillic = new Font("LayneHansomCyrillic.txf");
+    //font_gui_cyrillic = new Font("LayneHansomCyrillic.txf");
     font_race = new Font("DomesticManners.txf");
     //font_race_cyrillic = new Font("LayneHansomCyrillic.txf");
     return(font_gui && font_race);
@@ -41,9 +41,9 @@ int init_fonts()
 int delete_fonts()
 {
     delete font_gui;
-	//delete font_gui_cyrillic;
+    //delete font_gui_cyrillic;
     delete font_race;
-	//delete font_race_cyrillic;
+    //delete font_race_cyrillic;
     return 0;
 }   // delete_fonts
 

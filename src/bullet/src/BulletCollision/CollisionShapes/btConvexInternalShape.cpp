@@ -24,53 +24,53 @@ m_collisionMargin(CONVEX_DISTANCE_MARGIN)
 }
 
 
-void	btConvexInternalShape::setLocalScaling(const btVector3& scaling)
+void    btConvexInternalShape::setLocalScaling(const btVector3& scaling)
 {
-	m_localScaling = scaling;
+    m_localScaling = scaling;
 }
 
 
 
-void	btConvexInternalShape::getAabbSlow(const btTransform& trans,btVector3&minAabb,btVector3&maxAabb) const
+void    btConvexInternalShape::getAabbSlow(const btTransform& trans,btVector3&minAabb,btVector3&maxAabb) const
 {
 
-	btScalar margin = getMargin();
-	for (int i=0;i<3;i++)
-	{
-		btVector3 vec(btScalar(0.),btScalar(0.),btScalar(0.));
-		vec[i] = btScalar(1.);
+    btScalar margin = getMargin();
+    for (int i=0;i<3;i++)
+    {
+        btVector3 vec(btScalar(0.),btScalar(0.),btScalar(0.));
+        vec[i] = btScalar(1.);
 
-		btVector3 sv = localGetSupportingVertex(vec*trans.getBasis());
+        btVector3 sv = localGetSupportingVertex(vec*trans.getBasis());
 
-		btVector3 tmp = trans(sv);
-		maxAabb[i] = tmp[i]+margin;
-		vec[i] = btScalar(-1.);
-		tmp = trans(localGetSupportingVertex(vec*trans.getBasis()));
-		minAabb[i] = tmp[i]-margin;
-	}
+        btVector3 tmp = trans(sv);
+        maxAabb[i] = tmp[i]+margin;
+        vec[i] = btScalar(-1.);
+        tmp = trans(localGetSupportingVertex(vec*trans.getBasis()));
+        minAabb[i] = tmp[i]-margin;
+    }
 };
 
 
-btVector3	btConvexInternalShape::localGetSupportingVertex(const btVector3& vec)const
+btVector3    btConvexInternalShape::localGetSupportingVertex(const btVector3& vec)const
 {
 #ifndef __SPU__
 
-	 btVector3	supVertex = localGetSupportingVertexWithoutMargin(vec);
+     btVector3    supVertex = localGetSupportingVertexWithoutMargin(vec);
 
-	if ( getMargin()!=btScalar(0.) )
-	{
-		btVector3 vecnorm = vec;
-		if (vecnorm .length2() < (SIMD_EPSILON*SIMD_EPSILON))
-		{
-			vecnorm.setValue(btScalar(-1.),btScalar(-1.),btScalar(-1.));
-		} 
-		vecnorm.normalize();
-		supVertex+= getMargin() * vecnorm;
-	}
-	return supVertex;
+    if ( getMargin()!=btScalar(0.) )
+    {
+        btVector3 vecnorm = vec;
+        if (vecnorm .length2() < (SIMD_EPSILON*SIMD_EPSILON))
+        {
+            vecnorm.setValue(btScalar(-1.),btScalar(-1.),btScalar(-1.));
+        } 
+        vecnorm.normalize();
+        supVertex+= getMargin() * vecnorm;
+    }
+    return supVertex;
 
 #else
-	return btVector3(0,0,0);
+    return btVector3(0,0,0);
 #endif //__SPU__
 
  }

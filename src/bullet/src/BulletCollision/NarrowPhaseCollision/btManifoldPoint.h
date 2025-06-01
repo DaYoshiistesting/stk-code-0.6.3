@@ -26,82 +26,82 @@ subject to the following restrictions:
 /// ManifoldContactPoint collects and maintains persistent contactpoints.
 /// used to improve stability and performance of rigidbody dynamics response.
 class btManifoldPoint
-	{
-		public:
-			btManifoldPoint()
-				:m_userPersistentData(0),
-				m_appliedImpulse(0.f),
-				m_lifeTime(0)
-			{
-			}
+    {
+        public:
+            btManifoldPoint()
+                :m_userPersistentData(0),
+                m_appliedImpulse(0.f),
+                m_lifeTime(0)
+            {
+            }
 
-			btManifoldPoint( const btVector3 &pointA, const btVector3 &pointB, 
-					const btVector3 &normal, 
-					btScalar distance ) :
-					m_localPointA( pointA ), 
-					m_localPointB( pointB ), 
-					m_normalWorldOnB( normal ), 
-					m_distance1( distance ),
-					m_combinedFriction(btScalar(0.)),
-					m_combinedRestitution(btScalar(0.)),
-					m_userPersistentData(0),
-					m_appliedImpulse(0.f),
-					m_lifeTime(0)
-			{
-				
-					
-			}
+            btManifoldPoint( const btVector3 &pointA, const btVector3 &pointB, 
+                    const btVector3 &normal, 
+                    btScalar distance ) :
+                    m_localPointA( pointA ), 
+                    m_localPointB( pointB ), 
+                    m_normalWorldOnB( normal ), 
+                    m_distance1( distance ),
+                    m_combinedFriction(btScalar(0.)),
+                    m_combinedRestitution(btScalar(0.)),
+                    m_userPersistentData(0),
+                    m_appliedImpulse(0.f),
+                    m_lifeTime(0)
+            {
+                
+                    
+            }
 
-			
+            
 
-			btVector3 m_localPointA;			
-			btVector3 m_localPointB;			
-			btVector3	m_positionWorldOnB;
-			///m_positionWorldOnA is redundant information, see getPositionWorldOnA(), but for clarity
-			btVector3	m_positionWorldOnA;
-			btVector3 m_normalWorldOnB;
-		
-			btScalar	m_distance1;
-			btScalar	m_combinedFriction;
-			btScalar	m_combinedRestitution;
+            btVector3 m_localPointA;            
+            btVector3 m_localPointB;            
+            btVector3    m_positionWorldOnB;
+            ///m_positionWorldOnA is redundant information, see getPositionWorldOnA(), but for clarity
+            btVector3    m_positionWorldOnA;
+            btVector3 m_normalWorldOnB;
+        
+            btScalar    m_distance1;
+            btScalar    m_combinedFriction;
+            btScalar    m_combinedRestitution;
 
          //BP mod, store contact triangles.
-         int	   m_partId0;
+         int       m_partId0;
          int      m_partId1;
          int      m_index0;
          int      m_index1;
-				
-			mutable void*	m_userPersistentData;
-			btScalar		m_appliedImpulse;
+                
+            mutable void*    m_userPersistentData;
+            btScalar        m_appliedImpulse;
 
-			int		m_lifeTime;//lifetime of the contactpoint in frames
-			
-			btScalar getDistance() const
-			{
-				return m_distance1;
-			}
-			int	getLifeTime() const
-			{
-				return m_lifeTime;
-			}
+            int        m_lifeTime;//lifetime of the contactpoint in frames
+            
+            btScalar getDistance() const
+            {
+                return m_distance1;
+            }
+            int    getLifeTime() const
+            {
+                return m_lifeTime;
+            }
 
-			const btVector3& getPositionWorldOnA() const {
-				return m_positionWorldOnA;
-//				return m_positionWorldOnB + m_normalWorldOnB * m_distance1;
-			}
+            const btVector3& getPositionWorldOnA() const {
+                return m_positionWorldOnA;
+//                return m_positionWorldOnB + m_normalWorldOnB * m_distance1;
+            }
 
-			const btVector3& getPositionWorldOnB() const
-			{
-				return m_positionWorldOnB;
-			}
+            const btVector3& getPositionWorldOnB() const
+            {
+                return m_positionWorldOnB;
+            }
 
-			void	setDistance(btScalar dist)
-			{
-				m_distance1 = dist;
-			}
-			
-			
+            void    setDistance(btScalar dist)
+            {
+                m_distance1 = dist;
+            }
+            
+            
 
-	};
+    };
 
 #endif //MANIFOLD_CONTACT_POINT_H

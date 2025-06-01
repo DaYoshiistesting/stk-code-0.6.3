@@ -19,29 +19,29 @@ btCylinderShape::btCylinderShape (const btVector3& halfExtents)
 :btBoxShape(halfExtents),
 m_upAxis(1)
 {
-	recalcLocalAabb();
+    recalcLocalAabb();
 }
 
 
 btCylinderShapeX::btCylinderShapeX (const btVector3& halfExtents)
 :btCylinderShape(halfExtents)
 {
-	m_upAxis = 0;
-	recalcLocalAabb();
+    m_upAxis = 0;
+    recalcLocalAabb();
 }
 
 
 btCylinderShapeZ::btCylinderShapeZ (const btVector3& halfExtents)
 :btCylinderShape(halfExtents)
 {
-	m_upAxis = 2;
-	recalcLocalAabb();
+    m_upAxis = 2;
+    recalcLocalAabb();
 }
 
 void btCylinderShape::getAabb(const btTransform& t,btVector3& aabbMin,btVector3& aabbMax) const
 {
-	//skip the box 'getAabb'
-	btPolyhedralConvexShape::getAabb(t,aabbMin,aabbMax);
+    //skip the box 'getAabb'
+    btPolyhedralConvexShape::getAabb(t,aabbMin,aabbMax);
 }
 
 
@@ -52,32 +52,32 @@ const int XX = 1;
 const int YY = 0;
 const int ZZ = 2;
 
-	//mapping depends on how cylinder local orientation is
-	// extents of the cylinder is: X,Y is for radius, and Z for height
+    //mapping depends on how cylinder local orientation is
+    // extents of the cylinder is: X,Y is for radius, and Z for height
 
 
-	btScalar radius = halfExtents[XX];
-	btScalar halfHeight = halfExtents[cylinderUpAxis];
+    btScalar radius = halfExtents[XX];
+    btScalar halfHeight = halfExtents[cylinderUpAxis];
 
 
     btVector3 tmp;
-	btScalar d ;
+    btScalar d ;
 
     btScalar s = btSqrt(v[XX] * v[XX] + v[ZZ] * v[ZZ]);
     if (s != btScalar(0.0))
-	{
+    {
         d = radius / s;  
-		tmp[XX] = v[XX] * d;
-		tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
-		tmp[ZZ] = v[ZZ] * d;
-		return tmp;
-	}
+        tmp[XX] = v[XX] * d;
+        tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
+        tmp[ZZ] = v[ZZ] * d;
+        return tmp;
+    }
     else
-	{
-	    tmp[XX] = radius;
-		tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
-		tmp[ZZ] = btScalar(0.0);
-		return tmp;
+    {
+        tmp[XX] = radius;
+        tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
+        tmp[ZZ] = btScalar(0.0);
+        return tmp;
     }
 
 
@@ -97,28 +97,28 @@ const int YY = 1;
 const int ZZ = 2;
 
 
-	btScalar radius = halfExtents[XX];
-	btScalar halfHeight = halfExtents[cylinderUpAxis];
+    btScalar radius = halfExtents[XX];
+    btScalar halfHeight = halfExtents[cylinderUpAxis];
 
 
     btVector3 tmp;
-	btScalar d ;
+    btScalar d ;
 
     btScalar s = btSqrt(v[XX] * v[XX] + v[ZZ] * v[ZZ]);
     if (s != btScalar(0.0))
-	{
+    {
         d = radius / s;  
-		tmp[XX] = v[XX] * d;
-		tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
-		tmp[ZZ] = v[ZZ] * d;
-		return tmp;
-	}
+        tmp[XX] = v[XX] * d;
+        tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
+        tmp[ZZ] = v[ZZ] * d;
+        return tmp;
+    }
     else
-	{
-	    tmp[XX] = radius;
-		tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
-		tmp[ZZ] = btScalar(0.0);
-		return tmp;
+    {
+        tmp[XX] = radius;
+        tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
+        tmp[ZZ] = btScalar(0.0);
+        return tmp;
     }
 
 }
@@ -130,77 +130,77 @@ const int XX = 0;
 const int YY = 2;
 const int ZZ = 1;
 
-	//mapping depends on how cylinder local orientation is
-	// extents of the cylinder is: X,Y is for radius, and Z for height
+    //mapping depends on how cylinder local orientation is
+    // extents of the cylinder is: X,Y is for radius, and Z for height
 
 
-	btScalar radius = halfExtents[XX];
-	btScalar halfHeight = halfExtents[cylinderUpAxis];
+    btScalar radius = halfExtents[XX];
+    btScalar halfHeight = halfExtents[cylinderUpAxis];
 
 
     btVector3 tmp;
-	btScalar d ;
+    btScalar d ;
 
     btScalar s = btSqrt(v[XX] * v[XX] + v[ZZ] * v[ZZ]);
     if (s != btScalar(0.0))
-	{
+    {
         d = radius / s;  
-		tmp[XX] = v[XX] * d;
-		tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
-		tmp[ZZ] = v[ZZ] * d;
-		return tmp;
-	}
+        tmp[XX] = v[XX] * d;
+        tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
+        tmp[ZZ] = v[ZZ] * d;
+        return tmp;
+    }
     else
-	{
-	    tmp[XX] = radius;
-		tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
-		tmp[ZZ] = btScalar(0.0);
-		return tmp;
+    {
+        tmp[XX] = radius;
+        tmp[YY] = v[YY] < 0.0 ? -halfHeight : halfHeight;
+        tmp[ZZ] = btScalar(0.0);
+        return tmp;
     }
 
 
 }
 
-btVector3	btCylinderShapeX::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
+btVector3    btCylinderShapeX::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
 {
-	return CylinderLocalSupportX(getHalfExtentsWithoutMargin(),vec);
+    return CylinderLocalSupportX(getHalfExtentsWithoutMargin(),vec);
 }
 
 
-btVector3	btCylinderShapeZ::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
+btVector3    btCylinderShapeZ::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
 {
-	return CylinderLocalSupportZ(getHalfExtentsWithoutMargin(),vec);
+    return CylinderLocalSupportZ(getHalfExtentsWithoutMargin(),vec);
 }
-btVector3	btCylinderShape::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
+btVector3    btCylinderShape::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
 {
-	return CylinderLocalSupportY(getHalfExtentsWithoutMargin(),vec);
-}
-
-void	btCylinderShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
-{
-	for (int i=0;i<numVectors;i++)
-	{
-		supportVerticesOut[i] = CylinderLocalSupportY(getHalfExtentsWithoutMargin(),vectors[i]);
-	}
+    return CylinderLocalSupportY(getHalfExtentsWithoutMargin(),vec);
 }
 
-void	btCylinderShapeZ::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
+void    btCylinderShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
 {
-	for (int i=0;i<numVectors;i++)
-	{
-		supportVerticesOut[i] = CylinderLocalSupportZ(getHalfExtentsWithoutMargin(),vectors[i]);
-	}
+    for (int i=0;i<numVectors;i++)
+    {
+        supportVerticesOut[i] = CylinderLocalSupportY(getHalfExtentsWithoutMargin(),vectors[i]);
+    }
+}
+
+void    btCylinderShapeZ::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
+{
+    for (int i=0;i<numVectors;i++)
+    {
+        supportVerticesOut[i] = CylinderLocalSupportZ(getHalfExtentsWithoutMargin(),vectors[i]);
+    }
 }
 
 
 
 
-void	btCylinderShapeX::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
+void    btCylinderShapeX::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
 {
-	for (int i=0;i<numVectors;i++)
-	{
-		supportVerticesOut[i] = CylinderLocalSupportX(getHalfExtentsWithoutMargin(),vectors[i]);
-	}
+    for (int i=0;i<numVectors;i++)
+    {
+        supportVerticesOut[i] = CylinderLocalSupportX(getHalfExtentsWithoutMargin(),vectors[i]);
+    }
 }
 
 

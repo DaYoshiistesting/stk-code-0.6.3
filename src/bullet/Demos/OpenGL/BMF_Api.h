@@ -49,39 +49,39 @@ extern "C" {
 
 /**
  * Returns the font for a given font type.
- * @param font	The font to retrieve.
+ * @param font    The font to retrieve.
  * @return The font (or nil if not found).
  */
 BMF_Font* BMF_GetFont(BMF_FontType font);
 
 /**
  * Draws a character at the current raster position.
- * @param font	The font to use.
- * @param c		The character to draw.
+ * @param font    The font to use.
+ * @param c        The character to draw.
  * @return Indication of success (0 == error).
  */
 int BMF_DrawCharacter(BMF_Font* font, char c);
 
 /**
  * Draws a string at the current raster position.
- * @param font	The font to use.
- * @param str	The string to draw.
+ * @param font    The font to use.
+ * @param str    The string to draw.
  * @return Indication of success (0 == error).
  */
 int BMF_DrawString(BMF_Font* font, const char* str);
 
 /**
  * Returns the width of a character in pixels.
- * @param font	The font to use.
- * @param c		The character.
+ * @param font    The font to use.
+ * @param c        The character.
  * @return The length.
  */
 int BMF_GetCharacterWidth(BMF_Font* font, char c);
 
 /**
  * Returns the width of a string of characters.
- * @param font	The font to use.
- * @param str	The string.
+ * @param font    The font to use.
+ * @param str    The string.
  * @return The length.
  */
 int BMF_GetStringWidth(BMF_Font* font, char* str);

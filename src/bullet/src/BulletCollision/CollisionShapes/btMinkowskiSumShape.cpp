@@ -20,38 +20,38 @@ btMinkowskiSumShape::btMinkowskiSumShape(const btConvexShape* shapeA,const btCon
 :m_shapeA(shapeA),
 m_shapeB(shapeB)
 {
-	m_transA.setIdentity();
-	m_transB.setIdentity();
+    m_transA.setIdentity();
+    m_transB.setIdentity();
 }
 
 btVector3 btMinkowskiSumShape::localGetSupportingVertexWithoutMargin(const btVector3& vec)const
 {
-	btVector3 supVertexA = m_transA(m_shapeA->localGetSupportingVertexWithoutMargin(-vec*m_transA.getBasis()));
-	btVector3 supVertexB = m_transB(m_shapeB->localGetSupportingVertexWithoutMargin(vec*m_transB.getBasis()));
-	return  supVertexA - supVertexB;
+    btVector3 supVertexA = m_transA(m_shapeA->localGetSupportingVertexWithoutMargin(-vec*m_transA.getBasis()));
+    btVector3 supVertexB = m_transB(m_shapeB->localGetSupportingVertexWithoutMargin(vec*m_transB.getBasis()));
+    return  supVertexA - supVertexB;
 }
 
-void	btMinkowskiSumShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
+void    btMinkowskiSumShape::batchedUnitVectorGetSupportingVertexWithoutMargin(const btVector3* vectors,btVector3* supportVerticesOut,int numVectors) const
 {
-	//todo: could make recursive use of batching. probably this shape is not used frequently.
-	for (int i=0;i<numVectors;i++)
-	{
-		supportVerticesOut[i] = localGetSupportingVertexWithoutMargin(vectors[i]);
-	}
+    //todo: could make recursive use of batching. probably this shape is not used frequently.
+    for (int i=0;i<numVectors;i++)
+    {
+        supportVerticesOut[i] = localGetSupportingVertexWithoutMargin(vectors[i]);
+    }
 
-}
-
-
-
-btScalar	btMinkowskiSumShape::getMargin() const
-{
-	return m_shapeA->getMargin() + m_shapeB->getMargin();
 }
 
 
-void	btMinkowskiSumShape::calculateLocalInertia(btScalar mass,btVector3& inertia) const
+
+btScalar    btMinkowskiSumShape::getMargin() const
 {
-	(void)mass;
-	btAssert(0);
-	inertia.setValue(0,0,0);
+    return m_shapeA->getMargin() + m_shapeB->getMargin();
+}
+
+
+void    btMinkowskiSumShape::calculateLocalInertia(btScalar mass,btVector3& inertia) const
+{
+    (void)mass;
+    btAssert(0);
+    inertia.setValue(0,0,0);
 }

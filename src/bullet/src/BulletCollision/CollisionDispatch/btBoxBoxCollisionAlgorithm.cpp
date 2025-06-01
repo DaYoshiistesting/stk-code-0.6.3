@@ -26,60 +26,60 @@ btBoxBoxCollisionAlgorithm::btBoxBoxCollisionAlgorithm(btPersistentManifold* mf,
 m_ownManifold(false),
 m_manifoldPtr(mf)
 {
-	if (!m_manifoldPtr && m_dispatcher->needsCollision(obj0,obj1))
-	{
-		m_manifoldPtr = m_dispatcher->getNewManifold(obj0,obj1);
-		m_ownManifold = true;
-	}
+    if (!m_manifoldPtr && m_dispatcher->needsCollision(obj0,obj1))
+    {
+        m_manifoldPtr = m_dispatcher->getNewManifold(obj0,obj1);
+        m_ownManifold = true;
+    }
 }
 
 btBoxBoxCollisionAlgorithm::~btBoxBoxCollisionAlgorithm()
 {
-	if (m_ownManifold)
-	{
-		if (m_manifoldPtr)
-			m_dispatcher->releaseManifold(m_manifoldPtr);
-	}
+    if (m_ownManifold)
+    {
+        if (m_manifoldPtr)
+            m_dispatcher->releaseManifold(m_manifoldPtr);
+    }
 }
 
 void btBoxBoxCollisionAlgorithm::processCollision (btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut)
 {
-	if (!m_manifoldPtr)
-		return;
+    if (!m_manifoldPtr)
+        return;
 
-	btCollisionObject*	col0 = body0;
-	btCollisionObject*	col1 = body1;
-	btBoxShape* box0 = (btBoxShape*)col0->getCollisionShape();
-	btBoxShape* box1 = (btBoxShape*)col1->getCollisionShape();
+    btCollisionObject*    col0 = body0;
+    btCollisionObject*    col1 = body1;
+    btBoxShape* box0 = (btBoxShape*)col0->getCollisionShape();
+    btBoxShape* box1 = (btBoxShape*)col1->getCollisionShape();
 
 
 
-	/// report a contact. internally this will be kept persistent, and contact reduction is done
-	resultOut->setPersistentManifold(m_manifoldPtr);
-#ifndef USE_PERSISTENT_CONTACTS	
-	m_manifoldPtr->clearManifold();
+    /// report a contact. internally this will be kept persistent, and contact reduction is done
+    resultOut->setPersistentManifold(m_manifoldPtr);
+#ifndef USE_PERSISTENT_CONTACTS    
+    m_manifoldPtr->clearManifold();
 #endif //USE_PERSISTENT_CONTACTS
 
-	btDiscreteCollisionDetectorInterface::ClosestPointInput input;
-	input.m_maximumDistanceSquared = 1e30f;
-	input.m_transformA = body0->getWorldTransform();
-	input.m_transformB = body1->getWorldTransform();
+    btDiscreteCollisionDetectorInterface::ClosestPointInput input;
+    input.m_maximumDistanceSquared = 1e30f;
+    input.m_transformA = body0->getWorldTransform();
+    input.m_transformB = body1->getWorldTransform();
 
-	btBoxBoxDetector detector(box0,box1);
-	detector.getClosestPoints(input,*resultOut,dispatchInfo.m_debugDraw);
+    btBoxBoxDetector detector(box0,box1);
+    detector.getClosestPoints(input,*resultOut,dispatchInfo.m_debugDraw);
 
 #ifdef USE_PERSISTENT_CONTACTS
-	//  refreshContactPoints is only necessary when using persistent contact points. otherwise all points are newly added
-	if (m_ownManifold)
-	{
-		resultOut->refreshContactPoints();
-	}
+    //  refreshContactPoints is only necessary when using persistent contact points. otherwise all points are newly added
+    if (m_ownManifold)
+    {
+        resultOut->refreshContactPoints();
+    }
 #endif //USE_PERSISTENT_CONTACTS
 
 }
 
 btScalar btBoxBoxCollisionAlgorithm::calculateTimeOfImpact(btCollisionObject* body0,btCollisionObject* body1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut)
 {
-	//not yet
-	return 1.f;
+    //not yet
+    return 1.f;
 }

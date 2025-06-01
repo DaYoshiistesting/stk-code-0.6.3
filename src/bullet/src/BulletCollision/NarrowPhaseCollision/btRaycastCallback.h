@@ -25,34 +25,34 @@ class  btTriangleRaycastCallback: public btTriangleCallback
 {
 public:
 
-	//input
-	btVector3 m_from;
-	btVector3 m_to;
+    //input
+    btVector3 m_from;
+    btVector3 m_to;
 
-	btScalar	m_hitFraction;
+    btScalar    m_hitFraction;
 
-	btTriangleRaycastCallback(const btVector3& from,const btVector3& to);
-	
-	virtual void processTriangle(btVector3* triangle, int partId, int triangleIndex);
+    btTriangleRaycastCallback(const btVector3& from,const btVector3& to);
+    
+    virtual void processTriangle(btVector3* triangle, int partId, int triangleIndex);
 
-	virtual btScalar reportHit(const btVector3& hitNormalLocal, btScalar hitFraction, int partId, int triangleIndex ) = 0;
-	
+    virtual btScalar reportHit(const btVector3& hitNormalLocal, btScalar hitFraction, int partId, int triangleIndex ) = 0;
+    
 };
 
 class btTriangleConvexcastCallback : public btTriangleCallback
 {
 public:
-	const btConvexShape* m_convexShape;
-	btTransform m_convexShapeFrom;
-	btTransform m_convexShapeTo;
-	btTransform m_triangleToWorld;
-	btScalar m_hitFraction;
+    const btConvexShape* m_convexShape;
+    btTransform m_convexShapeFrom;
+    btTransform m_convexShapeTo;
+    btTransform m_triangleToWorld;
+    btScalar m_hitFraction;
 
-	btTriangleConvexcastCallback (const btConvexShape* convexShape, const btTransform& convexShapeFrom, const btTransform& convexShapeTo, const btTransform& triangleToWorld);
+    btTriangleConvexcastCallback (const btConvexShape* convexShape, const btTransform& convexShapeFrom, const btTransform& convexShapeTo, const btTransform& triangleToWorld);
 
-	virtual void processTriangle (btVector3* triangle, int partId, int triangleIndex);
+    virtual void processTriangle (btVector3* triangle, int partId, int triangleIndex);
 
-	virtual btScalar reportHit (const btVector3& hitNormalLocal, const btVector3& hitPointLocal, btScalar hitFraction, int partId, int triangleIndex) = 0;
+    virtual btScalar reportHit (const btVector3& hitNormalLocal, const btVector3& hitPointLocal, btScalar hitFraction, int partId, int triangleIndex) = 0;
 };
 
 #endif //RAYCAST_TRI_CALLBACK_H

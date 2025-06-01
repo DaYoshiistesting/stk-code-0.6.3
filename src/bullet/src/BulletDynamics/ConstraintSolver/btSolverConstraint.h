@@ -18,47 +18,47 @@ subject to the following restrictions:
 #ifndef BT_SOLVER_CONSTRAINT_H
 #define BT_SOLVER_CONSTRAINT_H
 
-class	btRigidBody;
+class    btRigidBody;
 #include "LinearMath/btVector3.h"
 #include "LinearMath/btMatrix3x3.h"
 
 //#define NO_FRICTION_TANGENTIALS 1
 
 ///1D constraint along a normal axis between bodyA and bodyB. It can be combined to solve contact and friction constraints.
-ATTRIBUTE_ALIGNED16 (struct)	btSolverConstraint
+ATTRIBUTE_ALIGNED16 (struct)    btSolverConstraint
 {
-	BT_DECLARE_ALIGNED_ALLOCATOR();
+    BT_DECLARE_ALIGNED_ALLOCATOR();
 
-	btVector3	m_relpos1CrossNormal;
-	btVector3	m_contactNormal;
+    btVector3    m_relpos1CrossNormal;
+    btVector3    m_contactNormal;
 
-	btVector3	m_relpos2CrossNormal;
-	btVector3	m_angularComponentA;
+    btVector3    m_relpos2CrossNormal;
+    btVector3    m_angularComponentA;
 
-	btVector3	m_angularComponentB;
-	mutable btScalar	m_appliedVelocityImpulse;
-	mutable btScalar	m_appliedImpulse;
-	int			m_solverBodyIdA;
-	int			m_solverBodyIdB;
-	
-	btScalar	m_friction;
-	btScalar	m_restitution;
-	btScalar	m_jacDiagABInv;
-	btScalar	m_penetration;
-	
+    btVector3    m_angularComponentB;
+    mutable btScalar    m_appliedVelocityImpulse;
+    mutable btScalar    m_appliedImpulse;
+    int            m_solverBodyIdA;
+    int            m_solverBodyIdB;
+    
+    btScalar    m_friction;
+    btScalar    m_restitution;
+    btScalar    m_jacDiagABInv;
+    btScalar    m_penetration;
+    
 
-	
-	int			m_constraintType;
-	int			m_frictionIndex;
-	void*		m_originalContactPoint;
-	int			m_unusedPadding[1];
+    
+    int            m_constraintType;
+    int            m_frictionIndex;
+    void*        m_originalContactPoint;
+    int            m_unusedPadding[1];
 
 
-	enum		btSolverConstraintType
-	{
-		BT_SOLVER_CONTACT_1D = 0,
-		BT_SOLVER_FRICTION_1D
-	};
+    enum        btSolverConstraintType
+    {
+        BT_SOLVER_CONTACT_1D = 0,
+        BT_SOLVER_FRICTION_1D
+    };
 };
 
 

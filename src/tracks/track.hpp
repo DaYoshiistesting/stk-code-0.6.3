@@ -42,7 +42,7 @@ class TriangleMesh;
 class Track
 {
 private:
-	static Track*            m_track;
+    static Track*            m_track;
     float                    m_gravity;
     std::string              m_ident;
     std::string              m_screenshot;
@@ -65,7 +65,7 @@ private:
     Vec3                     m_aabb_max;
     
 public:
-    enum RoadSide{ RS_DONT_KNOW = -1, RS_LEFT = 0, RS_RIGHT = 1 };
+    enum RoadSide{RS_DONT_KNOW = -1, RS_LEFT = 0, RS_RIGHT = 1};
 
     //An enum is not used for the QUAD_TRI_* constants because of limitations
     //of the conversion between enums and ints.
@@ -114,8 +114,8 @@ public:
     /** Start positions for arenas (unused in linear races) */
     std::vector<Vec3>   m_start_positions;
     
-	//Left and Right drivelines for overhead map rendering.
-	//(Should probably be private as they are only used internally right now)
+    //Left and Right drivelines for overhead map rendering.
+    //(Should probably be private as they are only used internally right now)
     std::vector<Vec3> m_left_driveline;
     std::vector<Vec3> m_right_driveline;
 
@@ -126,33 +126,22 @@ public:
     float m_total_distance;
     static const float NOHIT;
 
-    float m_track_2d_width,  // Width and heigth of the 2d display of the track
-          m_track_2d_height;
-    float m_scale_x,        // Scaling to fit track into the size determined by
-          m_scale_y;        // track2dWidth/Heightheigth
-    bool m_do_stretch;      // 2d track display might be stretched to fit better
-
-                       Track              (std::string filename,float w=100,
-                                           float h=100, bool stretch=1);
+                       Track              (std::string filename);
                       ~Track              ();
-    static Track*      get                ()       { return m_track; }
-    bool               isArena            () const { return m_is_arena; }
+    static Track*      get                ()       {return m_track;}
+    bool               isArena            () const {return m_is_arena;}
     void               cleanup            ();
-    void               addDebugToScene    (int type                    ) const;
-    void               draw2Dview         (float x_offset,
-                                           float y_offset              ) const;
-    void               drawScaled2D       (float x, float y, float w,
-                                           float h                     ) const;
-
+    void               addDebugToScene    (int type) const;
+    void               draw2DMiniMap      (float offset_x, float offset_y, 
+                                           float w, float h, float sx, float sy) const;
     void               findRoadSector     (const Vec3& XYZ, int *sector,
                                            bool with_tolerance=false) const;
     int                findOutOfRoadSector(const Vec3& XYZ,
                                            const RoadSide SIDE,
-                                           const int CURR_SECTOR
-                                          ) const;
+                                           const int CURR_SECTOR) const;
     int                spatialToTrack     (Vec3& dst,
                                            const Vec3& POS,
-                                           const int SECTOR            ) const;
+                                           const int SECTOR) const;
     const Vec3&        trackToSpatial     (const int SECTOR) const;
     void               loadTrackModel     ();
     bool               isShortcut         (const int OLDSEC, const int NEWSEC) const;
@@ -188,14 +177,14 @@ public:
     const Vec3&        getCameraPosition  () const {return m_camera_final_pos;}
     const Vec3&        getCameraHPR       () const {return m_camera_final_hpr;}
     btTransform        getStartTransform  (unsigned int pos) const;
-	void               setStartCoordinates();
+    void               setStartCoordinates();
     void getTerrainInfo(const Vec3 &pos, float *hot, Vec3* normal, 
                         const Material **material) const;
     void createPhysicsModel();
-    void glVtx(sgVec2 v, float x_offset, float y_offset) const
+    void glVtx(sgVec2 v, float x_offset, float y_offset, float sx, float sy) const
     {
-        glVertex2f(x_offset+(v[0]-m_driveline_min[0])*m_scale_x,
-                   y_offset+(v[1]-m_driveline_min[1])*m_scale_y);
+        glVertex2f(x_offset+(v[0]-m_driveline_min[0])*sx,
+                   y_offset+(v[1]-m_driveline_min[1])*sy);
     }
     void  getAABB(Vec3 *min, Vec3 *max) const {*min=m_aabb_min; *max=m_aabb_max; }
 private:

@@ -24,22 +24,22 @@ subject to the following restrictions:
 class btContinuousDynamicsWorld : public btDiscreteDynamicsWorld
 {
 
-	void	updateTemporalAabbs(btScalar timeStep);
+    void    updateTemporalAabbs(btScalar timeStep);
 
-	public:
+    public:
 
-		btContinuousDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* pairCache,btConstraintSolver* constraintSolver,btCollisionConfiguration* collisionConfiguration);
-		virtual ~btContinuousDynamicsWorld();
-		
-		///time stepping with calculation of time of impact for selected fast moving objects
-		virtual void	internalSingleStepSimulation( btScalar timeStep);
+        btContinuousDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* pairCache,btConstraintSolver* constraintSolver,btCollisionConfiguration* collisionConfiguration);
+        virtual ~btContinuousDynamicsWorld();
+        
+        ///time stepping with calculation of time of impact for selected fast moving objects
+        virtual void    internalSingleStepSimulation( btScalar timeStep);
 
-		virtual void	calculateTimeOfImpacts(btScalar timeStep);
+        virtual void    calculateTimeOfImpacts(btScalar timeStep);
 
-		virtual btDynamicsWorldType	getWorldType() const
-		{
-			return BT_CONTINUOUS_DYNAMICS_WORLD;
-		}
+        virtual btDynamicsWorldType    getWorldType() const
+        {
+            return BT_CONTINUOUS_DYNAMICS_WORLD;
+        }
 
 };
 

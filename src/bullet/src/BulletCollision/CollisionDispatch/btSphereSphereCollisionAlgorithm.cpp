@@ -23,76 +23,76 @@ btSphereSphereCollisionAlgorithm::btSphereSphereCollisionAlgorithm(btPersistentM
 m_ownManifold(false),
 m_manifoldPtr(mf)
 {
-	if (!m_manifoldPtr)
-	{
-		m_manifoldPtr = m_dispatcher->getNewManifold(col0,col1);
-		m_ownManifold = true;
-	}
+    if (!m_manifoldPtr)
+    {
+        m_manifoldPtr = m_dispatcher->getNewManifold(col0,col1);
+        m_ownManifold = true;
+    }
 }
 
 btSphereSphereCollisionAlgorithm::~btSphereSphereCollisionAlgorithm()
 {
-	if (m_ownManifold)
-	{
-		if (m_manifoldPtr)
-			m_dispatcher->releaseManifold(m_manifoldPtr);
-	}
+    if (m_ownManifold)
+    {
+        if (m_manifoldPtr)
+            m_dispatcher->releaseManifold(m_manifoldPtr);
+    }
 }
 
 void btSphereSphereCollisionAlgorithm::processCollision (btCollisionObject* col0,btCollisionObject* col1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut)
 {
-	(void)dispatchInfo;
+    (void)dispatchInfo;
 
-	if (!m_manifoldPtr)
-		return;
+    if (!m_manifoldPtr)
+        return;
 
-	resultOut->setPersistentManifold(m_manifoldPtr);
+    resultOut->setPersistentManifold(m_manifoldPtr);
 
-	btSphereShape* sphere0 = (btSphereShape*)col0->getCollisionShape();
-	btSphereShape* sphere1 = (btSphereShape*)col1->getCollisionShape();
+    btSphereShape* sphere0 = (btSphereShape*)col0->getCollisionShape();
+    btSphereShape* sphere1 = (btSphereShape*)col1->getCollisionShape();
 
-	btVector3 diff = col0->getWorldTransform().getOrigin()-  col1->getWorldTransform().getOrigin();
-	btScalar len = diff.length();
-	btScalar radius0 = sphere0->getRadius();
-	btScalar radius1 = sphere1->getRadius();
+    btVector3 diff = col0->getWorldTransform().getOrigin()-  col1->getWorldTransform().getOrigin();
+    btScalar len = diff.length();
+    btScalar radius0 = sphere0->getRadius();
+    btScalar radius1 = sphere1->getRadius();
 
-	m_manifoldPtr->clearManifold();
+    m_manifoldPtr->clearManifold();
 
-	///iff distance positive, don't generate a new contact
-	if ( len > (radius0+radius1))
-	{
-		return;
-	}
-	///distance (negative means penetration)
-	btScalar dist = len - (radius0+radius1);
+    ///iff distance positive, don't generate a new contact
+    if ( len > (radius0+radius1))
+    {
+        return;
+    }
+    ///distance (negative means penetration)
+    btScalar dist = len - (radius0+radius1);
 
-	btVector3 normalOnSurfaceB(1,0,0);
-	if (len > SIMD_EPSILON)
-	{
-		normalOnSurfaceB = diff / len;
-	}
+    btVector3 normalOnSurfaceB(1,0,0);
+    if (len > SIMD_EPSILON)
+    {
+        normalOnSurfaceB = diff / len;
+    }
 
-	///point on A (worldspace)
-	btVector3 pos0 = col0->getWorldTransform().getOrigin() - radius0 * normalOnSurfaceB;
-	///point on B (worldspace)
-	btVector3 pos1 = col1->getWorldTransform().getOrigin() + radius1* normalOnSurfaceB;
+    ///point on A (worldspace)
+    btVector3 pos0 = col0->getWorldTransform().getOrigin() - radius0 * normalOnSurfaceB;
+    ///point on B (worldspace)
+    btVector3 pos1 = col1->getWorldTransform().getOrigin() + radius1* normalOnSurfaceB;
 
-	/// report a contact. internally this will be kept persistent, and contact reduction is done
-	
-	
-	resultOut->addContactPoint(normalOnSurfaceB,pos1,dist);
+    /// report a contact. internally this will be kept persistent, and contact reduction is done
+    
+    
+    resultOut->addContactPoint(normalOnSurfaceB,pos1,dist);
 
-	//no resultOut->refreshContactPoints(); needed, because of clearManifold (all points are new)
+    //no resultOut->refreshContactPoints(); needed, because of clearManifold (all points are new)
 
 }
 
 btScalar btSphereSphereCollisionAlgorithm::calculateTimeOfImpact(btCollisionObject* col0,btCollisionObject* col1,const btDispatcherInfo& dispatchInfo,btManifoldResult* resultOut)
 {
-	(void)col0;
-	(void)col1;
-	(void)dispatchInfo;
-	(void)resultOut;
+    (void)col0;
+    (void)col1;
+    (void)dispatchInfo;
+    (void)resultOut;
 
-	//not yet
-	return btScalar(1.);
+    //not yet
+    return btScalar(1.);
 }

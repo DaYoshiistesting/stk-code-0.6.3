@@ -19,36 +19,36 @@ subject to the following restrictions:
 class btTypedUserInfo
 {
 protected:
-	int m_type;
-	char* m_name;
-	void* m_userPointer;
+    int m_type;
+    char* m_name;
+    void* m_userPointer;
 
-	/* Only systems internal to Bullet are allowed
-	 * to use this pointer
-	 */
-	void* m_privatePointer;
+    /* Only systems internal to Bullet are allowed
+     * to use this pointer
+     */
+    void* m_privatePointer;
 public:
-	btTypedUserInfo ()
-	{
-		m_type = 0;
-		m_name = 0;
-		m_userPointer = 0;
-		m_privatePointer = 0;
-	}
+    btTypedUserInfo ()
+    {
+        m_type = 0;
+        m_name = 0;
+        m_userPointer = 0;
+        m_privatePointer = 0;
+    }
 
-	virtual ~btTypedUserInfo () {};
+    virtual ~btTypedUserInfo () {};
 
-	int getType () { return m_type; }
-	void setType (int type) { m_type = type; }
+    int getType () { return m_type; }
+    void setType (int type) { m_type = type; }
 
-	char* getName () { return m_name; }
-	void setName (char* name) { m_name = name; }
+    char* getName () { return m_name; }
+    void setName (char* name) { m_name = name; }
 
-	void* getUserPointer () { return m_userPointer; }
-	void setUserPointer (void* userPointer) { m_userPointer = userPointer; }
+    void* getUserPointer () { return m_userPointer; }
+    void setUserPointer (void* userPointer) { m_userPointer = userPointer; }
 
-	void* getPrivatePointer () { return m_privatePointer; }
-	void setPrivatePointer (void* privatePointer) { m_privatePointer = privatePointer; }
+    void* getPrivatePointer () { return m_privatePointer; }
+    void setPrivatePointer (void* privatePointer) { m_privatePointer = privatePointer; }
 };
 
 #endif //BT_TYPE_USER_INFO_H

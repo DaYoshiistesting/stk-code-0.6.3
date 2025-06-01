@@ -71,7 +71,8 @@ class RaceGUI: public BaseGUI
             m_message    = message; 
             m_font_size  = size;
             m_kart       = kart;
-            if( time < 0.0f ) m_remaining_time = -1.0f;
+            if(time < 0.0f) 
+                m_remaining_time = -1.0f;
             else
             {
                 m_remaining_time = time;
@@ -100,6 +101,7 @@ private:
     ulClock        m_fps_timer;
     int            m_fps_counter;
     char           m_fps_string[10];
+    char           m_top_kart_string[10];
     std::vector<std::string>
                    m_pos_string;
     Material      *m_speed_back_icon;
@@ -108,40 +110,28 @@ private:
     typedef        std::vector<TimedMessage> AllMessageType;
     AllMessageType m_messages;
 
-    GLuint          *m_marker;
-    GLuint          *m_mini_map;
-    int              m_marker_rendered_size;
-    int              m_marker_ai_size;
-    int              m_marker_player_size;
-    int              m_map_rendered_width;
-    int              m_map_rendered_height;
-    int              m_map_width;
-    int              m_map_height;
-    int              m_map_left;
-    int              m_map_bottom;
-
-
     /* Display information on screen */
     void drawStatusText        (const float dt);
     void drawEnergyMeter       (Kart *player_kart,
-                                float offset_x, float offset_y,
-                                float ratio_x,  float ratio_y);
+                                int offset_x,  int offset_y,
+                                float ratio_x, float ratio_y);
     void drawPowerupIcons      (Kart* player_kart,
-                                float offset_x, float offset_y,
-                                float ratio_x,  float ratio_y);
+                                int offset_x,  int offset_y,
+                                float ratio_x, float ratio_y);
     void drawAllMessages       (Kart* player_kart,
-                                float offset_x, float offset_y,
-                                float ratio_x,  float ratio_y);
+                                int offset_x,  int offset_y,
+                                float ratio_x, float ratio_y);
     void drawPlayerIcons       (const KartIconDisplayInfo* info);
     void drawMap               ();
     void drawTimer             ();
     void drawFPS               ();
     void drawMusicDescription  ();
     void cleanupMessages       (const float dt);
-    void drawSpeed             (Kart* kart, float offset_x, float offset_y,
+    void drawSpeed             (Kart* kart, int offset_x, int offset_y,
                                 float ratio_x, float ratio_y);
-    void drawLap               (const KartIconDisplayInfo* info, Kart* kart, float offset_x,
-                                float offset_y, float ratio_x, float ratio_y);
+    void drawLap               (const KartIconDisplayInfo* info, Kart* kart, 
+                                int offset_x,  int offset_y,
+                                float ratio_x, float ratio_y);
 };
 
 #endif

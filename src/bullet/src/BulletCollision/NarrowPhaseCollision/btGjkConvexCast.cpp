@@ -34,137 +34,137 @@ m_convexB(convexB)
 {
 }
 
-bool	btGjkConvexCast::calcTimeOfImpact(
-					const btTransform& fromA,
-					const btTransform& toA,
-					const btTransform& fromB,
-					const btTransform& toB,
-					CastResult& result)
+bool    btGjkConvexCast::calcTimeOfImpact(
+                    const btTransform& fromA,
+                    const btTransform& toA,
+                    const btTransform& fromB,
+                    const btTransform& toB,
+                    CastResult& result)
 {
 
 
-	m_simplexSolver->reset();
+    m_simplexSolver->reset();
 
-	/// compute linear velocity for this interval, to interpolate
-	//assume no rotation/angular velocity, assert here?
-	btVector3 linVelA,linVelB;
-	linVelA = toA.getOrigin()-fromA.getOrigin();
-	linVelB = toB.getOrigin()-fromB.getOrigin();
+    /// compute linear velocity for this interval, to interpolate
+    //assume no rotation/angular velocity, assert here?
+    btVector3 linVelA,linVelB;
+    linVelA = toA.getOrigin()-fromA.getOrigin();
+    linVelB = toB.getOrigin()-fromB.getOrigin();
 
-	btScalar radius = btScalar(0.001);
-	btScalar lambda = btScalar(0.);
-	btVector3 v(1,0,0);
+    btScalar radius = btScalar(0.001);
+    btScalar lambda = btScalar(0.);
+    btVector3 v(1,0,0);
 
-	int maxIter = MAX_ITERATIONS;
+    int maxIter = MAX_ITERATIONS;
 
-	btVector3 n;
-	n.setValue(btScalar(0.),btScalar(0.),btScalar(0.));
-	bool hasResult = false;
-	btVector3 c;
-	btVector3 r = (linVelA-linVelB);
+    btVector3 n;
+    n.setValue(btScalar(0.),btScalar(0.),btScalar(0.));
+    bool hasResult = false;
+    btVector3 c;
+    btVector3 r = (linVelA-linVelB);
 
-	btScalar lastLambda = lambda;
-	//btScalar epsilon = btScalar(0.001);
+    btScalar lastLambda = lambda;
+    //btScalar epsilon = btScalar(0.001);
 
-	int numIter = 0;
-	//first solution, using GJK
-
-
-	btTransform identityTrans;
-	identityTrans.setIdentity();
+    int numIter = 0;
+    //first solution, using GJK
 
 
-//	result.drawCoordSystem(sphereTr);
+    btTransform identityTrans;
+    identityTrans.setIdentity();
 
-	btPointCollector	pointCollector;
 
-		
-	btGjkPairDetector gjk(m_convexA,m_convexB,m_simplexSolver,0);//m_penetrationDepthSolver);		
-	btGjkPairDetector::ClosestPointInput input;
+//    result.drawCoordSystem(sphereTr);
 
-	//we don't use margins during CCD
-	//	gjk.setIgnoreMargin(true);
+    btPointCollector    pointCollector;
 
-	input.m_transformA = fromA;
-	input.m_transformB = fromB;
-	gjk.getClosestPoints(input,pointCollector,0);
+        
+    btGjkPairDetector gjk(m_convexA,m_convexB,m_simplexSolver,0);//m_penetrationDepthSolver);        
+    btGjkPairDetector::ClosestPointInput input;
 
-	hasResult = pointCollector.m_hasResult;
-	c = pointCollector.m_pointInWorld;
+    //we don't use margins during CCD
+    //    gjk.setIgnoreMargin(true);
 
-	if (hasResult)
-	{
-		btScalar dist;
-		dist = pointCollector.m_distance;
-		n = pointCollector.m_normalOnBInWorld;
+    input.m_transformA = fromA;
+    input.m_transformB = fromB;
+    gjk.getClosestPoints(input,pointCollector,0);
 
-	
+    hasResult = pointCollector.m_hasResult;
+    c = pointCollector.m_pointInWorld;
 
-		//not close enough
-		while (dist > radius)
-		{
-			numIter++;
-			if (numIter > maxIter)
-			{
-				return false; //todo: report a failure
-			}
-			btScalar dLambda = btScalar(0.);
+    if (hasResult)
+    {
+        btScalar dist;
+        dist = pointCollector.m_distance;
+        n = pointCollector.m_normalOnBInWorld;
 
-			btScalar projectedLinearVelocity = r.dot(n);
-			
-			dLambda = dist / (projectedLinearVelocity);
+    
 
-			lambda = lambda - dLambda;
+        //not close enough
+        while (dist > radius)
+        {
+            numIter++;
+            if (numIter > maxIter)
+            {
+                return false; //todo: report a failure
+            }
+            btScalar dLambda = btScalar(0.);
 
-			if (lambda > btScalar(1.))
-				return false;
+            btScalar projectedLinearVelocity = r.dot(n);
+            
+            dLambda = dist / (projectedLinearVelocity);
 
-			if (lambda < btScalar(0.))
-				return false;
+            lambda = lambda - dLambda;
 
-			//todo: next check with relative epsilon
-			if (lambda <= lastLambda)
-			{
-				return false;
-				//n.setValue(0,0,0);
-				break;
-			}
-			lastLambda = lambda;
+            if (lambda > btScalar(1.))
+                return false;
 
-			//interpolate to next lambda
-			result.DebugDraw( lambda );
-			input.m_transformA.getOrigin().setInterpolate3(fromA.getOrigin(),toA.getOrigin(),lambda);
-			input.m_transformB.getOrigin().setInterpolate3(fromB.getOrigin(),toB.getOrigin(),lambda);
-			
-			gjk.getClosestPoints(input,pointCollector,0);
-			if (pointCollector.m_hasResult)
-			{
-				if (pointCollector.m_distance < btScalar(0.))
-				{
-					result.m_fraction = lastLambda;
-					n = pointCollector.m_normalOnBInWorld;
-					result.m_normal=n;
-					result.m_hitPoint = pointCollector.m_pointInWorld;
-					return true;
-				}
-				c = pointCollector.m_pointInWorld;		
-				n = pointCollector.m_normalOnBInWorld;
-				dist = pointCollector.m_distance;
-			} else
-			{
-				//??
-				return false;
-			}
+            if (lambda < btScalar(0.))
+                return false;
 
-		}
+            //todo: next check with relative epsilon
+            if (lambda <= lastLambda)
+            {
+                return false;
+                //n.setValue(0,0,0);
+                break;
+            }
+            lastLambda = lambda;
 
-		result.m_fraction = lambda;
-		result.m_normal = n;
-		result.m_hitPoint = c;
-		return true;
-	}
+            //interpolate to next lambda
+            result.DebugDraw( lambda );
+            input.m_transformA.getOrigin().setInterpolate3(fromA.getOrigin(),toA.getOrigin(),lambda);
+            input.m_transformB.getOrigin().setInterpolate3(fromB.getOrigin(),toB.getOrigin(),lambda);
+            
+            gjk.getClosestPoints(input,pointCollector,0);
+            if (pointCollector.m_hasResult)
+            {
+                if (pointCollector.m_distance < btScalar(0.))
+                {
+                    result.m_fraction = lastLambda;
+                    n = pointCollector.m_normalOnBInWorld;
+                    result.m_normal=n;
+                    result.m_hitPoint = pointCollector.m_pointInWorld;
+                    return true;
+                }
+                c = pointCollector.m_pointInWorld;        
+                n = pointCollector.m_normalOnBInWorld;
+                dist = pointCollector.m_distance;
+            } else
+            {
+                //??
+                return false;
+            }
 
-	return false;
+        }
+
+        result.m_fraction = lambda;
+        result.m_normal = n;
+        result.m_hitPoint = c;
+        return true;
+    }
+
+    return false;
 
 
 }

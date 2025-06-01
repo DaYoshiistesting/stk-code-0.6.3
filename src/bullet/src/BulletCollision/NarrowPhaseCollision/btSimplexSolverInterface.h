@@ -32,30 +32,30 @@ subject to the following restrictions:
 /// voronoi regions or barycentric coordinates
 class btSimplexSolverInterface
 {
-	public:
-		virtual ~btSimplexSolverInterface() {};
+    public:
+        virtual ~btSimplexSolverInterface() {};
 
-	virtual void reset() = 0;
+    virtual void reset() = 0;
 
-	virtual void addVertex(const btVector3& w, const btPoint3& p, const btPoint3& q) = 0;
-	
-	virtual bool closest(btVector3& v) = 0;
+    virtual void addVertex(const btVector3& w, const btPoint3& p, const btPoint3& q) = 0;
+    
+    virtual bool closest(btVector3& v) = 0;
 
-	virtual btScalar maxVertex() = 0;
+    virtual btScalar maxVertex() = 0;
 
-	virtual bool fullSimplex() const = 0;
+    virtual bool fullSimplex() const = 0;
 
-	virtual int getSimplex(btPoint3 *pBuf, btPoint3 *qBuf, btVector3 *yBuf) const = 0;
+    virtual int getSimplex(btPoint3 *pBuf, btPoint3 *qBuf, btVector3 *yBuf) const = 0;
 
-	virtual bool inSimplex(const btVector3& w) = 0;
-	
-	virtual void backup_closest(btVector3& v) = 0;
+    virtual bool inSimplex(const btVector3& w) = 0;
+    
+    virtual void backup_closest(btVector3& v) = 0;
 
-	virtual bool emptySimplex() const = 0;
+    virtual bool emptySimplex() const = 0;
 
-	virtual void compute_points(btPoint3& p1, btPoint3& p2) = 0;
+    virtual void compute_points(btPoint3& p1, btPoint3& p2) = 0;
 
-	virtual int numVertices() const =0;
+    virtual int numVertices() const =0;
 
 
 };

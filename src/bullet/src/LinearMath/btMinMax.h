@@ -32,38 +32,38 @@ SIMD_FORCE_INLINE const T& btMax(const T& a, const T& b)
 template <class T>
 SIMD_FORCE_INLINE const T& GEN_clamped(const T& a, const T& lb, const T& ub) 
 {
-	return a < lb ? lb : (ub < a ? ub : a); 
+    return a < lb ? lb : (ub < a ? ub : a); 
 }
 
 template <class T>
 SIMD_FORCE_INLINE void btSetMin(T& a, const T& b) 
 {
     if (b < a) 
-	{
-		a = b;
-	}
+    {
+        a = b;
+    }
 }
 
 template <class T>
 SIMD_FORCE_INLINE void btSetMax(T& a, const T& b) 
 {
     if (a < b) 
-	{
-		a = b;
-	}
+    {
+        a = b;
+    }
 }
 
 template <class T>
 SIMD_FORCE_INLINE void GEN_clamp(T& a, const T& lb, const T& ub) 
 {
-	if (a < lb) 
-	{
-		a = lb; 
-	}
-	else if (ub < a) 
-	{
-		a = ub;
-	}
+    if (a < lb) 
+    {
+        a = lb; 
+    }
+    else if (ub < a) 
+    {
+        a = ub;
+    }
 }
 
 #endif

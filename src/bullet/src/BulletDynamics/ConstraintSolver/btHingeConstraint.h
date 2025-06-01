@@ -31,111 +31,111 @@ class btHingeConstraint : public btTypedConstraint
 #ifdef IN_PARALLELL_SOLVER
 public:
 #endif
-	btJacobianEntry	m_jac[3]; //3 orthogonal linear constraints
-	btJacobianEntry	m_jacAng[3]; //2 orthogonal angular constraints+ 1 for limit/motor
+    btJacobianEntry    m_jac[3]; //3 orthogonal linear constraints
+    btJacobianEntry    m_jacAng[3]; //2 orthogonal angular constraints+ 1 for limit/motor
 
-	btTransform m_rbAFrame; // constraint axii. Assumes z is hinge axis.
-	btTransform m_rbBFrame;
+    btTransform m_rbAFrame; // constraint axii. Assumes z is hinge axis.
+    btTransform m_rbBFrame;
 
-	btScalar	m_motorTargetVelocity;
-	btScalar	m_maxMotorImpulse;
+    btScalar    m_motorTargetVelocity;
+    btScalar    m_maxMotorImpulse;
 
-	btScalar	m_limitSoftness; 
-	btScalar	m_biasFactor; 
-	btScalar    m_relaxationFactor; 
+    btScalar    m_limitSoftness; 
+    btScalar    m_biasFactor; 
+    btScalar    m_relaxationFactor; 
 
-	btScalar    m_lowerLimit;	
-	btScalar    m_upperLimit;	
-	
-	btScalar	m_kHinge;
+    btScalar    m_lowerLimit;    
+    btScalar    m_upperLimit;    
+    
+    btScalar    m_kHinge;
 
-	btScalar	m_limitSign;
-	btScalar	m_correction;
+    btScalar    m_limitSign;
+    btScalar    m_correction;
 
-	btScalar	m_accLimitImpulse;
+    btScalar    m_accLimitImpulse;
 
-	bool		m_angularOnly;
-	bool		m_enableAngularMotor;
-	bool		m_solveLimit;
+    bool        m_angularOnly;
+    bool        m_enableAngularMotor;
+    bool        m_solveLimit;
 
-	
+    
 public:
 
-	btHingeConstraint(btRigidBody& rbA,btRigidBody& rbB, const btVector3& pivotInA,const btVector3& pivotInB, btVector3& axisInA,btVector3& axisInB);
+    btHingeConstraint(btRigidBody& rbA,btRigidBody& rbB, const btVector3& pivotInA,const btVector3& pivotInB, btVector3& axisInA,btVector3& axisInB);
 
-	btHingeConstraint(btRigidBody& rbA,const btVector3& pivotInA,btVector3& axisInA);
-	
-	btHingeConstraint(btRigidBody& rbA,btRigidBody& rbB, const btTransform& rbAFrame, const btTransform& rbBFrame);
+    btHingeConstraint(btRigidBody& rbA,const btVector3& pivotInA,btVector3& axisInA);
+    
+    btHingeConstraint(btRigidBody& rbA,btRigidBody& rbB, const btTransform& rbAFrame, const btTransform& rbBFrame);
 
-	btHingeConstraint(btRigidBody& rbA,const btTransform& rbAFrame);
+    btHingeConstraint(btRigidBody& rbA,const btTransform& rbAFrame);
 
-	btHingeConstraint();
+    btHingeConstraint();
 
-	virtual void	buildJacobian();
+    virtual void    buildJacobian();
 
-	virtual	void	solveConstraint(btScalar	timeStep);
+    virtual    void    solveConstraint(btScalar    timeStep);
 
-	void	updateRHS(btScalar	timeStep);
+    void    updateRHS(btScalar    timeStep);
 
-	const btRigidBody& getRigidBodyA() const
-	{
-		return m_rbA;
-	}
-	const btRigidBody& getRigidBodyB() const
-	{
-		return m_rbB;
-	}
+    const btRigidBody& getRigidBodyA() const
+    {
+        return m_rbA;
+    }
+    const btRigidBody& getRigidBodyB() const
+    {
+        return m_rbB;
+    }
 
-	void	setAngularOnly(bool angularOnly)
-	{
-		m_angularOnly = angularOnly;
-	}
+    void    setAngularOnly(bool angularOnly)
+    {
+        m_angularOnly = angularOnly;
+    }
 
-	void	enableAngularMotor(bool enableMotor,btScalar targetVelocity,btScalar maxMotorImpulse)
-	{
-		m_enableAngularMotor  = enableMotor;
-		m_motorTargetVelocity = targetVelocity;
-		m_maxMotorImpulse = maxMotorImpulse;
-	}
+    void    enableAngularMotor(bool enableMotor,btScalar targetVelocity,btScalar maxMotorImpulse)
+    {
+        m_enableAngularMotor  = enableMotor;
+        m_motorTargetVelocity = targetVelocity;
+        m_maxMotorImpulse = maxMotorImpulse;
+    }
 
-	void	setLimit(btScalar low,btScalar high,btScalar _softness = 0.9f, btScalar _biasFactor = 0.3f, btScalar _relaxationFactor = 1.0f)
-	{
-		m_lowerLimit = low;
-		m_upperLimit = high;
+    void    setLimit(btScalar low,btScalar high,btScalar _softness = 0.9f, btScalar _biasFactor = 0.3f, btScalar _relaxationFactor = 1.0f)
+    {
+        m_lowerLimit = low;
+        m_upperLimit = high;
 
-		m_limitSoftness =  _softness;
-		m_biasFactor = _biasFactor;
-		m_relaxationFactor = _relaxationFactor;
+        m_limitSoftness =  _softness;
+        m_biasFactor = _biasFactor;
+        m_relaxationFactor = _relaxationFactor;
 
-	}
+    }
 
-	btScalar	getLowerLimit() const
-	{
-		return m_lowerLimit;
-	}
+    btScalar    getLowerLimit() const
+    {
+        return m_lowerLimit;
+    }
 
-	btScalar	getUpperLimit() const
-	{
-		return m_upperLimit;
-	}
-
-
-	btScalar getHingeAngle();
+    btScalar    getUpperLimit() const
+    {
+        return m_upperLimit;
+    }
 
 
-	const btTransform& getAFrame() { return m_rbAFrame; };	
-	const btTransform& getBFrame() { return m_rbBFrame; };
+    btScalar getHingeAngle();
 
-	inline int getSolveLimit()
-	{
-		return m_solveLimit;
-	}
 
-	inline btScalar getLimitSign()
-	{
-		return m_limitSign;
-	}
-		
+    const btTransform& getAFrame() { return m_rbAFrame; };    
+    const btTransform& getBFrame() { return m_rbBFrame; };
+
+    inline int getSolveLimit()
+    {
+        return m_solveLimit;
+    }
+
+    inline btScalar getLimitSign()
+    {
+        return m_limitSign;
+    }
+        
 };
 
 #endif //HINGECONSTRAINT_H

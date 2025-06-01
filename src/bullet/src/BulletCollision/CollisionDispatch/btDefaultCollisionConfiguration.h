@@ -24,64 +24,64 @@ class btGjkEpaPenetrationDepthSolver;
 ///btCollisionConfiguration allows to configure Bullet collision detection
 ///stack allocator, pool memory allocators
 ///todo: describe the meaning
-class	btDefaultCollisionConfiguration : public btCollisionConfiguration
+class    btDefaultCollisionConfiguration : public btCollisionConfiguration
 {
 
-	int	m_persistentManifoldPoolSize;
-	
-	btStackAlloc*	m_stackAlloc;
-	bool	m_ownsStackAllocator;
+    int    m_persistentManifoldPoolSize;
+    
+    btStackAlloc*    m_stackAlloc;
+    bool    m_ownsStackAllocator;
 
-	btPoolAllocator*	m_persistentManifoldPool;
-	bool	m_ownsPersistentManifoldPool;
+    btPoolAllocator*    m_persistentManifoldPool;
+    bool    m_ownsPersistentManifoldPool;
 
-	btPoolAllocator*	m_collisionAlgorithmPool;
-	bool	m_ownsCollisionAlgorithmPool;
+    btPoolAllocator*    m_collisionAlgorithmPool;
+    bool    m_ownsCollisionAlgorithmPool;
 
-	//default simplex/penetration depth solvers
-	btVoronoiSimplexSolver*	m_simplexSolver;
-	btGjkEpaPenetrationDepthSolver*	m_pdSolver;
-	
-	//default CreationFunctions, filling the m_doubleDispatch table
-	btCollisionAlgorithmCreateFunc*	m_convexConvexCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_convexConcaveCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_swappedConvexConcaveCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_compoundCreateFunc;
-	btCollisionAlgorithmCreateFunc*	m_swappedCompoundCreateFunc;
-	btCollisionAlgorithmCreateFunc* m_emptyCreateFunc;
-	btCollisionAlgorithmCreateFunc* m_sphereSphereCF;
-	btCollisionAlgorithmCreateFunc* m_sphereBoxCF;
-	btCollisionAlgorithmCreateFunc* m_boxSphereCF;
-	btCollisionAlgorithmCreateFunc* m_boxBoxCF;
-	btCollisionAlgorithmCreateFunc*	m_sphereTriangleCF;
-	btCollisionAlgorithmCreateFunc*	m_triangleSphereCF;
-	btCollisionAlgorithmCreateFunc*	m_planeConvexCF;
-	btCollisionAlgorithmCreateFunc*	m_convexPlaneCF;
-	
+    //default simplex/penetration depth solvers
+    btVoronoiSimplexSolver*    m_simplexSolver;
+    btGjkEpaPenetrationDepthSolver*    m_pdSolver;
+    
+    //default CreationFunctions, filling the m_doubleDispatch table
+    btCollisionAlgorithmCreateFunc*    m_convexConvexCreateFunc;
+    btCollisionAlgorithmCreateFunc*    m_convexConcaveCreateFunc;
+    btCollisionAlgorithmCreateFunc*    m_swappedConvexConcaveCreateFunc;
+    btCollisionAlgorithmCreateFunc*    m_compoundCreateFunc;
+    btCollisionAlgorithmCreateFunc*    m_swappedCompoundCreateFunc;
+    btCollisionAlgorithmCreateFunc* m_emptyCreateFunc;
+    btCollisionAlgorithmCreateFunc* m_sphereSphereCF;
+    btCollisionAlgorithmCreateFunc* m_sphereBoxCF;
+    btCollisionAlgorithmCreateFunc* m_boxSphereCF;
+    btCollisionAlgorithmCreateFunc* m_boxBoxCF;
+    btCollisionAlgorithmCreateFunc*    m_sphereTriangleCF;
+    btCollisionAlgorithmCreateFunc*    m_triangleSphereCF;
+    btCollisionAlgorithmCreateFunc*    m_planeConvexCF;
+    btCollisionAlgorithmCreateFunc*    m_convexPlaneCF;
+    
 public:
 
-	btDefaultCollisionConfiguration(btStackAlloc*	stackAlloc=0,btPoolAllocator*	persistentManifoldPool=0,btPoolAllocator*	collisionAlgorithmPool=0);
+    btDefaultCollisionConfiguration(btStackAlloc*    stackAlloc=0,btPoolAllocator*    persistentManifoldPool=0,btPoolAllocator*    collisionAlgorithmPool=0);
 
-	virtual ~btDefaultCollisionConfiguration();
+    virtual ~btDefaultCollisionConfiguration();
 
-		///memory pools
-	virtual btPoolAllocator* getPersistentManifoldPool()
-	{
-		return m_persistentManifoldPool;
-	}
+        ///memory pools
+    virtual btPoolAllocator* getPersistentManifoldPool()
+    {
+        return m_persistentManifoldPool;
+    }
 
-	virtual btPoolAllocator* getCollisionAlgorithmPool()
-	{
-		return m_collisionAlgorithmPool;
-	}
+    virtual btPoolAllocator* getCollisionAlgorithmPool()
+    {
+        return m_collisionAlgorithmPool;
+    }
 
-	virtual btStackAlloc*	getStackAllocator()
-	{
-		return m_stackAlloc;
-	}
+    virtual btStackAlloc*    getStackAllocator()
+    {
+        return m_stackAlloc;
+    }
 
 
-	virtual btCollisionAlgorithmCreateFunc* getCollisionAlgorithmCreateFunc(int proxyType0,int proxyType1);
+    virtual btCollisionAlgorithmCreateFunc* getCollisionAlgorithmCreateFunc(int proxyType0,int proxyType1);
 
 
 };

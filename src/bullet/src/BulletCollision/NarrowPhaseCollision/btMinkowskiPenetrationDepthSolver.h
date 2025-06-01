@@ -24,12 +24,12 @@ class btMinkowskiPenetrationDepthSolver : public btConvexPenetrationDepthSolver
 {
 public:
 
-	virtual bool calcPenDepth( btSimplexSolverInterface& simplexSolver,
-	const btConvexShape* convexA,const btConvexShape* convexB,
-				const btTransform& transA,const btTransform& transB,
-			btVector3& v, btPoint3& pa, btPoint3& pb,
-			class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc
-			);
+    virtual bool calcPenDepth( btSimplexSolverInterface& simplexSolver,
+    const btConvexShape* convexA,const btConvexShape* convexB,
+                const btTransform& transA,const btTransform& transB,
+            btVector3& v, btPoint3& pa, btPoint3& pb,
+            class btIDebugDraw* debugDraw,btStackAlloc* stackAlloc
+            );
 
 };
 

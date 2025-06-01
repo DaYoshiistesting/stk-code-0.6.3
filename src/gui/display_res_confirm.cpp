@@ -139,7 +139,7 @@ void DisplayResConfirm::handle(GameAction ga, int value)
     case GA_LEAVE:
         if (value)
             break;
-		SDL_RemoveTimer(m_timer);
+        SDL_RemoveTimer(m_timer);
         if (FROM_WINDOW)
         {
             inputDriver->toggleFullscreen();

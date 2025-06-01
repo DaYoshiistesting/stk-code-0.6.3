@@ -24,38 +24,38 @@ subject to the following restrictions:
 ///
 class renderTexture
 {
-	int m_height;
-	int m_width;
-	unsigned char*	m_buffer;
+    int m_height;
+    int m_width;
+    unsigned char*    m_buffer;
 
 public:
 
-	renderTexture(int width,int height);
-	~renderTexture();
+    renderTexture(int width,int height);
+    ~renderTexture();
 
-	inline void	setPixel(int x,int y,const btVector4& rgba)
-	{
-		unsigned char* pixel = &m_buffer[ (x+y*m_width) * 4];
+    inline void    setPixel(int x,int y,const btVector4& rgba)
+    {
+        unsigned char* pixel = &m_buffer[ (x+y*m_width) * 4];
 
-		pixel[0] = (unsigned char)(255*rgba.getX());
-		pixel[1] = (unsigned char)(255*rgba.getY());
-		pixel[2] = (unsigned char)(255*rgba.getZ());
-		pixel[3] = (unsigned char)(255*rgba.getW());
-	}
+        pixel[0] = (unsigned char)(255*rgba.getX());
+        pixel[1] = (unsigned char)(255*rgba.getY());
+        pixel[2] = (unsigned char)(255*rgba.getZ());
+        pixel[3] = (unsigned char)(255*rgba.getW());
+    }
 
-	inline btVector4 getPixel(int x,int y)
-	{
-		unsigned char* pixel = &m_buffer[ (x+y*m_width) * 4];
-		return btVector4(pixel[0]*1.f/255.f,
-			pixel[1]*1.f/255.f,
-			pixel[2]*1.f/255.f,
-			pixel[3]*1.f/255.f);
-	}
+    inline btVector4 getPixel(int x,int y)
+    {
+        unsigned char* pixel = &m_buffer[ (x+y*m_width) * 4];
+        return btVector4(pixel[0]*1.f/255.f,
+            pixel[1]*1.f/255.f,
+            pixel[2]*1.f/255.f,
+            pixel[3]*1.f/255.f);
+    }
 
-	const unsigned char*	getBuffer() const { return m_buffer;}
-	int	getWidth() const { return m_width;}
-	int	getHeight() const { return m_height;}
-	void grapicalPrintf(char* str,	BMF_FontData* fontData, int startx = 0,int starty=0);
+    const unsigned char*    getBuffer() const { return m_buffer;}
+    int    getWidth() const { return m_width;}
+    int    getHeight() const { return m_height;}
+    void grapicalPrintf(char* str,    BMF_FontData* fontData, int startx = 0,int starty=0);
 
 };
 

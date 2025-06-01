@@ -214,7 +214,7 @@ void RaceOptions::select()
 
         case WTOK_KARTS_UP:
             {
-	        m_num_karts = m_num_karts==stk_config->m_max_karts 
+            m_num_karts = m_num_karts==stk_config->m_max_karts 
                             ? m_min_karts : m_num_karts + 1;
 
                 char label[ MAX_MESSAGE_LENGTH ];
@@ -321,7 +321,7 @@ void RaceOptions::setAllValues()
         user_config->setDefaultNumLaps(m_num_laps);
     }
     // Might still be set from a previous challenge
-    race_manager->setCoinTarget(0);
+    race_manager->setEnergyTarget(0);
 }   // setAllValues
 
 // ----------------------------------------------------------------------------

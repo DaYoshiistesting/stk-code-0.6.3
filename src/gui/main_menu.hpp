@@ -30,7 +30,7 @@ public:
 
     void select();
     void handle(GameAction, int);
-				
+                
 };
 
 #endif

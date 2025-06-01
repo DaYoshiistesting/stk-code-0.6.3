@@ -208,7 +208,7 @@ void MovingPhysics::update(float dt)
     if(c.getXYZ().getZ()<-100)
     {
         m_body->setCenterOfMassTransform(m_init_pos);
-	c.setXYZ(m_init_pos.getOrigin());
+    c.setXYZ(m_init_pos.getOrigin());
     }
 
     setTransform(const_cast<sgCoord*>(&c.toSgCoord()));

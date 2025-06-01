@@ -18,12 +18,12 @@ subject to the following restrictions:
 
 #include "LinearMath/btAlignedObjectArray.h"
 
-	#define USE_PATH_COMPRESSION 1
+    #define USE_PATH_COMPRESSION 1
 
-struct	btElement
+struct    btElement
 {
-	int	m_id;
-	int	m_sz;
+    int    m_id;
+    int    m_sz;
 };
 
 ///UnionFind calculates connected subsets
@@ -32,90 +32,90 @@ struct	btElement
 class btUnionFind
   {
     private:
-		btAlignedObjectArray<btElement>	m_elements;
+        btAlignedObjectArray<btElement>    m_elements;
 
     public:
-	  
-		btUnionFind();
-		~btUnionFind();
+      
+        btUnionFind();
+        ~btUnionFind();
 
-	
-		//this is a special operation, destroying the content of btUnionFind.
-		//it sorts the elements, based on island id, in order to make it easy to iterate over islands
-		void	sortIslands();
+    
+        //this is a special operation, destroying the content of btUnionFind.
+        //it sorts the elements, based on island id, in order to make it easy to iterate over islands
+        void    sortIslands();
 
-	  void	reset(int N);
+      void    reset(int N);
 
-	  SIMD_FORCE_INLINE int	getNumElements() const
-	  {
-		  return int(m_elements.size());
-	  }
-	  SIMD_FORCE_INLINE bool  isRoot(int x) const
-	  {
-		  return (x == m_elements[x].m_id);
-	  }
+      SIMD_FORCE_INLINE int    getNumElements() const
+      {
+          return int(m_elements.size());
+      }
+      SIMD_FORCE_INLINE bool  isRoot(int x) const
+      {
+          return (x == m_elements[x].m_id);
+      }
 
-	  btElement&	getElement(int index)
-	  {
-		  return m_elements[index];
-	  }
-	  const btElement& getElement(int index) const
-	  {
-		  return m_elements[index];
-	  }
+      btElement&    getElement(int index)
+      {
+          return m_elements[index];
+      }
+      const btElement& getElement(int index) const
+      {
+          return m_elements[index];
+      }
    
-	  void	allocate(int N);
-	  void	Free();
+      void    allocate(int N);
+      void    Free();
 
 
 
 
-	  int find(int p, int q)
-		{ 
-			return (find(p) == find(q)); 
-		}
+      int find(int p, int q)
+        { 
+            return (find(p) == find(q)); 
+        }
 
-		void unite(int p, int q)
-		{
-			int i = find(p), j = find(q);
-			if (i == j) 
-				return;
+        void unite(int p, int q)
+        {
+            int i = find(p), j = find(q);
+            if (i == j) 
+                return;
 
 #ifndef USE_PATH_COMPRESSION
-			//weighted quick union, this keeps the 'trees' balanced, and keeps performance of unite O( log(n) )
-			if (m_elements[i].m_sz < m_elements[j].m_sz)
-			{ 
-				m_elements[i].m_id = j; m_elements[j].m_sz += m_elements[i].m_sz; 
-			}
-			else 
-			{ 
-				m_elements[j].m_id = i; m_elements[i].m_sz += m_elements[j].m_sz; 
-			}
+            //weighted quick union, this keeps the 'trees' balanced, and keeps performance of unite O( log(n) )
+            if (m_elements[i].m_sz < m_elements[j].m_sz)
+            { 
+                m_elements[i].m_id = j; m_elements[j].m_sz += m_elements[i].m_sz; 
+            }
+            else 
+            { 
+                m_elements[j].m_id = i; m_elements[i].m_sz += m_elements[j].m_sz; 
+            }
 #else
-			m_elements[i].m_id = j; m_elements[j].m_sz += m_elements[i].m_sz; 
+            m_elements[i].m_id = j; m_elements[j].m_sz += m_elements[i].m_sz; 
 #endif //USE_PATH_COMPRESSION
-		}
+        }
 
-		int find(int x)
-		{ 
-			//assert(x < m_N);
-			//assert(x >= 0);
+        int find(int x)
+        { 
+            //assert(x < m_N);
+            //assert(x >= 0);
 
-			while (x != m_elements[x].m_id) 
-			{
-		//not really a reason not to use path compression, and it flattens the trees/improves find performance dramatically
-	
-		#ifdef USE_PATH_COMPRESSION
-				//
-				m_elements[x].m_id = m_elements[m_elements[x].m_id].m_id;
-		#endif //
-				x = m_elements[x].m_id;
-				//assert(x < m_N);
-				//assert(x >= 0);
+            while (x != m_elements[x].m_id) 
+            {
+        //not really a reason not to use path compression, and it flattens the trees/improves find performance dramatically
+    
+        #ifdef USE_PATH_COMPRESSION
+                //
+                m_elements[x].m_id = m_elements[m_elements[x].m_id].m_id;
+        #endif //
+                x = m_elements[x].m_id;
+                //assert(x < m_N);
+                //assert(x >= 0);
 
-			}
-			return x; 
-		}
+            }
+            return x; 
+        }
 
 
   };

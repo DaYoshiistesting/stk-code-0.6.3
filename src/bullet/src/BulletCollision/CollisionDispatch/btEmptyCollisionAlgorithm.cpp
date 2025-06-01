@@ -18,7 +18,7 @@ subject to the following restrictions:
 
 
 btEmptyAlgorithm::btEmptyAlgorithm(const btCollisionAlgorithmConstructionInfo& ci)
-	: btCollisionAlgorithm(ci)
+    : btCollisionAlgorithm(ci)
 {
 }
 
@@ -28,7 +28,7 @@ void btEmptyAlgorithm::processCollision (btCollisionObject* ,btCollisionObject* 
 
 btScalar btEmptyAlgorithm::calculateTimeOfImpact(btCollisionObject* ,btCollisionObject* ,const btDispatcherInfo& ,btManifoldResult* )
 {
-	return btScalar(1.);
+    return btScalar(1.);
 }
 
 

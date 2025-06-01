@@ -19,41 +19,41 @@ subject to the following restrictions:
 #include "btTriangleCallback.h"
 #include "LinearMath/btAlignedObjectArray.h"
 
-struct	btTriangle
+struct    btTriangle
 {
-	btVector3	m_vertex0;
-	btVector3	m_vertex1;
-	btVector3	m_vertex2;
-	int	m_partId;
-	int	m_triangleIndex;
+    btVector3    m_vertex0;
+    btVector3    m_vertex1;
+    btVector3    m_vertex2;
+    int    m_partId;
+    int    m_triangleIndex;
 };
 
 ///btTriangleBuffer can be useful to collect and store overlapping triangles between AABB and concave objects that support 'processAllTriangles'
 class btTriangleBuffer : public btTriangleCallback
 {
 
-	btAlignedObjectArray<btTriangle>	m_triangleBuffer;
-	
+    btAlignedObjectArray<btTriangle>    m_triangleBuffer;
+    
 public:
 
 
-	virtual void processTriangle(btVector3* triangle, int partId, int triangleIndex);
-	
-	int	getNumTriangles() const
-	{
-		return int(m_triangleBuffer.size());
-	}
-	
-	const btTriangle&	getTriangle(int index) const
-	{
-		return m_triangleBuffer[index];
-	}
+    virtual void processTriangle(btVector3* triangle, int partId, int triangleIndex);
+    
+    int    getNumTriangles() const
+    {
+        return int(m_triangleBuffer.size());
+    }
+    
+    const btTriangle&    getTriangle(int index) const
+    {
+        return m_triangleBuffer[index];
+    }
 
-	void	clearBuffer()
-	{
-		m_triangleBuffer.clear();
-	}
-	
+    void    clearBuffer()
+    {
+        m_triangleBuffer.clear();
+    }
+    
 };
 
 

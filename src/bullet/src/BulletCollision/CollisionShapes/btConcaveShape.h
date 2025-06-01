@@ -26,22 +26,22 @@ subject to the following restrictions:
 class btConcaveShape : public btCollisionShape
 {
 protected:
-	btScalar m_collisionMargin;
+    btScalar m_collisionMargin;
 
 public:
-	btConcaveShape();
+    btConcaveShape();
 
-	virtual ~btConcaveShape();
+    virtual ~btConcaveShape();
 
-	virtual void	processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const = 0;
+    virtual void    processAllTriangles(btTriangleCallback* callback,const btVector3& aabbMin,const btVector3& aabbMax) const = 0;
 
-	virtual btScalar getMargin() const {
-		return m_collisionMargin;
-	}
-	virtual void setMargin(btScalar collisionMargin)
-	{
-		m_collisionMargin = collisionMargin;
-	}
+    virtual btScalar getMargin() const {
+        return m_collisionMargin;
+    }
+    virtual void setMargin(btScalar collisionMargin)
+    {
+        m_collisionMargin = collisionMargin;
+    }
 
 
 

@@ -28,22 +28,22 @@ class btConvexShape;
 /// It uses GJK at the moment. Future improvement would use minkowski sum / supporting vertex, merging innerloops
 class btContinuousConvexCollision : public btConvexCast
 {
-	btSimplexSolverInterface* m_simplexSolver;
-	btConvexPenetrationDepthSolver*	m_penetrationDepthSolver;
-	const btConvexShape*	m_convexA;
-	const btConvexShape*	m_convexB;
+    btSimplexSolverInterface* m_simplexSolver;
+    btConvexPenetrationDepthSolver*    m_penetrationDepthSolver;
+    const btConvexShape*    m_convexA;
+    const btConvexShape*    m_convexB;
 
 
 public:
 
-	btContinuousConvexCollision (const btConvexShape*	shapeA,const btConvexShape*	shapeB ,btSimplexSolverInterface* simplexSolver,btConvexPenetrationDepthSolver* penetrationDepthSolver);
+    btContinuousConvexCollision (const btConvexShape*    shapeA,const btConvexShape*    shapeB ,btSimplexSolverInterface* simplexSolver,btConvexPenetrationDepthSolver* penetrationDepthSolver);
 
-	virtual bool	calcTimeOfImpact(
-				const btTransform& fromA,
-				const btTransform& toA,
-				const btTransform& fromB,
-				const btTransform& toB,
-				CastResult& result);
+    virtual bool    calcTimeOfImpact(
+                const btTransform& fromA,
+                const btTransform& toA,
+                const btTransform& fromB,
+                const btTransform& toB,
+                CastResult& result);
 
 
 };

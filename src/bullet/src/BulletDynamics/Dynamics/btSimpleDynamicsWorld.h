@@ -28,50 +28,50 @@ class btSimpleDynamicsWorld : public btDynamicsWorld
 {
 protected:
 
-	btConstraintSolver*	m_constraintSolver;
+    btConstraintSolver*    m_constraintSolver;
 
-	bool	m_ownsConstraintSolver;
+    bool    m_ownsConstraintSolver;
 
-	void	predictUnconstraintMotion(btScalar timeStep);
-	
-	void	integrateTransforms(btScalar timeStep);
-		
-	btVector3	m_gravity;
-	
+    void    predictUnconstraintMotion(btScalar timeStep);
+    
+    void    integrateTransforms(btScalar timeStep);
+        
+    btVector3    m_gravity;
+    
 public:
 
 
 
-	///this btSimpleDynamicsWorld constructor creates dispatcher, broadphase pairCache and constraintSolver
-	btSimpleDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* pairCache,btConstraintSolver* constraintSolver,btCollisionConfiguration* collisionConfiguration);
+    ///this btSimpleDynamicsWorld constructor creates dispatcher, broadphase pairCache and constraintSolver
+    btSimpleDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* pairCache,btConstraintSolver* constraintSolver,btCollisionConfiguration* collisionConfiguration);
 
-	virtual ~btSimpleDynamicsWorld();
-		
-	///maxSubSteps/fixedTimeStep for interpolation is currently ignored for btSimpleDynamicsWorld, use btDiscreteDynamicsWorld instead
-	virtual int	stepSimulation( btScalar timeStep,int maxSubSteps=1, btScalar fixedTimeStep=btScalar(1.)/btScalar(60.));
+    virtual ~btSimpleDynamicsWorld();
+        
+    ///maxSubSteps/fixedTimeStep for interpolation is currently ignored for btSimpleDynamicsWorld, use btDiscreteDynamicsWorld instead
+    virtual int    stepSimulation( btScalar timeStep,int maxSubSteps=1, btScalar fixedTimeStep=btScalar(1.)/btScalar(60.));
 
-	virtual void	setGravity(const btVector3& gravity);
+    virtual void    setGravity(const btVector3& gravity);
 
-	virtual btVector3 getGravity () const;
+    virtual btVector3 getGravity () const;
 
-	virtual void	addRigidBody(btRigidBody* body);
+    virtual void    addRigidBody(btRigidBody* body);
 
-	virtual void	removeRigidBody(btRigidBody* body);
-	
-	virtual void	updateAabbs();
+    virtual void    removeRigidBody(btRigidBody* body);
+    
+    virtual void    updateAabbs();
 
-	void	synchronizeMotionStates();
+    void    synchronizeMotionStates();
 
-	virtual void	setConstraintSolver(btConstraintSolver* solver);
+    virtual void    setConstraintSolver(btConstraintSolver* solver);
 
-	virtual btConstraintSolver* getConstraintSolver();
+    virtual btConstraintSolver* getConstraintSolver();
 
-	virtual btDynamicsWorldType	getWorldType() const
-	{
-		return BT_SIMPLE_DYNAMICS_WORLD;
-	}
+    virtual btDynamicsWorldType    getWorldType() const
+    {
+        return BT_SIMPLE_DYNAMICS_WORLD;
+    }
 
-	virtual void	clearForces();
+    virtual void    clearForces();
 
 };
 

@@ -27,67 +27,67 @@ typedef void (*btInternalTickCallback)(const btDynamicsWorld *world, btScalar ti
 
 enum btDynamicsWorldType
 {
-	BT_SIMPLE_DYNAMICS_WORLD=1,
-	BT_DISCRETE_DYNAMICS_WORLD=2,
-	BT_CONTINUOUS_DYNAMICS_WORLD=3
+    BT_SIMPLE_DYNAMICS_WORLD=1,
+    BT_DISCRETE_DYNAMICS_WORLD=2,
+    BT_CONTINUOUS_DYNAMICS_WORLD=3
 };
 
 ///btDynamicsWorld is the baseclass for several dynamics implementation, basic, discrete, parallel, and continuous
 class btDynamicsWorld : public btCollisionWorld
 {
-	public:
-		
+    public:
+        
 
-		btDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* broadphase,btCollisionConfiguration* collisionConfiguration)
-		:btCollisionWorld(dispatcher,broadphase,collisionConfiguration), m_internalTickCallback(0)
-		{
-		}
+        btDynamicsWorld(btDispatcher* dispatcher,btBroadphaseInterface* broadphase,btCollisionConfiguration* collisionConfiguration)
+        :btCollisionWorld(dispatcher,broadphase,collisionConfiguration), m_internalTickCallback(0)
+        {
+        }
 
-		virtual ~btDynamicsWorld()
-		{
-		}
-		
-		///stepSimulation proceeds the simulation over timeStep units
-		///if maxSubSteps > 0, it will interpolate time steps
-		virtual int		stepSimulation( btScalar timeStep,int maxSubSteps=1, btScalar fixedTimeStep=btScalar(1.)/btScalar(60.))=0;
-			
-		virtual void	debugDrawWorld() = 0;
-				
-		virtual void	addConstraint(btTypedConstraint* constraint, bool disableCollisionsBetweenLinkedBodies=false) { (void)constraint;};
+        virtual ~btDynamicsWorld()
+        {
+        }
+        
+        ///stepSimulation proceeds the simulation over timeStep units
+        ///if maxSubSteps > 0, it will interpolate time steps
+        virtual int        stepSimulation( btScalar timeStep,int maxSubSteps=1, btScalar fixedTimeStep=btScalar(1.)/btScalar(60.))=0;
+            
+        virtual void    debugDrawWorld() = 0;
+                
+        virtual void    addConstraint(btTypedConstraint* constraint, bool disableCollisionsBetweenLinkedBodies=false) { (void)constraint;};
 
-		virtual void	removeConstraint(btTypedConstraint* constraint) {(void)constraint;};
+        virtual void    removeConstraint(btTypedConstraint* constraint) {(void)constraint;};
 
-		virtual void	addVehicle(btRaycastVehicle* vehicle) {(void)vehicle;};
+        virtual void    addVehicle(btRaycastVehicle* vehicle) {(void)vehicle;};
 
-		virtual void	removeVehicle(btRaycastVehicle* vehicle) {(void)vehicle;};
+        virtual void    removeVehicle(btRaycastVehicle* vehicle) {(void)vehicle;};
 
-		//once a rigidbody is added to the dynamics world, it will get this gravity assigned
-		//existing rigidbodies in the world get gravity assigned too, during this method
-		virtual void	setGravity(const btVector3& gravity) = 0;
-		virtual btVector3 getGravity () const = 0;
+        //once a rigidbody is added to the dynamics world, it will get this gravity assigned
+        //existing rigidbodies in the world get gravity assigned too, during this method
+        virtual void    setGravity(const btVector3& gravity) = 0;
+        virtual btVector3 getGravity () const = 0;
 
-		virtual void	addRigidBody(btRigidBody* body) = 0;
+        virtual void    addRigidBody(btRigidBody* body) = 0;
 
-		virtual void	removeRigidBody(btRigidBody* body) = 0;
+        virtual void    removeRigidBody(btRigidBody* body) = 0;
 
-		virtual void	setConstraintSolver(btConstraintSolver* solver) = 0;
+        virtual void    setConstraintSolver(btConstraintSolver* solver) = 0;
 
-		virtual btConstraintSolver* getConstraintSolver() = 0;
-		
-		virtual	int		getNumConstraints() const {	return 0;		}
-		
-		virtual btTypedConstraint* getConstraint(int index)		{	(void)index;		return 0;		}
-		
-		virtual const btTypedConstraint* getConstraint(int index) const	{	(void)index;	return 0;	}
+        virtual btConstraintSolver* getConstraintSolver() = 0;
+        
+        virtual    int        getNumConstraints() const {    return 0;        }
+        
+        virtual btTypedConstraint* getConstraint(int index)        {    (void)index;        return 0;        }
+        
+        virtual const btTypedConstraint* getConstraint(int index) const    {    (void)index;    return 0;    }
 
-		virtual btDynamicsWorldType	getWorldType() const=0;
+        virtual btDynamicsWorldType    getWorldType() const=0;
 
-		virtual void	clearForces() = 0;
+        virtual void    clearForces() = 0;
 
-		/// Set the callback for when an internal tick (simulation substep) happens
-		void setInternalTickCallback(btInternalTickCallback cb) { m_internalTickCallback = cb; }
-		
-		btInternalTickCallback m_internalTickCallback;
+        /// Set the callback for when an internal tick (simulation substep) happens
+        void setInternalTickCallback(btInternalTickCallback cb) { m_internalTickCallback = cb; }
+        
+        btInternalTickCallback m_internalTickCallback;
 
 
 };
