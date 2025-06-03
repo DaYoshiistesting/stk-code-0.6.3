@@ -228,7 +228,7 @@ void Camera::update(float dt)
     btMatrix3x3 rotation;
     if(kart->getKartProperties()->useNextGenCamera())
     {
-        // This is the camera for "0.7 mode". It's not a
+        // This is the camera for "0.7 mode". It's not
         // 100% accurate but it does the job, like in 0.7.
         rotation.setEulerZYX(0.0f, 0.0f, kart->getHeading());
     }
