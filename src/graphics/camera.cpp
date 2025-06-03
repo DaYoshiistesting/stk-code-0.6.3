@@ -227,7 +227,11 @@ void Camera::update(float dt)
 
     btMatrix3x3 rotation;
     if(kart->getKartProperties()->useNextGenCamera())
-        rotation.setEulerZYX(kart->getPitch(), kart_hpr.getRoll(), kart->getHeading());
+    {
+        // This is the camera for "0.7 mode". It's not a
+        // 100% accurate but it does the job, like in 0.7.
+        rotation.setEulerZYX(0.0f, 0.0f, kart->getHeading());
+    }
     else
         rotation.setEulerZYX(kart_hpr.getPitch(), kart_hpr.getRoll(), kart_hpr.getHeading());
     btTransform result = btTransform(rotation, kart_xyz) * relative_to_kart;
@@ -237,7 +241,7 @@ void Camera::update(float dt)
     m_xyz = c.getXYZ();
     m_hpr = c.getHPR();
     m_context->setCamera(&c.toSgCoord());
-    if(num_players<2)
+    //if(num_players<2)
         sound_manager->positionListener(m_xyz, kart_xyz - m_xyz);
 }   // update
 

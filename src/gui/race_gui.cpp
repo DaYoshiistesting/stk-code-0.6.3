@@ -308,12 +308,12 @@ void RaceGUI::drawMap()
     const float track_height = m_track->m_driveline_max.getY() - m_track->m_driveline_min.getY();
 
     // Calculate the scaling for x and y axis
-    const float sx = map_w / track_width;
-    const float sy = map_h / track_height;
+    float sx = map_w / track_width;
+    float sy = map_h / track_height;
 
     // offsets
-    const float map_x = (10.f*ratio)+(map_w - track_width * sx)/2.f;
-    const float map_y = (10.f*ratio)+(map_h - track_height * sy)/2.f;
+    float map_x = (10.f*ratio)+(map_w - track_width * sx)/2.f;
+    float map_y = (10.f*ratio)+(map_h - track_height * sy)/2.f;
 
     // Draw minimap.
     RaceManager::getTrack()->draw2DMiniMap(map_x, map_y, sx, sy);
@@ -735,15 +735,15 @@ void RaceGUI::drawLap(const KartIconDisplayInfo* info, Kart* kart,
 
     float minRatio = std::min(ratio_x, ratio_y);
     char str[256];
-    offset_x += (int)(128*ratio_x);
-    offset_y += (int)(70*ratio_y);
+    offset_x += (int)(160*minRatio);
+    offset_y += (int)(70*minRatio);
 
     if(kart->hasFinishedRace())
         return;
     else
     {
         font_race->PrintShadow(_("Lap"), 40*minRatio, (float)offset_x, (float)offset_y);
-        offset_y -= (int)(42*ratio_y);
+        offset_y -= (int)(42*minRatio);
         sprintf(str, "%d/%d", lap<0 ? 0 : lap+1, 
                 race_manager->getNumLaps());
         font_race->PrintShadow(str, 40*minRatio, (float)offset_x, (float)offset_y);
