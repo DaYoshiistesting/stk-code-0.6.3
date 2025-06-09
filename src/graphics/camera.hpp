@@ -38,7 +38,7 @@ public:
         CM_SIMPLE_REPLAY
     };
 protected:
-    ssgContext *m_context;
+    ssgContext *m_camera;               // the camera itself
     Vec3        m_xyz;                  // current position of camera
     Vec3        m_hpr;                  // heading, pitch, roll of camera
     const Kart *m_kart;                 // the kart the camera is attached to

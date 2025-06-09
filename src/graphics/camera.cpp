@@ -35,7 +35,7 @@ Camera::Camera(int camera_index, const Kart* kart)
 {
     m_mode        = CM_NORMAL;
     m_index       = camera_index;
-    m_context     = new ssgContext;
+    m_camera      = new ssgContext;
     m_distance    = kart->getKartProperties()->getCameraDistance();
     m_kart        = kart;
     m_xyz         = kart->getXYZ();
@@ -44,9 +44,9 @@ Camera::Camera(int camera_index, const Kart* kart)
     // FIXME: clipping should be configurable for slower machines
     const Track* track  = RaceManager::getTrack();
     if (track->useFog())
-        m_context->setNearFar(0.05f, track->getFogEnd());
+        m_camera->setNearFar(0.05f, track->getFogEnd());
     else
-        m_context->setNearFar(0.05f, 1000.0f);
+        m_camera->setNearFar(0.05f, 1000.0f);
 
     setScreenPosition(camera_index);
 }   // Camera
@@ -55,7 +55,7 @@ Camera::Camera(int camera_index, const Kart* kart)
 Camera::~Camera()
 {
     reset();
-    if(m_context) delete m_context;
+    if(m_camera) delete m_camera;
 }
 
 // ----------------------------------------------------------------------------
@@ -66,12 +66,12 @@ void Camera::setScreenPosition(int camera_index)
 
     if(num_players == 1)
     {
-        m_context->setFOV(75.0f, 0.0f);
+        m_camera->setFOV(75.0f, 0.0f);
         m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 1.0f;
     }
     else if(num_players == 2)
     {
-        m_context->setFOV(35.0f, 42.5f);
+        m_camera->setFOV(35.0f, 42.5f);
         switch(camera_index)
         {
             case 0 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 1.0f; break;
@@ -80,18 +80,18 @@ void Camera::setScreenPosition(int camera_index)
     }
     else if(num_players == 3)
     {
-        m_context->setFOV(50.0f, 0.0f);
+        m_camera->setFOV(50.0f, 0.0f);
         switch(camera_index)
         {
             case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
             case 1 : m_x = 0.5f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
             case 2 : m_x = 0.0f; m_y = 0.0f; m_w = 1.0f; m_h = 0.5f;
-            m_context->setFOV(85.0f, 85.0f*3.0f/8.0f); break;
+            m_camera->setFOV(85.0f, 85.0f*3.0f/8.0f); break;
         }
     }
     else if(num_players == 4)
     {
-        m_context->setFOV(50.0f, 0.0f);
+        m_camera->setFOV(50.0f, 0.0f);
         switch(camera_index)
         {
             case 0 : m_x = 0.0f; m_y = 0.5f; m_w = 0.5f; m_h = 0.5f; break;
@@ -132,7 +132,7 @@ void Camera::setMode(Mode mode)
         if(num_players==2 || (num_players==3 && m_index==3) )
             m_distance *= 1.5f;
         else if(num_players>=3)
-            m_distance *= 1.3333333f;
+            m_distance *= 1.0f;
     }
 }   // setMode
 
@@ -240,7 +240,7 @@ void Camera::update(float dt)
     Coord c(result);
     m_xyz = c.getXYZ();
     m_hpr = c.getHPR();
-    m_context->setCamera(&c.toSgCoord());
+    m_camera->setCamera(&c.toSgCoord());
     //if(num_players<2)
         sound_manager->positionListener(m_xyz, kart_xyz - m_xyz);
 }   // update
@@ -249,13 +249,13 @@ void Camera::update(float dt)
 void Camera::finalCamera(float dt)
 {
     // Turn/move the camera for 1 second only
-    m_final_time += dt;    
+    m_final_time += dt;
     if(m_final_time<stk_config->m_final_camera_time)
     {
         m_xyz += m_velocity*dt;
         m_hpr += m_angular_velocity*dt;
         Coord coord(m_xyz, m_hpr);
-        m_context->setCamera(&coord.toSgCoord());
+        m_camera->setCamera(&coord.toSgCoord());
     }
 #undef TEST_END_CAMERA_POSITION
 #ifdef TEST_END_CAMERA_POSITION
@@ -270,7 +270,7 @@ void Camera::finalCamera(float dt)
         Vec3 xyz(x,y,z);
         Vec3 hpr(DEGREE_TO_RAD(h),DEGREE_TO_RAD(p),DEGREE_TO_RAD(r));
         Coord coord(xyz, hpr);
-        m_context->setCamera(&coord.toSgCoord());
+        m_camera->setCamera(&coord.toSgCoord());
     }
 #endif
 }   // finalCamera
@@ -284,6 +284,6 @@ void Camera::apply()
                (int)(height * m_y),
                (int)(width  * m_w),
                (int)(height * m_h));
-    m_context->makeCurrent();
+    m_camera->makeCurrent();
 }   // apply
 

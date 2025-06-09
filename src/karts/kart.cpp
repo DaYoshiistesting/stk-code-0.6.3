@@ -222,7 +222,7 @@ void Kart::createPhysics()
     //create the engine sound
     if(m_engine_sound)
     {
-        m_engine_sound->speed(0.6f);
+        m_engine_sound->speed(0.59f);
         m_engine_sound->loop();
         m_engine_sound->play();
     }
@@ -685,8 +685,10 @@ void Kart::handleZipper(bool play_sfx)
         if(play_sfx || m_wee_sound->getStatus() != SFXManager::SFX_PLAYING && 
            getMaterial()!=getLastMaterial()) m_wee_sound->play();
     }
-    m_vehicle->activateZipper(speed);
+    if(play_sfx || isOnGround())
+        m_vehicle->activateZipper(speed);
 }   // handleZipper
+
 //-----------------------------------------------------------------------------
 void Kart::draw()
 {
@@ -696,7 +698,7 @@ void Kart::draw()
 
     btVector3 wire_color(0.5f, 0.5f, 0.5f);
     //RaceManager::getWorld()->getPhysics()->debugDraw(m, m_body->getCollisionShape(), 
-    //                               wire_color);
+    //                                                 wire_color);
     btCylinderShapeX wheelShape(btVector3(0.1f,
                                         m_kart_properties->getWheelRadius(),
                                         m_kart_properties->getWheelRadius()));
@@ -711,7 +713,7 @@ void Kart::draw()
 }   // draw
 
 // -----------------------------------------------------------------------------
-/** Returned an additional engine power boost when using nitro.
+/** Returns an additional engine power boost when using nitro.
  *  \param dt Time step size.
  */
 float Kart::handleNitro(float dt)
@@ -923,7 +925,7 @@ void Kart::updatePhysics (float dt)
     if(v.getZ() < - m_kart_properties->getSuspensionTravelCM()*0.01f*60)
     {
         Vec3 v_clamped = v;
-        // clamp the speed to 99% of the maxium falling speed.
+        // clamp the speed to 99% of the maximum falling speed.
         v_clamped.setZ(-m_kart_properties->getSuspensionTravelCM()*0.01f*60 * 0.99f);
         m_body->setLinearVelocity(v_clamped);
     }
@@ -1035,8 +1037,8 @@ void Kart::applyEngineForce(float force)
 {
     // Split power to simulate a 4WD 40-60, other values possible
     // FWD or RWD is a matter of putting a 0 and 1 in the right place
-    float frontForce = force*0.4f;
-    float rearForce = force*0.6f;
+    float frontForce = force*0.5f;
+    float rearForce = force*0.5f;
     // Front wheels
     for(unsigned int i=0; i<2; i++)
     {

@@ -112,7 +112,7 @@ namespace SSGHelp
         }
         else
         {
-            printf("StaticSSG::MinMax: unkown type\n");
+            printf("StaticSSG::MinMax: unknown type\n");
             const_cast<ssgEntity*>(p)->print(stdout, 0, 0);
         }
     }   // MinMaxInternal
