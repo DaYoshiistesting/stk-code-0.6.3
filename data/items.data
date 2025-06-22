@@ -1,21 +1,21 @@
 ;; -*- mode: lisp -*-
 
 (tuxkart-items
-    ("bonus-box"
-        (model "gift-box.ac")
-    )
-    ("banana"
-        (model "banana.ac")
-    )
-    ("big-nitro" 
-        (model "nitrotank-big.ac")
-    )
-    ("small-nitro" 
-        (model "nitrotank-small.ac")
-    )
-    ("bubblegum" 
-        (model "bubblegum.ac")
-    )
+  ("bonus-box"
+    (model "gift-box.ac")
+  )
+  ("banana"
+    (model "banana.ac")
+  )
+  ("big-nitro" 
+    (model "nitrotank-big.ac")
+  )
+  ("small-nitro" 
+    (model "nitrotank-small.ac")
+  )
+  ("bubblegum" 
+    (model "bubblegum.ac")
+  )
 ) 
 
 ;; EOF ;;
