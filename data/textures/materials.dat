@@ -128,19 +128,19 @@
 "concrete.rgb"              N N    N    0.0    Y     N    0.0000003 N N N   Y
 "brick.rgb"                 N N    N    0.0    Y     N    1.0   N   N   N   Y
 "stonewall.rgb"             N N    N    0.0    Y     N    1.0   N   N   N   N
-"stones.rgb"                N N    N    0.0    Y     N    0.0000002 N   N   N   N
+"stones.rgb"                N N    N    0.0    Y     N    0.0000002 N N N   N
 "pebbles.rgb"               N N    N    0.0    Y     N    1.0   N   N   N   N
-"floor.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N   N
+"floor.rgb"                 N N    N    0.0    Y     N    0.0000003 N N N   N
 "egypt.rgb"                 N N    N    0.0    Y     N    1.0   N   N   N   Y
 "pyramidwall.rgb"           N N    N    0.0    Y     N    1.0   N   N   N   N
 "lava.rgb"                  N N    N    0.0    N     N    1.0   N   N   Y   Y
 "lava2.rgb"                 N N    N    0.0    N     N    1.0   N   N   Y   Y
 "metalgrid.rgb"             N N    Y    0.3    Y     N    0.0000003 N N N   N
 "fuzzy_sand.rgb"            N N    Y    0.0    N     N    1.0   Y   N   N   N
-"roadway.rgb"               Y N    N    0.0    Y     N    0.0000003 N   N   N   N
-"track.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N   N
-"trackborder.rgb"           N N    N    0.0    N     N    0.0000003 N   N   N   N
-"chess.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N   N
+"roadway.rgb"               Y N    N    0.0    Y     N    0.0000003 N   N   N    N
+"track.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N    N
+"trackborder.rgb"           N N    N    0.0    N     N    0.0000003 N   N   N    N
+"chess.rgb"                 N N    N    0.0    Y     N    0.0000003 N   N   N    N
 "tinytux.rgb"               Y Y    Y    0.8    N     N    1.0   Y   N   N   N
 "butterfly.rgb"             Y Y    Y    0.8    N     N    1.0   Y   N   N   N
 "track2.rgb"                N N    N    0.0    Y     N    0.0000003 N N N   N
@@ -182,6 +182,9 @@
 "dirt.rgb"                  N N    N    0.0    Y     N    0.0000003 N N N   N
 "city_asphalt_1.rgb"	    N N    N    0.0    Y     N    0.0000003 N N N   N
 "city_checker.rgb"          N N    N    0.0    Y     N    0.0000003 N N N   N
+"racetrack_sky.rgb"         N N    N    0.0    N     N    0.7   N   N   N   N
+"racetrack_crowd.rgb"       N N    Y    0.95   Y     N    1.0   N   N   N   N
+"racetrack_grass.rgb"       N N    N    0.1    Y     N    1.0   N   N   N   N   0.4   4.0
 "canyon_sky_1.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
 "canyon_sky_2.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N
 "canyon_sky_3.rgb"          N N    N    0.0    N     N    0.7   N   N   N   N

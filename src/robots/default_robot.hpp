@@ -168,7 +168,7 @@ private:
                         const Item **item_to_avoid, 
                         const Item **item_to_collect);
 
-    /*Lower level functions not called directly from update()*/
+    /* Lower level functions not called directly from update() */
     float steerToAngle(const size_t SECTOR, const float ANGLE);
     float steerToPoint(const Vec3 point, float dt);
 

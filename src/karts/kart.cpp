@@ -683,10 +683,9 @@ void Kart::handleZipper(bool play_sfx)
     if(isPlayerKart())
     {
         if(play_sfx || m_wee_sound->getStatus() != SFXManager::SFX_PLAYING && 
-           getMaterial()!=getLastMaterial()) m_wee_sound->play();
+           getMaterial()!=getLastMaterial() && isOnGround() ) m_wee_sound->play();
     }
-    if(play_sfx || isOnGround())
-        m_vehicle->activateZipper(speed);
+    if(play_sfx || isOnGround()) m_vehicle->activateZipper(speed);
 }   // handleZipper
 
 //-----------------------------------------------------------------------------
@@ -1035,10 +1034,10 @@ void Kart::setSuspensionLength()
  */
 void Kart::applyEngineForce(float force)
 {
-    // Split power to simulate a 4WD 40-60, other values possible
+    // Split power to simulate a 4WD 60-40, other values possible
     // FWD or RWD is a matter of putting a 0 and 1 in the right place
-    float frontForce = force*0.5f;
-    float rearForce = force*0.5f;
+    float frontForce = force*0.6f;
+    float rearForce = force*0.4f;
     // Front wheels
     for(unsigned int i=0; i<2; i++)
     {

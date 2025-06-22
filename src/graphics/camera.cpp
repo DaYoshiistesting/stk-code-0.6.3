@@ -71,7 +71,7 @@ void Camera::setScreenPosition(int camera_index)
     }
     else if(num_players == 2)
     {
-        m_camera->setFOV(35.0f, 42.5f);
+        m_camera->setFOV(42.5f, 42.5f);
         switch(camera_index)
         {
             case 0 : m_x = 0.0f; m_y = 0.0f; m_w = 0.5f; m_h = 1.0f; break;
@@ -216,8 +216,7 @@ void Camera::update(float dt)
     const int num_players = race_manager->getNumLocalPlayers();
     float pitch;
     if(m_mode!=CM_CLOSEUP)
-        pitch = num_players>1 ? sign * DEGREE_TO_RAD(10.0f)
-                              : sign * DEGREE_TO_RAD(15.0f);
+        pitch = sign * DEGREE_TO_RAD(15.0f);
     else
         pitch = sign * DEGREE_TO_RAD(25.0f);
       
@@ -241,8 +240,7 @@ void Camera::update(float dt)
     m_xyz = c.getXYZ();
     m_hpr = c.getHPR();
     m_camera->setCamera(&c.toSgCoord());
-    //if(num_players<2)
-        sound_manager->positionListener(m_xyz, kart_xyz - m_xyz);
+    sound_manager->positionListener(m_xyz, kart_xyz - m_xyz);
 }   // update
 
 //-----------------------------------------------------------------------------

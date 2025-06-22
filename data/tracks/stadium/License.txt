@@ -1,0 +1,4 @@
+racetrack (c) 2008 thomas oppl (toppl@fh-sbg.ac.at)
+Arena Mods by Pixel_2ACF3 (Wayne Dennis)
+licensed under CC BY-SA 3.0
+http://creativecommons.org/licenses/by-sa/3.0/

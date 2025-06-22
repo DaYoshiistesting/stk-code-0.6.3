@@ -591,7 +591,6 @@ void Track::draw2DMiniMap(float x, float y, float sx, float sy) const
     glVertex2f(x + (m_right_driveline[0].getX() - m_driveline_min.getX()) * sx,
                y + (m_right_driveline[0].getY() - m_driveline_min.getY()) * sy);
 
-    glDisable(GL_DEPTH_TEST);
     glEnd();
     glPopAttrib();
 }   //drawMiniMap

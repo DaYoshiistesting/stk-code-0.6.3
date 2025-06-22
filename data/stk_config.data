@@ -8,7 +8,7 @@
   (min-track-version             1)  ;; Minimum and maximum .track files supported
   (max-track-version             2)  ;; by this binary, older/newer files are ignored.
   (max-karts                    10)  ;; Maximum number of karts.
-  (scores   14 12 10 8 6 5 4 3 2 1)  ;; 1st, 2nd, 3rd... 'till 10th. 
+  (scores   12 11 10 8 6 5 4 3 2 1)  ;; 1st, 2nd, 3rd... 'till 10th. 
   (grid-order	   	             1)  ;; Order for grand prix, 1 is most 
                                      ;; points first, 0 is least points first.
   (title-music              "MayDayMayhem.music")

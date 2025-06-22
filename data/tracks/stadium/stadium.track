@@ -1,0 +1,18 @@
+;; -*- mode: lisp -*-
+
+(tuxkart-track
+ (name        _("Stadium"))
+ (version     1)
+ (designer    "Thomas Oppl & Wayne Dennis")
+ (music       "Penguin_Party.music")
+ (arena       #t)
+ (screenshot  "stadium_screenshot.rgb")
+ (topview     "stadium_topview.rgb")
+ (groups      "Standard")
+ (start-heading          -90 -180 90)
+ (camera-final-position  -38 -100 36)
+ (camera-final-hpr         0  -20  0)
+)
+
+;; EOF ;;
+
