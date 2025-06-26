@@ -286,14 +286,14 @@ void LinearWorld::doLapCounting ( KartInfo& kart_info, Kart* kart )
                 if(m)
                 {
                     m->addMessage(_("New fastest lap"), NULL, 
-                                  2.0f, 40, 100, 210, 100);
+                                  2.0f, 30, 100, 210, 100);
                     char s[20];
                     m->TimeToString(time_per_lap, s);
                     
                     std::ostringstream m_fastest_lap_message;
                     m_fastest_lap_message << s << ": " << kart->getName();
                     m->addMessage(m_fastest_lap_message.str(), NULL, 
-                                  2.0f, 40, 100, 210, 100);
+                                  2.0f, 30, 100, 210, 100);
                 }   // if m
             } // end if new fastest lap
         }
@@ -552,7 +552,7 @@ void LinearWorld::moveKartAfterRescue(Kart* kart, btRigidBody* body)
     kart->setXYZ(m_track->trackToSpatial(info.m_track_sector));
     
     btQuaternion heading(btVector3(0.0f, 0.0f, 1.0f), 
-                         m_track->m_angle[info.m_track_sector] );
+                         m_track->m_angle[info.m_track_sector]);
     kart->setRotation(heading);
     
     // A certain epsilon is added here to the Z coordinate, in case
@@ -589,7 +589,7 @@ void LinearWorld::updateRacePosition(Kart* kart, KartInfo& kart_info)
     const int my_id                = kart->getWorldKartId();
     const int my_laps              = getLapForKart(my_id);
     const float my_progression     = getDistanceDownTrackForKart(my_id);
-    for(unsigned int j = 0 ; j < kart_amount ; j++)
+    for(unsigned int j=0 ; j<kart_amount ; j++)
     {
         if(j == kart->getWorldKartId()) continue; // don't compare a kart with itself
         if(m_kart[j]->isEliminated())   continue; // dismiss eliminated karts   
@@ -604,7 +604,7 @@ void LinearWorld::updateRacePosition(Kart* kart, KartInfo& kart_info)
         if (other_laps !=  my_laps)
         {
             if(other_laps > my_laps) p++; // Other kart has more lapses
-            continue; 
+                continue; 
         }
         // Now both karts have the same number of lapses. Test progression.
         // A kart is ahead if it's driven further, or driven the same 
@@ -620,9 +620,8 @@ void LinearWorld::updateRacePosition(Kart* kart, KartInfo& kart_info)
     // remaining time is less than 30 seconds.
     if(!m_faster_music_active && 
        kart_info.m_race_lap == race_manager->getNumLaps()-1 && 
-       p==1                                                    &&
-       useFastMusicNearEnd()                                   &&
-       kart_info.m_estimated_finish > 0                        &&
+       p==1 && useFastMusicNearEnd()                        &&
+       kart_info.m_estimated_finish > 0                     &&
        kart_info.m_estimated_finish - getTime() < 30.0f)
     {
         sound_manager->switchToFastMusic();
@@ -653,12 +652,12 @@ void LinearWorld::checkForWrongDirection(unsigned int i)
     else if (angle_diff < -M_PI) angle_diff += 2*M_PI;
     // Display a warning message if the kart is going back way (unless
     // the kart has already finished the race).
-    if (( angle_diff > DEGREE_TO_RAD( 120.0f) ||
-          angle_diff < DEGREE_TO_RAD(-120.0f))   &&
-        kart->getVelocityLC().getY() > 0.0f        &&
-        !kart->hasFinishedRace() )
+    if((angle_diff > DEGREE_TO_RAD( 120.0f)  ||
+        angle_diff < DEGREE_TO_RAD(-120.0f)) &&
+        kart->getVelocityLC().getY() > 0.0f  &&
+       !kart->hasFinishedRace())
     {
-        m->addMessage(_("WRONG WAY!"), kart, -1.0f, 60);
+        m->addMessage(_("WRONG WAY!"), kart, -1.0f, 50);
     }  // if angle is too big
 
 }   // checkForWrongDirection

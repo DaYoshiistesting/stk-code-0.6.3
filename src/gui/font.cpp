@@ -94,7 +94,7 @@ void Font::Print(const char *text, float size, float x, float y,
     }
 
     m_text_out->begin();
-    m_text_out->setPointSize((float)sz);
+    m_text_out->setPointSize(sz);
     if(doShadow)
     {
         m_text_out->start2f(x-2, y-2);

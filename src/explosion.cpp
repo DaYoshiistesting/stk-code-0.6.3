@@ -32,7 +32,7 @@ Explosion::Explosion(const Vec3& coord, const int explosion_sound) : ssgTransfor
     addKid(cut);  // derefing the explosion will free the cutout
     m_seq   = projectile_manager->getExplosionModel();
     cut->addKid(m_seq);
-    m_explode_sound = sfx_manager->newSFX( (SFXManager::SFXType)explosion_sound );
+    m_explode_sound = sfx_manager->newSFX((SFXManager::SFXType)explosion_sound);
     init(coord);
 }   // Explosion
 

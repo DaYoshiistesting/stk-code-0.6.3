@@ -193,8 +193,7 @@ void DefaultRobot::update(float dt)
                                     / (getSpeed()-m_kart_ahead->getSpeed());
                 target += m_kart_ahead->getVelocity()*time_till_hit;
             }
-            float steer_angle = steerToPoint(m_kart_ahead->getXYZ().toFloat(), 
-                                             dt);
+            float steer_angle = steerToPoint(m_kart_ahead->getXYZ().toFloat(), dt);
             setSteering(steer_angle, dt);
             commands_set = true;
         }
@@ -305,8 +304,9 @@ void DefaultRobot::handleBraking()
 void DefaultRobot::handleSteering(float dt)
 {
     const unsigned int DRIVELINE_SIZE = (unsigned int)m_track->m_driveline.size();
-    const size_t NEXT_SECTOR = (unsigned int)m_track_sector + 1 < DRIVELINE_SIZE 
-                             ? m_track_sector + 1 : 0;
+    const size_t NEXT_SECTOR = (unsigned int)m_track_sector + 2 < DRIVELINE_SIZE
+    ? m_track_sector + 2 : (unsigned int)m_track_sector + 1 < DRIVELINE_SIZE
+    ? m_track_sector + 1 : 0;
     float steer_angle = 0.0f;
 
     /*The AI responds based on the information we just gathered, using a
@@ -817,8 +817,8 @@ float DefaultRobot::steerToPoint(const Vec3 point, float dt)
 {
     // No sense steering if we are not driving.
     if(getSpeed()==0) return 0.0f;
-    const float dx        = point.getX() - getXYZ().getX();
-    const float dy        = point.getY() - getXYZ().getY();
+    float dx        = point.getX() - getXYZ().getX();
+    float dy        = point.getY() - getXYZ().getY();
     /** Angle from the kart position to the point in world coordinates. */
     float theta           = -atan2(dx, dy);
 
@@ -828,7 +828,7 @@ float DefaultRobot::steerToPoint(const Vec3 point, float dt)
     float angle_2_point   = theta - getHeading() 
                                   - dt*m_body->getAngularVelocity().getZ();
     angle_2_point         = normalizeAngle(angle_2_point);
-    if(fabsf(angle_2_point)<0.1) return 0.0f;
+    if(fabsf(angle_2_point)<0.1f) return 0.0f;
 
     /** To understand this code, consider how a given steering angle determines
      *  the angle the kart is facing after one timestep:
@@ -854,22 +854,22 @@ float DefaultRobot::steerToPoint(const Vec3 point, float dt)
     if(sin_steer_angle <= -1.0f) return -getMaxSteerAngle()*m_skidding_threshold-0.1f;
     if(sin_steer_angle >=  1.0f) return  getMaxSteerAngle()*m_skidding_threshold+0.1f;
     float steer_angle     = asin(sin_steer_angle);    
-    return steer_angle/1.5f;
+    return steer_angle;
 }   // steerToPoint
 
 //-----------------------------------------------------------------------------
 void DefaultRobot::checkCrashes(const int STEPS, const Vec3& pos)
 {
-    //Right now there are 2 kind of 'crashes': with other karts and another
-    //with the track. The sight line is used to find if the karts crash with
-    //each other, but the first step is twice as big as other steps to avoid
-    //having karts too close in any direction. The crash with the track can
-    //tell when a kart is going to get out of the track so it steers.
+    // Right now there are 2 kind of 'crashes': with other karts and another
+    // with the track. The sight line is used to find if the karts crash with
+    // each other, but the first step is twice as big as other steps to avoid
+    // having karts too close in any direction. The crash with the track can
+    // tell when a kart is going to get out of the track so it steers.
     Vec3 vel_normal;
 
-    //This is first used as a 2d-vector, but later on it is passed
-    //to m_track->findRoadSector, there it is used as a 3d-vector
-    //to find distance to plane, so z must be initialized to zero.
+    // This is first used as a 2d-vector, but later on it is passed
+    // to m_track->findRoadSector, there it is used as a 3d-vector
+    // to find distance to plane, so z must be initialized to zero.
     Vec3 step_coord;
     float kart_distance;
 
@@ -879,7 +879,7 @@ void DefaultRobot::checkCrashes(const int STEPS, const Vec3& pos)
 
     const size_t NUM_KARTS = race_manager->getNumKarts();
 
-    //Protection against having vel_normal with nan values
+    // Protection against having vel_normal with nan values
     const Vec3 &VEL = getVelocity();
     vel_normal.setValue(VEL.getX(), VEL.getY(), 0.0);
     float len=vel_normal.length();
@@ -1238,7 +1238,7 @@ void DefaultRobot::findCurve()
 {
     const int DRIVELINE_SIZE = (unsigned int)m_track->m_driveline.size();
     float total_dist = 0.0f;
-    int next_hint    = m_track_sector;
+    int next_hint    = m_track_sector + 1;
     int i;
 
     for(i = m_track_sector; total_dist < getVelocityLC().getY(); i = next_hint)

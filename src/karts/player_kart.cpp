@@ -313,7 +313,7 @@ void PlayerKart::raceFinished(float time)
     if(m)
     {
         m->addMessage(getPosition()==1 ? _("You won the race!") : _("You finished the race!") ,
-                      this, 2.0f, 60);
+                      this, 2.0f, 50);
     }
 }   // raceFinished
 
@@ -365,5 +365,5 @@ void PlayerKart::doingShortcut()
     RaceGUI* m=(RaceGUI*)menu_manager->getRaceMenu();
     // Can happen if the option menu is called
     if(m)
-        m->addMessage(_("Invalid short-cut!!"), this, 2.0f, 60);
+        m->addMessage(_("Invalid short-cut!!"), this, 2.0f, 50);
 }   // doingShortcut

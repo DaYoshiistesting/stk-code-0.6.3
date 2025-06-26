@@ -463,14 +463,14 @@ void World::removeKart(int kart_number)
         {   
             if(*i==kart) 
             {
-                m->addMessage(_("You have been\neliminated!"), *i, 2.0f, 60);
+                m->addMessage(_("You have been\neliminated!"), *i, 2.0f, 50);
             }
             else
             {
                 char s[MAX_MESSAGE_LENGTH];
                 snprintf(s, MAX_MESSAGE_LENGTH,_("'%s' has\nbeen eliminated."),
                          kart->getName().c_str());
-                m->addMessage( s, *i, 2.0f, 60);
+                m->addMessage(s, *i, 2.0f, 50);
             }
         }   // for i in kart
     }   // if raceMenu exist

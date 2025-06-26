@@ -104,7 +104,7 @@ void UserConfig::setDefaults()
     m_background_music  = "";
     m_profile           = 0;
     m_print_kart_sizes  = false;
-    m_max_fps           = 144;
+    m_max_fps           = 124;
     m_sfx_volume        = 1.0f;
     m_use_kph           = false;
     m_width             = 800;
