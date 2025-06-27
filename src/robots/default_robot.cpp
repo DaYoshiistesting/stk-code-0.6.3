@@ -537,8 +537,8 @@ void DefaultRobot::handleItems(const float DELTA, const int STEPS)
                                   !m_kart_ahead;
             float distance = fire_backwards ? m_distance_behind 
                                             : m_distance_ahead;
-            m_controls.m_fire = (fire_backwards && distance < 30.0f)     || 
-                                (!fire_backwards && distance <10.0f)     ||
+            m_controls.m_fire = ( fire_backwards && distance < 30.0f)    || 
+                                (!fire_backwards && distance < 10.0f)    ||
                                 m_time_since_last_shot > 10.0f;
             if(m_controls.m_fire)
                 m_controls.m_look_back = fire_backwards;
