@@ -52,7 +52,7 @@ Flyable::Flyable(Kart *kart, PowerupType type, float mass) : Moveable()
     m_extend            = m_st_extend[type];
     m_max_height        = m_st_max_height[type];
     m_min_height        = m_st_min_height[type];
-    m_average_height    = (m_min_height+m_max_height)/2.0f;
+    m_average_height    = (m_min_height+m_max_height)/2;
     m_force_updown      = m_st_force_updown[type];
     m_owner             = kart;
     m_has_hit_something = false;
@@ -90,7 +90,7 @@ void Flyable::createPhysics(float y_offset, const btVector3 &velocity,
                             const btTransform* customDirection)
 {
     // Get Kart heading direction
-    btTransform trans = ( customDirection == NULL ? m_owner->getKartHeading() : *customDirection );
+    btTransform trans = (customDirection == NULL ? m_owner->getKartHeading() : *customDirection);
 
     // Apply offset
     btTransform offset_transform;
@@ -102,9 +102,8 @@ void Flyable::createPhysics(float y_offset, const btVector3 &velocity,
     if(turn_around)
     {
         btTransform turn_around_trans;
-     // turn_around_trans.setOrigin(trans.getOrigin());
         turn_around_trans.setIdentity();
-        turn_around_trans.setRotation(btQuaternion(btVector3(0, 0, 1), M_PI));
+        turn_around_trans.setRotation(btQuaternion(btVector3(0,0,1), M_PI));
         trans  *= turn_around_trans;
     }
     
@@ -161,15 +160,15 @@ void Flyable::getClosestKart(const Kart **minKart, float *minDistSquared,
                              btVector3 *minDelta, const Kart* inFrontOf, 
                              const bool backwards) const
 {
-    btTransform tProjectile = (inFrontOf != NULL ? inFrontOf->getTrans() : getTrans());
+    btTransform tProjectile = inFrontOf != NULL ? inFrontOf->getTrans() : getTrans();
     
     *minDistSquared = -1.0f;
     *minKart = NULL;
     
-    for(unsigned int i=0 ; i<race_manager->getNumKarts(); i++ )
+    for(unsigned int i=0 ; i<race_manager->getNumKarts(); i++)
     {
         Kart *kart = RaceManager::getKart(i);
-        if(kart->isEliminated() || kart == m_owner || (!kart->isOnGround()) ) continue;
+        if(kart->isEliminated() || kart == m_owner || !kart->isOnGround()) continue;
         btTransform t=kart->getTrans();
        
         btVector3 delta = t.getOrigin()-tProjectile.getOrigin();
@@ -185,11 +184,11 @@ void Flyable::getClosestKart(const Kart **minKart, float *minDistSquared,
             btTransform trans = inFrontOf->getTrans();
             // get heading=trans.getBasis*(0,1,0) ... so save the multiplication:
             btVector3 direction(trans.getBasis().getColumn(1));
-            const float angle = to_target.angle( backwards ? -direction : direction );
+            const float angle = to_target.angle(backwards ? -direction : direction);
             if(fabsf(angle)>1) continue;
         }
         
-        if(distance2 < *minDistSquared || *minDistSquared < 0 /* not yet set */)
+        if(distance2<*minDistSquared || *minDistSquared<0 /* not yet set */)
         {
             *minDistSquared = distance2;
             *minKart        = kart;
@@ -271,24 +270,24 @@ bool Flyable::updateAndDel(float dt)
     if(m_has_hit_something) return true;
     
     Vec3 pos = getXYZ();
-    // Check if the flyable is out of the track  boundary. If so, let it explode.
+    // Check if the flyable is out of the track boundary. If so, let it explode.
     Vec3 min, max;
     RaceManager::getTrack()->getAABB(&min, &max);
 
     // I have seen that the bullet AABB can be slightly different from the 
     // one computed here - I assume due to minor floating point errors
     // (e.g. 308.25842 instead of 308.25845). To avoid a crash with a bullet
-    // assertion (see bug 3058932) I add an epsilon here - but admittedly
-    // that does not really explain the bullet crash, since bullet tests
-    // against its own AABB, and should therefore not cause the assertion.
-    // But since we couldn't reproduce the problem, and the epsilon used
-    // here does not hurt, I'll leave it in.
+    // assertion, I add an epsilon here - but admittedly that does not really
+    // explain the bullet crash, since bullet tests against its own AABB, 
+    // and should therefore not cause the assertion. But since we couldn't 
+    // reproduce the problem, and the epsilon used here does not hurt,
+    // I'll leave it in.
     float eps = 0.1f;
     assert(!isnan(pos.getX()));
     assert(!isnan(pos.getY()));
     assert(!isnan(pos.getZ()));
     if(pos[0]<(min)[0]+eps || pos[1]<(min)[1]+eps || pos[2]<(min)[2]+eps ||
-       pos[0]>(max)[0]-eps || pos[1]>(max)[1]-eps || pos[2]>(max)[2]-eps   )   
+       pos[0]>(max)[0]-eps || pos[1]>(max)[1]-eps || pos[2]>(max)[2]-eps)   
     {
         hit(NULL);    // flyable out of track boundary
         return true;
@@ -307,7 +306,7 @@ bool Flyable::updateAndDel(float dt)
         float heading = atan2f(v.getX(), v.getY());
         float pitch   = getTerrainPitch(heading);
         float vel_up = m_force_updown*(delta);
-        if (hat < m_max_height) // take into account pitch of surface
+        if(hat < m_max_height) // take into account pitch of surface
             vel_up += v.length_2d()*tanf(pitch);
         v.setZ(vel_up);
         setVelocity(v);
@@ -333,7 +332,7 @@ void Flyable::updateFromServer(const FlyableInfo &f, float dt)
 
 // -----------------------------------------------------------------------------
 /** Returns true if the item hit the kart who shot it (to avoid that an item
- *  that's too close to the shoter hits the shoter).
+ *  that's too close to the shooter hits the shooter).
  *  \param kart Kart who was hit.
  */
 bool Flyable::isOwnerImmunity(const Kart* kart_hit) const
@@ -376,7 +375,7 @@ bool Flyable::hit(Kart *kart_hit, MovingPhysics *mp)
 
     // Apply explosion effect
     // ----------------------
-    for ( unsigned int i = 0 ; i < race_manager->getNumKarts() ; i++ )
+    for(unsigned int i=0; i<race_manager->getNumKarts(); i++)
     {
         Kart *kart = RaceManager::getKart(i);
         // Handle the actual explosion. The kart that fired a flyable will 
@@ -387,9 +386,7 @@ bool Flyable::hit(Kart *kart_hit, MovingPhysics *mp)
             // Set a flag it if was a direct hit.
             kart->handleExplosion(getXYZ(), kart==kart_hit);
             if(kart==kart_hit && RaceManager::getTrack()->isArena())
-            {
                 RaceManager::getWorld()->kartHit(kart->getWorldKartId());
-            }
         }
     }
     callback_manager->handleExplosion(pos_explosion, mp);

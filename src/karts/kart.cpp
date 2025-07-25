@@ -63,7 +63,7 @@
 
 Kart::Kart (const std::string& kart_name, int position,
             const btTransform& init_transform) 
-     : TerrainInfo(1),
+     : TerrainInfo(),
        Moveable(), m_attachment(this), m_powerup(this)
 
 #if defined(WIN32) && !defined(__CYGWIN__)
@@ -480,7 +480,7 @@ void Kart::handleExplosion(const Vec3& pos, bool direct_hit)
         if(diff.getZ()<0) diff.setZ(0.0f);
         float len2=diff.length2();
 
-        // The correct formhale would be to first normalise diff,
+        // The correct formula would be to first normalise diff,
         // then apply the impulse (which decreases 1/r^2 depending
         // on the distance r), so:
         // diff/len(diff) * impulseSize/len(diff)^2
@@ -683,9 +683,13 @@ void Kart::handleZipper(bool play_sfx)
     if(isPlayerKart())
     {
         if(play_sfx || m_wee_sound->getStatus() != SFXManager::SFX_PLAYING && 
-           getMaterial()!=getLastMaterial() && isOnGround() ) m_wee_sound->play();
+           getMaterial()!=getLastMaterial() && isOnGround()) m_wee_sound->play();
+        if(m_wee_sound->getStatus() == SFXManager::SFX_PLAYING)
+            m_vehicle->activateZipper(speed);
     }
-    if(play_sfx || isOnGround()) m_vehicle->activateZipper(speed);
+    else 
+        m_vehicle->activateZipper(speed);
+
 }   // handleZipper
 
 //-----------------------------------------------------------------------------
@@ -1041,12 +1045,12 @@ void Kart::applyEngineForce(float force)
     // Front wheels
     for(unsigned int i=0; i<2; i++)
     {
-        m_vehicle->applyEngineForce (frontForce, i);
+        m_vehicle->applyEngineForce(frontForce, i);
     }
     // Rear wheels
     for(unsigned int i=2; i<4; i++)
     {
-        m_vehicle->applyEngineForce (rearForce, i);
+        m_vehicle->applyEngineForce(rearForce, i);
     }
 }   // applyEngineForce
 

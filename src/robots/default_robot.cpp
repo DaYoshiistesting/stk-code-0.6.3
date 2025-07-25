@@ -305,8 +305,7 @@ void DefaultRobot::handleSteering(float dt)
 {
     const unsigned int DRIVELINE_SIZE = (unsigned int)m_track->m_driveline.size();
     const size_t NEXT_SECTOR = (unsigned int)m_track_sector + 2 < DRIVELINE_SIZE
-    ? m_track_sector + 2 : (unsigned int)m_track_sector + 1 < DRIVELINE_SIZE
-    ? m_track_sector + 1 : 0;
+                             ? m_track_sector + 2 : (m_track_sector + 2) % DRIVELINE_SIZE;
     float steer_angle = 0.0f;
 
     /*The AI responds based on the information we just gathered, using a

@@ -115,7 +115,7 @@
     (engine-power       425 350 280)
     ;; Different maximum speed for different difficulties:
     ;; hard, medium, low level order!
-    (max-speed           33  27  22) ;; ≃ 119 97 78 km/h 
+    (max-speed         33  27  22) ;; ≃ 119 97 78 km/h 
     (mass                     225.0)
     (suspension-stiffness      51.0)
     (wheel-damping-relaxation  20.0)
@@ -136,12 +136,6 @@
     ;; and will be in the air longer
     (jump-velocity              3.0)
 	
-    ;; The following two vectors define at what ratio of the maximum speed what
-    ;; gear is selected, e.g. 0.25 means: if speed <=0.25*maxSpeed --> gear 1,
-    ;;                        0.5  means: if speed <=0.5 *maxSpeed --> gear 2
-    ;; The next vector contains the increase in max power (to simulate different
-    ;; gears), e.g. 2.5 as first entry means: 2.5*maxPower in gear 1
-    ;;                     | first  | second |  third |
     ;; The position of the physics raycast wheels relative to the center of 
     ;; gravity. Default is to use the corners of the chassis to attach the
     ;; wheels to.
@@ -150,6 +144,12 @@
     (wheel-rear-right  (physics-position  0.38 -0.6 0))
     (wheel-rear-left   (physics-position -0.38 -0.6 0))
 	
+    ;; The following two vectors define at what ratio of the maximum speed what
+    ;; gear is selected, e.g. 0.25 means: if speed <=0.25*maxSpeed --> gear 1,
+    ;;                        0.7  means: if speed <=0.7 *maxSpeed --> gear 2
+    ;; The next vector contains the increase in max power (to simulate different
+    ;; gears), e.g. 2.2 as first entry means: 2.2*maxPower in gear 1
+    ;;                   | 1st|2nd|3rd |
     (gear-switch-ratio    0.25 0.7 1.0)
     (gear-power-increase  2.20 1.7 1.3)
     (upright-tolerance         0.2)

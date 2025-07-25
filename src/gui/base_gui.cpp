@@ -22,50 +22,45 @@
 #include "base_gui.hpp"
 #include "widget_manager.hpp"
 #include "menu_manager.hpp"
-void
-BaseGUI::animateWidget(const int PREV_SELECTED_WGT, const int SELECTED_WGT)
+
+void BaseGUI::animateWidget(const int PREV_SELECTED_WGT, const int SELECTED_WGT)
 {
-    if( SELECTED_WGT != WidgetManager::WGT_NONE )
+    if(SELECTED_WGT != WidgetManager::WGT_NONE)
     {
-        if( PREV_SELECTED_WGT != WidgetManager::WGT_NONE )
+        if(PREV_SELECTED_WGT != WidgetManager::WGT_NONE)
         {
-            widget_manager->darkenWgtColor( PREV_SELECTED_WGT );
+            widget_manager->darkenWgtColor(PREV_SELECTED_WGT);
         }
 
-        widget_manager->lightenWgtColor( SELECTED_WGT );
-        widget_manager->pulseWgt( SELECTED_WGT );
+        widget_manager->lightenWgtColor(SELECTED_WGT);
+        widget_manager->pulseWgt(SELECTED_WGT);
     }
 }
 
 //-----------------------------------------------------------------------------
-void
-BaseGUI::handle(GameAction action, int value)
+void BaseGUI::handle(GameAction action, int value)
 {
-    if( m_locked ) return;
+    if(m_locked) return;
 
     // Skip on keypress, act on keyrelease only.
     if (value) return;
 
     int previous = widget_manager->getSelectedWgt();
 
-    switch ( action )
+    switch (action)
     {
     case GA_CURSOR_LEFT:
-        animateWidget(previous,
-                      widget_manager->handleLeft());
+        animateWidget(previous, widget_manager->handleLeft());
 
         break;
     case GA_CURSOR_RIGHT:
-        animateWidget(previous,
-                      widget_manager->handleRight());
+        animateWidget(previous, widget_manager->handleRight());
         break;
     case GA_CURSOR_UP:
-        animateWidget(previous,
-                      widget_manager->handleUp());
+        animateWidget(previous, widget_manager->handleUp());
         break;
     case GA_CURSOR_DOWN:
-        animateWidget(previous,
-                      widget_manager->handleDown());
+        animateWidget(previous, widget_manager->handleDown());
         break;
     case GA_INC_SCROLL_SPEED:
         widget_manager->increaseScrollSpeed();
@@ -83,7 +78,7 @@ BaseGUI::handle(GameAction action, int value)
         select();
         break;
     case GA_LEAVE:
-        if (menu_manager->getMenuStackSize() > 1)
+        if(menu_manager->getMenuStackSize() > 1)
         {
            if(menu_manager->isCurrentMenu(MENUID_RACEMENU))
              RaceManager::getWorld()->unpause();
@@ -97,45 +92,41 @@ BaseGUI::handle(GameAction action, int value)
     }   // switch
 }   // handle
 //-----------------------------------------------------------------------------
-void
-BaseGUI::inputPointer(int x, int y)
+void BaseGUI::inputPointer(int x, int y)
 {
-    if( m_locked ) return;
+    if(m_locked) return;
 
     const int PREV_SELECTED_WGT = widget_manager->getSelectedWgt();
-    const int SELECTED_WGT = widget_manager->handlePointer( x, y );
+    const int SELECTED_WGT = widget_manager->handlePointer(x, y);
 
-    if( SELECTED_WGT != WidgetManager::WGT_NONE )
+    if(SELECTED_WGT != WidgetManager::WGT_NONE)
     {
-        if( PREV_SELECTED_WGT != WidgetManager::WGT_NONE )
+        if(PREV_SELECTED_WGT != WidgetManager::WGT_NONE)
         {
-            widget_manager->darkenWgtColor( PREV_SELECTED_WGT );
+            widget_manager->darkenWgtColor(PREV_SELECTED_WGT);
         }
 
-        widget_manager->lightenWgtColor( SELECTED_WGT );
-        widget_manager->pulseWgt( SELECTED_WGT );
+        widget_manager->lightenWgtColor(SELECTED_WGT);
+        widget_manager->pulseWgt(SELECTED_WGT);
     }
 }
 
 //-----------------------------------------------------------------------------
-void
-BaseGUI::update(float dt)
+void BaseGUI::update(float dt)
 {
     widget_manager->update(dt);
 }   // update
 
 //-----------------------------------------------------------------------------
-void
-BaseGUI::TimeToString(const double TIME, char *s) const
+void BaseGUI::TimeToString(const double TIME, char *s) const
 {
-    int min     = (int) floor ( TIME / 60.0 ) ;
-    int sec     = (int) floor ( TIME - (double) ( 60 * min ) ) ;
-    int tenths  = (int) floor ( 10.0f * (TIME - (double)(sec + 60* min)));
-    sprintf ( s, "%d:%02d:%d", min,  sec,  tenths ) ;
+    int min     = (int) floor (TIME / 60.0);
+    int sec     = (int) floor (TIME - (double) (60 * min));
+    int tenths  = (int) floor (10.0f * (TIME - (double)(sec + 60* min)));
+    sprintf(s, "%d:%02d:%d", min,  sec,  tenths);
 }   // TimeToString
 //-----------------------------------------------------------------------------
-void
-BaseGUI::inputKeyboard(SDLKey, int)
+void BaseGUI::inputKeyboard(SDLKey, int)
 {
     // This method is not supposed to be called since BaseGUI does not
     // handle low-level keyboard input.
@@ -143,7 +134,6 @@ BaseGUI::inputKeyboard(SDLKey, int)
 }
 
 //-----------------------------------------------------------------------------
-void BaseGUI::countdown()
-{
-}
+void BaseGUI::countdown() {}
+
 /* EOF */

@@ -410,12 +410,12 @@ void RaceGUI::drawPlayerIcons(const KartIconDisplayInfo* info)
         y = viewport[3]*0.85f-(drawn*(ICON_PLAYER_WIDTH+(2*minRatio)));
 
         GLfloat COLOR[] = {info[i].r, info[i].g, info[i].b, 1.0f};
-        font_race->PrintShadow(info[i].time.c_str(), 30*minRatio, ICON_PLAYER_WIDTH+x, y+5, COLOR);
+        font_race->PrintShadow(info[i].time.c_str(), 30*minRatio, ICON_PLAYER_WIDTH+x, y+5*ratio_y, COLOR);
 
         if(info[i].special_title.length()>0)
         {
             GLfloat const RED[] = {1.0f, 0, 0, 1.0f};
-            font_race->PrintShadow(info[i].special_title.c_str(), 30*minRatio, ICON_PLAYER_WIDTH+x, y+5, RED);
+            font_race->PrintShadow(info[i].special_title.c_str(), 30*minRatio, ICON_PLAYER_WIDTH+x, y+5*ratio_y, RED);
         }
         
         glEnable(GL_CULL_FACE);
@@ -472,7 +472,7 @@ void RaceGUI::drawPlayerIcons(const KartIconDisplayInfo* info)
                                    x-7*minRatio + (17*minRatio),
                                    y-5*minRatio + (17*minRatio));
 
-        // Draw the icons until it hits the 8th position.
+        // Draw everything until it hits the 8th position.
         drawn++;
     } // next kart
     glEnable(GL_CULL_FACE);
@@ -531,10 +531,12 @@ void RaceGUI::drawEnergyMeter(Kart *player_kart, int offset_x, int offset_y,
                               float ratio_x, float ratio_y)
 {
     float state = (float)(player_kart->getEnergy())/MAX_ITEMS_COLLECTED;
-    float x  = (((800-27)*ratio_x)) + offset_x;
+    float x  = ((800-26)*ratio_x) + offset_x;
     float y  = (250*ratio_y) + offset_y;
     float w  = 16*ratio_x;
     float h  = 600/3*ratio_y;
+    float wl = ratio_y;
+    if(wl<1) wl=1;
     // Each graduation equals 5 items.
     const int GRADS = MAX_ITEMS_COLLECTED/5; 
     // Graduation height.
@@ -544,31 +546,31 @@ void RaceGUI::drawEnergyMeter(Kart *player_kart, int offset_x, int offset_y,
 
     glDisable(GL_TEXTURE_2D);
     // Draw a Meter border
-    x-=1;
-    y-=1;
+    x-=1*ratio_x;
+    y-=1*ratio_y;
     // left side
     glBegin(GL_QUADS);
     glColor3f(METER_BORDER_BLACK);
-    glVertex2f(x-1, y-1);
-    glVertex2f(x,   y-1);
-    glVertex2f(x,   y+h+1);
-    glVertex2f(x-1, y+h+1);
+    glVertex2f(x-wl, y-wl);
+    glVertex2f(x,    y-wl);
+    glVertex2f(x,    y+h+1*ratio_y);
+    glVertex2f(x-wl, y+h+1*ratio_y);
     glEnd();
 
     // right side
     glBegin(GL_QUADS);
     glColor3f(METER_BORDER_BLACK);
-    glVertex2f(x+w,   y-1);
-    glVertex2f(x+w+1, y-1);
-    glVertex2f(x+w+1, y+h+1);
-    glVertex2f(x+w,   y+h+1);
+    glVertex2f(x+w,    y-wl);
+    glVertex2f(x+w+wl, y-wl);
+    glVertex2f(x+w+wl, y+h+1*ratio_y);
+    glVertex2f(x+w,    y+h+1*ratio_y);
     glEnd();
 
     // down side
     glBegin(GL_QUADS);
     glColor3f(METER_BORDER_BLACK);
-    glVertex2f(x,   y-1);
-    glVertex2f(x+w, y-1);
+    glVertex2f(x,   y-wl);
+    glVertex2f(x+w, y-wl);
     glVertex2f(x+w, y);
     glVertex2f(x,   y);
     glEnd();
@@ -578,36 +580,36 @@ void RaceGUI::drawEnergyMeter(Kart *player_kart, int offset_x, int offset_y,
     glColor3f(METER_BORDER_BLACK);
     glVertex2f(x,   y+h);
     glVertex2f(x+w, y+h);
-    glVertex2f(x+w, y+h+1);
-    glVertex2f(x,   y+h+1);
+    glVertex2f(x+w, y+h+wl);
+    glVertex2f(x,   y+h+wl);
     glEnd();
 
-    x+=1;
-    y+=1;
+    x+=1*ratio_x;
+    y+=1*ratio_y;
 
     // left side
     glBegin(GL_QUADS);
     glColor3f(METER_BORDER_WHITE);
-    glVertex2f(x-1, y-1);
-    glVertex2f(x,   y-1);
-    glVertex2f(x,   y+h+1);
-    glVertex2f(x-1, y+h+1);
+    glVertex2f(x-wl, y-wl);
+    glVertex2f(x,    y-wl);
+    glVertex2f(x,    y+h+1*ratio_y);
+    glVertex2f(x-wl, y+h+1*ratio_y);
     glEnd();
 
     // right side
     glBegin(GL_QUADS);
     glColor3f(METER_BORDER_WHITE);
-    glVertex2f(x+w,   y-1);
-    glVertex2f(x+w+1, y-1);
-    glVertex2f(x+w+1, y+h+1);
-    glVertex2f(x+w,   y+h+1);
+    glVertex2f(x+w,    y-wl);
+    glVertex2f(x+w+wl, y-wl);
+    glVertex2f(x+w+wl, y+h+1*ratio_y);
+    glVertex2f(x+w,    y+h+1*ratio_y);
     glEnd();
 
     // down side
     glBegin(GL_QUADS);
     glColor3f(METER_BORDER_WHITE);
-    glVertex2f(x,   y-1);
-    glVertex2f(x+w, y-1);
+    glVertex2f(x,   y-wl);
+    glVertex2f(x+w, y-wl);
     glVertex2f(x+w, y);
     glVertex2f(x,   y);
     glEnd();
@@ -620,8 +622,8 @@ void RaceGUI::drawEnergyMeter(Kart *player_kart, int offset_x, int offset_y,
         glColor3f(METER_BORDER_WHITE);
         glVertex2f(x,   y+gh);
         glVertex2f(x+w, y+gh);
-        glVertex2f(x+w, y+gh+1);
-        glVertex2f(x,   y+gh+1);
+        glVertex2f(x+w, y+gh+wl);
+        glVertex2f(x,   y+gh+wl);
         glEnd();
         gh+=gh_incr;
     }
@@ -633,8 +635,8 @@ void RaceGUI::drawEnergyMeter(Kart *player_kart, int offset_x, int offset_y,
         glColor3f(METER_TARGET_RED);
         glVertex2f(x,   y+th);
         glVertex2f(x+w, y+th);
-        glVertex2f(x+w, y+th+1);
-        glVertex2f(x,   y+th+1);
+        glVertex2f(x+w, y+th+wl);
+        glVertex2f(x,   y+th+wl);
         glEnd();
     }
     
@@ -643,8 +645,8 @@ void RaceGUI::drawEnergyMeter(Kart *player_kart, int offset_x, int offset_y,
     glColor3f(METER_BORDER_WHITE);
     glVertex2f(x,   y+h);
     glVertex2f(x+w, y+h);
-    glVertex2f(x+w, y+h+1);
-    glVertex2f(x,   y+h+1);
+    glVertex2f(x+w, y+h+wl);
+    glVertex2f(x,   y+h+wl);
     glEnd();
 
     // Draw the Meter fluid

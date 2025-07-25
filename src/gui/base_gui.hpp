@@ -46,8 +46,8 @@ public:
     //input to the gui, for example, during transitions from one screen
     //to another. At those times, it's best to lock the input and unlock it
     //afterwards.
-    void lockInput() { m_locked = true; }
-    void unlockInput() { m_locked = false; }
+    void lockInput()   {m_locked = true;}
+    void unlockInput() {m_locked = false;}
 
     void  TimeToString(const double time, char *s) const;
 protected:
