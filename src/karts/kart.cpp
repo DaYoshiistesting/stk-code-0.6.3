@@ -450,7 +450,6 @@ bool Kart::isOnGround() const
  *  is used to determine when to switch off the upright constraint, so that
  *  explosions can be more violent, while still 
 */
-
 bool Kart::isNearGround() const
 {
     if(getHoT()==Track::NOHIT)
@@ -687,7 +686,7 @@ void Kart::handleZipper(bool play_sfx)
         if(m_wee_sound->getStatus() == SFXManager::SFX_PLAYING)
             m_vehicle->activateZipper(speed);
     }
-    else 
+    else if (!isPlayerKart())
         m_vehicle->activateZipper(speed);
 
 }   // handleZipper

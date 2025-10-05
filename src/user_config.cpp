@@ -104,7 +104,7 @@ void UserConfig::setDefaults()
     m_background_music  = "";
     m_profile           = 0;
     m_print_kart_sizes  = false;
-    m_max_fps           = 130;
+    m_max_fps           = 124;
     m_sfx_volume        = 1.0f;
     m_use_kph           = false;
     m_width             = 800;
@@ -115,7 +115,7 @@ void UserConfig::setDefaults()
     m_crashed           = false;
     m_blacklist_res.clear();
     m_num_karts         = 4;
-    m_num_laps          = 4;
+    m_num_laps          = 3;
     m_difficulty        = 0;
     m_background_index  = 0;
     m_log_errors        = false;

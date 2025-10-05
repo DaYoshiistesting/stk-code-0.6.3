@@ -535,8 +535,8 @@ int main(int argc, char *argv[] )
         }
         
         //FIXME: this needs a better organization
-        inputDriver = new SDLDriver ();
-        ssgInit () ;
+        inputDriver = new SDLDriver();
+        ssgInit() ;
         
         main_loop = new MainLoop();
         // loadMaterials needs ssgLoadTextures (internally), which can
