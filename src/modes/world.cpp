@@ -241,6 +241,15 @@ World::~World()
 //-----------------------------------------------------------------------------
 void World::terminateRace()
 {
+    // Update the estimated finishing time for all karts that haven't
+    // finished yet.
+    const unsigned int kart_amount = race_manager->getNumKarts();
+    for(unsigned int i = 0; i < kart_amount ; i++)
+    {
+        if(!m_kart[i]->hasFinishedRace() && !m_kart[i]->isEliminated())
+            m_kart[i]->raceFinished(estimateFinishTimeForKart(m_kart[i]));
+    }   // i<kart_amount
+
     updateHighscores();
     TimedRace::pause();
     menu_manager->pushMenu(MENUID_RACERESULT);
@@ -495,7 +504,7 @@ void World::removeKart(int kart_number)
 }   // removeKart
 
 //-----------------------------------------------------------------------------
-void World::getDefaultCollectibles(int& collectible_type, int& amount )
+void World::getDefaultCollectibles(int& collectible_type, int& amount)
 {
     collectible_type = POWERUP_NOTHING;
     amount = 0;

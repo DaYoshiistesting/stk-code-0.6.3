@@ -24,3 +24,5 @@
 *.rsp
 *.json
 *.db
+/include
+/libraries

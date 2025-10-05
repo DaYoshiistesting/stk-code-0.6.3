@@ -4,68 +4,73 @@ SuperTuxKart Installation instructions
 Windows Installation Process 
 ----------------------------
 
-First, make sure that you have the following packages installed/compiled :
+First, make sure that you have the following packages installed/compiled:
 
-  * Visual Studio 2008 C++ (only to execute the IDE package).
-  * OpenGL (GLUT or freeGLUT/Mesa 3.0 or later).
-  * PLIB v1.8.5.
-  * SDL 1.2 or later (not SDL2 and after).
+  * Visual Studio 9 or 10 C++ IDE.
+  * OpenGL (GLUT/freeGLUT/Mesa 3.0 or later).
+  * PLIB Engine v1.8.5 or later.
+  * SDL 1.2 or later (until SDL2).
   * OpenAL (SDK).
-  * ENet (don't get a version using an old protocol).
-  * Libintl3.
-  * LibVorbis.
-  * LibOgg.
+  * ENet.
+  * LibIntl.
+  * Vorbis.
+  * Ogg.
 
-ALL OF THE PACKAGES ABOVE MUST BE COMPILED IN RELEASE AND WIN32 CONFIG!!
 
-Secondly, make a folder for the includes and another one for the libraries.
+**ALL OF THE PACKAGES ABOVE MUST BE COMPILED IN RELEASE AND WIN32 CONFIG!!**
 
-Copy your includes in folders and this is what you should get in you include folder :
 
- * C:/yourpath/yourincludefolder/AL/yourOpenALincludes,
- * C:/yourpath/yourincludefolder/enet/yourENetincludes,
- * C:/yourpath/yourincludefolder/GL/yourOpenGLincludes,
- * C:/yourpath/yourincludefolder/ogg/yourLibOggincludes,
- * C:/yourpath/yourincludefolder/plib/yourPLIBincludes,
- * C:/yourpath/yourincludefolder/SDL/yourSDL1.2includes,
- * C:/yourpath/yourincludefolder/vorbis/yourLibVorbisincludes.
+Make 2 folders in the SuperTuxKart 0.6.3 directory:
 
-and libintl.h (this file should be in your include folder).
+ * include
+ * libraries
 
-Copy your libraries in your libraries folder and you should get something like this :
+In include, add these paths/files with their includes:
 
-C:/yourpath/yourlibrariesfolder/allofyourlibraries.
+ * AL/<OpenAL include>
+ * enet/<ENet include>
+ * GL/<OpenGL include>
+ * ogg/<Ogg include>
+ * plib/<PLIB include>
+ * SDL/<SDL 1.2 include>
+ * vorbis/<Vorbis include>
+ * libintl.h
 
-To get the libraries files (.lib), you will need to compile all of the packages.
+Add all packages libraries in libraries.
 
-Don't forget to get the binary files of your packages (.dll) to the stk folder.
+Don't forget to copy binary files from packages to the SuperTuxKart 0.6.3 folder.
 
-Now, you will need to create 2 environment variables :
+If you are using Visual Studio 9 (2008), go to : /src/ide/vc9/supertuxkart.vcproj.
 
- * STK_INCLUDE
- * STK_LIB
+Else, if you are using Visual Studio 10 (2010), open : /src/ide/vc10/supertuxkart.vcxproj.
 
-The STK_INCLUDE variable must lead to your include folder.
-The STK_LIB variable must lead to your libraries folder.
+If you wanna compile the stable release, click on BulletDebug and select BulletRelease.
 
-When you've done this, go to : stkfolder/src/ide/vc9 and open supertuxkart.vcproj
+Now go to --> Build --> Build Solution.
 
-To compile just change the BulletDebug to BulletRelease and the game will be compiled.
+The game should start compiling and if everything is fine you may get some warnings
+but it should be compiled.
 
-Go to the stk folder and enjoy the game!
+If you got an error, click on Build --> Build Solution again, it can happen that VS
+has problems with packages at first.
+
+Now everything should be compiled if you see "3 succeded" or "1 succeded, 2 up-to-date".
+
+Go to SuperTuxKart 0.6.3 folder and enjoy the game!
 
 Linux Installation Process 
 --------------------------
 
-I don't know how to compile the game on modern Linux :/
+I don't know how to compile the game on modern Linux.
 
-I would recommend to get help on the Unofficial Discord server of SuperTuxKart :
+I would recommend to get help on the Unofficial Discord server of SuperTuxKart:
 https://discord.gg/u2AJDpF
 
 MacOs Installlation Process (not tested) 
 ----------------------------------------
-* The latest information about compilation on Mac are on SuperTuxKart's old wiki (use internetarchive to access to that link) :
+* The latest information about compilation on Mac are on SuperTuxKart's old wiki (access via Internet Archive):
 http://supertuxkart.sourceforge.net/Building_and_packaging_on_OSX
+
 * There is an experimental Xcode project in /src/ide/Xcode/. It will still require that all dependencies are installed as explained on the wiki.
 
 System requirements Mac: 

@@ -63,9 +63,9 @@ protected:
     void            rescueKartAfterShortcut(Kart* kart, KartInfo& kart_info);
     
     void            checkForWrongDirection(unsigned int i);
-    void            doLapCounting ( KartInfo& kart_info, Kart* kart );
-    float           estimateFinishTimeForKart(Kart* kart);
-    void            updateRacePosition ( Kart* kart, KartInfo& kart_info );
+    void            doLapCounting(KartInfo& kart_info, Kart* kart);
+    virtual float   estimateFinishTimeForKart(Kart* kart);
+    void            updateRacePosition();
 public:
     LinearWorld();
     /** call just after instanciating. can't be moved to the contructor as child

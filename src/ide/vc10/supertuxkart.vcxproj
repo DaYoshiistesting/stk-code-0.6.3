@@ -292,7 +292,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='BulletDebug|Win32'">
     <ClCompile>
       <WholeProgramOptimization>false</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>../../../src;../../../src/bullet/src;$(STK_INCLUDE);../../../src/enet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src;../../../src/bullet/src;../../../include;../../../src/enet/include;)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>BT_NO_PROFILE;HAVE_OPENAL;HAVE_OGGVORBIS;_DEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.6.3";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;DEBUG;PACKAGE="supertuxkart";HAVE_GETTEXT;ENABLE_NLS;HAVE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <PreprocessSuppressLineNumbers>false</PreprocessSuppressLineNumbers>
@@ -308,7 +308,7 @@
     <Link>
       <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(OutDir)/$(ProjectName)_d.exe</OutputFile>
-      <AdditionalLibraryDirectories>$(STK_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../libraries;</AdditionalLibraryDirectories>
       <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -329,7 +329,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='BulletRelease|Win32'">
     <ClCompile>
       <WholeProgramOptimization>true</WholeProgramOptimization>
-      <AdditionalIncludeDirectories>../../../src;../../../src/bullet/src;$(STK_INCLUDE);../../../src/enet/include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../../src;../../../src/bullet/src;../../../include;../../../src/enet/include;</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>HAVE_OPENAL;HAVE_OGGVORBIS;NDEBUG;_CONSOLE;WIN32;NOMINMAX;VERSION="0.6.3";_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_DEPRECATE;BT_NO_PROFILE;PACKAGE="supertuxkart";HAVE_GETTEXT;ENABLE_NLS;HAVE_GLUT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <PrecompiledHeader>
@@ -340,7 +340,7 @@
     <Link>
       <AdditionalDependencies>opengl32.lib;user32.lib;gdi32.lib;winmm.lib;advapi32.lib;SDL.lib;SDLmain.lib;OpenAL32.lib;libogg.lib;libvorbis.lib;libvorbisfile.lib;sg.lib;ssg.lib;ul.lib;ssgAux.lib;fnt.lib;intl.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <OutputFile>$(TargetPath)</OutputFile>
-      <AdditionalLibraryDirectories>$(STK_LIB);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../../libraries;</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Console</SubSystem>

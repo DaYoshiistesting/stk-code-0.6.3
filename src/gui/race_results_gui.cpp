@@ -106,21 +106,21 @@ RaceResultsGUI::RaceResultsGUI()
 
 Widget *RaceResultsGUI::displayRaceResults()
 {
-    Widget *w_prev=widget_manager->addTextWgt( WTOK_RESULTS, 5, 7, _("Race results") );
+    Widget *w_prev=widget_manager->addTextWgt(WTOK_RESULTS, 5, 7, _("Race results"));
     widget_manager->hideWgtRect(WTOK_RESULTS);
     w_prev->setPosition(WGT_DIR_FROM_LEFT, 0.01f, NULL, WGT_DIR_FROM_TOP, 0.01f, NULL);
-    
+
     const unsigned int MAX_STR_LEN = 60;
     const unsigned int NUM_KARTS = race_manager->getNumKarts();
 
     int*  order = new int [NUM_KARTS];
-    RaceManager::getWorld()->raceResultOrder( order );
+    RaceManager::getWorld()->raceResultOrder(order);
     
     unsigned int max_name_len = 1;
 
     for(unsigned int i=0; i < NUM_KARTS; i++)
     {
-        Kart *k = RaceManager::getKart(i);             // Display even for eliminated karts!
+        Kart *k = race_manager->getKart(i);             // Display even for eliminated karts!
         const std::string& s = k->getName();
         unsigned int l = (unsigned int)s.size();
         if(l>max_name_len) max_name_len = l;
@@ -134,7 +134,7 @@ Widget *RaceResultsGUI::displayRaceResults()
     const HighscoreEntry *hs = RaceManager::getWorld()->getHighscores();
     if(hs != NULL)
     {
-        w_prev=widget_manager->addTextWgt( WTOK_HIGHSCORES, 5, 7, _("Highscores") );
+        w_prev=widget_manager->addTextWgt(WTOK_HIGHSCORES, 5, 7, _("Highscores"));
         widget_manager->hideWgtRect(WTOK_HIGHSCORES);
         w_prev->setPosition(WGT_DIR_FROM_RIGHT, 0.01f, NULL, WGT_DIR_FROM_TOP, 0.01f, NULL);
         
@@ -146,14 +146,14 @@ Widget *RaceResultsGUI::displayRaceResults()
             std::string kart_name, name;
             float T;
             hs->getEntry(i, kart_name, name, &T);
-            const int   MINS   = (int) floor ( T / 60.0 ) ;
-            const int   SECS   = (int) floor ( T - (float) ( 60 * MINS ) ) ;
-            const int   TENTHS = (int) floor ( 10.0f * (T - (float)(SECS + 60*MINS)));
-            sprintf((char*)( highscores + MAX_STR_LEN * i ),
+            const int   MINS   = (int) floor(T / 60.0);
+            const int   SECS   = (int) floor(T - (float) (60 * MINS));
+            const int   TENTHS = (int) floor(10.0f * (T - (float)(SECS + 60*MINS)));
+            sprintf((char*)(highscores + MAX_STR_LEN * i),
                     "%s: %3d:%02d.%01d", name.c_str(), MINS, SECS, TENTHS);
             
             Widget *w=widget_manager->addTextWgt(WTOK_FIRST_HIGHSCORE + i, 5, 7,
-                                                 (char*)( highscores+MAX_STR_LEN*i ) );
+                                                 (char*)(highscores+MAX_STR_LEN*i));
             w->setPosition(WGT_DIR_FROM_RIGHT, 0.05f, NULL, WGT_DIR_UNDER_WIDGET, 0, w_prev);
             w_prev=w;
         } // next score
@@ -175,11 +175,11 @@ Widget *RaceResultsGUI::displayKartList(Widget *w_prev, int *order, float horizo
     const int MAX_STR_LEN=60;
     char *score = new char[NUM_KARTS * MAX_STR_LEN];
     int kart_id = 0; // 'i' below is not reliable because some karts (e.g. leader) will be skipped
-    for(unsigned int i = 0; i < NUM_KARTS; ++i)
+    for(unsigned int i=0; i<NUM_KARTS; ++i)
     {
         if(order[i] == -1) continue;
         
-        const Kart *current_kart = RaceManager::getKart(order[i]);
+        const Kart *current_kart = race_manager->getKart(order[i]);
         const std::string& kart_name = current_kart->getName();
         char sTime[20]; sTime[0]=0;
         const float T = current_kart->getFinishTime();
@@ -204,13 +204,13 @@ Widget *RaceResultsGUI::displayKartList(Widget *w_prev, int *order, float horizo
         }
 
         Widget *image=widget_manager->addImgButtonWgt(WTOK_FIRST_IMAGE + kart_id, 5, 7,
-                                       current_kart->getKartProperties()->getIconFile() );
+                                       current_kart->getKartProperties()->getIconFile());
         widget_manager->deactivateWgt(WTOK_FIRST_IMAGE+kart_id);
 
         image->setPosition(WGT_DIR_FROM_LEFT, horizontal, NULL, 
                            WGT_DIR_UNDER_WIDGET, 0.0f, w_prev);
         Widget *w=widget_manager->addTextWgt(WTOK_FIRST_RESULT + kart_id, 6, 7,
-                                             (char*)(score + MAX_STR_LEN * i) );
+                                             (char*)(score + MAX_STR_LEN * i));
         w->setPosition(WGT_DIR_RIGHT_WIDGET, 0.0f, image,
                        WGT_DIR_UNDER_WIDGET, 0.0f, w_prev);
         w_prev=w;

@@ -100,8 +100,8 @@ protected:
     bool        m_faster_music_active; // true if faster music was activated
 
     /** Whether highscores should be used for this kind of race.
-        * True by default, change to false in a child class to disable.
-    */
+     *  True by default, change to false in a child class to disable.
+     */
     bool        m_use_highscores;
     
     void  updateHighscores  ();
@@ -110,7 +110,7 @@ protected:
     Kart* loadRobot         (const std::string& kart_name, int position,
                              const btTransform& init_pos);
     void  printProfileResultAndExit();
-    void  estimateFinishTimes();
+    virtual float estimateFinishTimeForKart(Kart *kart) {return getTime();}
 
     virtual Kart *createKart(const std::string &kart_ident, int index, 
                              int local_player_id, int global_player_id,
