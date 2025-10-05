@@ -27,13 +27,13 @@ Make 2 folders in the SuperTuxKart 0.6.3 directory:
 
 In include, add these paths/files with their includes:
 
- * AL/<OpenAL include>
- * enet/<ENet include>
- * GL/<OpenGL include>
- * ogg/<Ogg include>
- * plib/<PLIB include>
- * SDL/<SDL 1.2 include>
- * vorbis/<Vorbis include>
+ * AL/<>OpenAL files<>
+ * enet/<>ENet files<>
+ * GL/<>OpenGL files<>
+ * ogg/<>Ogg files<>
+ * plib/<>PLIB files<>
+ * SDL/<>SDL 1.2 files<>
+ * vorbis/<>Vorbis files<>
  * libintl.h
 
 Add all packages libraries in libraries.
